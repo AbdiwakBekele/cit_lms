@@ -126,21 +126,22 @@ class UserStudentController extends Controller{
         $count = Quiz::where('section_id', $section_id)->count();
         if ($count != 0  && $count >= 10) {
             $questions = Quiz::where('section_id', $section_id)->take(10)->get();
-            return view('quiz.quiz', compact('questions'));
+            // return view('quiz.quiz', compact('questions'));
+            return view('quiz.testquiz', compact('questions'));
         }else if($count == 0) {
             return back()
             ->with('error','Sorry! No Quiz Question Available');
             
         }else{
             $questions = Quiz::where('section_id', $section_id)->get();
-            return view('quiz.quiz', compact('questions'));
+            // return view('quiz.quiz', compact('questions'));
+            return view('quiz.testquiz', compact('questions'));
         }
     }
 
     public function myQuizSubmit(Request $request){
 
-        echo $request->question_count;
-        echo "<br>";
+        
         echo $request->option_1;
         echo "<br>";
         echo $request->option_2;

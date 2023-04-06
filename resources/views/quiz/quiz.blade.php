@@ -80,7 +80,6 @@
                             {{$question->question}}
                         </h1>
 
-
                         <!-- Form-items -->
                         <div class="form_items ps-5">
                             <ul class="list-unstyled p-0">
