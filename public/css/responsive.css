@@ -323,15 +323,18 @@
   }
   .main-navigation > li.open > a, .main-navigation.nav > li.open > a, .main-navigation.navbar-nav > li.open > a, .main-navigation.navbar-right > li.open > a {
     background-color: transparent;
-    color: #34c7dc;
+    color: #fddb3a;
+    transform: scale(1.1);
   }
   .main-navigation > li.active > a, .main-navigation.nav > li.active > a, .main-navigation.navbar-nav > li.active > a, .main-navigation.navbar-right > li.active > a {
     background-color: transparent;
-    color: #34c7dc;
+    color: #fddb3a;
+    transform: scale(1.1);
   }
   .main-navigation > li.active > a:hover, .main-navigation > li.active > a:focus, .main-navigation > li.active > a:active, .main-navigation.nav > li.active > a:hover, .main-navigation.nav > li.active > a:focus, .main-navigation.nav > li.active > a:active, .main-navigation.navbar-nav > li.active > a:hover, .main-navigation.navbar-nav > li.active > a:focus, .main-navigation.navbar-nav > li.active > a:active, .main-navigation.navbar-right > li.active > a:hover, .main-navigation.navbar-right > li.active > a:focus, .main-navigation.navbar-right > li.active > a:active {
     background-color: transparent;
-    color: #34c7dc;
+    color: #fddb3a;
+    transform: scale(1.1);
   }
   .main-navigation > li > a, .main-navigation.nav > li > a, .main-navigation.navbar-nav > li > a, .main-navigation.navbar-right > li > a {
     font-size: 13px;
@@ -341,11 +344,13 @@
   }
   .main-navigation > li > a.dropdown-toggle:focus, .main-navigation > li > a.dropdown-toggle:hover, .main-navigation > li > a.dropdown-toggle:active, .main-navigation.nav > li > a.dropdown-toggle:focus, .main-navigation.nav > li > a.dropdown-toggle:hover, .main-navigation.nav > li > a.dropdown-toggle:active, .main-navigation.navbar-nav > li > a.dropdown-toggle:focus, .main-navigation.navbar-nav > li > a.dropdown-toggle:hover, .main-navigation.navbar-nav > li > a.dropdown-toggle:active, .main-navigation.navbar-right > li > a.dropdown-toggle:focus, .main-navigation.navbar-right > li > a.dropdown-toggle:hover, .main-navigation.navbar-right > li > a.dropdown-toggle:active {
     background-color: transparent;
-    color: #34c7dc;
+    color: #fddb3a;
+    transform: scale(1.1);
   }
   .main-navigation > li > a:hover, .main-navigation > li > a:focus, .main-navigation > li > a:active, .main-navigation.nav > li > a:hover, .main-navigation.nav > li > a:focus, .main-navigation.nav > li > a:active, .main-navigation.navbar-nav > li > a:hover, .main-navigation.navbar-nav > li > a:focus, .main-navigation.navbar-nav > li > a:active, .main-navigation.navbar-right > li > a:hover, .main-navigation.navbar-right > li > a:focus, .main-navigation.navbar-right > li > a:active {
     background-color: transparent;
-    color: #34c7dc;
+    color: #fddb3a;
+    transform: scale(1.1);
   }
   .main-navigation .dropdown-menu, .main-navigation.nav .dropdown-menu, .main-navigation.navbar-nav .dropdown-menu, .main-navigation.navbar-right .dropdown-menu {
     opacity: 0;
@@ -366,13 +371,15 @@
     text-transform: capitalize;
   }
   .page-header-stick .main-navigation > li.active > a, .page-header-stick .main-navigation.nav > li.active > a, .page-header-stick .main-navigation.navbar-nav > li.active > a, .page-header-stick .main-navigation.navbar-right > li.active > a {
-    color: #34c7dc;
+    color: #fddb3a;
+    transform: scale(1.1);
   }
   .page-header-stick .main-navigation > li > a, .page-header-stick .main-navigation.nav > li > a, .page-header-stick .main-navigation.navbar-nav > li > a, .page-header-stick .main-navigation.navbar-right > li > a {
     color: inherit;
   }
   .page-header-stick .main-navigation > li > a:hover, .page-header-stick .main-navigation > li > a:focus, .page-header-stick .main-navigation > li > a:active, .page-header-stick .main-navigation.nav > li > a:hover, .page-header-stick .main-navigation.nav > li > a:focus, .page-header-stick .main-navigation.nav > li > a:active, .page-header-stick .main-navigation.navbar-nav > li > a:hover, .page-header-stick .main-navigation.navbar-nav > li > a:focus, .page-header-stick .main-navigation.navbar-nav > li > a:active, .page-header-stick .main-navigation.navbar-right > li > a:hover, .page-header-stick .main-navigation.navbar-right > li > a:focus, .page-header-stick .main-navigation.navbar-right > li > a:active {
-    color: #34c7dc;
+    color: #fddb3a;
+    transform: scale(1.1);
   }
   .nav-holder .main-navigation > li, .nav-holder .main-navigation.nav > li, .nav-holder .main-navigation.navbar-nav > li, .nav-holder .main-navigation.navbar-right > li {
     margin-left: 0;

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
-
-    <head>
+<head>
         <!-- set the encoding of your site -->
         <meta charset="utf-8">
         <!-- set the viewport width and initial-scale on mobile devices -->
@@ -14,8 +13,9 @@
         <meta name="keywords" content="">
         <meta name="author" content="CTI LMS">
         <!-- set the page title -->
-        <title>CTI LMS</title>
+        <title>California Training Institute LMS</title>
         <!-- include google roboto font cdn link -->
+        <link rel="shortcut icon" href="images/wAsset 3@300x.png" type="image/x-icon">
         <link
             href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i"
             rel="stylesheet">
@@ -30,11 +30,11 @@
         <!-- include the site responsive stylesheet -->
         <link rel="stylesheet" href="css/responsive.css">
     </head>
-
     <body>
         <!-- main container of all the page elements -->
         <div id="wrapper">
             <!-- header of the page -->
+
             <header id="page-header" class="page-header-stick">
                 <!-- top bar -->
                 <div class="top-bar bg-primary ">
@@ -45,6 +45,7 @@
                                 <ul class="font-lato list-unstyled bar-links">
                                     <li>
                                         <a href="tel:+251929737373">
+                                            
                                             <strong class="dt element-block text-capitalize hd-phone text-white">Call
                                                 :</strong>
                                             <strong class="dd element-block hd-phone text-white">+251 929
@@ -76,8 +77,6 @@
                                         <a href="/student_register">Register</a>
                                     </li>
                                     @endauth
-
-
                                 </ul>
                             </div>
                         </div>
@@ -90,10 +89,10 @@
                             <div class="col-xs-6 col-sm-3">
                                 <!-- logo -->
                                 <div class="logo">
-                                    <a href="home.html">
-                                        <img class="hidden-xs" src="images/Asset 2@2x-8.png" alt="studylms">
-                                        <img class="hidden-sm hidden-md hidden-lg" src="images/logo-dark.png"
-                                            alt="studylms">
+                                    <a href="/">
+                                        <img class="hidden-xs" src="images/Asset 2@2x-8.png" >
+                                        <img class="hidden-sm hidden-md hidden-lg" src="images/Asset 3@300x"
+                                            >
                                     </a>
                                 </div>
                             </div>
@@ -112,33 +111,16 @@
                                     <!-- navbar collapse -->
                                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                         <!-- main navigation -->
-                                        <ul
-                                            class="nav navbar-nav navbar-right main-navigation text-uppercase font-lato">
-                                            <li><a href="/">Home</a></li>
-                                            <li><a href="/about">About us</a></li>
-                                            <li><a href="/course_list">Courses</a></li>
-                                            <li><a href="/events">Events</a></li>
-                                            <li><a href="/instructors">Instructors</a></li>
-                                            <li><a href="/blog">Blog</a></li>
-                                            <li><a href="/contact">Contact</a></li>
+                                        <ul class="nav navbar-nav navbar-right main-navigation font-poppins text-uppercase"  >
+                                            <li class="grow" ><a href="/" style="font-size: 1.2em;">Home</a></li>
+                                            <li><a href="/about" style="font-size: 1.2em;">About us</a></li>
+                                            <li><a href="/course_list" style="font-size: 1.2em;">Courses</a></li>
+                                            <li><a href="/events" style="font-size: 1.2em;">Events</a></li>
+                                            <li><a href="/blog" style="font-size: 1.2em;">Blog</a></li>
+                                            <li><a href="/contact" style="font-size: 1.2em;">Contact</a></li>
                                         </ul>
                                     </div>
-                                    <!-- navbar form -->
-                                    <form action="#" class="navbar-form navbar-search-form navbar-right">
-                                        <a class="fas fa-search search-opener" role="button" data-toggle="collapse"
-                                            href="#searchCollapse" aria-expanded="false"
-                                            aria-controls="searchCollapse"><span class="sr-only">search
-                                                opener</span></a>
-                                        <!-- search collapse -->
-                                        <div class="collapse search-collapse" id="searchCollapse">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Search &hellip;">
-                                                <button type="button" class="fas fa-search btn"><span
-                                                        class="sr-only">search</span></button>
-                                            </div>
-                                        </div>
-                                    </form>
-
+                                    
                                     <!-- Profile Pic | Dropdown -->
                                     @auth('student')
                                     <li class="dropdown" style="list-style: none; padding-left: 5%;">
@@ -162,15 +144,16 @@
                     </div>
                 </div>
             </header>
+
             <!-- contain main informative part of the site -->
             <main id="main">
                 <!-- heading banner -->
-                <header class="heading-banner text-white bgCover" style="background-image: url('images/AM2A0515.JPG');">
+                <section class="heading-banner text-white " style="background:#16416E" >
                     <div class="container holder">
                         <div class="align">
                         </div>
                     </div>
-                </header>
+                </section>
                 <!-- breadcrumb nav -->
                 <nav class="breadcrumb-nav">
                     <div class="container">
@@ -429,111 +412,7 @@
                         </div>
                     </div>
                 </aside>
-                <!-- professionals block -->
-                <section class="container professionals-block">
-                    <header class="seperator-head text-center">
-                        <h2>Our Instructors</h2>
-                        <p>We have more than 50 skilled &amp; professional Instructors</p>
-                    </header>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            <!-- pro column -->
-                            <article class="pro-column over text-center">
-                                <div class="aligncenter">
-                                    <a href="instructor-single.html"><img src="http://placehold.it/262x210"
-                                            alt="Steaven Maseri Designer"></a>
-                                    <div class="caption">
-                                        <ul class="socail-networks list-unstyled">
-                                            <li><a href="#" class="facebook"><span class="fab fa-facebook-f"></span></a>
-                                            </li>
-                                            <li><a href="#" class="twitter"><span class="fab fa-twitter"></span></a>
-                                            </li>
-                                            <li><a href="#" class="google"><span
-                                                        class="fab fa-google-plus-g"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <h3 class="fw-normal text-capitalize"><a href="instructor-single.html">Steaven
-                                        Maseri</a></h3>
-                                <h4 class="fw-normal text-capitalize">Designer</h4>
-                                <p>Fundamental parts of medi cal research include cellular and mol lecular biology.
-                                    medical genetics immunology</p>
-                            </article>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            <!-- pro column -->
-                            <article class="pro-column over text-center">
-                                <div class="aligncenter">
-                                    <a href="instructor-single.html"><img src="http://placehold.it/262x210"
-                                            alt="Jackson James Designer"></a>
-                                    <div class="caption">
-                                        <ul class="socail-networks list-unstyled">
-                                            <li><a href="#" class="facebook"><span class="fab fa-facebook-f"></span></a>
-                                            </li>
-                                            <li><a href="#" class="twitter"><span class="fab fa-twitter"></span></a>
-                                            </li>
-                                            <li><a href="#" class="google"><span
-                                                        class="fab fa-google-plus-g"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <h3 class="fw-normal text-capitalize"><a href="instructor-single.html">Jackson James</a>
-                                </h3>
-                                <h4 class="fw-normal text-capitalize">Designer</h4>
-                                <p>Fundamental parts of medi cal research include cellular and mol lecular biology.
-                                    medical genetics immunology</p>
-                            </article>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            <!-- pro column -->
-                            <article class="pro-column over text-center">
-                                <div class="aligncenter">
-                                    <a href="instructor-single.html"><img src="http://placehold.it/262x21=0"
-                                            alt="Thorsten Tailor Artist"></a>
-                                    <div class="caption">
-                                        <ul class="socail-networks list-unstyled">
-                                            <li><a href="#" class="facebook"><span class="fab fa-facebook-f"></span></a>
-                                            </li>
-                                            <li><a href="#" class="twitter"><span class="fab fa-twitter"></span></a>
-                                            </li>
-                                            <li><a href="#" class="google"><span
-                                                        class="fab fa-google-plus-g"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <h3 class="fw-normal text-capitalize"><a href="instructor-single.html">Thorsten
-                                        Tailor</a></h3>
-                                <h4 class="fw-normal text-capitalize">Artist</h4>
-                                <p>Fundamental parts of medi cal research include cellular and mol lecular biology.
-                                    medical genetics immunology</p>
-                            </article>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-3">
-                            <!-- pro column -->
-                            <article class="pro-column over text-center">
-                                <div class="aligncenter">
-                                    <a href="instructor-single.html"><img src="http://placehold.it/262x210"
-                                            alt="Katrine Fonsmark Literature"></a>
-                                    <div class="caption">
-                                        <ul class="socail-networks list-unstyled">
-                                            <li><a href="#" class="facebook"><span class="fab fa-facebook-f"></span></a>
-                                            </li>
-                                            <li><a href="#" class="twitter"><span class="fab fa-twitter"></span></a>
-                                            </li>
-                                            <li><a href="#" class="google"><span
-                                                        class="fab fa-google-plus-g"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <h3 class="fw-normal text-capitalize"><a href="instructor-single.html">Katrine
-                                        Fonsmark</a></h3>
-                                <h4 class="fw-normal text-capitalize">Literature</h4>
-                                <p>Fundamental parts of medi cal research include cellular and mol lecular biology.
-                                    medical genetics immunology</p>
-                            </article>
-                        </div>
-                    </div>
-                </section>
+                
             </main>
 
             <!-- footer area container -->
@@ -709,5 +588,4 @@
         <!-- include jQuery -->
         <script type="text/javascript" src="js/init.js"></script>
     </body>
-
 </html>
