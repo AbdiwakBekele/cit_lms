@@ -5371,7 +5371,19 @@ img.aligncenter {
   -ms-touch-action: pan-y;
   touch-action: pan-y;
   -webkit-tap-highlight-color: transparent; }
-
+  .slider.active {
+    animation: grow 4s linear forwards;
+    opacity: 1;
+  }
+  @keyframes grow {
+    0%, 20% {
+      transform: scale(1);
+    }
+    
+    75%, 100% {
+      transform: scale(1.15);
+    }
+  }
 .slick-list {
   position: relative;
   overflow: hidden;
@@ -5499,7 +5511,9 @@ p {
 
 .bg-light {
   background-color: #fcfcfc; }
-
+.font-poppins{
+  font-family: 'Poppins', sans-serif;
+}
 .font-lato {
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
@@ -6018,6 +6032,9 @@ p {
       -webkit-transform: translateX(3px);
       -ms-transform: translateX(3px);
       transform: translateX(3px); }
+      .grow:hover { 
+        transform: scale(1.1); 
+        }
 
 .features-aside .features-aside-heading {
   color: inherit;
