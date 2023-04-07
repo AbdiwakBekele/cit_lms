@@ -52,8 +52,6 @@
                 <form class="multisteps_form position-relative overflow-hidden mt-5" id="wizard" method="POST"
                     action="/my_quiz">
 
-                    <input type="hidden" name="question_count" value="{{count($questions)}}">
-
                     @csrf
                     <!-- Form-header-content -->
                     <div class="form_header_content text-center pt-4">
@@ -83,33 +81,27 @@
                         <!-- Form-items -->
                         <div class="form_items ps-5">
                             <ul class="list-unstyled p-0">
-                                <li
-                                    class="active step_1 ps-5 rounded-pill animate__animated animate__fadeInRight animate_50ms">
-                                    <input type="radio" id="option_{{$index}}" name="_{{$question->id}}"
-                                        value="{{$question->answer_1}}">
-                                    <label for="option_{{$index}}">{{$question->answer_1}}</label>
-                                </li>
 
-                                <li
-                                    class="step_1 ps-5 rounded-pill animate__animated animate__fadeInRight animate_100ms">
-                                    <input type="radio" id="option_{{$index}}" name="_{{$question->id}}"
-                                        value="{{$question->answer_2}}">
-                                    <label for="option_{{$index}}">{{$question->answer_2}}</label>
-                                </li>
+                                <?php 
+                                    $options = DB::table('quiz_options')->where('quiz_id', $question->id)->get();
+                                ?>
 
-                                <li
-                                    class="step_1 ps-5 rounded-pill animate__animated animate__fadeInRight animate_150ms">
-                                    <input type="radio" id="option_{{$index}}" name="_{{$question->id}}"
-                                        value="{{$question->answer_3}}">
-                                    <label for="option_{{$index}}">{{$question->answer_3}}</label>
-                                </li>
+                                @foreach($options as $option)
+                                <!-- <div>
+                                    <label>
+                                        <input type="radio" name="answer[{{$question->id}}]"
+                                            value="{{ $option->option}}">
+                                        {{ $option->option}}
+                                    </label>
+                                </div> -->
 
-                                <li
-                                    class="step_1 ps-5 rounded-pill animate__animated animate__fadeInRight animate_200ms">
-                                    <input type="radio" id="option_{{$index}}" name="_{{$question->id}}"
-                                        value="{{$question->answer_4}}">
-                                    <label for="option_{{$index}}">{{$question->answer_4}}</label>
+                                <li class=" step_1 ps-5 rounded-pill  animate_50ms">
+                                    <label>
+                                        <input type="radio" name="answer[{{$question->id}}]"
+                                            value="{{ $option->option}}">
+                                        {{ $option->option}}</label>
                                 </li>
+                                @endforeach
 
                             </ul>
                         </div>

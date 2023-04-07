@@ -14,46 +14,29 @@
             <h1>Quiz</h1>
             <form method="post" action="/my_quiz">
                 @csrf
+                @auth('student')
+                <input type="hidden" name="student_id" value="{{auth('student')->user()->id}}">
+                @endauth
 
                 <div id="questions">
 
-                    <?php $index=0; ?>
                     @foreach($questions as $question)
-                    <input type="hidden" name="correct_{{++$index}}" value="{{$question->answer}}">
                     <div class="question" style="display:none;">
                         <h2>{{ $question->question }}</h2>
-                        <ul>
-                            <!-- First Choose -->
-                            <li>
-                                <label>
-                                    <input type="radio" name="option_{{$index}}" value="{{ $question->answer_1 }}">
-                                    {{ $question->answer_1 }}
-                                </label>
-                            </li>
 
-                            <!-- Second Choose -->
-                            <li>
-                                <label>
-                                    <input type="radio" name="option_{{$index}}" value="{{ $question->answer_2 }}">
-                                    {{ $question->answer_2 }}
-                                </label>
-                            </li>
-                            <!-- Third Choose -->
-                            <li>
-                                <label>
-                                    <input type="radio" name="option_{{$index}}" value="{{ $question->answer_3 }}">
-                                    {{ $question->answer_3 }}
-                                </label>
-                            </li>
-                            <!-- Forth Choose -->
-                            <li>
-                                <label>
-                                    <input type="radio" name="option_{{$index}}" value="{{ $question->answer_4 }}">
-                                    {{ $question->answer_4 }}
-                                </label>
-                            </li>
+                        <?php 
+                            $options = DB::table('quiz_options')->where('quiz_id', $question->id)->get();
+                        ?>
 
-                        </ul>
+                        @foreach($options as $option)
+                        <div>
+                            <label>
+                                <input type="radio" name="answer[{{$question->id}}]" value="{{ $option->option}}">
+                                {{ $option->option}}
+                            </label>
+                        </div>
+                        @endforeach
+
                         <button type="button" onclick="nextQuestion()">Next question</button>
                     </div>
                     @endforeach

@@ -10,6 +10,7 @@ use App\Models\Batch;
 use App\Models\Classroom;
 use App\Models\Section;
 use App\Models\Quiz;
+use App\Models\Progress;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
@@ -141,15 +142,42 @@ class UserStudentController extends Controller{
 
     public function myQuizSubmit(Request $request){
 
+        $answers = $request->input('answer');
+        $student_id = $request->student_id;
+        $correct_score = 0;
+        $course_id;
+        $section_id;
         
-        echo $request->option_1;
-        echo "<br>";
-        echo $request->option_2;
-        echo "<br>";
-        echo $request->option_3;
-        echo "<br>";
+        foreach ($answers as $questionId => $option) {
+            $question = Quiz::find($questionId);
+            $course_id = $question->course_id;
+            $section_id = $question->section_id;
 
-        echo $request;
+            if($question->answer == $option){
+                $correct_score++;
+            }
+        }
+
+        $classroom = Classroom::where('student_id', $student_id)->where('course_id', $course_id)->first();
+        
+        $progress = new Progress([
+            'classroom_id'=> $classroom->id,
+            'section_id'=> $section_id, 
+            'score'=>$correct_score
+        ]);
+
+        $progress->save();
+
+        if (!empty($progress->id)) {
+            // Model has been successfully inserted
+            return view('quiz.quizResult', compact('correct_score', 'course_id'))
+             ->with('success','You have successfully Submitted your result');
+        }else{
+            return view('quiz.quizResult')
+            ->with('error','Error Submitting your result');
+        }
+
+        
        
     }
 

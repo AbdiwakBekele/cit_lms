@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Models\Course;
 use App\Models\Section;
 use App\Models\Quiz;
+use App\Models\QuizOption;
 
 class QuizController extends Controller
 {
@@ -43,48 +44,39 @@ class QuizController extends Controller
             'course_id'=>'required',
             'section_id'=>'required',
             'question'=>'required',
-            'answer_1'=>'required',
-            'answer_2'=>'required',
-            'answer_3'=>'required',
-            'answer_4'=>'required',
+            'options' => 'required|array|min:2|max:5',
+            'options.*' => 'required',
             'answer'=>'required'
         ]);
 
-        $correct_answer = "";
-        if($request->answer == 'answer_1'){
-            $correct_answer = $request->answer_1;
-        }else if($request->answer == 'answer_2'){
-            $correct_answer = $request->answer_2;
-        }else if($request->answer == 'answer_3'){
-            $correct_answer = $request->answer_3;
-        }else if($request->answer == 'answer_4'){
-            $correct_answer = $request->answer_4;
-        }
 
         $course_id =  $request->course_id;
         $section_id =  $request->section_id;
         $question =  $request->question;
-        $answer_1 = $request->answer_1;
-        $answer_2 = $request->answer_2;
-        $answer_3 = $request->answer_3;
-        $answer_4 = $request->answer_4;
+        $answer = $request->options[($request->answer - 1)];
 
         $quiz = new Quiz([
             'course_id'=> $course_id,
             'section_id'=> $section_id, 
-            'question'=>$question, 
-            'answer_1'=>$answer_1,
-            'answer_2'=>$answer_2,
-            'answer_3'=> $answer_3,
-            'answer_4'=> $answer_4,
-            'answer'=> $correct_answer
+            'question'=>$question,
+            'answer'=> $answer
         ]);
 
         $quiz->save();
+    
+        // return redirect()->route('quiz.index')->with('success', 'Question created successfully!');
+    
 
         if (!empty($quiz->id)) {
-            
-            // Model has been successfully inserted
+            // Quiz Option Insert
+
+            foreach ($request->options as $option) {
+                QuizOption::create([
+                    'quiz_id' => $quiz->id,
+                    'option' => $option,
+                ]);
+            }
+
             return back()
              ->with('success','You have successfully created a new quiz question.');
         }else{

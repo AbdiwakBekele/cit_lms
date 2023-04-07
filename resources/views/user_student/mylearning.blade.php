@@ -186,8 +186,11 @@
 
                                 <?php 
                                     $course = DB::table('courses')->where('id', $classroom->course_id)->first();
+                                    $sections = DB::table('sections')->where('course_id', $course->id)->get();
                                     $batch = DB::table('batches')->where('id', $classroom->batch_id)->first();
+                                    $progresses = DB::table('progress')->where('id', $classroom->id)->get();
                                     $user = DB::table('users')->where('id', $course->user_id)->first();
+                                    
                                 ?>
 
                                 <div class="col-xs-12 col-sm-6 col-lg-4">
@@ -198,7 +201,8 @@
                                                 alt="image description" style="object-fit: cover; height: 150px ">
                                         </div>
                                         <h3 class="post-heading">
-                                            <a href="/my_course_single/{{$course->id}}">{{$course->course_name}}</a>
+                                            <a href="/my_course_single/{{$course->id}}">{{$course->course_name}}
+                                                ({{$batch->shift}})</a>
                                         </h3>
                                         <div class="post-author">
                                             <div class="alignleft rounded-circle no-shrink">
@@ -216,8 +220,10 @@
                                         <div class="progress "
                                             style="margin-top: 3%; margin-bottom: 3%; background-color: #777777; border-radius: 10px;">
                                             <div class="progress-bar bg-primary text-white" role="progressbar"
-                                                style="width: 25%; border-radius: 10px; height: 20px; font-size: 12px; "
-                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                                style="width: {{ ($progresses->count() / $sections->count()) * 100 }}%; border-radius: 10px; height: 20px; font-size: 12px; "
+                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                                {{ ($progresses->count() / $sections->count()) * 100 }}%
+                                            </div>
                                         </div>
                                         <footer class="post-foot gutter-reset">
                                             <ul class=" star-rating list-unstyled ">

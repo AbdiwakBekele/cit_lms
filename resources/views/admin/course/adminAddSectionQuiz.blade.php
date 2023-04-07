@@ -157,6 +157,19 @@
                     @error('answer')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
+
+                    <!-- Option Error -->
+                    @error('options')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <!-- Option Loop Error -->
+                    @if ($errors->has('options.*'))
+                    @foreach($errors->get('options.*') as $error)
+                    <div class="alert alert-danger mx-5">{{ $error[0] }}</div>
+                    <br>
+                    @endforeach
+                    @endif
+
                     <div class="container">
 
                         <form action="/quiz" method="post" enctype="multipart/form-data">
@@ -168,7 +181,7 @@
 
                             <!-- Question -->
                             <div class="mb-3 mt-3">
-                                <label for="question" class="form-label">Question</label>
+                                <label for="question" class="form-label"> <strong>Question</strong> </label>
                                 <textarea class="form-control" name="question" id="question" cols="30" rows="5"
                                     require></textarea>
                                 @error('question')
@@ -176,52 +189,36 @@
                                 @enderror
                             </div>
 
-                            <!-- Answer 1 -->
-                            <div class="mb-3 mt-3">
-                                <input type="radio" name="answer" value="answer_1">
-                                <label for="answer_1" class="form-label">Option 1</label>
-                                <textarea class="form-control" name="answer_1" id="answer_1" cols="30" rows="5"
-                                    require></textarea>
-                                @error('answer_1')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
+                            <span style="font-style: italic" class="text-secondary h6"> <span
+                                    class="text-danger">*</span> Check the correct
+                                answer as well</span>
 
-                            <!-- Answer 2 -->
-                            <div class="mb-3 mt-3">
-                                <input type="radio" name="answer" value="answer_2">
-                                <label for="answer_2" class="form-label">Option 2</label>
-                                <textarea class="form-control" name="answer_2" id="answer_2" cols="30" rows="5"
-                                    require></textarea>
-                                @error('answer_2')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
+                            <table>
+                                <tbody id="answer_fields">
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="answer" value="1">
+                                            <label class="form-label">
+                                                <strong>Option 1</strong>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <div class="m-3">
+                                                <textarea class="form-control" name="options[]" cols="50"
+                                                    rows="3"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                            <!-- Answer 3 -->
-                            <div class="mb-3 mt-3">
-                                <input type="radio" name="answer" value="answer_3">
-                                <label for="answer_3" class="form-label">Option 3</label>
-                                <textarea class="form-control" name="answer_3" id="answer_3" cols="30" rows="5"
-                                    require></textarea>
-                                @error('answer_3')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <!-- Answer 4 -->
-                            <div class="mb-3 mt-3">
-                                <input type="radio" name="answer" value="answer_4">
-                                <label for="answer_4" class="form-label">Option 4</label>
-                                <textarea class="form-control" name="answer_4" id="answer_4" cols="30" rows="5"
-                                    require></textarea>
-                                @error('answer_4')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
+                                </tbody>
+                            </table>
 
                             <!-- Submit Button -->
-                            <input type="submit" name="submit" class="btn btn-warning btn-lg">
+                            <button type="button" class="btn btn-light m-2" onclick=" addRow()">
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Options
+                            </button>
+                            <br>
+                            <input type="submit" name="submit" class="btn btn-warning">
                         </form>
 
                         <br>
@@ -232,6 +229,24 @@
                 </div>
             </div>
         </div>
+
+        <script>
+        var index = 2;
+
+        function addRow() {
+
+            var table = document.getElementById('answer_fields');
+            var newRow = table.insertRow();
+            var labelCell = newRow.insertCell(0);
+            var optionCell = newRow.insertCell(1);
+
+            labelCell.innerHTML = ' <input type="radio" name="answer" value="' + index +
+                '" > <label for="answer_1" class="form-label"><strong> Option ' + index + '</strong></label>';
+            optionCell.innerHTML =
+                '<div class="m-3"><textarea class="form-control" name="options[]" cols="50" rows="3"></textarea></div>';
+            index++;
+        }
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="../../assets/js/theme.js"></script>
     </body>
