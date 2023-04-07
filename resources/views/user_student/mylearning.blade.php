@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+    <head>
         <!-- set the encoding of your site -->
         <meta charset="utf-8">
         <!-- set the viewport width and initial-scale on mobile devices -->
@@ -31,6 +31,7 @@
         <!-- include the site responsive stylesheet -->
         <link rel="stylesheet" href="css/responsive.css">
     </head>
+
     <body>
         <!-- main container of all the page elements -->
         <div id="wrapper">
@@ -46,7 +47,7 @@
                                 <ul class="font-lato list-unstyled bar-links">
                                     <li>
                                         <a href="tel:+251929737373">
-                                            
+
                                             <strong class="dt element-block text-capitalize hd-phone text-white">Call
                                                 :</strong>
                                             <strong class="dd element-block hd-phone text-white">+251 929
@@ -91,9 +92,8 @@
                                 <!-- logo -->
                                 <div class="logo">
                                     <a href="/">
-                                        <img class="hidden-xs" src="images/Asset 2@2x-8.png" >
-                                        <img class="hidden-sm hidden-md hidden-lg" src="images/Asset 3@300x"
-                                            >
+                                        <img class="hidden-xs" src="images/Asset 2@2x-8.png">
+                                        <img class="hidden-sm hidden-md hidden-lg" src="images/Asset 3@300x">
                                     </a>
                                 </div>
                             </div>
@@ -112,8 +112,9 @@
                                     <!-- navbar collapse -->
                                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                         <!-- main navigation -->
-                                        <ul class="nav navbar-nav navbar-right main-navigation font-poppins text-uppercase"  >
-                                            <li class="grow" ><a href="/" style="font-size: 1.2em;">Home</a></li>
+                                        <ul
+                                            class="nav navbar-nav navbar-right main-navigation font-poppins text-uppercase">
+                                            <li class="grow"><a href="/" style="font-size: 1.2em;">Home</a></li>
                                             <li><a href="/about" style="font-size: 1.2em;">About us</a></li>
                                             <li><a href="/course_list" style="font-size: 1.2em;">Courses</a></li>
                                             <li><a href="/events" style="font-size: 1.2em;">Events</a></li>
@@ -121,7 +122,7 @@
                                             <li><a href="/contact" style="font-size: 1.2em;">Contact</a></li>
                                         </ul>
                                     </div>
-                                    
+
                                     <!-- Profile Pic | Dropdown -->
                                     @auth('student')
                                     <li class="dropdown" style="list-style: none; padding-left: 5%;">
@@ -149,7 +150,7 @@
             <!-- contain main informative part of the site -->
             <main id="main">
                 <!-- heading banner -->
-                <section class="heading-banner text-white " style="background:#16416E" >
+                <section class="heading-banner text-white " style="background:#16416E">
                     <div class="container holder">
                         <div class="align">
                         </div>
@@ -188,7 +189,7 @@
                                     $course = DB::table('courses')->where('id', $classroom->course_id)->first();
                                     $sections = DB::table('sections')->where('course_id', $course->id)->get();
                                     $batch = DB::table('batches')->where('id', $classroom->batch_id)->first();
-                                    $progresses = DB::table('progress')->where('id', $classroom->id)->get();
+                                    $progresses = DB::table('progress')->where('classroom_id', $classroom->id)->get();
                                     $user = DB::table('users')->where('id', $course->user_id)->first();
                                     
                                 ?>

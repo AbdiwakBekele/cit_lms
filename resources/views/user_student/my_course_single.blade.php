@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+    <head>
         <!-- set the encoding of your site -->
         <meta charset="utf-8">
         <!-- set the viewport width and initial-scale on mobile devices -->
@@ -21,16 +21,17 @@
             href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i"
             rel="stylesheet">
         <!-- include the site bootstrap stylesheet -->
-        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="../css/bootstrap.css">
         <!-- include the site stylesheet -->
-        <link rel="stylesheet" href="css/plugins.css">
+        <link rel="stylesheet" href="../css/plugins.css">
         <!-- include the site stylesheet -->
-        <link rel="stylesheet" href="css/colors.css">
+        <link rel="stylesheet" href="../css/colors.css">
         <!-- include the site stylesheet -->
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../style.css">
         <!-- include the site responsive stylesheet -->
-        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="../css/responsive.css">
     </head>
+
     <body>
         <!-- main container of all the page elements -->
         <div id="wrapper">
@@ -46,7 +47,7 @@
                                 <ul class="font-lato list-unstyled bar-links">
                                     <li>
                                         <a href="tel:+251929737373">
-                                            
+
                                             <strong class="dt element-block text-capitalize hd-phone text-white">Call
                                                 :</strong>
                                             <strong class="dd element-block hd-phone text-white">+251 929
@@ -91,9 +92,8 @@
                                 <!-- logo -->
                                 <div class="logo">
                                     <a href="/">
-                                        <img class="hidden-xs" src="images/Asset 2@2x-8.png" >
-                                        <img class="hidden-sm hidden-md hidden-lg" src="images/Asset 3@300x"
-                                            >
+                                        <img class="hidden-xs" src="../images/Asset 2@2x-8.png">
+                                        <img class="hidden-sm hidden-md hidden-lg" src="../images/Asset 3@300x">
                                     </a>
                                 </div>
                             </div>
@@ -112,8 +112,9 @@
                                     <!-- navbar collapse -->
                                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                         <!-- main navigation -->
-                                        <ul class="nav navbar-nav navbar-right main-navigation font-poppins text-uppercase"  >
-                                            <li class="grow" ><a href="/" style="font-size: 1.2em;">Home</a></li>
+                                        <ul
+                                            class="nav navbar-nav navbar-right main-navigation font-poppins text-uppercase">
+                                            <li class="grow"><a href="/" style="font-size: 1.2em;">Home</a></li>
                                             <li><a href="/about" style="font-size: 1.2em;">About us</a></li>
                                             <li><a href="/course_list" style="font-size: 1.2em;">Courses</a></li>
                                             <li><a href="/events" style="font-size: 1.2em;">Events</a></li>
@@ -121,12 +122,12 @@
                                             <li><a href="/contact" style="font-size: 1.2em;">Contact</a></li>
                                         </ul>
                                     </div>
-                                    
+
                                     <!-- Profile Pic | Dropdown -->
                                     @auth('student')
                                     <li class="dropdown" style="list-style: none; padding-left: 5%;">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img width="30"
-                                                height="30" class="rounded-circle" src="images/AM2A1021.JPG"></a>
+                                                height="30" class="rounded-circle" src="../images/AM2A1021.JPG"></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="#">Profile</a></li>
                                             <li><a href="/my_learning">My Learning</a></li>
@@ -149,7 +150,7 @@
             <!-- contain main informative part of the site -->
             <main id="main">
                 <!-- heading banner -->
-                <section class="heading-banner text-white " style="background:#16416E" >
+                <section class="heading-banner text-white " style="background:#16416E">
                     <div class="container holder">
                         <div class="align">
                         </div>
@@ -584,7 +585,8 @@
                 <aside class="aside container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-3 col">
-                            <div class="logo"><a href="home.html"><img src="images/Asset 2@2x-8.png" alt="studyLMS"></a>
+                            <div class="logo"><a href="home.html"><img src="../images/Asset 2@2x-8.png"
+                                        alt="studyLMS"></a>
                             </div>
                             <p>California Training Institute (CTI) is a digital skills training institute that supports
                                 Ethiopians to develop their digital skills through resources, tools, and technology.</p>
@@ -597,7 +599,7 @@
                                 <li>
                                     <a href="course-single.html">
                                         <div class="alignleft">
-                                            <img src="images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
+                                            <img src="../images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
                                                 alt="image description">
                                         </div>
                                         <div class="description-wrap">
@@ -610,7 +612,7 @@
                                 <li>
                                     <a href="course-single.html">
                                         <div class="alignleft">
-                                            <img src="images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
+                                            <img src="../images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
                                                 alt="image description">
                                         </div>
                                         <div class="description-wrap">
@@ -623,7 +625,7 @@
                                 <li>
                                     <a href="course-single.html">
                                         <div class="alignleft">
-                                            <img src="images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
+                                            <img src="../images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
                                                 alt="image description">
                                         </div>
                                         <div class="description-wrap">
