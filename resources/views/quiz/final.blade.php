@@ -25,7 +25,7 @@
 
         <div class="container">
             <h1 class="text-center mb-4">Quiz</h1>
-            <form method="post" action="/my_quiz">
+            <form method="post" action="/my_final">
                 @csrf
                 @auth('student')
                 <input type="hidden" name="student_id" value="{{auth('student')->user()->id}}">

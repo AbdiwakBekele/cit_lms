@@ -356,6 +356,55 @@
                             </section>
                             @endforeach
 
+                            <?php 
+                                $student_id = Auth::guard('student')->user()->id;
+                                $classroom = DB::table('classrooms')->where('course_id', $course->id)->where('student_id', $student_id)->first();
+                                
+                                $progresses = DB::table('progress')->where('classroom_id', $classroom->id)->get();
+                            ?>
+
+                            @if(($progresses->count() /$section->count() * 100 ) == 100 )
+                            <!-- Final Exam Section-->
+                            <section class="sectionRow">
+                                <h2 class="h6 text-uppercase fw-semi rowHeading">Final Exam
+                                </h2>
+                                <!-- sectionRowPanelGroup -->
+                                <div class="panel-group sectionRowPanelGroup" id="accordion" role="tablist"
+                                    aria-multiselectable="true">
+
+                                    <!-- Quiz Panel -->
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <h3 class="panel-title fw-normal">
+                                                <a class="accOpener" role="button" data-toggle="collapse"
+                                                    data-parent="#accordion" href="#collapseSectionFinal"
+                                                    aria-expanded="false" aria-controls="collapseSectionFinal">
+                                                    <span class="accOpenerCol">
+                                                        <i class="fas fa-chevron-circle-right accOpenerIcn"></i>
+                                                        Final Exam | Take Exam
+                                                    </span>
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <!-- collapseOne -->
+                                        <div id="collapseSectionFinal" class="panel-collapse collapse" role="tabpanel"
+                                            aria-labelledby="headingOne">
+                                            <div class="panel-body">
+
+                                                <a href="/my_final/{{$course->id}}" class="btn btn-warning m-3"
+                                                    style="color:black"> Take Exam
+                                                </a>
+                                                <p></p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </section>
+                            @endif()
+
+
 
                             <h2>About Instructor</h2>
                             <!-- instructorInfoBox -->

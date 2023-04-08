@@ -64,6 +64,10 @@ Route::get('/my_quiz/{section_id}', [UserStudentController::class, 'myQuiz']);
 
 Route::post('/my_quiz', [UserStudentController::class, 'myQuizSubmit']);
 
+Route::get('/my_final/{course_id}', [UserStudentController::class, 'myFinal']);
+
+Route::post('/my_final', [UserStudentController::class, 'myFinalSubmit']);
+
 Route::group(['middleware'=>'auth'], function(){
     // Route::post('/enroll_now', [UserStudentController::class, 'enrollNow']);
 });

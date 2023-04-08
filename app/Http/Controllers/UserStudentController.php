@@ -13,6 +13,7 @@ use App\Models\Quiz;
 use App\Models\Progress;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class UserStudentController extends Controller{
     
@@ -128,7 +129,7 @@ class UserStudentController extends Controller{
         if ($count != 0  && $count >= 10) {
             $questions = Quiz::where('section_id', $section_id)->take(10)->get();
             // return view('quiz.quiz', compact('questions'));
-            return view('quiz.testquiz', compact('questions'));
+            return view('quiz.quiz', compact('questions'));
         }else if($count == 0) {
             return back()
             ->with('error','Sorry! No Quiz Question Available');
@@ -136,7 +137,7 @@ class UserStudentController extends Controller{
         }else{
             $questions = Quiz::where('section_id', $section_id)->get();
             // return view('quiz.quiz', compact('questions'));
-            return view('quiz.testquiz', compact('questions'));
+            return view('quiz.quiz', compact('questions'));
         }
     }
 
@@ -147,7 +148,9 @@ class UserStudentController extends Controller{
         $correct_score = 0;
         $course_id;
         $section_id;
-        
+
+       
+
         foreach ($answers as $questionId => $option) {
             $question = Quiz::find($questionId);
             $course_id = $question->course_id;
@@ -160,24 +163,76 @@ class UserStudentController extends Controller{
 
         $classroom = Classroom::where('student_id', $student_id)->where('course_id', $course_id)->first();
         
-        $progress = new Progress([
-            'classroom_id'=> $classroom->id,
-            'section_id'=> $section_id, 
-            'score'=>$correct_score
-        ]);
-
-        $progress->save();
-
-        if (!empty($progress->id)) {
-            // Model has been successfully inserted
-            return view('quiz.quizResult', compact('correct_score', 'course_id'))
-             ->with('success','You have successfully Submitted your result');
-        }else{
-            return view('quiz.quizResult')
-            ->with('error','Error Submitting your result');
-        }
-
+        //Data to be validated
+        $data = [
+            'classroom_id' => $classroom->id,
+            'section_id' => $section_id
+        ];
         
+        //Rules to be checked
+        $rules = [
+            'classroom_id' => [
+                'required',
+                Rule::unique('progress')->where(function ($query) use ($data) {
+                    return $query->where('section_id', $data['section_id']);
+                })
+            ]
+        ];
+        
+        $validator = Validator::make($data, $rules);
+        
+        if ($validator->fails()) {
+            // Validation failed
+            // $errors = $validator->errors();
+
+            return view('quiz.quizResult', compact('correct_score', 'course_id'))
+                 ->with('success','You have successfully Submitted your result');
+
+        } else {
+            // Validation succeeded
+            $progress = new Progress([
+                'classroom_id'=> $classroom->id,
+                'section_id'=> $section_id, 
+                'score'=>$correct_score
+            ]);
+            
+            $progress->save();
+
+            if (!empty($progress->id)) {
+                // Model has been successfully inserted
+                return view('quiz.quizResult', compact('correct_score', 'course_id'))
+                 ->with('success','You have successfully Submitted your result');
+            }else{
+                return view('quiz.quizResult')
+                ->with('error','Error Submitting your result');
+            }
+
+        }
+       
+    }
+
+    // Final 
+    public function myFinal(string $course_id){
+        $count = Quiz::where('course_id', $course_id)->count();
+        if ($count != 0  && $count >= 50) {
+            $questions = Quiz::where('course_id', $course_id)->take(50)->inRandomOrder()->get();
+            // return view('quiz.quiz', compact('questions'));
+            return view('quiz.final', compact('questions'));
+        }else if($count == 0) {
+            return back()
+            ->with('error','Sorry! No Quiz Question Available');
+            
+        }else{
+            $questions = Quiz::where('course_id', $course_id)->inRandomOrder()->get();
+            // return view('quiz.quiz', compact('questions'));
+            return view('quiz.final', compact('questions'));
+        }
+    }
+
+    public function myFinalSubmit(Request $request){
+        
+
+        return view('user_student.certificate');
        
     }
 
