@@ -101,7 +101,7 @@
             <h2>{{$student_name}}</h2>
             <h3 class="text-center">for successfully completing the course:</h3>
             <h2>DIgital Marketing</h2>
-            <p>Issued on Today</p>
+            <p>Issued on Todays</p>
         </div>
     </body>
 
