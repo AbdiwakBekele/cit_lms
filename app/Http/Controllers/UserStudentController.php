@@ -14,6 +14,7 @@ use App\Models\Progress;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Date;
 
 class UserStudentController extends Controller{
     
@@ -230,9 +231,16 @@ class UserStudentController extends Controller{
     }
 
     public function myFinalSubmit(Request $request){
+
+        if(Auth::guard('student')->check()){
+            $student_name = Auth::guard('student')->user()->fullname;
+            $currentDate = Date::now();
+            return view('user_student.certificate', compact('student_name'));
+        }
+
         
 
-        return view('user_student.certificate');
+        
        
     }
 

@@ -98,7 +98,7 @@
         <div class="container bg-warning">
             <h1 class="text-primary">Certificate of Completion</h1>
             <h2>This certificate is awarded to</h2>
-            <h2>Abdiwak</h2>
+            <h2>{{$student_name}}</h2>
             <h3 class="text-center">for successfully completing the course:</h3>
             <h2>DIgital Marketing</h2>
             <p>Issued on Today</p>
