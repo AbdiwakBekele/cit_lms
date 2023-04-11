@@ -21,15 +21,15 @@
             href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i"
             rel="stylesheet">
         <!-- include the site bootstrap stylesheet -->
-        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="../css/bootstrap.css">
         <!-- include the site stylesheet -->
-        <link rel="stylesheet" href="css/plugins.css">
+        <link rel="stylesheet" href="../css/plugins.css">
         <!-- include the site stylesheet -->
-        <link rel="stylesheet" href="css/colors.css">
+        <link rel="stylesheet" href="../css/colors.css">
         <!-- include the site stylesheet -->
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../style.css">
         <!-- include the site responsive stylesheet -->
-        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="../css/responsive.css">
     </head>
     <body>
         <!-- main container of all the page elements -->
