@@ -254,6 +254,8 @@
                                     </select>
 
                                 </div>
+
+                                <!-- Editable Content -->
                                 <input type="hidden" name="description" id="description">
 
                                 <div class="mx-3" id="editor" contenteditable="true"></div>
