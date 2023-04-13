@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('section_id');
             $table->string('content_name');
-            $table->longText('content_description');
+            $table->text('content_description');
             $table->timestamps();
         });
     }
