@@ -258,9 +258,6 @@
 
                                 <div class="mx-3" id="editor" contenteditable="true"></div>
 
-
-                                <!-- <label for="description" class="form-label">Content Description</label> -->
-
                                 @error('description')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
