@@ -29,10 +29,6 @@ use App\Http\Controllers\QuizController;
 |
 */
 
-Route::get('/test', function(){
-    return view('test');
-});
-
 Route::get('/', [UserStudentController::class, 'index']);
 
 Route::get('/about', [UserStudentController::class, 'about']);
@@ -88,6 +84,7 @@ Route::get('/student_register', [StudentAuthManager::class, 'register']);
 Route::post('/student_register', [StudentAuthManager::class, 'registrationPost'] );
 
 Route::get('/student_logout', [StudentAuthManager::class, 'logout']);
+
 
 /*
 |--------------------------------------------------------------------------
