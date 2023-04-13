@@ -3,19 +3,19 @@
 
     <head>
         <title>Editable Div</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-        </script>
-
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
         #editor {
             border: 1px solid #ccc;
             padding: 5px;
             min-height: 100px;
+        }
+
+        #toolbar {
+            margin-bottom: 5px;
+        }
+
+        button {
+            margin-right: 5px;
         }
 
         ul {
@@ -24,7 +24,11 @@
         }
 
         li:before {
-            content: "\2022";
+            content: "\25CF";
+            margin-right: 5px;
+        }
+
+        select {
             margin-right: 5px;
         }
 
@@ -50,43 +54,33 @@
     </head>
 
     <body>
-        <div class="m-3">
-            <button class='btn btn-light m-1' onclick="execCmd('bold')"><b>B</b></button>
-            <button class='btn btn-light m-1' onclick="execCmd('italic')"><i>I</i></button>
-            <button class='btn btn-light m-1' onclick="execCmd('underline')"><u>U</u></button>
-            <button class='btn btn-light m-1' onclick="execCmd('insertUnorderedList')"><b>&#8226;</b></button>
-
-            <button class='btn btn-light m-1' onclick="insertTable()">Insert Table</button>
-
-            <button class='btn btn-light m-1' onclick="execCmd('justifyLeft')"><b><i class="fa fa-align-left"
-                        aria-hidden="true"></i></b></button>
-            <button class='btn btn-light m-1' onclick="execCmd('justifyCenter')"><b><i class="fa fa-align-center"
-                        aria-hidden="true"></i></b></button>
-            <button class='btn btn-light m-1' onclick="execCmd('justifyRight')"><b><i class="fa fa-align-right"
-                        aria-hidden="true"></i></b></button>
-            <button class='btn btn-light m-1' onclick="execCmd('justifyFull')"><b><i class="fa fa-align-justify"
-                        aria-hidden="true"></i></b></button>
-
-            <select class="p-1 m-1" onchange="execCmd('formatBlock', this.value)">
+        <div id="toolbar">
+            <button onclick="execCmd('bold')"><b>B</b></button>
+            <button onclick="execCmd('italic')"><i>I</i></button>
+            <button onclick="execCmd('underline')"><u>U</u></button>
+            <button onclick="execCmd('insertUnorderedList')"><b>&#8226;</b></button>
+            <button onclick="execCmd('insertImage')">Insert Image</button>
+            <button onclick="insertTable()">Insert Table</button>
+            <select onchange="execCmd('formatBlock', this.value)">
                 <option value="H1">Header 1</option>
                 <option value="H2">Header 2</option>
                 <option value="p">Normal</option>
             </select>
-
-            <select class="p-1 m-1" onchange="execCmd('fontSize', this.value)">
-                <option value="1">8</option>
-                <option value="2">10</option>
-                <option value="3" selected>12</option>
-                <option value="4">14</option>
-                <option value="5">16</option>
-                <option value="6">18</option>
-                <option value="7">20</option>
+            <select onchange="execCmd('fontSize', this.value)">
+                <option value="1">Size 1</option>
+                <option value="2">Size 2</option>
+                <option value="3">Size 3</option>
+                <option value="4">Size 4</option>
+                <option value="5">Size 5</option>
+                <option value="6">Size 6</option>
+                <option value="7">Size 7</option>
             </select>
-
-
-
+            <button onclick="execCmd('justifyLeft')"><b>L</b></button>
+            <button onclick="execCmd('justifyCenter')"><b>C</b></button>
+            <button onclick="execCmd('justifyRight')"><b>R</b></button>
+            <button onclick="execCmd('justifyFull')"><b>J</b></button>
         </div>
-        <div class="mx-3 w-75" id="editor" contenteditable="true"></div>
+        <div id="editor" contenteditable="true"></div>
         <script>
         function execCmd(command, arg = null) {
             if (arg) {
@@ -99,7 +93,7 @@
         function insertTable() {
             var rows = prompt("Enter number of rows", "2");
             var cols = prompt("Enter number of columns", "2");
-            var table = "<table style='border: 1px solid black'>";
+            var table = "<table border='1'>";
             for (var i = 0; i < rows; i++) {
                 table += "<tr>";
                 for (var j = 0; j < cols; j++) {
@@ -108,8 +102,7 @@
                 table += "</tr>";
             }
             table += "</table>";
-            // execCmd('insertHTML', table);
-            document.getElementById('editor').insertAdjacentHTML('beforeend', table);
+            execCmd('insertHTML', table);
         }
         </script>
     </body>
