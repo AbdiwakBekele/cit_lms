@@ -11,45 +11,6 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-        <style>
-        #editor {
-            border: 1px solid #ccc;
-            padding: 5px;
-            min-height: 200px;
-            color: black;
-        }
-
-
-        #editor ul {
-            list-style-type: none;
-            margin-left: 20px;
-        }
-
-        #editor li:before {
-            content: "\2022";
-            margin-right: 5px;
-        }
-
-        table {
-            border-collapse: collapse;
-            margin-bottom: 10px;
-        }
-
-        th,
-        td {
-            border: 1px solid black;
-            padding: 15px;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .table-size-input {
-            width: 50px;
-        }
-        </style>
     </head>
 
     <body id="page-top">
@@ -260,13 +221,14 @@
 
                                 <div class="mx-3" id="editor" contenteditable="true"></div>
 
+
                                 @error('description')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <!-- Submit Button -->
-                            <input type="submit" class="btn btn-warning btn-lg">
+                            <input type="submit" name="submit" class="btn btn-warning btn-lg">
                         </form>
 
 
@@ -276,39 +238,6 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="../assets/js/theme.js"></script>
-        <script>
-        function execCmd(command, arg = null) {
-            if (arg) {
-                document.execCommand(command, false, arg);
-            } else {
-                document.execCommand(command, false, null);
-            }
-        }
-
-        function insertTable() {
-            var rows = prompt("Enter number of rows", "2");
-            var cols = prompt("Enter number of columns", "2");
-            var table = "<table style='border: 1px solid black'>";
-            for (var i = 0; i < rows; i++) {
-                table += "<tr>";
-                for (var j = 0; j < cols; j++) {
-                    table += "<td></td>";
-                }
-                table += "</tr>";
-            }
-            table += "</table>";
-            // execCmd('insertHTML', table);
-            document.getElementById('editor').insertAdjacentHTML('beforeend', table);
-        }
-
-        document.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var editor = document.getElementById('editor');
-            var content = editor.innerHTML;
-            document.getElementById('description').value = content;
-            this.submit();
-        });
-        </script>
     </body>
 
 </html>
