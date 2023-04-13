@@ -90,7 +90,7 @@ class ContentController extends Controller
 
         $section_id =  $request->section_id;
         $content_name =  $request->content_name;
-        $description =  $request->description;
+        $description= $request->description;
 
         $content = new Content([
             'section_id'=> $section_id,

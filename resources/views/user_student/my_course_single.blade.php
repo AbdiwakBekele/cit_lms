@@ -30,6 +30,23 @@
         <link rel="stylesheet" href="../style.css">
         <!-- include the site responsive stylesheet -->
         <link rel="stylesheet" href="../css/responsive.css">
+
+        <style>
+        .content_description table {
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        .content_description th,
+        td {
+            border: 1px solid black;
+            padding: 15px;
+        }
+
+        .content_description th {
+            background-color: #f2f2f2;
+        }
+        </style>
     </head>
 
     <body>
@@ -294,9 +311,13 @@
                                             role="tabpanel" aria-labelledby="headingOne">
                                             <div class="panel-body">
                                                 <p><strong>Description</strong></p>
-                                                <p>
-                                                    {{$content->content_description}}
-                                                </p>
+                                                <div class="content_description">
+                                                    {!! $content->content_description !!}
+                                                </div>
+
+
+
+
                                                 <hr>
 
                                                 <p><strong>Resources</strong></p>
