@@ -68,7 +68,10 @@
                 @auth('student')
                 <input type="hidden" name="student_id" value="{{auth('student')->user()->id}}">
                 @endauth
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
 
+                        <div id="questions">
                             @foreach($questions as $question)
                             
 
