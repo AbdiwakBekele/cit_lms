@@ -170,10 +170,58 @@
                             </div>
 
                             <!-- Course Desciption -->
-                            <div class="mb-3 mt-3">
-                                <label for="description" class="form-label">Content Description</label>
-                                <textarea class="form-control" name="description" id="description" cols="30" rows="15"
-                                    require></textarea>
+                            <div class="my-3 bg-white px-3 py-1 rounded">
+                                <div class="m-3">
+                                    <button type="button" class='btn btn-light m-1'
+                                        onclick="execCmd('bold')"><b>B</b></button>
+                                    <button type="button" class='btn btn-light m-1'
+                                        onclick="execCmd('italic')"><i>I</i></button>
+                                    <button type="button" class='btn btn-light m-1'
+                                        onclick="execCmd('underline')"><u>U</u></button>
+                                    <button type="button" class='btn btn-light m-1'
+                                        onclick="execCmd('insertUnorderedList')"><b>&#8226;</b></button>
+
+                                    <button type="button" class='btn btn-light m-1' onclick="insertTable()">Insert
+                                        Table</button>
+
+                                    <button type="button" class='btn btn-light m-1'
+                                        onclick="execCmd('justifyLeft')"><b><i class="fa fa-align-left"
+                                                aria-hidden="true"></i></b></button>
+                                    <button type="button" class='btn btn-light m-1'
+                                        onclick="execCmd('justifyCenter')"><b><i class="fa fa-align-center"
+                                                aria-hidden="true"></i></b></button>
+                                    <button type="button" class='btn btn-light m-1'
+                                        onclick="execCmd('justifyRight')"><b><i class="fa fa-align-right"
+                                                aria-hidden="true"></i></b></button>
+                                    <button type="button" class='btn btn-light m-1'
+                                        onclick="execCmd('justifyFull')"><b><i class="fa fa-align-justify"
+                                                aria-hidden="true"></i></b></button>
+
+                                    <select class="p-1 m-1" onchange="execCmd('formatBlock', this.value)">
+                                        <option value="p">Normal</option>
+                                        <option value="H1">Header 1</option>
+                                        <option value="H2">Header 2</option>
+
+                                    </select>
+
+                                    <select class="p-1 m-1" onchange="execCmd('fontSize', this.value)">
+                                        <option value="1">8</option>
+                                        <option value="2">10</option>
+                                        <option value="3" selected>12</option>
+                                        <option value="4">14</option>
+                                        <option value="5">16</option>
+                                        <option value="6">18</option>
+                                        <option value="7">20</option>
+                                    </select>
+
+                                </div>
+
+                                <!-- Editable Content -->
+                                <input type="hidden" name="description" id="description">
+
+                                <div class="mx-3" id="editor" contenteditable="true"></div>
+
+
                                 @error('description')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
