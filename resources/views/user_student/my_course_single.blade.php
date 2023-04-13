@@ -315,9 +315,6 @@
                                                     {!! $content->content_description !!}
                                                 </div>
 
-
-
-
                                                 <hr>
 
                                                 <p><strong>Resources</strong></p>
