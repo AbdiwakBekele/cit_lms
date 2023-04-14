@@ -29,6 +29,7 @@ class StudentAuthManager extends Controller{
 
         $credential = $request->only('email', 'password');
         if(Auth::guard('student')->attempt($credential)){
+            Session::put('student_session_key', true);
             return redirect()->intended('/');
         }else{
             return redirect('/student_login')->with('error', 'Login details are not valid');
@@ -59,8 +60,8 @@ class StudentAuthManager extends Controller{
     }
 
     function logout(){
-        Session::flush();
-        Auth::logout();
+        Session::forget('student_session_key');
+        Auth::guard('student')->logout();
         return redirect('/student_login');
     }
 }

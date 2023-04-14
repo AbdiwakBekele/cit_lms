@@ -14,6 +14,7 @@ use App\Http\Controllers\RegistrarController;
 use App\Http\Controllers\ReceptionController;
 use App\Http\Controllers\UserStudentController;
 use App\Http\Controllers\StudentAuthManager;
+use App\Http\Controllers\UserAuthManager;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuizController;
@@ -84,6 +85,20 @@ Route::get('/student_register', [StudentAuthManager::class, 'register']);
 Route::post('/student_register', [StudentAuthManager::class, 'registrationPost'] );
 
 Route::get('/student_logout', [StudentAuthManager::class, 'logout']);
+
+
+/*
+|--------------------------------------------------------------------------
+| User Auth Manager                                       
+|------------------------------------------------------------------------*/
+
+Route::get('/user_login', [UserAuthManager::class, 'login'] )->name('login');
+Route::post('/user_login', [UserAuthManager::class, 'loginPost'] );
+
+Route::get('/user_register', [UserAuthManager::class, 'register']);
+Route::post('/user_register', [UserAuthManager::class, 'registrationPost'] );
+
+Route::get('/user_logout', [UserAuthManager::class, 'logout']);
 
 
 /*
