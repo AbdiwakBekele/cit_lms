@@ -183,7 +183,7 @@
                                             $course->course_name,
                                             $course->short_name,
                                             $course_category->category_name,
-                                            $user->fullname 
+                                            (!empty($user->fullname)) ? $user->fullname : "-"
                                         );
                                         ?>
                                     <td>

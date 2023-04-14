@@ -92,8 +92,8 @@
                                 <!-- logo -->
                                 <div class="logo">
                                     <a href="/">
-                                        <img class="hidden-xs" src="images/Asset 2@2x-8.png">
-                                        <img class="hidden-sm hidden-md hidden-lg" src="images/Asset 3@300x">
+                                        <img class="hidden-xs" src="../images/Asset 2@2x-8.png">
+                                        <img class="hidden-sm hidden-md hidden-lg" src="../images/Asset 3@300x">
                                     </a>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
                                     @auth('student')
                                     <li class="dropdown" style="list-style: none; padding-left: 5%;">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img width="30"
-                                                height="30" class="rounded-circle" src="images/AM2A1021.JPG"></a>
+                                                height="30" class="rounded-circle" src="../images/AM2A1021.JPG"></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="#">Profile</a></li>
                                             <li><a href="/my_learning">My Learning</a></li>
@@ -197,20 +197,24 @@
                             <!-- view header -->
                             <header class="view-header row">
                                 <div class="col-xs-12 col-sm-9 d-flex">
+                                    <!-- Course Coordinator -->
+                                    @if(!empty($user->fullname))
                                     <div class="d-col">
-                                        <!-- post author -->
                                         <div class="post-author">
                                             <div class="alignleft no-shrink rounded-circle">
                                                 <a href="#"><img src="http://placehold.it/35x35" class="rounded-circle"
                                                         alt="image description"></a>
                                             </div>
                                             <div class="description-wrap">
-                                                <h2 class="author-heading"><a href="#">Instructor</a></h2>
+                                                <h2 class="author-heading"><a href="#">Coordinator</a></h2>
+
                                                 <h3 class="author-heading-subtitle text-uppercase">{{$user->fullname}}
                                                 </h3>
                                             </div>
                                         </div>
                                     </div>
+                                    @endif()
+                                    <!-- Course Category -->
                                     <div class="d-col">
                                         <!-- post author -->
                                         <div class="post-author">
@@ -280,7 +284,7 @@
                                                 </p>
 
                                                 <p>
-                                                    Description: {{$batch->description}}
+                                                    <strong> Description:</strong> {{$batch->description}}
                                                 </p>
 
                                                 <form action="/enroll_now" method="post">
@@ -311,10 +315,15 @@
                                 <header class="widgetHead text-center bg-theme">
                                     <h3 class="text-uppercase">Take This Course</h3>
                                 </header>
-                                <strong class="price element-block font-lato" data-label="price:">1500.00 ETB</strong>
+                                <strong class="price element-block font-lato"
+                                    data-label="price:">{{$course->course_price}} ETB</strong>
                                 <ul class="list-unstyled font-lato">
-                                    <li><i class="far fa-user icn no-shrink"></i> 199 Students</li>
-                                    <li><i class="far fa-clock icn no-shrink"></i> Duration: 6 Weeks</li>
+
+                                    <li><i class="far fa-user icn no-shrink"></i> {{$course->classrooms->count() }}
+                                        Students</li>
+                                    <li><i class="far fa-clock icn no-shrink"></i> Duration:
+                                        {{$course->course_duration}} Weeks
+                                    </li>
                                     <li><i class="fas fa-bullhorn icn no-shrink"></i> Lectures: 3hr/ Day</li>
                                     <li><i class="far fa-address-card icn no-shrink"></i> Certificate of Completion</li>
                                 </ul>
@@ -336,9 +345,12 @@
                             <section class="widget widget_intro">
                                 <h3>Course Intro</h3>
                                 <div class="aligncenter overlay">
-                                    <a href="http://www.youtube.com/embed/9bZkp7q19f0?autoplay=1"
-                                        class="btn-play far fa-play-circle lightbox fancybox.iframe"></a>
-                                    <img src="http://placehold.it/260x220" alt="image description">
+
+                                    <a href="{{ asset('course_resources/'.$course->course_intro) }}"
+                                        class="btn-play far fa-play-circle lightbox fancybox.iframe">
+                                    </a>
+                                    <img src="/course_resources/{{$course->course_image}}"
+                                        style="object-fit:cover; width: 300px; height: 175px" alt="Course">
                                 </div>
                             </section>
                             <!-- widget popular posts -->
@@ -406,7 +418,7 @@
                 <aside class="aside container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-3 col">
-                            <div class="logo"><a href="home.html"><img src="images/Asset 2@2x-8.png" alt="studyLMS"></a>
+                            <div class="logo"><a href="/"><img src="../images/Asset 2@2x-8.png" alt="CTI"></a>
                             </div>
                             <p>California Training Institute (CTI) is a digital skills training institute that supports
                                 Ethiopians to develop their digital skills through resources, tools, and technology.</p>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+    <head>
         <!-- set the encoding of your site -->
         <meta charset="utf-8">
         <!-- set the viewport width and initial-scale on mobile devices -->
@@ -31,6 +31,7 @@
         <!-- include the site responsive stylesheet -->
         <link rel="stylesheet" href="css/responsive.css">
     </head>
+
     <body>
         <!-- main container of all the page elements -->
         <div id="wrapper">
@@ -46,7 +47,7 @@
                                 <ul class="font-lato list-unstyled bar-links">
                                     <li>
                                         <a href="tel:+251929737373">
-                                            
+
                                             <strong class="dt element-block text-capitalize hd-phone text-white">Call
                                                 :</strong>
                                             <strong class="dd element-block hd-phone text-white">+251 929
@@ -91,9 +92,8 @@
                                 <!-- logo -->
                                 <div class="logo">
                                     <a href="/">
-                                        <img class="hidden-xs" src="images/Asset 2@2x-8.png" >
-                                        <img class="hidden-sm hidden-md hidden-lg" src="images/Asset 3@300x"
-                                            >
+                                        <img class="hidden-xs" src="images/Asset 2@2x-8.png">
+                                        <img class="hidden-sm hidden-md hidden-lg" src="images/Asset 3@300x">
                                     </a>
                                 </div>
                             </div>
@@ -112,8 +112,9 @@
                                     <!-- navbar collapse -->
                                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                         <!-- main navigation -->
-                                        <ul class="nav navbar-nav navbar-right main-navigation font-poppins text-uppercase"  >
-                                            <li class="grow" ><a href="/" style="font-size: 1.2em;">Home</a></li>
+                                        <ul
+                                            class="nav navbar-nav navbar-right main-navigation font-poppins text-uppercase">
+                                            <li class="grow"><a href="/" style="font-size: 1.2em;">Home</a></li>
                                             <li><a href="/about" style="font-size: 1.2em;">About us</a></li>
                                             <li><a href="/course_list" style="font-size: 1.2em;">Courses</a></li>
                                             <li><a href="/events" style="font-size: 1.2em;">Events</a></li>
@@ -121,7 +122,7 @@
                                             <li><a href="/contact" style="font-size: 1.2em;">Contact</a></li>
                                         </ul>
                                     </div>
-                                    
+
                                     <!-- Profile Pic | Dropdown -->
                                     @auth('student')
                                     <li class="dropdown" style="list-style: none; padding-left: 5%;">
@@ -149,7 +150,7 @@
             <!-- contain main informative part of the site -->
             <main id="main">
                 <!-- heading banner -->
-                <section class="heading-banner text-white " style="background:#16416E" >
+                <section class="heading-banner text-white " style="background:#16416E">
                     <div class="container holder">
                         <div class="align">
                         </div>
@@ -191,10 +192,7 @@
 
                                 @foreach($courses as $course)
 
-                                <?php 
-									$course_category = DB::table('course_categories')->where('id', $course->course_category_id)->first();
-									$user = DB::table('users')->where('id', $course->user_id)->first();
-								?>
+
                                 <div class="col-xs-12 col-sm-6 col-lg-4">
                                     <!-- popular post -->
                                     <article class="popular-post">
@@ -204,25 +202,30 @@
                                         </div>
                                         <div>
                                             <strong
-                                                class="bg-primary text-white font-lato text-uppercase price-tag">{{$course_category->category_name}}</strong>
+                                                class="bg-primary text-white font-lato text-uppercase price-tag">{{$course->courseCategory->category_name}}</strong>
                                         </div>
                                         <h3 class="post-heading"><a
                                                 href="/course_single/{{$course->id}}">{{$course->course_name}}</a></h3>
+
+                                        @if(!empty($course->courseUser->fullname))
                                         <div class="post-author">
                                             <div class="alignleft rounded-circle no-shrink">
                                                 <a href="instructor-single.html"><img src="http://placehold.it/35x35"
                                                         class="rounded-circle" alt="image description"></a>
                                             </div>
-                                            <h4 class="author-heading"><a href="#">{{$user->fullname}}</a>
+                                            <h4 class="author-heading">
+                                                <a href="#">{{$course->courseUser->fullname}}</a>
                                             </h4>
                                         </div>
+                                        @endif
                                         <footer class="post-foot gutter-reset">
                                             <ul class="list-unstyled post-statuses-list">
                                                 <li>
                                                     <a href="#">
                                                         <span class="fas icn fa-users no-shrink"><span
                                                                 class="sr-only">users</span></span>
-                                                        <strong class="text fw-normal">98</strong>
+                                                        <strong
+                                                            class="text fw-normal">{{$course->classrooms->count()}}</strong>
                                                     </a>
                                                 </li>
                                                 <li>
@@ -291,56 +294,42 @@
                                     @endforeach
                                 </ul>
                             </section>
-                            <!-- widget intro -->
-                            <section class="widget widget_intro">
-                                <h3>Course Intro</h3>
-                                <div class="aligncenter overlay">
-                                    <a href="http://www.youtube.com/embed/9bZkp7q19f0?autoplay=1"
-                                        class="btn-play far fa-play-circle lightbox fancybox.iframe"></a>
-                                    <img src="http://placehold.it/262x220" alt="image description">
-                                </div>
-                            </section>
+
                             <!-- widget popular posts -->
                             <section class="widget widget_popular_posts">
                                 <h3>Popular Courses</h3>
                                 <!-- widget cources list -->
                                 <ul class="widget-cources-list list-unstyled">
+
+                                    @foreach($popular_courses as $popular_course)
                                     <li>
-                                        <a href="course-single.html">
+                                        <a href="/course_single/{{$popular_course->id}}">
                                             <div class="alignleft large">
-                                                <img src="http://placehold.it/80x70" alt="image description">
+                                                <img src="/course_resources/{{$popular_course->course_image}}"
+                                                    alt="image description">
                                             </div>
                                             <div class="description-wrap">
-                                                <h4>Introduction to Mobile Apps Development</h4>
+                                                <h4>{{$popular_course->course_name}}</h4>
+                                                @if($popular_course->course_price != '0')
                                                 <strong
-                                                    class="price text-primary element-block font-lato text-uppercase">$99.00</strong>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="course-single.html">
-                                            <div class="alignleft large">
-                                                <img src="http://placehold.it/80x70" alt="image description">
-                                            </div>
-                                            <div class="description-wrap">
-                                                <h4>Become a Professional Film Maker</h4>
+                                                    class="price text-primary element-block font-lato text-uppercase">{{$popular_course->course_price}}
+                                                    ETB</strong>
+                                                @else
                                                 <strong
                                                     class="price text-success element-block font-lato text-uppercase">Free</strong>
+
+                                                @endif
+
                                             </div>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="course-single.html">
-                                            <div class="alignleft large">
-                                                <img src="http://placehold.it/80x70" alt="image description">
-                                            </div>
-                                            <div class="description-wrap">
-                                                <h4>Swift Programming For Beginners</h4>
-                                                <strong
-                                                    class="price text-primary element-block font-lato text-uppercase">$75.00</strong>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    @endforeach
+
+
+
+
+
+
                                 </ul>
                             </section>
                         </aside>
@@ -363,45 +352,29 @@
                             <h3>Popular Courses</h3>
                             <!-- widget cources list -->
                             <ul class="widget-cources-list list-unstyled">
+                                @foreach($popular_courses as $popular_course)
                                 <li>
-                                    <a href="course-single.html">
-                                        <div class="alignleft">
-                                            <img src="images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
+                                    <a href="/course_single/{{$popular_course->id}}">
+                                        <div class="alignleft large">
+                                            <img src="/course_resources/{{$popular_course->course_image}}"
                                                 alt="image description">
                                         </div>
                                         <div class="description-wrap">
-                                            <h4>Introduction to Mobile Apps Development</h4>
+                                            <h4>{{$popular_course->course_name}}</h4>
+                                            @if($popular_course->course_price != '0')
                                             <strong
-                                                class="price text-primary element-block font-lato text-uppercase">$99.00</strong>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="course-single.html">
-                                        <div class="alignleft">
-                                            <img src="images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
-                                                alt="image description">
-                                        </div>
-                                        <div class="description-wrap">
-                                            <h4>Become a Professional Film Maker</h4>
+                                                class="price text-primary element-block font-lato text-uppercase">{{$popular_course->course_price}}
+                                                ETB</strong>
+                                            @else
                                             <strong
                                                 class="price text-success element-block font-lato text-uppercase">Free</strong>
+
+                                            @endif
+
                                         </div>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="course-single.html">
-                                        <div class="alignleft">
-                                            <img src="images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
-                                                alt="image description">
-                                        </div>
-                                        <div class="description-wrap">
-                                            <h4>Swift Programming For Beginners</h4>
-                                            <strong
-                                                class="price text-primary element-block font-lato text-uppercase">$75.00</strong>
-                                        </div>
-                                    </a>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                         <nav class="col-xs-12 col-sm-6 col-md-3 col">

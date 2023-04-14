@@ -160,6 +160,7 @@
                             <!-- Course Fullname -->
                             <div class="mb-3 mt-3">
                                 <label for="course_name" class="form-label">Course Fullname</label>
+                                <span class="text-danger">*</span>
                                 <input type="text" class="form-control" id="course_name"
                                     placeholder="Enter Course Fullname" name="course_name">
                                 @error('course_name')
@@ -170,6 +171,7 @@
                             <!-- Course shortname -->
                             <div class="mb-3 mt-3">
                                 <label for="short_name" class="form-label">Course Short name</label>
+                                <span class="text-danger">*</span>
                                 <input type="text" class="form-control" id="short_name"
                                     placeholder="Enter Course Fullname" name="short_name">
                                 @error('short_name')
@@ -177,17 +179,16 @@
                                 @enderror
                             </div>
 
-
                             <!-- Course Category -->
                             <div class="mb-3 mt-3">
                                 <label for="course_category" class="form-label">Course Category</label>
+                                <span class="text-danger">*</span>
                                 <select class="form-control" name="course_category" id="course_category">
                                     <option value=""> Choose... </option>
-                                    <?php 
-                        foreach($categories as $category){
-                          echo "<option value='".$category->id."' >".$category->category_name."</option>";
-                      }
-                    ?>
+                                    @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                    @endforeach
+
                                 </select>
                                 @error('course_category')
                                 <span class="text-danger">{{ $message }}</span>
@@ -197,48 +198,66 @@
                             <!-- Course Image -->
                             <div class="mb-3 mt-3">
                                 <label for="course_image" class="form-label">Course Image</label>
+                                <span class="text-danger">*</span>
                                 <input type="file" class="form-control" id="course_image"
-                                    placeholder="Enter Course Image" name="course_image">
+                                    placeholder="Enter Course Image" name="course_image" required>
                                 @error('course_image')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
-                            <!-- Course Resources -->
+                            <!-- Course Intro Video -->
                             <div class="mb-3 mt-3">
-                                <label for="course_resource" class="form-label">Course Resources</label>
-                                <input type="file" class="form-control" id="course_resource"
-                                    placeholder="Upload course resources" name="course_resource[]" multiple>
-                                @error('course_resource')
+                                <label for="course_intro" class="form-label">Course Intro Video</label>
+                                <span class="text-danger">*</span>
+                                <input type="file" class="form-control" id="course_intro"
+                                    placeholder="Enter Course Intro Video" name="course_intro" required>
+                                @error('course_intro')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                                @if ($errors->has('course_resource.*'))
-                                @foreach($errors->get('course_resource.*') as $error)
-                                <span class="text-danger">{{ $error[0] }}</span>
-                                <br>
-                                @endforeach
-                                @endif
+                            </div>
+
+                            <!-- Course Duration -->
+                            <div class="mb-3 mt-3">
+                                <label for="course_duration" class="form-label">Course Duration(Weeks)</label>
+                                <span class="text-danger">*</span>
+                                <input type="number" class="form-control" id="course_duration"
+                                    placeholder="Enter course duration in weeks" min="0" name="course_duration"
+                                    required>
+                                @error('course_duration')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <!-- Course Price -->
+                            <div class="mb-3 mt-3">
+                                <label for="course_price" class="form-label">Course Price (ETB)</label>
+                                <span class="text-danger">*</span>
+                                <input type="number" class="form-control" id="course_price"
+                                    placeholder="Enter course price in ETB" min="0" name="course_price" value="0"
+                                    required>
+                                @error('course_price')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <!-- Assigned Teacher Coordinator -->
                             <div class="mb-3 mt-3">
-                                <label for="assigned_coordinator" class="form-label">Assigned Coordinator</label>
+                                <label for="assigned_coordinator" class="form-label">Assigned Coordinator
+                                    (Optional)</label>
+
                                 <select class="form-control" name="assigned_coordinator" id="assigned_coordinator">
                                     <option value=""> Choose... </option>
-                                    <?php 
-                        foreach($coordinators as $coordinator){
-                          echo "<option value='".$coordinator->id."' >".$coordinator->fullname."</option>";
-                        }
-                        ?>
+                                    @foreach($coordinators as $coordinator)
+                                    <option value="{{$coordinator->id}}">{{$coordinator->fullname}}</option>
+                                    @endforeach
                                 </select>
-                                @error('assigned_coordinator')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
                             </div>
 
                             <!-- Course Desciption -->
                             <div class="mb-3 mt-3">
                                 <label for="description" class="form-label">Course Description</label>
+                                <span class="text-danger">*</span>
                                 <textarea class="form-control" name="description" id="description" cols="30" rows="15"
                                     require></textarea>
                                 @error('description')

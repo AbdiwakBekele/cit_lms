@@ -28,8 +28,13 @@ class CourseController extends Controller
      */
     public function create(){
         $categories = CourseCategory::all();
-        $role = Role::where('role_name', 'Teacher Coordinator')->firstOrFail();
-        $coordinators = User::where('role_id', $role->id)->get();
+        $role = Role::where('role_name', 'Teacher Coordinator')->first();
+        if($role){
+            $coordinators = User::where('role_id', $role->id)->get();
+        }else{
+            $coordinators = [];
+        }
+        
         return view('admin.course.adminAddCourse', compact('categories', 'coordinators'));
     }
     
@@ -44,45 +49,43 @@ class CourseController extends Controller
             'course_category'=>'required',
             'description'=>'required',
             'course_image'=>'required|mimes:png,jpg,jpeg',
-            'course_resource'=>'required|array',
-            'course_resource.*'=>'mimes:docx,pdf,pptx',
-            'assigned_coordinator'=>'required'
+            'course_intro'=>'required|mimes:mp4,mkv,avi,flv',
+            'course_duration'=>'required',
+            'course_price'=>'required'
         ]);
 
         $course_name =  $request->course_name;
         $short_name =  $request->short_name;
         $course_category =  $request->course_category;
         $description = $request->description;
+        $course_duration = $request->course_duration;
+        $course_price = $request->course_price;
         $assigned_coordinator = $request->assigned_coordinator;
+        
         //course_image
         $temp_img = $request->file('course_image');
         $course_image = pathinfo($temp_img->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_img->getClientOriginalExtension();
         $temp_img->move('course_resources', $course_image);
-        //Course Resource
-        $files = $request->file('course_resource');
 
+         //course_intro
+         $temp_intro = $request->file('course_intro');
+         $course_intro = pathinfo($temp_intro->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_intro->getClientOriginalExtension();
+         $temp_intro->move('course_resources', $course_intro);
+        
         $course = new Course([
             'course_category_id'=> $course_category,
             'course_name'=> $course_name, 
             'short_name'=>$short_name, 
             'description'=>$description,
             'course_image'=>$course_image,
+            'course_intro'=>$course_intro,
+            'course_duration'=>$course_duration,
+            'course_price'=>$course_price,
             'user_id'=> $assigned_coordinator]);
 
         $course->save();
 
         if (!empty($course->id)) {
-            foreach($files as $file){
-                $extension = $file->getClientOriginalExtension();
-                $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$extension;
-                $file->move('course_resources', $filename);
-                $resource = new Resource([
-                    'course_id'=> $course->id,
-                    'path'=> $filename
-                ]);
-                $resource->save();
-            }
-            
             // Model has been successfully inserted
             return back()
              ->with('success','You have successfully created a new course.');

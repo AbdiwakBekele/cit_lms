@@ -50,7 +50,17 @@ class UserStudentController extends Controller{
     function courseList(){
         $courses = Course::all();
         $course_categories = CourseCategory::all();
-        return view('user_student.course_list', compact('courses', 'course_categories'));
+        $top_courses = Course::withCount('classrooms');
+
+        if($top_courses->count() >= 3){
+            $popular_courses = $top_courses->orderBy('classrooms_count', 'desc')->take(3)->get();
+            return view('user_student.course_list', compact('courses', 'course_categories', 'popular_courses'));
+        }else{
+            $popular_courses = $top_courses->orderBy('classrooms_count', 'desc')->get();
+            return view('user_student.course_list', compact('courses', 'course_categories', 'popular_courses'));
+        }
+
+        
     }
 
     public function courseSingle(string $id){
