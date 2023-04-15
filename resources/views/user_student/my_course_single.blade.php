@@ -424,7 +424,6 @@
                             </section>
                             @endif()
 
-
                             @if(!empty($user->fullname))
                             <h2>About Instructor</h2>
                             <!-- instructorInfoBox -->
