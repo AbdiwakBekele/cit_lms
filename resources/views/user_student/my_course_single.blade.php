@@ -194,7 +194,8 @@
                             <header class="view-header row">
                                 <div class="col-xs-12 col-sm-9 d-flex">
                                     <div class="d-col">
-                                        <!-- post author -->
+                                        <!-- instructor-->
+                                        @if(!empty($user->fullname))
                                         <div class="post-author">
                                             <div class="alignleft no-shrink rounded-circle">
                                                 <a href="#"><img src="http://placehold.it/35x35" class="rounded-circle"
@@ -206,6 +207,8 @@
                                                 </h3>
                                             </div>
                                         </div>
+
+                                        @endif
                                     </div>
                                     <div class="d-col">
                                         <!-- post author -->
@@ -422,7 +425,7 @@
                             @endif()
 
 
-
+                            @if(!empty($user->fullname))
                             <h2>About Instructor</h2>
                             <!-- instructorInfoBox -->
                             <div class="instructorInfoBox">
@@ -440,6 +443,10 @@
                                         Profile</a>
                                 </div>
                             </div>
+
+                            @endif
+
+
                             <h2>Reviews</h2>
                             <h3 class="h6 fw-semi">There are 2 reviews on this course</h3>
                             <!-- reviewsList -->

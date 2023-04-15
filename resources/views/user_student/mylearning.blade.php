@@ -205,6 +205,8 @@
                                             <a href="/my_course_single/{{$course->id}}">{{$course->course_name}}
                                                 ({{$batch->shift}})</a>
                                         </h3>
+
+                                        @if(!empty($user->fullname))
                                         <div class="post-author">
                                             <div class="alignleft rounded-circle no-shrink">
                                                 <a href="instructor-single.html"><img src="http://placehold.it/35x35"
@@ -213,6 +215,7 @@
                                             <h4 class="author-heading"><a
                                                     href="instructor-single.html">{{$user->fullname}}</a></h4>
                                         </div>
+                                        @endif
 
                                         @if($classroom->is_approved == 0)
                                         <p class="text-danger"> Pending </p>
