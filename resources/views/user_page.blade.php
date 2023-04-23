@@ -11,6 +11,7 @@
     <body>
 
         Welcome {{auth()->user()->fullname}}
+        <a href="/user_logout"> Logout </a>
 
     </body>
 

@@ -14,7 +14,7 @@ class StudentAuthManager extends Controller{
     function login(){
 
         if(Auth::guard('student')->check()){
-            return redirect('/');
+            return redirect()->intended();
         }
         return view('user_student.student_login');
 
@@ -30,7 +30,7 @@ class StudentAuthManager extends Controller{
         $credential = $request->only('email', 'password');
         if(Auth::guard('student')->attempt($credential)){
             Session::put('student_session_key', true);
-            return redirect()->intended('/');
+            return redirect()->intended();
         }else{
             return redirect('/student_login')->with('error', 'Login details are not valid');
         }

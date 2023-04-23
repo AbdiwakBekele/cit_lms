@@ -160,8 +160,6 @@ class UserStudentController extends Controller{
         $course_id;
         $section_id;
 
-       
-
         foreach ($answers as $questionId => $option) {
             $question = Quiz::find($questionId);
             $course_id = $question->course_id;

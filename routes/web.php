@@ -46,39 +46,10 @@ Route::get('/contact', [UserStudentController::class, 'contact']);
 
 /*
 |--------------------------------------------------------------------------
-| Student - Course                                        
-|------------------------------------------------------------------------*/
-
-Route::get('/course_list', [UserStudentController::class, 'courseList']);
-
-Route::get('/course_single/{id}', [UserStudentController::class, 'courseSingle']);
-
-Route::get('/my_course_single/{id}', [UserStudentController::class, 'myCourseSingle']);
-
-Route::get('/enroll_course/{id}', [UserStudentController::class, 'enrollCourse']);
-
-Route::post('/enroll_now', [UserStudentController::class, 'enrollNow']);
-
-Route::get('/my_learning', [UserStudentController::class, 'myLearning']);
-
-Route::get('/my_quiz/{section_id}', [UserStudentController::class, 'myQuiz']);
-
-Route::post('/my_quiz', [UserStudentController::class, 'myQuizSubmit']);
-
-Route::get('/my_final/{course_id}', [UserStudentController::class, 'myFinal']);
-
-Route::post('/my_final', [UserStudentController::class, 'myFinalSubmit']);
-
-Route::group(['middleware'=>'auth'], function(){
-    // Route::post('/enroll_now', [UserStudentController::class, 'enrollNow']);
-});
-
-/*
-|--------------------------------------------------------------------------
 | Student Auth Manager                                       
 |------------------------------------------------------------------------*/
 
-Route::get('/student_login', [StudentAuthManager::class, 'login'] )->name('login');
+Route::get('/student_login', [StudentAuthManager::class, 'login'] )->name('student.login');
 Route::post('/student_login', [StudentAuthManager::class, 'loginPost'] );
 
 Route::get('/student_register', [StudentAuthManager::class, 'register']);
@@ -86,13 +57,45 @@ Route::post('/student_register', [StudentAuthManager::class, 'registrationPost']
 
 Route::get('/student_logout', [StudentAuthManager::class, 'logout']);
 
+/*
+|--------------------------------------------------------------------------
+| Student - Course                                        
+|------------------------------------------------------------------------*/
+
+Route::get('/course_list', [UserStudentController::class, 'courseList']);
+
+Route::get('/course_single/{id}', [UserStudentController::class, 'courseSingle']);
+
+
+
+Route::group(['middleware' => ['student']], function () {
+    
+    Route::get('/my_course_single/{id}', [UserStudentController::class, 'myCourseSingle']);
+
+    Route::get('/enroll_course/{id}', [UserStudentController::class, 'enrollCourse']);
+
+    Route::post('/enroll_now', [UserStudentController::class, 'enrollNow']);
+
+    Route::get('/my_learning', [UserStudentController::class, 'myLearning']);
+
+    Route::get('/my_quiz/{section_id}', [UserStudentController::class, 'myQuiz']);
+
+    Route::post('/my_quiz', [UserStudentController::class, 'myQuizSubmit']);
+
+    Route::get('/my_final/{course_id}', [UserStudentController::class, 'myFinal']);
+
+    Route::post('/my_final', [UserStudentController::class, 'myFinalSubmit']);
+});
+
+
+
 
 /*
 |--------------------------------------------------------------------------
 | User Auth Manager                                       
 |------------------------------------------------------------------------*/
 
-Route::get('/user_login', [UserAuthManager::class, 'login'] )->name('login');
+Route::get('/user_login', [UserAuthManager::class, 'login'] )->name('user.login');
 Route::post('/user_login', [UserAuthManager::class, 'loginPost'] );
 
 Route::get('/user_register', [UserAuthManager::class, 'register']);
@@ -100,78 +103,82 @@ Route::post('/user_register', [UserAuthManager::class, 'registrationPost'] );
 
 Route::get('/user_logout', [UserAuthManager::class, 'logout']);
 
-
 /*
 |--------------------------------------------------------------------------
 | Admin Entry - Left Menu                                         
 |------------------------------------------------------------------------*/
 
-Route::get('/admin', function () {
-    return view('admin.adminDashboard');
+Route::group(['middleware'=>'auth'], function(){
+    // Route::post('/enroll_now', [UserStudentController::class, 'enrollNow']);
+
+    Route::get('/admin', function () {
+        return view('admin.adminDashboard');
+    });
+
+    Route::get('/adminDashboard', function () {
+        return view('admin.adminDashboard');
+    });
+
+    Route::get('/adminTeacherAndCoordinator', function(){
+        return view('admin.teacher.adminTeacherAndCoordinator');
+    });
+
+    Route::get('/registrarAndReception', function(){
+        return view('admin.registrar.registrarAndReception');
+    });
+
+    Route::resource('courseCategory', CourseCategoryController::class);
+
+    Route::resource('course', CourseController::class);
+
+    Route::resource('user', UserController::class);
+
+    Route::resource('role', RoleController::class);
+
+    Route::resource('student', StudentController::class);
+
+    //-------------- Admin - Batch -------------/
+
+    Route::resource('batch', BatchController::class);
+
+    Route::get('/approve_student/{id}', [BatchController::class, 'approveStudent']);
+
+    Route::get('/disapprove_student/{id}', [BatchController::class, 'disapproveStudent']);
+
+    //-------------- Admin - Section -------------/
+
+    Route::resource('section', SectionController::class);
+
+    Route::get('/section/create_section/{id}', [SectionController::class, 'createSection'] );
+
+    //-------------- Admin - Quiz -------------/
+
+    Route::resource('quiz', QuizController::class);
+
+    Route::get('/quiz/create_quiz/{course_id}/{section_id}', [QuizController::class, 'createQuiz']);
+
+    //-------------- Admin - Section Content -------------/
+
+    Route::resource('content', ContentController::class);
+
+    Route::get('/content/create_content/{id}', [ContentController::class, 'createContent'] );
+
+    Route::get('/content/create_resource/{course_id}/{content_id}', [ContentController::class, 'createResource'] );
+
+    Route::post('/content/store_resource', [ContentController::class, 'storeResource'] );
+
+    //-------------- Admin - Teacher -------------/
+
+    Route::resource('teacher', TeacherController::class);
+
+    Route::resource('teacherCoordinator', TeacherCoordinatorController::class);
+
+    Route::resource('resource', ResourceController::class);
+
+    Route::get('resource/{id}/download', [ResourceController::class, 'getDownload']);
+
+    Route::resource('registrar', RegistrarController::class);
+
+    Route::resource('reception', ReceptionController::class);
+
 });
-
-Route::get('/adminDashboard', function () {
-    return view('admin.adminDashboard');
-});
-
-Route::get('/adminTeacherAndCoordinator', function(){
-    return view('admin.teacher.adminTeacherAndCoordinator');
-});
-
-Route::get('/registrarAndReception', function(){
-    return view('admin.registrar.registrarAndReception');
-});
-
-Route::resource('courseCategory', CourseCategoryController::class);
-
-Route::resource('course', CourseController::class);
-
-Route::resource('user', UserController::class);
-
-Route::resource('role', RoleController::class);
-
-Route::resource('student', StudentController::class);
-
-//-------------- Admin - Batch -------------/
-
-Route::resource('batch', BatchController::class);
-
-Route::get('/approve_student/{id}', [BatchController::class, 'approveStudent']);
-
-Route::get('/disapprove_student/{id}', [BatchController::class, 'disapproveStudent']);
-
-//-------------- Admin - Section -------------/
-
-Route::resource('section', SectionController::class);
-
-Route::get('/section/create_section/{id}', [SectionController::class, 'createSection'] );
-
-//-------------- Admin - Quiz -------------/
-
-Route::resource('quiz', QuizController::class);
-
-Route::get('/quiz/create_quiz/{course_id}/{section_id}', [QuizController::class, 'createQuiz']);
-
-//-------------- Admin - Section Content -------------/
-
-Route::resource('content', ContentController::class);
-
-Route::get('/content/create_content/{id}', [ContentController::class, 'createContent'] );
-
-Route::get('/content/create_resource/{course_id}/{content_id}', [ContentController::class, 'createResource'] );
-
-Route::post('/content/store_resource', [ContentController::class, 'storeResource'] );
-
-//-------------- Admin - Teacher -------------/
-
-Route::resource('teacher', TeacherController::class);
-
-Route::resource('teacherCoordinator', TeacherCoordinatorController::class);
-
-Route::resource('resource', ResourceController::class);
-
-Route::get('resource/{id}/download', [ResourceController::class, 'getDownload']);
-
-Route::resource('registrar', RegistrarController::class);
-
-Route::resource('reception', ReceptionController::class);
