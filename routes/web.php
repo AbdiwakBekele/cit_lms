@@ -115,10 +115,6 @@ Route::group(['middleware'=>'auth'], function(){
         return view('admin.adminDashboard');
     });
 
-    Route::get('/adminDashboard', function () {
-        return view('admin.adminDashboard');
-    });
-
     Route::get('/adminTeacherAndCoordinator', function(){
         return view('admin.teacher.adminTeacherAndCoordinator');
     });
@@ -149,23 +145,23 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('section', SectionController::class);
 
-    Route::get('/section/create_section/{id}', [SectionController::class, 'createSection'] );
+    Route::get('/course/create_section/{id}', [CourseController::class, 'createSection'] );
 
     //-------------- Admin - Quiz -------------/
 
     Route::resource('quiz', QuizController::class);
 
-    Route::get('/quiz/create_quiz/{course_id}/{section_id}', [QuizController::class, 'createQuiz']);
+    Route::get('/course/create_quiz/{course_id}/{section_id}', [QuizController::class, 'createQuiz']);
 
     //-------------- Admin - Section Content -------------/
 
     Route::resource('content', ContentController::class);
 
-    Route::get('/content/create_content/{id}', [ContentController::class, 'createContent'] );
+    Route::get('/course/create_content/{id}', [ContentController::class, 'createContent'] );
 
-    Route::get('/content/create_resource/{course_id}/{content_id}', [ContentController::class, 'createResource'] );
+    Route::get('/course/create_resource/{course_id}/{content_id}', [ContentController::class, 'createResource'] );
 
-    Route::post('/content/store_resource', [ContentController::class, 'storeResource'] );
+    Route::post('/course/store_resource', [ContentController::class, 'storeResource'] );
 
     //-------------- Admin - Teacher -------------/
 

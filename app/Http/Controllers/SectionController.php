@@ -25,10 +25,6 @@ class SectionController extends Controller
 
     }
 
-    public function createSection(string $id){
-        $course = Course::find($id);
-        return view('admin.course.adminCreateCourseSection', compact('course'));
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,7 +32,7 @@ class SectionController extends Controller
     public function store(Request $request){
         $this->validate( $request, [
             'course_id'=>'required',
-            'section_name'=>'required|unique:sections',
+            'section_name' => 'required|unique:sections,section_name,NULL,id,course_id,'.$request->course_id,
             'description'=>'required'
         ]);
 

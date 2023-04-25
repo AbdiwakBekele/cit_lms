@@ -37,6 +37,12 @@ class CourseController extends Controller
         
         return view('admin.course.adminAddCourse', compact('categories', 'coordinators'));
     }
+
+    // Create Course Section
+    public function createSection(string $id){
+        $course = Course::find($id);
+        return view('admin.course.adminCreateCourseSection', compact('course'));
+    }
     
     /**
      * Store a newly created resource in storage.
