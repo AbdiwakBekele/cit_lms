@@ -9,6 +9,7 @@
         <div class="toggle-icon ms-auto"><i class='bx bx-menu'></i>
         </div>
     </div>
+
     <!--------- Side Menu ------->
     <ul class="metismenu" id="menu">
         <!-- Dashboard -->

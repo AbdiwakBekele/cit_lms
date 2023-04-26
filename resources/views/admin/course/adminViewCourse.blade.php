@@ -86,9 +86,6 @@
                                 <i class="fa fa-caret-down mx-2" aria-hidden="true"></i>
                             </a>
 
-
-
-
                         </div>
                         <div id="collapse{{$content->id}}" class="collapse" data-bs-parent="#accordion">
                             <div class="card-body">

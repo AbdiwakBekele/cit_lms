@@ -37,6 +37,7 @@
             <!-- Side Navigation Bar -->
             @include('include.adminSideBar')
 
+
             <!-- Top Navigation -->
             @include('include.adminNav')
 
@@ -68,7 +69,7 @@
         <script src="{{ asset('assets/admin/plugins/chartjs/js/chart.js') }} "></script>
         <script src="{{ asset('assets/admin/js/index.js') }} "></script>
         <!--app JS-->
-        <!-- <script src="{{ asset('assets/admin/js/app.js') }}"></script> -->
+        <script src="{{ asset('assets/admin/js/app.js') }}"></script>
         <script>
         new PerfectScrollbar(".app-container")
         </script>
