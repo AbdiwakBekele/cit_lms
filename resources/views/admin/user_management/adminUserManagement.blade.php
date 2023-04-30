@@ -1,6 +1,6 @@
 @extends('layouts.adminLayout')
 
-@section('title', 'Course Category - CTI')
+@section('title', 'User - CTI')
 
 @section('content')
 
@@ -26,12 +26,10 @@
 
         <div class="row">
             <!-- Users part -->
-            <div class="col-lg-7">
+            <div class="col-lg m-4">
                 <a class="btn btn-primary m-3" role="button"
                     style="color: #16416E;background: #ffb600;font-weight: bold;height: 32px;font-size: 14px;border-style: none;"
                     href="user/create">Add New User</a>
-
-
 
                 <div class="table-responsive">
                     <table class="table">
@@ -48,8 +46,6 @@
                             <?php 
                                 $index = 0;
                                 foreach($users as $user){
-
-                                    $role = DB::table('roles')->where('id', $user->role_id)->first();
 
                                     printf(
                                     "<tr> <td>%d</td> <td>%s</td> <td>%s</td> <td>%s</td> ",
@@ -79,76 +75,6 @@
                                             <!-- Modal footer -->
                                             <div class="modal-footer p-1">
                                                 <form action="/user/{{$user->id}}" method="post">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="submit" class="btn btn-danger" value="Delete">
-                                                </form>
-                                                <button type="button" class="btn btn-light"
-                                                    data-bs-dismiss="modal">Close</button>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </td>
-                            </tr>
-
-                            <?php
-                                    }
-                                ?>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-
-            <div class="col-lg mx-2">
-                <!-- Role Part -->
-                <a class="btn btn-primary m-3" role="button"
-                    style="color: #16416E;background: #ffb600;font-weight: bold;height: 32px;font-size: 14px;border-style: none;"
-                    href="role/create">Add New Role</a>
-
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th style="color: #16416E;font-weight: bold;">ID</th>
-                                <th style="color: #16416E;font-weight: bold;">Role Name</th>
-                                <th style="color: #16416E;font-weight: bold;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                                            $index = 0;
-                                            foreach($roles as $role){
-
-                                                printf(
-                                                "<tr> <td>%d</td> <td>%s</td> ",
-                                                ++$index,
-                                                $role->role_name,
-                                            );
-                                        ?>
-                            <td>
-                                <a href="/role/{{$role->id}}/edit"><i class="fa fa-pencil mx-1" style="font-size: 17px"
-                                        aria-hidden="true"></i></a>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#myModal{{$role->id}}"><i
-                                        class="fa fa-trash text-danger mx-1" style="font-size: 17px"
-                                        aria-hidden="true"></i></a>
-
-                                <!-- The Modal -->
-                                <div class="modal" id="myModal{{$role->id}}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-
-                                            <!-- Modal body -->
-                                            <div class="modal-body my-4 text-center h5">
-                                                Are you sure?
-                                            </div>
-
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer p-1">
-                                                <form action="/role/{{$role->id}}" method="post">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="submit" class="btn btn-danger" value="Delete">

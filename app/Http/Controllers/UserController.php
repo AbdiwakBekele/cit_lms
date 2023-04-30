@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Role;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -14,9 +15,8 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        $roles = Role::all();
         $users = User::all();
-        return view('admin.user_management.adminUserManagement', compact('roles', 'users'));
+        return view('admin.user_management.adminUserManagement', compact('users'));
     }
 
     /**
@@ -66,9 +66,12 @@ class UserController extends Controller
      */
     public function show(string $id){
         $user = User::find($id);
-        $role = Role::find($user->role_id);
+        $roles = Role::all();
+        $permissions = Permission::all();
+        $user_roles = $user->roles; 
+        $user_permissions = $user->getAllPermissions();
         
-        return view('admin.user_management.adminViewUser', compact('user', 'role'));
+        return view('admin.user_management.adminViewUser', compact('user', 'roles', 'permissions', 'user_roles', 'user_permissions'));
     }
 
     /**
@@ -132,5 +135,77 @@ class UserController extends Controller
              ->with('error',"Error deleting a user");
         }
 
+    }
+
+    public function assignPermission(Request $request){
+
+        $this->validate($request, [
+            'assign_permission'=> 'required',
+            'user_id'=>'required'
+        ]);
+
+        $user = User::find($request->user_id);
+        $assign_permission = Permission::findByName($request->assign_permission);
+
+        if($user->hasPermissionTo($assign_permission)){
+            return back()
+             ->with('error',"Permission Already Exists");
+        }else{
+            $user->givePermissionTo($assign_permission);
+            return back()
+             ->with('success',"Permission Assigned");
+        }
+    }
+
+    public function revokePermission(string $user_id, string $permission_id){
+
+        $user = User::find($user_id);
+        $permission = Permission::find($permission_id);
+
+        $user->revokePermissionTo($permission);
+
+        if($user->hasPermissionTo($permission)){
+            return back()
+             ->with('error',"Error Revoking Permission");
+        }else{
+            return back()
+             ->with('success',"Permission Revoked");
+        }
+    }
+
+    public function assignRole(Request $request){
+        $this->validate($request, [
+            'assigned_role'=> 'required',
+            'user_id'=>'required'
+        ]);
+
+        $user = User::find($request->user_id);
+        $role = Role::findByName($request->assigned_role);
+        
+
+        if($user->hasRole($role)){
+            return back()
+             ->with('error',"Role Already Exists");
+        }else{
+            $user->assignRole($role);
+            return back()
+             ->with('success',"Role Assigned");
+        }
+    }
+
+    public function revokeRole(string $user_id, string $role_id){
+
+        $user = User::find($user_id);
+        $role = Role::find($role_id);
+
+        $user->removeRole($role);
+
+        if($user->hasRole($role)){
+            return back()
+             ->with('error',"Error Revoking Role");
+        }else{
+            return back()
+             ->with('success',"Role Revoked");
+        }
     }
 }

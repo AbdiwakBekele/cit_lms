@@ -21,6 +21,7 @@
             </a>
         </li>
 
+        @can('manage course')
         <!-- Course Category -->
         <li class="{{ Request::is('courseCategory*') ? 'mm-active' : ''}} ">
             <a href="/courseCategory">
@@ -38,6 +39,7 @@
                 <div class="menu-title">Course Management</div>
             </a>
         </li>
+        @endcan
 
         <!-- Resource Managment -->
         <li class="{{ Request::is('resource*') ? 'mm-active' : ''}} ">
@@ -65,12 +67,21 @@
             </a>
         </li>
 
-        <!-- Role Managment -->
-        <li class="{{ Request::is('role*') ? 'mm-active' : ''}} ">
-            <a href="/role">
+        <!-- User Managment -->
+        <li class="{{ Request::is('user*') ? 'mm-active' : ''}} ">
+            <a href="/user">
                 <div class="parent-icon"><i class='bx bx-user-plus'></i>
                 </div>
-                <div class="menu-title">Role Management</div>
+                <div class="menu-title">User Management</div>
+            </a>
+        </li>
+
+        <!-- Role Managment -->
+        <li class="{{ Request::is('role*') || Request::is('permission*')  ? 'mm-active' : ''}} ">
+            <a href="/role">
+                <div class="parent-icon"><i class='bx bx-shield-quarter'></i>
+                </div>
+                <div class="menu-title">Role | Permission</div>
             </a>
         </li>
 

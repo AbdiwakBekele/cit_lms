@@ -1,6 +1,6 @@
 @extends('layouts.adminLayout')
 
-@section('title', 'Course Category - CTI')
+@section('title', 'Role | User - CTI')
 
 @section('content')
 
@@ -31,7 +31,7 @@
                     <div class="mb-3 mt-3">
                         <label for="role_name" class="form-label">Role Name</label>
                         <input type="text" class="form-control" name="role_name" id="role_name"
-                            placeholder="Enter role name" value="{{$role->role_name}}" required>
+                            placeholder="Enter role name" value="{{$role->name}}" required>
                         @error('role_name')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror

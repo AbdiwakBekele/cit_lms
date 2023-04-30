@@ -4,8 +4,6 @@
 
 @section('content')
 
-
-
 <div class="d-flex flex-column" id="content-wrapper">
     <div id="content-1">
         <div class="container-fluid">

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use App\Models\User;
 
 class RoleController extends Controller
@@ -15,15 +16,16 @@ class RoleController extends Controller
      */
     public function index(){
         $roles = Role::all();
-        $users = User::all();
-        return view('admin.user_management.adminUserManagement', compact('roles', 'users'));
+        $permissions = Permission::all();
+        return view('admin.role_management.adminRoleManagment', compact('roles', 'permissions'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create(){
-        return view('admin.role_management.adminAddRole');
+        $permissions = Permission::all();
+        return view('admin.role_management.role.adminAddRole', compact('permissions'));
     }
 
     /**
@@ -31,14 +33,13 @@ class RoleController extends Controller
      */
     public function store(Request $request){
         $this->validate($request, [
-            'role_name'=>'required|unique:roles',
+            'role_name'=>'required|unique:roles,name', //value of role_name checked in "name" col
             'role_detail'=>'required'
         ]);
         $role_name = $request->role_name;
         $role_detail = $request->role_detail;
 
-        $role = new Role([ 'role_name'=>$role_name, 'role_detail'=>$role_detail ]);
-        $role->save();
+        $role = Role::create(['name' => $role_name, 'role_detail'=> $role_detail]);
 
         if(!empty($role->id)){
             return back()
@@ -52,9 +53,10 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
-    {
-        //
+    public function show(string $id){
+        $role = Role::find($id);
+        $permissions = Permission::all();
+        return view('admin.role_management.role.adminViewRole', compact('role', 'permissions'));
     }
 
     /**
@@ -62,8 +64,7 @@ class RoleController extends Controller
      */
     public function edit(string $id){
         $role = Role::find($id);
-        return view('admin.role_management.adminEditRole', compact('role'));
-
+        return view('admin.role_management.role.adminEditRole', compact('role'));
     }
 
     /**
@@ -79,7 +80,7 @@ class RoleController extends Controller
         $role_detail = $request->role_detail;
 
         $role = Role::find($id);
-        $role->role_name = $role_name;
+        $role->name = $role_name;
         $role->role_detail = $role_detail;
         $role->save();
 
@@ -99,13 +100,41 @@ class RoleController extends Controller
         $role = Role::find($id)->delete();
 
         if($role){
-            $users = User::where('role_id', $id)->delete();
 
             return back()
              ->with('success',"You have successfully deleted role information.");
         }else{
             return back()
              ->with('error',"Error deleting role information");
+        }
+    }
+
+    public function assignPermission(Request $request, string $role_id){
+
+        $role = Role::find($role_id);
+        if($role->hasPermissionTo($request->assign_permission)){
+            return back()
+             ->with('error',"Permission Already Exists");
+        }else{
+            $role->givePermissionTo($request->assign_permission);
+            return back()
+             ->with('success',"Permission Assigned");
+        }
+    }
+
+    public function revokePermission(string $role_id, string $permission_id){
+
+        $role = Role::find($role_id);
+        $permission = Permission::find($permission_id);
+
+        $role->revokePermissionTo($permission);
+
+        if($role->hasPermissionTo($permission->name)){
+            return back()
+             ->with('error',"Error Revoking Permission");
+        }else{
+            return back()
+             ->with('success',"Permission Revoked");
         }
     }
 }

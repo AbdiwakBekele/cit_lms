@@ -1,6 +1,6 @@
 @extends('layouts.adminLayout')
 
-@section('title', 'Course Category - CTI')
+@section('title', 'Role | User - CTI')
 
 @section('content')
 

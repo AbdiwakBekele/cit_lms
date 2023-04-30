@@ -187,7 +187,7 @@
                     <img src="{{ asset('assets/admin/images/avatars/Profile picture.JPG') }}" class="user-img"
                         alt="user avatar">
                     <div class="user-info">
-                        <p class="user-name mb-0">Yosef Habtamu</p>
+                        <p class="user-name mb-0">{{auth()->user()->fullname}}</p>
                         <p class="designattion mb-0">Admin</p>
                     </div>
                 </a>
@@ -206,7 +206,7 @@
                     <li>
                         <div class="dropdown-divider mb-0"></div>
                     </li>
-                    <li><a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
+                    <li><a class="dropdown-item d-flex align-items-center" href="/user_logout"><i
                                 class="bx bx-log-out-circle"></i><span>Logout</span></a>
                     </li>
                 </ul>
