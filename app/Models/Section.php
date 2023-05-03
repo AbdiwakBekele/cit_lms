@@ -27,28 +27,5 @@ class Section extends Model
         return $this->hasMany(Progress::class);
     }
 
-    public function isAvailableForBatch($batch_start_date): bool
-{
-    $sections = $this->course->sections()->orderBy('sequence')->get();
-    $start_date = Carbon::parse($batch_start_date);
-    
-    foreach ($sections as $section) {
-        if ($section->id == $this->id) {
-            // this is the section we're checking
-            $end_date = $start_date->addDays($section->duration);
-            return now()->between($start_date, $end_date);
-        } else {
-            // calculate the end date of the previous section
-            $start_date->addDays($section->duration);
-        }
-    }
-
-    return false;
-}
-
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('sequence');
-    }
 }
     
