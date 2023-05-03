@@ -21,15 +21,15 @@
             href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i"
             rel="stylesheet">
         <!-- include the site bootstrap stylesheet -->
-        <link rel="stylesheet" href="../css/bootstrap.css">
+        <link rel="stylesheet" href="../../css/bootstrap.css">
         <!-- include the site stylesheet -->
-        <link rel="stylesheet" href="../css/plugins.css">
+        <link rel="stylesheet" href="../../css/plugins.css">
         <!-- include the site stylesheet -->
-        <link rel="stylesheet" href="../css/colors.css">
+        <link rel="stylesheet" href="../../css/colors.css">
         <!-- include the site stylesheet -->
-        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="../../style.css">
         <!-- include the site responsive stylesheet -->
-        <link rel="stylesheet" href="../css/responsive.css">
+        <link rel="stylesheet" href="../../css/responsive.css">
         <style>
         .content_description table {
             border-collapse: collapse;
@@ -108,8 +108,8 @@
                                 <!-- logo -->
                                 <div class="logo">
                                     <a href="/">
-                                        <img class="hidden-xs" src="../images/Asset 2@2x-8.png">
-                                        <img class="hidden-sm hidden-md hidden-lg" src="../images/Asset 3@300x">
+                                        <img class="hidden-xs" src="../../images/Asset 2@2x-8.png">
+                                        <img class="hidden-sm hidden-md hidden-lg" src="../../images/Asset 3@300x">
                                     </a>
                                 </div>
                             </div>
@@ -143,7 +143,7 @@
                                     @auth('student')
                                     <li class="dropdown" style="list-style: none; padding-left: 5%;">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img width="30"
-                                                height="30" class="rounded-circle" src="../images/AM2A1021.JPG"></a>
+                                                height="30" class="rounded-circle" src="../../images/AM2A1021.JPG"></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="#">Profile</a></li>
                                             <li><a href="/my_learning">My Learning</a></li>
@@ -380,10 +380,10 @@
                                 $student_id = Auth::guard('student')->user()->id;
                                 $classroom = DB::table('classrooms')->where('course_id', $course->id)->where('student_id', $student_id)->first();
                                 
-                                $progresses = DB::table('progress')->where('classroom_id', $classroom->id)->get();
+                                $progresses = DB::table('progress')->where('classroom_id', $classroom->id)->where('is_passed', 1)->get();
                             ?>
 
-                            @if(($progresses->count() /$section->count() * 100 ) == 100 )
+                            @if( $sections->count() > 0 && ($progresses->count() /$sections->count() * 100 ) == 100 )
                             <!-- Final Exam Section-->
                             <section class="sectionRow">
                                 <h2 class="h6 text-uppercase fw-semi rowHeading">Final Exam
@@ -657,7 +657,7 @@
                 <aside class="aside container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-3 col">
-                            <div class="logo"><a href="home.html"><img src="../images/Asset 2@2x-8.png"
+                            <div class="logo"><a href="home.html"><img src="../../images/Asset 2@2x-8.png"
                                         alt="studyLMS"></a>
                             </div>
                             <p>California Training Institute (CTI) is a digital skills training institute that supports
@@ -671,7 +671,7 @@
                                 <li>
                                     <a href="course-single.html">
                                         <div class="alignleft">
-                                            <img src="../images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
+                                            <img src="../../images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
                                                 alt="image description">
                                         </div>
                                         <div class="description-wrap">
@@ -684,7 +684,7 @@
                                 <li>
                                     <a href="course-single.html">
                                         <div class="alignleft">
-                                            <img src="../images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
+                                            <img src="../../images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
                                                 alt="image description">
                                         </div>
                                         <div class="description-wrap">
@@ -697,7 +697,7 @@
                                 <li>
                                     <a href="course-single.html">
                                         <div class="alignleft">
-                                            <img src="../images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
+                                            <img src="../../images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
                                                 alt="image description">
                                         </div>
                                         <div class="description-wrap">
@@ -766,7 +766,7 @@
             <span id="back-top" class="text-center fa fa-caret-up"></span>
             <!-- loader of the page -->
             <div id="loader" class="loader-holder">
-                <div class="block"><img src="../images/svg/hearts.svg" width="100" alt="loader"></div>
+                <div class="block"><img src="../../images/svg/hearts.svg" width="100" alt="loader"></div>
             </div>
         </div>
         <div class="popup-holder">
@@ -815,13 +815,13 @@
             </div>
         </div>
         <!-- include jQuery -->
-        <script src="../js/jquery.js"></script>
+        <script src="../../js/jquery.js"></script>
         <!-- include jQuery -->
-        <script src="../js/plugins.js"></script>
+        <script src="../../js/plugins.js"></script>
         <!-- include jQuery -->
-        <script src="../js/jquery.main.js"></script>
+        <script src="../../js/jquery.main.js"></script>
         <!-- include jQuery -->
-        <script type="text/javascript" src="../js/init.js"></script>
+        <script type="text/javascript" src="../../js/init.js"></script>
     </body>
 
 </html>

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('classroom_id');
             $table->integer('section_id');
             $table->string('score');
+            $table->integer('is_passed')->default(0);
             $table->timestamps();
         });
     }

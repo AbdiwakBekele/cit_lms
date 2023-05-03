@@ -202,7 +202,7 @@
                                                 alt="image description" style="object-fit: cover; height: 150px ">
                                         </div>
                                         <h3 class="post-heading">
-                                            <a href="/my_course_single/{{$course->id}}">{{$course->course_name}}
+                                            <a href="/my_course_single/{{$course->id}}/{{$classroom->id}}">{{$course->course_name}}
                                                 ({{$batch->shift}})</a>
                                         </h3>
 

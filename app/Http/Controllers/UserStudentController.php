@@ -70,13 +70,25 @@ class UserStudentController extends Controller{
         return view('user_student.course_single', compact('course', 'user', 'course_category', 'course_categories', 'sections'));
     }
 
-    public function myCourseSingle(string $id){
-        $course = Course::find($id);
-        $sections = Section::where('course_id', $course->id)->get();
+    public function myCourseSingle(string $course_id, string $classroom_id){
+
+         $course = Course::find($course_id);
         $user = User::find($course->user_id);
         $course_category = CourseCategory::find($course->course_category_id);
         $course_categories = CourseCategory::all();
+
+        $sectionCount = Section::whereHas('progress', function($query) use ($classroom_id) {
+                    $query->where('classroom_id', $classroom_id)
+                        ->where('is_passed', 1);
+                    })->count();
+                    
+        $sections = Section::where('course_id', $course_id)
+            ->where('sequence', '<=', $sectionCount + 1)
+            ->get();
+
         return view('user_student.my_course_single', compact('course', 'user', 'course_category', 'course_categories', 'sections'));
+
+
     }
 
     public function enrollCourse(string $id){
@@ -188,17 +200,26 @@ class UserStudentController extends Controller{
         
         if ($validator->fails()) {
             // Validation failed
-            // $errors = $validator->errors();
+            
+            $progress = Progress::where('classroom_id', $classroom->id)
+                    ->where('section_id', $section_id)
+                    ->first();
+
+            $progress->score = $correct_score;
+            $progress->is_passed = ($correct_score / count($answers) >= 0.5) ? 1 : 0;
+            $progress->save();
 
             return view('quiz.quizResult', compact('correct_score', 'course_id'))
                  ->with('success','You have successfully Submitted your result');
 
         }else{
             // Validation succeeded
+
             $progress = new Progress([
                 'classroom_id'=> $classroom->id,
                 'section_id'=> $section_id, 
-                'score'=>$correct_score
+                'score'=>$correct_score,
+                'is_passed'=> ($correct_score / count($answers) >= 0.5) ? 1 : 0
             ]);
             $progress->save();
 

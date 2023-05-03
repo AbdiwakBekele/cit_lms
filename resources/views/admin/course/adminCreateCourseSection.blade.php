@@ -37,7 +37,17 @@
                     @enderror
                 </div>
 
-                <!-- Course Desciption -->
+                <!-- Section Date -->
+                <div class="mb-3 mt-3">
+                    <label for="duration" class="form-label">Section Duration (Days)</label>
+                    <input type="number" class="form-control" id="duration" placeholder="Enter Section Duration"
+                        name="duration">
+                    @error('duration')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Section Desciption -->
                 <div class="mb-3 mt-3">
                     <label for="description" class="form-label">Section Description</label>
                     <textarea class="form-control" name="description" id="description" cols="30" rows="15"

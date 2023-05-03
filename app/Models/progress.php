@@ -11,6 +11,7 @@ class progress extends Model
     protected $fillable = [
         'classroom_id',
         'section_id',
-        'score'
+        'score',
+        'is_passed'
     ];
 }

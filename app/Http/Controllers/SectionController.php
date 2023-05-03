@@ -24,8 +24,7 @@ class SectionController extends Controller
     public function create(){
 
     }
-
-
+    
     /**
      * Store a newly created resource in storage.
      */
@@ -33,11 +32,13 @@ class SectionController extends Controller
         $this->validate( $request, [
             'course_id'=>'required',
             'section_name' => 'required|unique:sections,section_name,NULL,id,course_id,'.$request->course_id,
+            'duration'=>'required',
             'description'=>'required'
         ]);
 
         $course_id =  $request->course_id;
         $section_name =  $request->section_name;
+        $duration = $request->duration;
         $section_sequence = Course::find($course_id)->sections()->count() + 1;
         $section_description =  $request->description;
 
@@ -45,12 +46,12 @@ class SectionController extends Controller
             'course_id'=> $course_id,
             'section_name'=> $section_name, 
             'sequence'=>$section_sequence,
+            'duration'=>$duration,
             'section_description'=>$section_description]);
 
         $section->save();
 
         if (!empty($section->id)) {
-        
             return back()
              ->with('success','You have successfully created a new Section.');
         }else{
