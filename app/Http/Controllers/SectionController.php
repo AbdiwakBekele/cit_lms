@@ -38,11 +38,13 @@ class SectionController extends Controller
 
         $course_id =  $request->course_id;
         $section_name =  $request->section_name;
+        $section_sequence = Course::find($course_id)->sections()->count() + 1;
         $section_description =  $request->description;
 
         $section = new Section([
             'course_id'=> $course_id,
             'section_name'=> $section_name, 
+            'sequence'=>$section_sequence,
             'section_description'=>$section_description]);
 
         $section->save();

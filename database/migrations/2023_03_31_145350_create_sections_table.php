@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('course_id');
             $table->string('section_name');
+            $table->integer('sequence');
             $table->text('section_description');
             $table->timestamps();
         });

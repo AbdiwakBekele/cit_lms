@@ -32,7 +32,7 @@
         </li>
 
         <!-- Course Management -->
-        <li class="{{ Request::is('course*') ? 'mm-active' : ''}} ">
+        <li class="{{ (Request::is('course*') && !Request::routeIs('courseCategory.*')) ? 'mm-active' : ''}} ">
             <a href="/course">
                 <div class="parent-icon"><i class='bx bx-book-content'></i>
                 </div>

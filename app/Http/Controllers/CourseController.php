@@ -28,13 +28,12 @@ class CourseController extends Controller
      */
     public function create(){
         $categories = CourseCategory::all();
-        $role = Role::where('role_name', 'Teacher Coordinator')->first();
-        if($role){
-            $coordinators = User::where('role_id', $role->id)->get();
-        }else{
+        try{
+            $coordinators = User::role('Coordinator')->get();
+        }catch(\Spatie\Permission\Exceptions\RoleDoesNotExist $e){
             $coordinators = [];
         }
-        
+    
         return view('admin.course.adminAddCourse', compact('categories', 'coordinators'));
     }
 

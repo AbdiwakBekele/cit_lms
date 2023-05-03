@@ -91,7 +91,7 @@
                             <div class="card-body">
                                 <p><strong>Description</strong></p>
                                 <p>
-                                    {{$content->content_description}}
+                                    {!! $content->content_description !!}
                                 </p>
                                 <hr>
                                 <p><strong>Resources</strong>

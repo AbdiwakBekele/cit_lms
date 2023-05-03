@@ -59,8 +59,6 @@ class UserStudentController extends Controller{
             $popular_courses = $top_courses->orderBy('classrooms_count', 'desc')->get();
             return view('user_student.course_list', compact('courses', 'course_categories', 'popular_courses'));
         }
-
-        
     }
 
     public function courseSingle(string $id){
@@ -113,7 +111,7 @@ class UserStudentController extends Controller{
 
         $classroom->save();
 
-        if (!empty($classroom->id)) {
+        if(!empty($classroom->id)){
             // Model has been successfully inserted
             return back()
              ->with('success','You have successfully Registered for this batch, Please wait for the approval to start the class');
@@ -121,7 +119,6 @@ class UserStudentController extends Controller{
             return back()
             ->with('error','Error registering for this batch');
         }
-
     }
 
     public function myLearning(){
@@ -144,7 +141,6 @@ class UserStudentController extends Controller{
         }else if($count == 0) {
             return back()
             ->with('error','Sorry! No Quiz Question Available');
-            
         }else{
             $questions = Quiz::where('section_id', $section_id)->get();
             // return view('quiz.quiz', compact('questions'));
@@ -197,14 +193,13 @@ class UserStudentController extends Controller{
             return view('quiz.quizResult', compact('correct_score', 'course_id'))
                  ->with('success','You have successfully Submitted your result');
 
-        } else {
+        }else{
             // Validation succeeded
             $progress = new Progress([
                 'classroom_id'=> $classroom->id,
                 'section_id'=> $section_id, 
                 'score'=>$correct_score
             ]);
-            
             $progress->save();
 
             if (!empty($progress->id)) {
@@ -215,9 +210,7 @@ class UserStudentController extends Controller{
                 return view('quiz.quizResult')
                 ->with('error','Error Submitting your result');
             }
-
         }
-       
     }
 
     // Final 

@@ -285,7 +285,7 @@
                                             <div class="panel-body">
                                                 <p><strong>Description</strong></p>
                                                 <p>
-                                                    {{$content->content_description}}
+                                                    {!! $content->content_description !!}
                                                 </p>
                                                 <hr>
                                             </div>
