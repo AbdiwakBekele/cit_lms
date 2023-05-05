@@ -183,11 +183,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="logo_area ms-5">
-                                <a href="index.html">
-                                    <img src="/images/logo.png" style="width: 30%;" alt="image_not_found">
+                                <a href="#">
+                                    <img src="{{ asset('assets/admin/images/wAsset 3@300x.png') }}" class="logo-icon"
+                                        alt="logo icon" width="100px">
                                 </a>
                             </div>
                         </div>
+
                         <div class="col-md-6 d-none d-md-block">
                             <div class="count_box overflow-hidden rounded-pill d-flex float-end me-4">
                                 <div class="count_clock ps-2">
@@ -267,13 +269,15 @@
                                         <button type="button"
                                             class="f_btn disable text-uppercase rounded-pill text-white" id="prevBtn"
                                             onclick="nextQuestion()"><span><i class="fas fa-arrow-left"></i></span> Last
-                                            Question</button>
+                                            Question
+                                        </button>
+
                                         <button type="button"
                                             class="f_btn active text-uppercase rounded-pill text-white" id="nextBtn"
-                                            onclick="nextQuestion(0)"> Next Question <i
-                                                class="fas fa-arrow-right"></i></button>
-                                    </div>
+                                            onclick="nextQuestion(0)"> Next Question <i class="fas fa-arrow-right"></i>
+                                        </button>
 
+                                    </div>
                                 </div>
                                 @endforeach
                             </div>
@@ -281,7 +285,6 @@
                         </div>
 
                     </div>
-
                 </form>
             </div>
 
@@ -303,22 +306,26 @@
             var currentTab = 0; // Current tab is set to be the first tab (0)
             showTab(currentTab); // Display the current tab
 
+
             function showTab(n) {
                 // This function will display the specified tab of the form ...
                 var x = document.getElementsByClassName("question");
                 x[n].style.display = "block";
                 // ... and fix the Previous/Next buttons:
+
                 if (n == 0) {
                     document.getElementById("prevBtn").style.display = "none";
                 } else {
                     document.getElementById("prevBtn").style.display = "inline";
                 }
+
                 if (n == (x.length - 1)) {
                     document.getElementById("nextBtn").innerHTML = "Submit";
                 } else {
                     document.getElementById("nextBtn").innerHTML = "Next Question" +
                         ' <span><i class="fas fa-arrow-right"></i></span>';
                 }
+
             }
             </script>
     </body>

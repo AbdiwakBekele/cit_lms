@@ -60,7 +60,6 @@ $(function() {
 	  
 	 
 // chart 2
-
  var ctx = document.getElementById("chart2").getContext('2d');
 
   var gradientStroke1 = ctx.createLinearGradient(0, 0, 0, 300);
@@ -83,7 +82,7 @@ $(function() {
       var myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: ["Jeans", "T-Shirts", "Shoes", "Lingerie"],
+          labels: ["On-progress", "Graduated", "Waitlist", "Registered"],
           datasets: [{
             backgroundColor: [
               gradientStroke1,

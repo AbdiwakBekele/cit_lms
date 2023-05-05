@@ -109,6 +109,18 @@
                     @enderror
                 </div>
 
+                <!-- Course Teaching Process -->
+                <div class="mb-3 mt-3">
+                    <label for="teaching_process" class="form-label">Course Teaching Process</label>
+
+                    <select class="form-control" name="teaching_process" id="teaching_process">
+                        <option value=""> Choose... </option>
+                        <option value="1">Based on student's own pace</option>
+                        <option value="1">Based on given timeline</option>
+                        <option value="1">Based on progress score</option>
+                    </select>
+                </div>
+
                 <!-- Assigned Teacher Coordinator -->
                 <div class="mb-3 mt-3">
                     <label for="assigned_coordinator" class="form-label">Assigned Coordinator

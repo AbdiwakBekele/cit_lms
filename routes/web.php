@@ -19,6 +19,7 @@ use App\Http\Controllers\UserAuthManager;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,13 @@ use App\Http\Controllers\QuizController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+use App\Models\Student;
+Route::get('/test_student', function () {
+    Student::factory()->times(10)->create();
+
+    return 'Student created successfully!';
+});
+
 
 Route::get('/', [UserStudentController::class, 'index']);
 
@@ -66,7 +74,6 @@ Route::get('/student_logout', [StudentAuthManager::class, 'logout']);
 Route::get('/course_list', [UserStudentController::class, 'courseList']);
 
 Route::get('/course_single/{id}', [UserStudentController::class, 'courseSingle']);
-
 
 
 Route::group(['middleware' => ['student']], function () {
@@ -109,76 +116,69 @@ Route::get('/user_logout', [UserAuthManager::class, 'logout']);
 | Admin Entry - Left Menu                                         
 |------------------------------------------------------------------------*/
 
-Route::group(['middleware'=> ['auth', 'role:admin|teacher|coordinator']], function(){
+Route::group(['middleware'=> ['auth']], function(){
     // Route::post('/enroll_now', [UserStudentController::class, 'enrollNow']);
 
-    Route::get('/admin', function () {
-        return view('admin.adminDashboard');
+    Route::get('/admin', [AdminController::class, 'index']);
+
+    Route::resource('courseCategory', CourseCategoryController::class)->middleware('permission:manage category');
+
+    //-------------- Admin - Section -------------/
+    Route::group( ['middleware'=> ['permission:manage course']], function(){
+        Route::resource('course', CourseController::class);
+        Route::resource('section', SectionController::class);
+        Route::get('/course/create_section/{id}', [CourseController::class, 'createSection'] );
+
+    //-------------- Admin - Quiz -------------/
+        Route::resource('quiz', QuizController::class);
+        Route::get('/course/create_quiz/{course_id}/{section_id}', [QuizController::class, 'createQuiz']);
+
+        //-------------- Admin - Content -------------/
+
+        Route::resource('content', ContentController::class);
+        Route::get('/course/create_content/{id}', [ContentController::class, 'createContent'] );
+        Route::get('/course/create_resource/{course_id}/{content_id}', [ContentController::class, 'createResource'] );
+        Route::post('/course/store_resource', [ContentController::class, 'storeResource'] );
     });
 
-    Route::get('/adminTeacherAndCoordinator', function(){
-        return view('admin.teacher.adminTeacherAndCoordinator');
+
+    Route::group( ['middleware'=>['permission:manage users']], function(){
+
+        Route::resource('user', UserController::class);
+        Route::post('/user/assign_role', [UserController::class, 'assignRole']);
+        Route::get('/user/{user_id}/revoke_role/{role_id}', [UserController::class, 'revokeRole']);
+
+        Route::post('/user/assign_permission', [UserController::class, 'assignPermission']);
+        Route::get('/user/{user_id}/revoke_permission/{permission_id}', [UserController::class, 'revokePermission']);
+
+    } );
+
+    Route::group(['middleware'=>['permission:manage roles']], function(){
+        Route::resource('role', RoleController::class);
+        Route::post('/role/{role_id}/permission', [RoleController::class, 'assignPermission']);
+        Route::get('/role/{role_id}/revoke_permission/{permission_id}', [RoleController::class, 'revokePermission']);
     });
 
-    Route::get('/registrarAndReception', function(){
-        return view('admin.registrar.registrarAndReception');
+    Route::group(['middleware'=>['permission:manage permissions']], function(){
+        Route::resource('permission', PermissionController::class);
+        Route::post('/permission/{permission_id}/role', [PermissionController::class, 'assignRole']);
+        Route::get('/permission/{permission_id}/revoke_permission/{role_id}', [PermissionController::class, 'revokePermission']);
     });
-
-    Route::resource('courseCategory', CourseCategoryController::class)->middleware('permission:manage course');
-
-    Route::resource('course', CourseController::class)->middleware('permission:manage course');
-
-    Route::resource('user', UserController::class);
-    Route::post('/user/assign_role', [UserController::class, 'assignRole']);
-    Route::get('/user/{user_id}/revoke_role/{role_id}', [UserController::class, 'revokeRole']);
-
-    Route::post('/user/assign_permission', [UserController::class, 'assignPermission']);
-    Route::get('/user/{user_id}/revoke_permission/{permission_id}', [UserController::class, 'revokePermission']);
-
-    Route::resource('role', RoleController::class);
-    Route::post('/role/{role_id}/permission', [RoleController::class, 'assignPermission']);
-    Route::get('/role/{role_id}/revoke_permission/{permission_id}', [RoleController::class, 'revokePermission']);
-
-    Route::resource('permission', PermissionController::class);
-    Route::post('/permission/{permission_id}/role', [PermissionController::class, 'assignRole']);
-    Route::get('/permission/{permission_id}/revoke_permission/{role_id}', [PermissionController::class, 'revokePermission']);
-
-    Route::resource('student', StudentController::class);
+    
+    Route::resource('student', StudentController::class)->middleware('permission:manage students');
 
     //-------------- Admin - Batch -------------/
 
-    Route::resource('batch', BatchController::class);
+    Route::group( ['middleware'=> ['permission:manage batch']], function(){
+        Route::resource('batch', BatchController::class);
+        Route::get('/approve_student/{id}', [BatchController::class, 'approveStudent']);
+        Route::get('/disapprove_student/{id}', [BatchController::class, 'disapproveStudent']);
+    });
 
-    Route::get('/approve_student/{id}', [BatchController::class, 'approveStudent']);
-
-    Route::get('/disapprove_student/{id}', [BatchController::class, 'disapproveStudent']);
-
-    //-------------- Admin - Section -------------/
-
-    Route::resource('section', SectionController::class);
-
-    Route::get('/course/create_section/{id}', [CourseController::class, 'createSection'] );
-
-    //-------------- Admin - Quiz -------------/
-
-    Route::resource('quiz', QuizController::class);
-
-    Route::get('/course/create_quiz/{course_id}/{section_id}', [QuizController::class, 'createQuiz']);
-
-    //-------------- Admin - Content -------------/
-
-    Route::resource('content', ContentController::class);
-
-    Route::get('/course/create_content/{id}', [ContentController::class, 'createContent'] );
-
-    Route::get('/course/create_resource/{course_id}/{content_id}', [ContentController::class, 'createResource'] );
-
-    Route::post('/course/store_resource', [ContentController::class, 'storeResource'] );
+    
 
     // Resource Management
-
     Route::resource('resource', ResourceController::class);
-
     Route::get('resource/{id}/download', [ResourceController::class, 'getDownload']);
 
 });

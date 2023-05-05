@@ -15,14 +15,16 @@ class StudentFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    
+    public function definition()
     {
         return [
-            'fullname' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'age'=> fake()->numberBetween(20,30),
-            'phone'=>fake()->phoneNumber(),
-            'address'=>fake()->word()
+            'fullname' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'age' => $this->faker->numberBetween(18, 40),
+            'address' => $this->faker->address(),
+            'phone' => $this->faker->phoneNumber(),
+            'password' => bcrypt('password'),
         ];
     }
 }

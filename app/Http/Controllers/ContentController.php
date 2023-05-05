@@ -84,7 +84,7 @@ class ContentController extends Controller
     public function store(Request $request){
         $this->validate( $request, [
             'section_id'=>'required',
-            'content_name'=>'required|unique:contents',
+            'content_name'=>'required',
             'description'=>'required'
         ]);
 

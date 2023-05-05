@@ -13,6 +13,7 @@
     <!--------- Side Menu ------->
     <ul class="metismenu" id="menu">
         <!-- Dashboard -->
+        @can('view dashboard')
         <li class="{{ Request::is('admin') ? 'mm-active' : ''}} ">
             <a href="/admin">
                 <div class="parent-icon"><i class='bx bx-home-alt'></i>
@@ -20,8 +21,9 @@
                 <div class="menu-title">Dashboard</div>
             </a>
         </li>
+        @endcan
 
-        @can('manage course')
+        @can('manage category')
         <!-- Course Category -->
         <li class="{{ Request::is('courseCategory*') ? 'mm-active' : ''}} ">
             <a href="/courseCategory">
@@ -30,7 +32,9 @@
                 <div class="menu-title">Course Category</div>
             </a>
         </li>
+        @endcan
 
+        @can('manage course')
         <!-- Course Management -->
         <li class="{{ (Request::is('course*') && !Request::routeIs('courseCategory.*')) ? 'mm-active' : ''}} ">
             <a href="/course">
@@ -41,6 +45,7 @@
         </li>
         @endcan
 
+        @can('manage resource')
         <!-- Resource Managment -->
         <li class="{{ Request::is('resource*') ? 'mm-active' : ''}} ">
             <a href="/resource">
@@ -49,7 +54,9 @@
                 <div class="menu-title">Resourse Management</div>
             </a>
         </li>
+        @endcan
 
+        @can('manage batch')
         <!-- Batch Management -->
         <li class="{{ Request::is('batch*') ? 'mm-active' : ''}} ">
             <a href="/batch">
@@ -58,6 +65,9 @@
                 <div class="menu-title">Batch Management</div>
             </a>
         </li>
+        @endcan
+
+        @can('manage students')
         <!-- Student Managment -->
         <li class="{{ Request::is('student*') ? 'mm-active' : ''}} ">
             <a href="/student">
@@ -66,7 +76,9 @@
                 <div class="menu-title">Student Management</div>
             </a>
         </li>
+        @endcan
 
+        @can('manage users')
         <!-- User Managment -->
         <li class="{{ Request::is('user*') ? 'mm-active' : ''}} ">
             <a href="/user">
@@ -75,7 +87,9 @@
                 <div class="menu-title">User Management</div>
             </a>
         </li>
+        @endcan
 
+        @canany(['manage roles', 'manage permissions'])
         <!-- Role Managment -->
         <li class="{{ Request::is('role*') || Request::is('permission*')  ? 'mm-active' : ''}} ">
             <a href="/role">
@@ -84,7 +98,9 @@
                 <div class="menu-title">Role | Permission</div>
             </a>
         </li>
+        @endcanany
 
+        @can('manage events')
         <!-- Event -->
         <li class="{{ Request::is('event*') ? 'mm-active' : ''}} ">
             <a href="/event">
@@ -93,7 +109,9 @@
                 <div class="menu-title">Event Management</div>
             </a>
         </li>
+        @endcan
 
+        @can('view report')
         <!-- Report -->
         <li class="{{ Request::is('report*') ? 'mm-active' : ''}} ">
             <a href="/report">
@@ -102,6 +120,7 @@
                 <div class="menu-title">Report</div>
             </a>
         </li>
+        @endcan
     </ul>
 
 </div>

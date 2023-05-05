@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <!-- set the encoding of your site -->
         <meta charset="utf-8">
@@ -30,6 +31,7 @@
         <!-- include the site responsive stylesheet -->
         <link rel="stylesheet" href="css/responsive.css">
     </head>
+
     <body>
         <!-- main container of all the page elements -->
         <div id="wrapper">
@@ -44,7 +46,7 @@
                                 <ul class="font-lato list-unstyled bar-links">
                                     <li>
                                         <a href="tel:+251929737373">
-                                            
+
                                             <strong class="dt element-block text-capitalize hd-phone text-white">Call
                                                 :</strong>
                                             <strong class="dd element-block hd-phone text-white">+251 929
@@ -89,9 +91,8 @@
                                 <!-- logo -->
                                 <div class="logo">
                                     <a href="/">
-                                        <img class="hidden-xs" src="images/Asset 2@2x-8.png" >
-                                        <img class="hidden-sm hidden-md hidden-lg" src="images/Asset 3@300x"
-                                            >
+                                        <img class="hidden-xs" src="images/Asset 2@2x-8.png">
+                                        <img class="hidden-sm hidden-md hidden-lg" src="images/Asset 3@300x">
                                     </a>
                                 </div>
                             </div>
@@ -110,8 +111,9 @@
                                     <!-- navbar collapse -->
                                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                         <!-- main navigation -->
-                                        <ul class="nav navbar-nav navbar-right main-navigation font-poppins text-uppercase"  >
-                                            <li class="grow" ><a href="/" style="font-size: 1.2em;">Home</a></li>
+                                        <ul
+                                            class="nav navbar-nav navbar-right main-navigation font-poppins text-uppercase">
+                                            <li class="grow"><a href="/" style="font-size: 1.2em;">Home</a></li>
                                             <li><a href="/about" style="font-size: 1.2em;">About us</a></li>
                                             <li><a href="/course_list" style="font-size: 1.2em;">Courses</a></li>
                                             <li><a href="/events" style="font-size: 1.2em;">Events</a></li>
@@ -119,7 +121,7 @@
                                             <li><a href="/contact" style="font-size: 1.2em;">Contact</a></li>
                                         </ul>
                                     </div>
-                                    
+
                                     <!-- Profile Pic | Dropdown -->
                                     @auth('student')
                                     <li class="dropdown" style="list-style: none; padding-left: 5%;">
@@ -158,7 +160,7 @@
                                             <h1 class="intro-block-heading">Education &amp; Training Organization</h1>
                                         </div>
                                         <div class="anim delay1">
-                                            
+
                                             <p>We offer the most complete course pakage in the country, for the
                                                 research, design and development of Education.</p>
                                         </div>
@@ -277,18 +279,20 @@
                                     </div>
                                     <div>
                                         <strong
-                                            class="bg-primary text-white font-lato text-uppercase price-tag">$99.00</strong>
+                                            class="bg-primary text-white font-lato text-uppercase price-tag">{{$course->course_price}}
+                                            ETB</strong>
                                     </div>
                                     <h3 class="post-heading"><a href="/course_single/{{$course->id}}">
                                             {{$course->course_name}} </a>
                                     </h3>
-                                    <div class="post-author">
+                                    <!-- Instructor -->
+                                    <!-- <div class="post-author">
                                         <div class="alignleft rounded-circle no-shrink">
                                             <a href="instructor-single.html"><img src="images/AM2A1021.JPG"
                                                     class="rounded-circle" alt="image description"></a>
                                         </div>
                                         <h4 class="author-heading"><a href="instructor-single.html">Mr X</a></h4>
-                                    </div>
+                                    </div> -->
                                     <footer class="post-foot gutter-reset">
                                         <ul class="list-unstyled post-statuses-list">
                                             <li>
@@ -327,32 +331,32 @@
                     </div>
                 </section>
                 <!-- counter aside -->
-                <aside class="bg-cover counter-aside"
-                    style="background-image: url('images/learning-2021-08-26-18-11-39-utc.jpg');">
+                <aside class="bg-cover counter-aside bg-primary"
+                    style="background-image: url('../images/learning-2021-08-26-18-11-39-utc.jpg');">
                     <div class="container align-wrap">
                         <div class="align">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-3 col">
                                     <h2 class="counter-aside-heading">
-                                        <strong class="countdown element-block">150</strong>
-                                        <strong class="text element-block">COUNTRIES REACHED</strong>
+                                        <strong class="countdown element-block">19</strong>
+                                        <strong class="text element-block">COURSE CATEGORIES</strong>
                                     </h2>
                                 </div>
                                 <div class="col-xs-12 col-sm-3 col">
                                     <h2 class="counter-aside-heading">
-                                        <strong class="countdown element-block">28000</strong>
+                                        <strong class="countdown element-block">180</strong>
                                         <strong class="text element-block">PASSED GRADUATES</strong>
                                     </h2>
                                 </div>
                                 <div class="col-xs-12 col-sm-3 col">
                                     <h2 class="counter-aside-heading">
-                                        <strong class="countdown element-block">750</strong>
+                                        <strong class="countdown element-block">25</strong>
                                         <strong class="text element-block">QUALIFIED STAFF</strong>
                                     </h2>
                                 </div>
                                 <div class="col-xs-12 col-sm-3 col">
                                     <h2 class="counter-aside-heading">
-                                        <strong class="countdown element-block">1200</strong>
+                                        <strong class="countdown element-block">37</strong>
                                         <strong class="text element-block">COURSES PUBLISHED</strong>
                                     </h2>
                                 </div>
@@ -535,31 +539,14 @@
                 </aside>
                 <!-- getstarted block -->
                 <article class="container getstarted-block">
-                    <div class="row">
-                        <div class="col-xs-12 col-md-8 col">
-                            <div class="alignleft">
-                                <img src="images/local-search-2022-10-26-06-14-25-utc.jpg" alt="image description">
-                            </div>
-                            <div class="description-wrap">
-                                <h2><span class="element-block">Get the coaching training</span><span
-                                        class="fw-light ttn element-block">1000s of online courses for free</span></h2>
-                                <p>Hurry Up!!;</p>
-                                <a href="#" class="btn btn-default text-uppercase">view details</a>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-4 col text-center">
-                            <div class="limit-counter">
-                                <strong class="title element-block fw-normal">It’s limited seating! Hurry up</strong>
-                                <div id="defaultCountdown" class="comming-timer"></div>
-                            </div>
-                        </div>
-                    </div>
+
                     <!-- getstarted bar -->
                     <aside class="getstarted-bar bg-gray text-center">
                         <strong class="h h4 element-block">CREATE AN ACCOUNT TO GET STARTED</strong>
                         <a href="#" class="btn btn-theme btn-warning text-uppercase no-shrink">Signin Now</a>
                     </aside>
                 </article>
+
                 <!-- testimonials block -->
                 <section class="testimonials-block text-center bg-gray"
                     style="background-image: url(images/bg-pattern01.png);">
@@ -638,6 +625,7 @@
                         </div>
                     </div>
                 </section>
+
                 <!-- news block -->
                 <section class="news-block container">
                     <header class="seperator-head text-center">
@@ -693,6 +681,7 @@
                         </div>
                     </div>
                 </section>
+
                 <!-- subscription aside block -->
                 <aside class="subscription-aside-block bg-theme text-white">
                     <!-- newsletter sub form -->
@@ -720,7 +709,9 @@
                         </div>
                     </form>
                 </aside>
+
             </main>
+
             <!-- footer area container -->
             <div class="footer-area bg-dark text-gray">
                 <!-- aside -->
