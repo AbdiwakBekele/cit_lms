@@ -5,19 +5,19 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <title>Student Registration</title>
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href=" {{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&amp;display=swap">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-        <link rel="stylesheet" href="../assets/css/styles.min.css">
+        <link rel="stylesheet" href=" {{ asset('assets/css/styles.min.css') }} ">
     </head>
 
     <body>
         <div class="container-fluid" style="padding-right: 0px;padding-left: 0px;">
             <div class="row" style="margin-right: 0px;margin-left: 0px;overflow: hidden;">
                 <div class="col-md-6" style="padding-right: 0px;padding-left: 0px;">
-                    <div class="p-5"><img width="208" height="60" src="../images/logo-11 1.png">
+                    <div class="p-5"><img width="208" height="60" src="{{ asset('images/logo-11 1.png') }}">
                         <div class="text-center">
                             <h4 class="text-dark"
                                 style="color: #151b3d;font-weight: bold;margin-bottom: 0px;margin-left: 0px;font-size: 43.2px;">
@@ -80,7 +80,7 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://geodata.solutions/includes/countrystate.js"></script>
-        <script src="../assets/js/script.min.js"></script>
+        <script src="{{ asset('assets/js/script.min.js') }}"></script>
     </body>
 
 </html>

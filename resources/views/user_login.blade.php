@@ -65,8 +65,6 @@
                             <hr>
                             <a class="btn btn-primary d-block btn-user w-100 bg-warning text-dark"
                                 href="/user_register">Register</a>
-
-
                         </form>
 
                     </div>

@@ -4,32 +4,21 @@
     <head>
         <!-- set the encoding of your site -->
         <meta charset="utf-8">
-        <!-- set the viewport width and initial-scale on mobile devices -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- set the HandheldFriendly -->
         <meta name="HandheldFriendly" content="True">
-        <!-- set the description -->
         <meta name="description" content="CTI LMS">
-        <!-- set the Keyword -->
         <meta name="keywords" content="">
         <meta name="author" content="CTI LMS">
-        <!-- set the page title -->
         <title>California Training Institute LMS</title>
-        <!-- include google roboto font cdn link -->
-        <link rel="shortcut icon" href="images/wAsset 3@300x.png" type="image/x-icon">
+        <link rel="shortcut icon" href="{{ asset('images/wAsset 3@300x.png') }} " type="image/x-icon">
         <link
             href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i"
             rel="stylesheet">
-        <!-- include the site bootstrap stylesheet -->
-        <link rel="stylesheet" href="css/bootstrap.css">
-        <!-- include the site stylesheet -->
-        <link rel="stylesheet" href="css/plugins.css">
-        <!-- include the site stylesheet -->
-        <link rel="stylesheet" href="css/colors.css">
-        <!-- include the site stylesheet -->
-        <link rel="stylesheet" href="style.css">
-        <!-- include the site responsive stylesheet -->
-        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }} ">
+        <link rel="stylesheet" href=" {{ asset('css/plugins.css') }} ">
+        <link rel="stylesheet" href=" {{ asset('css/colors.css') }} ">
+        <link rel="stylesheet" href=" {{ asset('style.css') }} ">
+        <link rel="stylesheet" href=" {{ asset('css/responsive.css') }} ">
     </head>
 
     <body>
@@ -145,6 +134,7 @@
                     </div>
                 </div>
             </header>
+
             <!-- contain main informative part of the site -->
             <main id="main">
                 <!-- intro block -->
@@ -681,35 +671,6 @@
                         </div>
                     </div>
                 </section>
-
-                <!-- subscription aside block -->
-                <aside class="subscription-aside-block bg-theme text-white">
-                    <!-- newsletter sub form -->
-                    <form action="#" class="container newsletter-sub-form">
-                        <div class="row form-holder">
-                            <div class="col-xs-12 col-sm-6 col">
-                                <div class="text-wrap">
-                                    <span class="element-block icn no-shrink rounded-circle"><i
-                                            class="far fa-envelope-open"><span class="sr-only">icn</span></i></span>
-                                    <div class="inner-wrap">
-                                        <label for="email">Signup for Newsletter</label>
-                                        <p>Subscribe now and receive weekly newsletter with new updates.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col">
-                                <div class="input-group">
-                                    <input type="email" id="email" class="form-control"
-                                        placeholder="Enter your email&hellip;">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-dark text-uppercase" type="button">Submit</button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </aside>
-
             </main>
 
             <!-- footer area container -->
@@ -831,13 +792,10 @@
         </div>
 
         <!-- include jQuery -->
-        <script src="js/jquery.js"></script>
-        <!-- include jQuery -->
-        <script src="js/plugins.js"></script>
-        <!-- include jQuery -->
-        <script src="js/jquery.main.js"></script>
-        <!-- include jQuery -->
-        <script type="text/javascript" src="js/init.js"></script>
+        <script src=" {{ asset('js/jquery.js') }} "></script>
+        <script src=" {{ asset('js/plugins.js') }} "></script>
+        <script src=" {{ asset('js/jquery.main.js') }} "></script>
+        <script type="text/javascript" src=" {{ asset('js/init.js') }} "></script>
     </body>
 
 </html>

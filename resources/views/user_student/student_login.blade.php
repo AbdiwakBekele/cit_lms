@@ -5,12 +5,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <title> Student Login </title>
-        <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href=" {{ asset('assets/bootstrap/css/bootstrap.min.css') }} ">
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&amp;display=swap">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-        <link rel="stylesheet" href="../assets/css/styles.min.css">
+        <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}">
     </head>
 
     <body>
@@ -19,7 +19,7 @@
                 <div class="col-md-6" style="padding-right: 0px;padding-left: 0px;">
                     <div class="p-5">
                         <a href="/">
-                            <img width="182" height="68" src="../assets/img/logo11-1@2x.png">
+                            <img width="182" height="68" src="{{ asset('assets/img/logo11-1@2x.png') }}">
                         </a>
                         <div class="text-center">
                             <h4 class="text-dark mb-4" style="color: #151b3d;font-weight: bold;">Welcome Back!</h4>
@@ -32,8 +32,9 @@
                         <form action="/student_login" method="post" class="user">
                             {{ csrf_field() }}
                             <a class="btn btn-primary d-block btn-google btn-user w-100 mb-2" role="button"
-                                style="background: #ffffff;box-shadow: 0px 0px 9px 0px;color: #000000;border-top-color: #ffffff;border-right-style: none;border-right-color: #ffffff;border-bottom-color: #ffffff;border-left-color: #ffffff;"><i
-                                    class="fab fa-google"></i>&nbsp; Login with Google</a>
+                                style="background: #ffffff;box-shadow: 0px 0px 9px 0px;color: #000000;border-top-color: #ffffff;border-right-style: none;border-right-color: #ffffff;border-bottom-color: #ffffff;border-left-color: #ffffff;">
+                                <i class="fab fa-google"></i> &nbsp; Login with Google
+                            </a>
                             <div class="mb-3">
                                 <p class="text-start" style="width: 539px;text-align: center;">Or Login with</p>
                                 <input class="form-control form-control-user" type="email" id="email"
@@ -61,7 +62,7 @@
                             </div>
                             <button class="btn btn-primary d-block btn-user w-100" type="submit"
                                 style="background: #151B3D;">Login</button>
-                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            <a class="small" href="#">Forgot Password?</a>
                             <hr>
                         </form>
                         <div class="text-center"></div>
@@ -71,14 +72,14 @@
                 <div class="col-md-6 col-xl-6 col-xxl-6"
                     style="background: #FFB600;min-height: 100vh;padding: 0px 0px 0px 0px;padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;margin: 0px 0px 0px 0px;">
 
-                    <img width="392" height="337" src="../assets/img/image%2028.png"
+                    <img width="392" height="337" src="{{ asset('assets/img/image%2028.png') }} "
                         style="padding-top: 40px;margin-top: 96px;">
                 </div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://geodata.solutions/includes/countrystate.js"></script>
-        <script src="../assets/js/script.min.js"></script>
+        <script src=" {{ asset('assets/js/script.min.js') }} "></script>
     </body>
 
 </html>

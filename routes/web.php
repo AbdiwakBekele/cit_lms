@@ -32,11 +32,11 @@ use App\Http\Controllers\AdminController;
 |
 */
 use App\Models\Student;
-Route::get('/test_student', function () {
-    Student::factory()->times(10)->create();
 
-    return 'Student created successfully!';
-});
+// Route::get('/test_student', function () {
+//     Student::factory()->times(10)->create();
+//     return 'Student created successfully!';
+// })
 
 
 Route::get('/', [UserStudentController::class, 'index']);
@@ -46,8 +46,6 @@ Route::get('/about', [UserStudentController::class, 'about']);
 Route::get('/events', [UserStudentController::class, 'events']);
 
 Route::get('/event_single', [UserStudentController::class, 'eventSingle']);
-
-Route::get('/instructors', [UserStudentController::class, 'instructors']);
 
 Route::get('/blog', [UserStudentController::class, 'blog']);
 
@@ -129,7 +127,7 @@ Route::group(['middleware'=> ['auth']], function(){
         Route::resource('section', SectionController::class);
         Route::get('/course/create_section/{id}', [CourseController::class, 'createSection'] );
 
-    //-------------- Admin - Quiz -------------/
+        //-------------- Admin - Quiz -------------/
         Route::resource('quiz', QuizController::class);
         Route::get('/course/create_quiz/{course_id}/{section_id}', [QuizController::class, 'createQuiz']);
 
