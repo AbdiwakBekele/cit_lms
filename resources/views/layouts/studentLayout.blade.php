@@ -46,7 +46,7 @@
             </main>
 
             <!-- footer area container -->
-            @include('include.studentFooter')
+            @include('include.studentFooter', ['footerCourses'=> $courses])
 
             <!-- back top of the page -->
             <span id="back-top" class="text-center fa fa-caret-up"></span>

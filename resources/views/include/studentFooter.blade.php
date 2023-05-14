@@ -9,6 +9,8 @@
                     Ethiopians to develop their digital skills through resources, tools, and technology.</p>
                 <a href="#" class="btn btn-default text-uppercase">Start Leaning Now</a>
             </div>
+
+
             <div class="col-xs-12 col-sm-6 col-md-3 col hidden-xs">
                 <h3>Popular Courses</h3>
                 <!-- widget cources list -->

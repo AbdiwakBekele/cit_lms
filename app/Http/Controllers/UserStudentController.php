@@ -24,7 +24,8 @@ class UserStudentController extends Controller{
     }
     
     function about(){
-        return view('about');
+        $courses = Course::all();
+        return view('about', compact('courses'));
     }
 
     function events(){

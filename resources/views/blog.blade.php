@@ -170,6 +170,7 @@
                     </li>
                 </ul>
             </section>
+
             <!-- widget categories -->
             <section class="widget widget_categories">
                 <h3>Categories</h3>
@@ -184,7 +185,6 @@
                 </ul>
             </section>
 
-
             <!-- widget tags -->
             <nav class="widget widget_tags">
                 <h3>Tags</h3>
@@ -197,6 +197,7 @@
                     <li><a href="#">Technology</a></li>
                 </ul>
             </nav>
+
             <!-- widget archives -->
             <section class="widget widget_archives">
                 <h3>Archives</h3>
