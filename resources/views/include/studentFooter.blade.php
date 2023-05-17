@@ -13,46 +13,29 @@
 
             <div class="col-xs-12 col-sm-6 col-md-3 col hidden-xs">
                 <h3>Popular Courses</h3>
+
                 <!-- widget cources list -->
                 <ul class="widget-cources-list list-unstyled">
-                    <li>
-                        <a href="course-single.html">
+                    @foreach($courses as $course)
+                    @if($loop->iteration <= 3) <li>
+                        <a href="/course_single/{{$course->id}}">
                             <div class="alignleft">
-                                <img src="images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
-                                    alt="image description">
+                                <img src="course_resources/{{$course->course_image}}" alt="image description"
+                                    style="object-fit: cover; height: 40px">
                             </div>
                             <div class="description-wrap">
-                                <h4>Introduction to Mobile Apps Development</h4>
+                                <h4>{{$course->course_name}}</h4>
                                 <strong
-                                    class="price text-primary element-block font-lato text-uppercase">$99.00</strong>
+                                    class="price text-primary element-block font-lato text-uppercase">{{$course->course_price}}
+                                    ETB</strong>
                             </div>
                         </a>
-                    </li>
-                    <li>
-                        <a href="course-single.html">
-                            <div class="alignleft">
-                                <img src="images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
-                                    alt="image description">
-                            </div>
-                            <div class="description-wrap">
-                                <h4>Become a Professional Film Maker</h4>
-                                <strong class="price text-success element-block font-lato text-uppercase">Free</strong>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="course-single.html">
-                            <div class="alignleft">
-                                <img src="images/online-shopping-website-2021-08-26-22-39-48-utc.jpg"
-                                    alt="image description">
-                            </div>
-                            <div class="description-wrap">
-                                <h4>Swift Programming For Beginners</h4>
-                                <strong
-                                    class="price text-primary element-block font-lato text-uppercase">$75.00</strong>
-                            </div>
-                        </a>
-                    </li>
+                        </li>
+                        @else
+                        @break
+                        @endif
+                        @endforeach
+
                 </ul>
             </div>
             <nav class="col-xs-12 col-sm-6 col-md-3 col">

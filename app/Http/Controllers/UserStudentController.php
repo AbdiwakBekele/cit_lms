@@ -29,23 +29,28 @@ class UserStudentController extends Controller{
     }
 
     function events(){
-        return view('events');
+        $courses = Course::all();
+        return view('events', compact('courses'));
     }
 
     function eventSingle(){
-        return view('eventSingle');
+        $courses = Course::all();
+        return view('eventSingle', compact('courses'));
     }
 
     function instructors(){
-        return view('instructors');
+        $courses = Course::all();
+        return view('instructors', compact('courses'));
     }
 
     function blog(){
-        return view('blog');
+        $courses = Course::all();
+        return view('blog', compact('courses'));
     }
     
     function contact(){
-        return view('contact');
+        $courses = Course::all();
+        return view('contact', compact('courses'));
     }
 
     function courseList(){
@@ -63,15 +68,17 @@ class UserStudentController extends Controller{
     }
 
     public function courseSingle(string $id){
+        $courses = Course::all();
         $course = Course::find($id);
         $sections = Section::where('course_id', $course->id)->get();
         $user = User::find($course->user_id);
         $course_category = CourseCategory::find($course->course_category_id);
         $course_categories = CourseCategory::all();
-        return view('user_student.course_single', compact('course', 'user', 'course_category', 'course_categories', 'sections'));
+        return view('user_student.course_single', compact('courses','course', 'user', 'course_category', 'course_categories', 'sections'));
     }
 
     public function myCourseSingle(string $course_id, string $classroom_id){
+        $courses = Course::all();
 
          $course = Course::find($course_id);
         $user = User::find($course->user_id);
@@ -87,7 +94,7 @@ class UserStudentController extends Controller{
             ->where('sequence', '<=', $sectionCount + 1)
             ->get();
 
-        return view('user_student.my_course_single', compact('course', 'user', 'course_category', 'course_categories', 'sections'));
+        return view('user_student.my_course_single', compact('courses','course', 'user', 'course_category', 'course_categories', 'sections'));
 
 
     }
@@ -95,12 +102,13 @@ class UserStudentController extends Controller{
     public function enrollCourse(string $id){
         //Checking User Auth
         if(Auth::guard('student')->check()){
+            $courses = Course::all();
             $course = Course::find($id);
             $user = User::find($course->user_id);
             $course_category = CourseCategory::find($course->course_category_id);
             $course_categories = CourseCategory::all();
             $batches = Batch::where('course_id', $course->id)->get();
-            return view('user_student.courseEnroll', compact('course', 'batches', 'user', 'course_category', 'course_categories'));
+            return view('user_student.courseEnroll', compact('courses', 'course', 'batches', 'user', 'course_category', 'course_categories'));
         }else{
             return view('user_student.student_login');
         }
@@ -136,10 +144,11 @@ class UserStudentController extends Controller{
 
     public function myLearning(){
         if(Auth::guard('student')->check()){
+            $courses = Course::all();
             $student_id = Auth::guard('student')->user()->id;
             $classrooms = Classroom::where('student_id', $student_id)->get();
             $course_categories = CourseCategory::all();
-            return view('user_student.mylearning', compact('classrooms', 'course_categories'));
+            return view('user_student.mylearning', compact('courses', 'classrooms', 'course_categories'));
         }
 
         return view('user_student.student_login');
