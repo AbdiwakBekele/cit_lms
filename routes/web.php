@@ -36,6 +36,8 @@ use App\Models\Student;
 //     return 'Student created successfully!';
 // })
 
+//This is Test Route
+
 
 Route::get('/', [UserStudentController::class, 'index']);
 
