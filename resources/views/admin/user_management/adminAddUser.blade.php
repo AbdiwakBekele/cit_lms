@@ -77,16 +77,25 @@
 
                     <!-- Assigned Role -->
                     <div class="mb-3 mt-3">
-                        <label for="assigned_role" class="form-label">Assigned Role</label>
+                        <label for="assigned_role" class="form-label">Assigned Role (Optional)</label>
                         <select class="form-control" name="assigned_role" id="assigned_role">
                             <option value=""> Choose... </option>
-                            <?php 
-                                        foreach($roles as $role){
-                                            echo "<option value='".$role->id."' >".$role->role_name."</option>";
-                                            }
-                                        ?>
+                            @foreach($roles as $role)
+                            <option value="{{$role->name}}">{{$role->name}}</option>
+                            @endforeach
+
                         </select>
                         @error('assigned_role')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3 mt-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter Password"
+                            name="password" required>
+                        @error('password')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

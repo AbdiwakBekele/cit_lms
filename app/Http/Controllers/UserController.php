@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -38,7 +39,7 @@ class UserController extends Controller
             'age'=>'required',
             'phone'=>'required',
             'address'=> 'required',
-            'assigned_role'=> 'required'
+            'password'=>'required'
         ]);
 
         $fullname = $request->fullname;
@@ -46,19 +47,28 @@ class UserController extends Controller
         $age = $request->age;
         $phone = $request->phone;
         $address = $request->address;
-        $role_id = $request->assigned_role;
+        // $role_id = $request->assigned_role;
+        $password = Hash::make($request->password);
 
-        $user = new User([ 'fullname'=>$fullname, 'email'=>$email, 'age'=>$age, 'phone'=>$phone, 'address'=>$address, 'password'=>'1234' ]);
-        $roles = Role::find($role_id);
-        $roles->role()->save($user);
+        $user = new User([ 'fullname'=>$fullname, 'email'=>$email, 'age'=>$age, 'phone'=>$phone, 'address'=>$address, 'password'=>$password ]);
+        
+        if(!empty($user->save())){
 
-        if(!empty($roles->id)){
-            return back()
-             ->with('success','You have successfully created a new user.');
+            if($request->has('assigned_role')){
+
+                $role = Role::findByName($request->assigned_role);
+                $user->assignRole($role);
+
+                return back()
+                ->with('success','You have successfully created a new user.');
+                   
+                }
+
         }else{
             return back()
              ->with('error','Error creating a new user');
         }
+        
     }
 
     /**

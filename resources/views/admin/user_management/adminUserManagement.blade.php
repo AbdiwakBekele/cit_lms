@@ -43,56 +43,62 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                                $index = 0;
-                                foreach($users as $user){
 
-                                    printf(
-                                    "<tr> <td>%d</td> <td>%s</td> <td>%s</td> <td>%s</td> ",
-                                    ++$index,
-                                    $user->fullname,
-                                    $user->email,
-                                    (!empty($role->role_name)) ? $role->role_name : "-"
-                                );
-                            ?>
-                            <td>
-                                <a href="/user/{{$user->id}}"><i class="fa fa-eye mx-1" style="font-size: 17px"
-                                        aria-hidden="true"></i></a>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#myModal{{$user->id}}"><i
-                                        class="fa fa-trash text-danger mx-1" style="font-size: 17px"
-                                        aria-hidden="true"></i></a>
 
-                                <!-- The Modal -->
-                                <div class="modal" id="myModal{{$user->id}}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
+                            @foreach($users as $user)
 
-                                            <!-- Modal body -->
-                                            <div class="modal-body my-4 text-center h5">
-                                                Are you sure?
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{ $user->fullname }}</td>
+                                <td>{{ $user->email }}</td>
+
+                                @php
+                                $roles = $user->getRoleNames();
+                                @endphp
+                                <td>
+                                    @foreach($roles as $role)
+                                    {{ $role }} |
+                                    @endforeach
+
+                                </td>
+
+
+                                <td>
+                                    <a href="/user/{{$user->id}}"><i class="fa fa-eye mx-1" style="font-size: 17px"
+                                            aria-hidden="true"></i></a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#myModal{{$user->id}}"><i
+                                            class="fa fa-trash text-danger mx-1" style="font-size: 17px"
+                                            aria-hidden="true"></i></a>
+
+                                    <!-- The Modal -->
+                                    <div class="modal" id="myModal{{$user->id}}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                                <!-- Modal body -->
+                                                <div class="modal-body my-4 text-center h5">
+                                                    Are you sure?
+                                                </div>
+
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer p-1">
+                                                    <form action="/user/{{$user->id}}" method="post">
+                                                        {{ csrf_field() }}
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                                    </form>
+                                                    <button type="button" class="btn btn-light"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                </div>
+
                                             </div>
-
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer p-1">
-                                                <form action="/user/{{$user->id}}" method="post">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="submit" class="btn btn-danger" value="Delete">
-                                                </form>
-                                                <button type="button" class="btn btn-light"
-                                                    data-bs-dismiss="modal">Close</button>
-                                            </div>
-
                                         </div>
                                     </div>
-                                </div>
 
-                            </td>
+                                </td>
                             </tr>
 
-                            <?php
-                                    }
-                                ?>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
