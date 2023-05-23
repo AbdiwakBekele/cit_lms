@@ -1,7 +1,7 @@
 #!/bin/bash
 
 HOST="ftp.californiatraininginstitute.com" # Replace with your cPanel FTP server hostname
-USERNAME="cti@californiatraininginstitute.com" # Replace with your cPanel FTP username
+USERNAME="cti@californiatraininginstitute.com" # Replace with your cPanel FTP_username
 PASSWORD="@FTP.cti" # Replace with your cPanel FTP password
 
 TARGETDIR="/" # Replace with the target directory on your cPanel account
