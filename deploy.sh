@@ -4,7 +4,7 @@ HOST="ftp.californiatraininginstitute.com" # Replace with your cPanel FTP server
 USERNAME="cti@californiatraininginstitute.com" # Replace with your cPanel FTP username
 PASSWORD="@FTP.cti" # Replace with your cPanel FTP password
 
-TARGETDIR="/lms.californiatraininginstitute.com" # Replace with the target directory on your cPanel account
+TARGETDIR="/" # Replace with the target directory on your cPanel account
 
 echo "Deploying code to cPanel..."
 
