@@ -3,7 +3,7 @@
     <aside class="aside container">
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-3 col">
-                <div class="logo"><a href="home.html"><img src="images/Asset 2@2x-8.png" alt="studyLMS"></a>
+                <div class="logo"><a href="home.html"><img src=" {{ asset('images/Asset 2@2x-8.png') }} " alt="CTI"></a>
                 </div>
                 <p>California Training Institute (CTI) is a digital skills training institute that supports
                     Ethiopians to develop their digital skills through resources, tools, and technology.</p>
@@ -20,8 +20,8 @@
                     @if($loop->iteration <= 3) <li>
                         <a href="/course_single/{{$course->id}}">
                             <div class="alignleft">
-                                <img src="course_resources/{{$course->course_image}}" alt="image description"
-                                    style="object-fit: cover; height: 40px">
+                                <img src="{{ asset('course_resources/'.$course->course_image) }}"
+                                    alt="image description" style="object-fit: cover; height: 40px">
                             </div>
                             <div class="description-wrap">
                                 <h4>{{$course->course_name}}</h4>
@@ -43,12 +43,9 @@
                 <!-- fooer navigation -->
                 <ul class="fooer-navigation list-unstyled">
                     <li><a href="#">All Courses</a></li>
-                    <li><a href="#">Summer Sessions</a></li>
-                    <li><a href="#">Recent Exams</a></li>
-                    <li><a href="#">Professional Courses</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">All Courses</a></li>
+                    <li><a href="#">About us</a></li>
                     <li><a href="#">Contact Us</a></li>
                 </ul>
             </nav>

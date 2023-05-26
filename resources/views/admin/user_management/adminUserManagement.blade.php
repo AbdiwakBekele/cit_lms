@@ -59,9 +59,7 @@
                                     @foreach($roles as $role)
                                     {{ $role }} |
                                     @endforeach
-
                                 </td>
-
 
                                 <td>
                                     <a href="/user/{{$user->id}}"><i class="fa fa-eye mx-1" style="font-size: 17px"

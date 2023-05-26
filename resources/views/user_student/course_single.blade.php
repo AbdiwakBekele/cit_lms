@@ -3,7 +3,6 @@
 @section('title', 'Course Single | CTI')
 
 @section('content')
-
 <!-- heading banner -->
 <section class="heading-banner text-white " style="background:#16416E">
     <div class="container holder">
@@ -285,6 +284,7 @@
                 <button type="submit" class="btn btn-theme btn-warning text-uppercase font-lato fw-bold">Submit</button>
             </form>
         </article>
+
         <!-- sidebar -->
         <aside class="col-xs-12 col-md-3" id="sidebar">
             <!-- widget course select -->
@@ -387,4 +387,5 @@
         </aside>
     </div>
 </div>
+
 @endsection
