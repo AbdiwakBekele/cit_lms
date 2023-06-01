@@ -13,8 +13,19 @@ return new class extends Migration
     {
         Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
-            $table->integer('course_id');
-            $table->integer('section_id');
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('section_id');
+
+            $table->foreign('course_id')
+                ->references('id')
+                ->on('courses')
+                ->onDelete('cascade');
+                
+            $table->foreign('section_id')
+                ->references('id')
+                ->on('sections')
+                ->onDelete('cascade');
+
             $table->text('question');
             $table->text('answer')->nullable();
             $table->timestamps();

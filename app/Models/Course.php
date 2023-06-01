@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\CourseCategory;
 use App\Models\Classroom;
 use App\Models\Resource;
+use App\Models\Quiz;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -47,6 +48,10 @@ class Course extends Model
 
     public function resources(){
         return $this->hasMany(Resource::class);
+    }
+
+    public function quizzes(){
+        return $this->hasMany(Quiz::class);
     }
 
     public function courseUser(){

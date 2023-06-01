@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Quiz;
 
 class QuizOption extends Model
 {
@@ -12,4 +13,8 @@ class QuizOption extends Model
         'quiz_id',
         'option'
     ];
+
+    public function quiz(){
+        $this->belongsTo(Quiz::class);
+    }
 }
