@@ -9,6 +9,7 @@ use App\Models\Batch;
 use App\Models\User; 
 use App\Models\CourseCategory;
 use App\Models\Classroom;
+use App\Models\Resource;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -42,6 +43,10 @@ class Course extends Model
 
     public function classrooms(){
         return $this->hasMany(Classroom::class);
+    }
+
+    public function resources(){
+        return $this->hasMany(Resource::class);
     }
 
     public function courseUser(){

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Batch;
 use App\Models\Course; 
 use App\Models\Student; 
+use App\Models\Progress;
 
 class Classroom extends Model
 {
@@ -28,5 +29,9 @@ class Classroom extends Model
 
     public function student(){
         return $this->belongsTo(Student::class);
+    }
+
+    public function progress(){
+        return $this->hasMany(Progress::class);
     }
 }

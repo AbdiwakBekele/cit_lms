@@ -13,8 +13,19 @@ return new class extends Migration
     {
         Schema::create('progress', function (Blueprint $table) {
             $table->id();
-            $table->integer('classroom_id');
-            $table->integer('section_id');
+            $table->unsignedBigInteger('classroom_id');
+            $table->unsignedBigInteger('section_id');
+
+            $table->foreign('classroom_id')
+                    ->references('id')
+                    ->on('classrooms')
+                    ->onDelete('cascade');
+
+            $table->foreign('section_id')
+                    ->references('id')
+                    ->on('sections')
+                    ->onDelete('cascade');
+            
             $table->string('score');
             $table->integer('is_passed')->default(0);
             $table->timestamps();

@@ -13,4 +13,8 @@ class Content extends Model
         'content_name',
         'content_description'
     ];
+
+    public function resources(){
+        return $this->hasMany(Resource::class);
+    }
 }

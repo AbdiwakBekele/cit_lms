@@ -13,8 +13,18 @@ return new class extends Migration
     {
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
-            $table->integer('course_id');
-            $table->integer('content_id')->nullable();
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('content_id')->nullable();
+
+            $table->foreign('course_id')
+                    ->references('id')
+                    ->on('courses')
+                    ->onDelete('cascade');
+            
+            $table->foreign('content_id')
+                    ->references('id')
+                    ->on('contents')
+                    ->onDelete('cascade');
             $table->string('path');
             $table->timestamps();
         });
