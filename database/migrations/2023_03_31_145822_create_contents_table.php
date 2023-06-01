@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
-            $table->integer('section_id');
+            $table->unsignedBigInteger('section_id');
+            $table->foreign('section_id')
+                    ->references('id')
+                    ->on('sections')
+                    ->onDelete('cascade');
             $table->string('content_name');
             $table->longText('content_description');
             $table->timestamps();
