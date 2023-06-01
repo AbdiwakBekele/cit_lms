@@ -86,8 +86,15 @@ class SectionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
-    {
-        //
+    public function destroy(string $id){
+        $section = Section::find($id)->delete();
+
+        if($section){
+            return back()
+            ->with('success', 'Successfuly Deleted Course Section');
+        }else{
+            return back()
+            ->with('error', "Error Deleting Course Section");
+        }
     }
 }

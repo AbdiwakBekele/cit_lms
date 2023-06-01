@@ -60,6 +60,12 @@
             <div class="shadow p-3 m-3">
                 <span class="text-dark"> <strong> Section {{$index++}}:
                         {{$section->section_name}}</strong></span>
+
+                <!-- Delete Section -->
+                <a href="#" data-bs-toggle="modal" class="mx-3 text-danger" style="float: right; text-decoration:none;"
+                    data-bs-target="#myModal{{$section->id}}"><i class="fa fa-trash text-danger mx-1"
+                        style="font-size: 17px" aria-hidden="true"></i>Delete Section</a>
+
                 <!-- Add Quiz -->
                 <a href="/course/create_quiz/{{$course->id}}/{{$section->id}}" class="mx-3"
                     style="float: right; text-decoration:none;">
@@ -71,6 +77,32 @@
                     style="float: right; text-decoration:none;">
                     <i class="fa fa-plus-circle" aria-hidden="true"></i> Add
                     Content </a>
+
+                <!-- The Modal -->
+                <div class="modal" id="myModal{{$section->id}}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal body -->
+                            <div class="modal-body my-4 text-center h5">
+                                Are you sure?
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer p-1">
+                                <form action="/section/{{$section->id}}" method="post">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                </form>
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
 
                 <?php 
                     $contents = DB::table('contents')->where('section_id', $section->id)->get();

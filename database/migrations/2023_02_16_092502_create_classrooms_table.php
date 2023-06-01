@@ -13,9 +13,25 @@ return new class extends Migration
     {
         Schema::create('classrooms', function (Blueprint $table) {
             $table->id();
-            $table->integer('course_id');
-            $table->integer('batch_id');
-            $table->integer('student_id');
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('batch_id');
+            $table->unsignedBigInteger('student_id');
+
+            $table->foreign('course_id')
+                    ->references('id')
+                    ->on('courses')
+                    ->onDelete('cascade');
+
+            $table->foreign('batch_id')
+                    ->references('id')
+                    ->on('batches')
+                    ->onDelete('cascade');
+            
+            $table->foreign('student_id')
+                    ->references('id')
+                    ->on('students')
+                    ->onDelete('cascade');
+
             $table->integer('is_approved');
             $table->timestamps();
         });

@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('batches', function (Blueprint $table) {
             $table->id();
-            $table->integer('course_id');
+            $table->unsignedBigInteger('course_id');
+            $table->foreign('course_id')
+                    ->references('id')
+                    ->on('courses')
+                    ->onDelete('cascade');
             $table->string('shift');
             $table->string('starting_date');
             $table->string('ending_date');

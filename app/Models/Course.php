@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Section;
+use App\Models\Batch;
+use App\Models\User; 
+use App\Models\CourseCategory;
+use App\Models\Classroom;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -24,37 +28,24 @@ class Course extends Model
         'user_id'
     ];
 
-    public function classrooms(){
-        return $this->hasMany('App\Models\Classroom');
-    }
-
     public function courseCategory(){
-        return $this->belongsTo('App\Models\CourseCategory');
-    }
-
-    public function courseUser(){
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(CourseCategory::class);
     }
 
     public function sections(){
         return $this->hasMany(Section::class)->orderBy('sequence');
     }
 
-    public function delete()
-    {
-        // Delete the associated file before deleting the model
-        if (!empty($this->course_image)) {
-            // Adjust the path to your specific directory structure
-            $filePath = 'course_resources/' . $this->course_image;
-
-            if (Storage::disk('public')->exists($filePath)) {
-                Storage::disk('public')->delete($filePath);
-            }
-        }
-
-        // Delete the model
-        return parent::delete();
+    public function batches(){
+        return $this->hasMany(Batch::class);
     }
 
+    public function classrooms(){
+        return $this->hasMany(Classroom::class);
+    }
+
+    public function courseUser(){
+        return $this->belongsTo(User::class);
+    }
 
 }

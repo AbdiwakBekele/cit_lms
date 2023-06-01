@@ -20,7 +20,7 @@ return new class extends Migration
                     ->onDelete('cascade');
             $table->string('section_name');
             $table->integer('sequence');
-            $table->integer('days');
+            $table->integer('duration');
             $table->text('section_description');
             $table->timestamps();
         });

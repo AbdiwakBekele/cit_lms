@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Batch;
+use App\Models\Course; 
+use App\Models\Student; 
 
 class Classroom extends Model
 {
@@ -14,4 +17,16 @@ class Classroom extends Model
         'student_id',
         'is_approved'
     ];
+
+    public function course(){
+        return $this->belongsTo(Course::class);
+    }
+
+    public function batch(){
+        return $this->belongsTo(Batch::class);
+    }
+
+    public function student(){
+        return $this->belongsTo(Student::class);
+    }
 }

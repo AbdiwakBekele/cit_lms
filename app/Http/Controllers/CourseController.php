@@ -170,16 +170,14 @@ class CourseController extends Controller
         foreach($resources as $resource){
             File::delete(public_path('course_resources/'.$resource->path));
             $resource->delete();
-        }
         
-
-        if($resource){
-            return back()
-             ->with('success','You have successfully deleted a course informatoin.');
-        }else{
-            return back()
-            ->with('error','Error deleting course information');
+            if($resource){
+                return back()
+                ->with('success','You have successfully deleted a course informatoin.');
+            }else{
+                return back()
+                ->with('error','Error deleting course information');
+            }
         }
-
     }
 }
