@@ -23,20 +23,9 @@
         </li>
         @endcan
 
-        @can('manage category')
-        <!-- Course Category -->
-        <li class="{{ Request::is('courseCategory*') ? 'mm-active' : ''}} ">
-            <a href="/courseCategory">
-                <div class="parent-icon"><i class='bx bx-category'></i>
-                </div>
-                <div class="menu-title">Course Category</div>
-            </a>
-        </li>
-        @endcan
-
         @can('manage course')
         <!-- Course Management -->
-        <li class="{{ (Request::is('course*') && !Request::routeIs('courseCategory.*')) ? 'mm-active' : ''}} ">
+        <li class="{{ Request::is('course*')  ? 'mm-active' : ''}} ">
             <a href="/course">
                 <div class="parent-icon"><i class='bx bx-book-content'></i>
                 </div>

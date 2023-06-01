@@ -32,15 +32,17 @@
                 <div class="mb-3 mt-3">
                     <label for="fullname" class="form-label">Student Fullname</label>
                     <input type="text" class="form-control" name="fullname" id="fullname"
-                        placeholder="Enter Student Fullname">
+                        placeholder="Enter Student Fullname" required>
                     @error('fullname')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+
                 <!-- Email -->
                 <div class="mb-3 mt-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter Email Address" name="email">
+                    <input type="email" class="form-control" id="email" placeholder="Enter Email Address" name="email"
+                        required>
 
                     @error('email')
                     <span class="text-danger">{{ $message }}</span>
@@ -50,8 +52,22 @@
                 <!-- Age -->
                 <div class="mb-3 mt-3">
                     <label for="age" class="form-label">Age</label>
-                    <input type="number" class="form-control" id="age" placeholder="Enter Age" name="age">
+                    <input type="number" class="form-control" id="age" placeholder="Enter Age" name="age" required>
                     @error('age')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Gender -->
+                <div class="mb-3 mt-3">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select name="gender" id="gender" class="form-select" required>
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+
+                    @error('gender')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
@@ -70,6 +86,16 @@
                     <label for="address" class="form-label">Address</label>
                     <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address">
                     @error('address')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3 mt-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter Password"
+                        name="password">
+                    @error('password')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>

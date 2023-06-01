@@ -32,7 +32,7 @@
                     <label for="course_name" class="form-label">Course Fullname</label>
                     <span class="text-danger">*</span>
                     <input type="text" class="form-control" id="course_name" placeholder="Enter Course Fullname"
-                        name="course_name">
+                        name="course_name" required>
                     @error('course_name')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -43,7 +43,7 @@
                     <label for="short_name" class="form-label">Course Short name</label>
                     <span class="text-danger">*</span>
                     <input type="text" class="form-control" id="short_name" placeholder="Enter Course Fullname"
-                        name="short_name">
+                        name="short_name" required>
                     @error('short_name')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -53,7 +53,7 @@
                 <div class="mb-3 mt-3">
                     <label for="course_category" class="form-label">Course Category</label>
                     <span class="text-danger">*</span>
-                    <select class="form-control" name="course_category" id="course_category">
+                    <select class="form-control" name="course_category" id="course_category" required>
                         <option value=""> Choose... </option>
                         @foreach($categories as $category)
                         <option value="{{$category->id}}">{{$category->category_name}}</option>
@@ -113,7 +113,7 @@
                 <div class="mb-3 mt-3">
                     <label for="teaching_process" class="form-label">Course Teaching Process</label>
 
-                    <select class="form-control" name="teaching_process" id="teaching_process">
+                    <select class="form-control" name="teaching_process" id="teaching_process" required>
                         <option value=""> Choose... </option>
                         <option value="1">Based on student's own pace</option>
                         <option value="1">Based on given timeline</option>

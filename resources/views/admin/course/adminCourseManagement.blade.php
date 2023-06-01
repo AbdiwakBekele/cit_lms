@@ -14,10 +14,20 @@
                 <h3 class="mb-4" style="margin: 26px;color: #16416E;font-size: 35px;font-weight: bold;">List of
                     Courses</h3>
             </div>
+
             <div class="container">
                 <a class="btn btn-primary m-3 " role="button"
-                    style="color: #16416E;background: #ffb600;font-weight: bold;width: 143.3px;height: 32px;font-size: 14px;border-style: none;"
+                    style="color: #16416E;background: #ffb600;font-weight: bold; height: 32px;font-size: 14px;border-style: none;"
                     href="course/create">Add New Course</a>
+
+                <!-- Category Permission -->
+                @can('manage category')
+                <a class="btn btn-primary m-3 " role="button"
+                    style="color: #16416E;background: #ffb600;font-weight: bold; height: 32px;font-size: 14px;border-style: none;"
+                    href="/courseCategory">Manage Categories</a>
+                @endcan
+
+
 
                 @if ($message = Session::get('success'))
                 <div class="alert alert-success alert-block m-3">

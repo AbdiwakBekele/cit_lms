@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Student;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -33,17 +34,21 @@ class StudentController extends Controller
             'fullname'=>'required',
             'email'=>'required|unique:students',
             'age'=>'required',
+            'gender'=>'required',
             'phone'=>'required',
-            'address'=>'required'
+            'address'=>'required',
+            'password'=>'required'
         ]);
 
         $fullname = $request->fullname;
         $email = $request->email;
         $age = $request->age;
+        $gender = $request->gender;
         $phone = $request->phone;
         $address = $request->address;
+        $password =  Hash::make($request->password);
 
-        $student = new Student(['fullname'=>$fullname, 'age'=>$age, 'email'=>$email, 'phone'=>$phone, 'address'=>$address]);
+        $student = new Student(['fullname'=>$fullname, 'age'=>$age, 'gender'=>$gender, 'email'=>$email, 'phone'=>$phone,  'address'=>$address, 'password'=>$password]);
         $student->save();
 
         if(!empty($student->id)){

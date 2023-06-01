@@ -29,7 +29,7 @@ class UserAuthManager extends Controller{
         $credential = $request->only('email', 'password');
         if(Auth::attempt($credential)){
             Session::put('user_session_key', true);
-            return redirect()->intended();
+            return redirect()->intended('/admin');
             // return redirect()->intended('/');
         }else{
             return redirect('/user_login')->with('error', 'Login details are not valid');

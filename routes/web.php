@@ -31,10 +31,10 @@ use App\Http\Controllers\AdminController;
 */
 use App\Models\Student;
 
-// Route::get('/test_student', function () {
-//     Student::factory()->times(10)->create();
-//     return 'Student created successfully!';
-// })
+Route::get('/fill_student', function () {
+    Student::factory()->times(10)->create();
+    return 'Student created successfully! with thier email address and password = "password" ';
+});
 
 
 Route::get('/', [UserStudentController::class, 'index']);
