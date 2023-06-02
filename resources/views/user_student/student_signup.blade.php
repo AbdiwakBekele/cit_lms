@@ -40,23 +40,69 @@
                                 style="background: #ffffff;box-shadow: 0px 0px 9px 0px;color: #000000;border-top-color: #ffffff;border-right-style: none;border-right-color: #ffffff;border-bottom-color: #ffffff;border-left-color: #ffffff;"><i
                                     class="fab fa-google"></i>&nbsp; Register with Google</a>
                             <p class="text-start" style="width: 657px;text-align: left;">Or Register with</p>
+                            <!-- Fullname -->
                             <div class="mb-3">
-                                <input class="form-control" type="text" name="fullname" placeholder="Student Full Name">
+                                <input class="form-control" type="text" name="fullname" placeholder="Student Full Name"
+                                    required>
                                 @error('fullname')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
+                            <!-- Email -->
                             <div class="mb-3">
-                                <input class="form-control" type="email" name="email" placeholder="Email" id="email">
+                                <input class="form-control" type="email" name="email" placeholder="Email" id="email"
+                                    required>
                                 @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
+                            <!-- Gender -->
+                            <div class="mb-3">
+                                <select name="gender" id="gender" class="form-select" required>
+
+                                    <option value="">Choose Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                                @error('gender')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <!-- Age -->
+                            <div class="mb-3">
+                                <input class="form-control" type="number" name="age" placeholder="Age" id="age"
+                                    required>
+                                @error('age')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="mb-3">
+                                <input class="form-control" type="tel" name="phone" placeholder="Phone Number"
+                                    id="phone" required>
+                                @error('phone')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <!-- Address -->
+                            <div class="mb-3">
+                                <input class="form-control" type="address" name="address" placeholder="Address"
+                                    id="address" required>
+                                @error('address')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+
+
                             <div class="mb-3">
                                 <input class="form-control" type="password" name="password" placeholder="password"
-                                    id="password">
+                                    id="password" required>
                                 @error('password')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
