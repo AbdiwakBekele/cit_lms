@@ -70,7 +70,7 @@ class StudentAuthManager extends Controller{
         if(!$user){
             return redirect('/student_register')->with('error', 'Failed to register');
         }
-        return redirect('/student_register')->with('success', 'Registration Successful, login to access the app');
+        return redirect('/student_register')->with('success', 'Registration Successful, login to access the app | Please check your email for confirmation');
     }
 
     function logout(){
