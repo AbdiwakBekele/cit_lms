@@ -112,32 +112,60 @@ class ContentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
-    {
+    public function show(string $id){
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): Response
-    {
-        //
+    public function edit(string $id){
+        $content = Content::find($id);
+        return view('admin.course.adminEditContent', compact('content'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
-    {
-        //
+    public function update(Request $request, string $id){
+
+        $this->validate( $request, [
+            'content_name'=>'required',
+            'description'=>'required'
+        ]);
+
+        $content_name = $request->content_name;
+        $content_description = $request->description;
+
+        $content = Content::find($id);
+        $content->content_name = $content_name;
+        $content->content_description = $content_description;
+
+        $content->save();
+
+        if(!empty($content->id)){
+            return back()
+            ->with('success', 'Content Updated Successfully');
+        }else{
+            return back()
+            ->with('error', 'Error Updating Content');
+        }
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
-    {
-        //
+    public function destroy(string $id){
+
+        $content = Content::find($id)->delete();
+
+        if($content){
+            return back()
+            ->with('success', 'Successfuly Deleted Section Content');
+        }else{
+            return back()
+            ->with('error', "Error Deleting Section Content");
+        }
     }
 }

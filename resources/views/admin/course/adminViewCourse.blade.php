@@ -58,27 +58,35 @@
             @foreach($sections as $section)
 
             <div class="shadow p-3 m-3">
-                <span class="text-dark"> <strong> Section {{$index++}}:
-                        {{$section->section_name}}</strong></span>
 
-                <!-- Delete Section -->
-                <a href="#" data-bs-toggle="modal" class="mx-3 text-danger" style="float: right; text-decoration:none;"
-                    data-bs-target="#myModal{{$section->id}}"><i class="fa fa-trash text-danger mx-1"
-                        style="font-size: 17px" aria-hidden="true"></i>Delete Section</a>
+                <div class="my-4">
+                    <span class="text-dark"> <strong> Section {{$index++}}:
+                            {{$section->section_name}}</strong></span>
 
-                <!-- Add Quiz -->
-                <a href="/course/create_quiz/{{$course->id}}/{{$section->id}}" class="mx-3"
-                    style="float: right; text-decoration:none;">
-                    <i class="fa fa-file-text" aria-hidden="true"></i> Add
-                    Quiz Questions </a>
+                    <!-- Delete Section -->
+                    <a href="#" data-bs-toggle="modal" class="mx-3 text-danger"
+                        style="float: right; text-decoration:none;" data-bs-target="#myModal{{$section->id}}"><i
+                            class="fa fa-trash text-danger mx-1" style="font-size: 17px" aria-hidden="true"></i>Delete
+                        Section</a>
 
-                <!-- Add Content -->
-                <a href="/course/create_content/{{$section->id}}" class="mx-3"
-                    style="float: right; text-decoration:none;">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Add
-                    Content </a>
+                    <!-- Edit Section -->
+                    <a href="/section/{{$section->id}}/edit" class="mx-3" style="float: right; text-decoration:none;">
+                        <i class="fa fa-edit" aria-hidden="true"></i> Edit Section </a>
 
-                <!-- The Modal -->
+                    <!-- Add Quiz -->
+                    <a href="/course/create_quiz/{{$course->id}}/{{$section->id}}" class="mx-3"
+                        style="float: right; text-decoration:none;">
+                        <i class="fa fa-file-text" aria-hidden="true"></i> Add
+                        Quiz Questions </a>
+
+                    <!-- Add Content -->
+                    <a href="/course/create_content/{{$section->id}}" class="mx-3"
+                        style="float: right; text-decoration:none;">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Add
+                        Content </a>
+                </div>
+
+                <!-- Modal | Deleting Section -->
                 <div class="modal" id="myModal{{$section->id}}">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -102,21 +110,51 @@
                     </div>
                 </div>
 
-
-
-                <?php 
-                    $contents = DB::table('contents')->where('section_id', $section->id)->get();
-                ?>
-
-                @foreach($contents as $content)
                 <!-- Section Content -->
+                @foreach($section->contents as $content)
+
                 <div id="accordion">
                     <div class="card">
                         <div class="card-header">
+                            <!-- Content Title -->
                             <a class="btn" data-bs-toggle="collapse" href="#collapse{{$content->id}}">
                                 {{ $content->content_name }}
                                 <i class="fa fa-caret-down mx-2" aria-hidden="true"></i>
                             </a>
+
+                            <!-- Edit Content -->
+                            <a href="/content/{{$content->id}}/edit" class="mx-3" style="text-decoration:none;">
+                                <i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
+
+                            <!-- Delete Content -->
+                            <a href="#" data-bs-toggle="modal" class="mx-3 text-danger" style="text-decoration:none;"
+                                data-bs-target="#myModalContent{{$content->id}}"><i class="fa fa-trash text-danger mx-1"
+                                    style="font-size: 17px" aria-hidden="true"></i>Delete</a>
+
+                            <!-- Modal | Deleting Content -->
+                            <div class="modal" id="myModalContent{{$content->id}}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body my-4 text-center h5">
+                                            Are you sure?
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer p-1">
+                                            <form action="/content/{{$content->id}}" method="post">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="submit" class="btn btn-danger" value="Delete">
+                                            </form>
+                                            <button type="button" class="btn btn-light"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                         <div id="collapse{{$content->id}}" class="collapse" data-bs-parent="#accordion">

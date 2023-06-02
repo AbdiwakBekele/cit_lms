@@ -70,22 +70,42 @@ class SectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): Response
-    {
-        //
+    public function edit(string $id){
+        $section = Section::find($id);
+        return view('admin.course.adminEditCourseSection', compact('section'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
-    {
-        //
+    public function update(Request $request, string $id){
+
+        $this->validate( $request, [
+            'section_name' => 'required',
+            'duration'=>'required',
+            'description'=>'required'
+        ]);
+
+        $section_name =  $request->section_name;
+        $duration = $request->duration;
+        $section_description =  $request->description;
+    
+        $section = Section::find($id);
+        $section->section_name = $section_name;
+        $section->duration = $duration;
+        $section->section_description = $section_description;
+        $section->save();
+
+        if(!empty($section->id)){
+
+            return back()
+             ->with('success','You have successfully updated section informatoin.');
+        }else{
+            return back()
+            ->with('error','Error updating section information');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id){
         $section = Section::find($id)->delete();
 

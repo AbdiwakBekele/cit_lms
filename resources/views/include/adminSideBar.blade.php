@@ -25,7 +25,8 @@
 
         @can('manage course')
         <!-- Course Management -->
-        <li class="{{ Request::is('course*')  ? 'mm-active' : ''}} ">
+        <li
+            class="{{ (Request::is('course*') || Request::is('section*') || Request::is('content*')) ? 'mm-active' : ''}} ">
             <a href="/course">
                 <div class="parent-icon"><i class='bx bx-book-content'></i>
                 </div>
