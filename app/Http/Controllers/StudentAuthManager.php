@@ -65,8 +65,6 @@ class StudentAuthManager extends Controller{
 
         Mail::to($user->email)->send(new StudentRegistered($user));
 
-        
-
         if(!$user){
             return redirect('/student_register')->with('error', 'Failed to register');
         }
