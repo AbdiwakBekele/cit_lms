@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone');
             $table->string('address');
+            $table->string('profile_img')->nullable();
+            $table->integer('is_approved')->default(0);
             $table->timestamps();
         });
     }

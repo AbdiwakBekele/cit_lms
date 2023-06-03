@@ -22,6 +22,8 @@ class Student extends Model implements Authenticatable
         'email',
         'phone',
         'address',
+        'profile_img',
+        'is_approved',
         'password'
     ];
 

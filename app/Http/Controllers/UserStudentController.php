@@ -11,6 +11,7 @@ use App\Models\Classroom;
 use App\Models\Section;
 use App\Models\Quiz;
 use App\Models\Progress;
+use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
@@ -38,9 +39,16 @@ class UserStudentController extends Controller{
         return view('eventSingle', compact('courses'));
     }
 
-    function instructors(){
+    function myProfile(){
         $courses = Course::all();
-        return view('instructors', compact('courses'));
+        $student = Auth::guard('student')->user();
+        return view('user_student.profile', compact('courses', 'student'));
+    }
+
+    function myProfileEdit($id){
+        $courses = Course::all();
+        $student = Student::find($id);
+        return view('user_student.profile_edit', compact('courses', 'student'));
     }
 
     function blog(){

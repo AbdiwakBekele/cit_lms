@@ -73,6 +73,10 @@ Route::get('/course_single/{id}', [UserStudentController::class, 'courseSingle']
 
 
 Route::group(['middleware' => ['student']], function () {
+
+    Route::get('/my_profile', [UserStudentController::class, 'myProfile']);
+
+    Route::get('/my_profile/{id}/edit', [UserStudentController::class, 'myProfileEdit']);
     
     Route::get('/my_course_single/{course_id}/{classroom_id}', [UserStudentController::class, 'myCourseSingle']);
 

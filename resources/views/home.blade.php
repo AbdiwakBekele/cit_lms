@@ -115,9 +115,10 @@
                                     @auth('student')
                                     <li class="dropdown" style="list-style: none; padding-left: 5%;">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img width="30"
-                                                height="30" class="rounded-circle" src="images/AM2A1021.JPG"></a>
+                                                height="30" class="rounded-circle"
+                                                src=" {{ asset('images/AM2A1021.JPG') }} "></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="#">Profile</a></li>
+                                            <li><a href="/my_profile">Profile</a></li>
                                             <li><a href="/my_learning">My Learning</a></li>
                                             <li><a href="#">Notification</a></li>
                                             <li><a href="#">FAQ</a></li>
