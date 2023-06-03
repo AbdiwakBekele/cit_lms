@@ -30,9 +30,9 @@ class Section extends Model
         return $this->hasMany(Content::class);
     }
 
-    public function progress() {
-        return $this->hasMany(Progress::class);
-    }
+    // public function progress() {
+    //     return $this->hasMany(Progress::class);
+    // }
 
     public function quizzes(){
         return $this->hasMany(Quiz::class);
