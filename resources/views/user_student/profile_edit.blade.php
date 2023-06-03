@@ -31,17 +31,18 @@
     <div class="alert alert-success"> {{ session('success') }} </div>
     @endif
 
-    <form action="#" method="post" class="user">
+    <form action="/my_profile_update/{{$student->id}}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
+
+        <input type="hidden" name="_method" value="PUT">
 
         <h3> Edit your account information</h3>
 
         <!-- Profile Picture -->
         <div class="mb-3">
             <label for="profile_img"> Profile Picture</label>
-            <input class="form-control" type="file" name="profile_img" id="profile_img"
-                value="{{$student->profile_img}}" required>
-            @error('age')
+            <input class="form-control" type="file" name="profile_img" id="profile_img" required>
+            @error('profile_img')
             <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>

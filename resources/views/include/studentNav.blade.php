@@ -87,8 +87,18 @@
                         <!-- Profile Pic | Dropdown -->
                         @auth('student')
                         <li class="dropdown" style="list-style: none; padding-left: 5%;">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img width="30" height="30"
-                                    class="rounded-circle" src=" {{ asset('images/AM2A1021.JPG') }} "></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+
+                                @if(auth('student')->user()->profile_img)
+                                <img width="30" height="30" class="rounded-circle"
+                                    src=" {{ asset('student_profile/'.auth('student')->user()->profile_img) }} ">
+
+                                @else
+                                <img width="30" height="30" class="rounded-circle"
+                                    src=" {{ asset('images/AM2A1021.JPG') }} ">
+                                @endif
+                            </a>
                             <ul class="dropdown-menu">
                                 <li><a href="/my_profile">Profile</a></li>
                                 <li><a href="/my_learning">My Learning</a></li>
