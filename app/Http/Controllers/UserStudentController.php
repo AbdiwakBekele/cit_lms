@@ -54,7 +54,6 @@ class UserStudentController extends Controller{
 
     function myProfileUpdate(Request $request, string $id){
         
-
         $request->validate([
             'profile_img'=>'required|mimes:png,jpg,jpeg',
             'fullname'=>'required',

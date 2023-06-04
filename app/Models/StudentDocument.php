@@ -10,6 +10,7 @@ class StudentDocument extends Model
     use HasFactory;
 
     protected $fillable = [
+        'student_id',
         'document_name',
         'document_path'
     ];

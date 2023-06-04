@@ -72,12 +72,14 @@
                         <strong class="text element-block">PASSED GRADUATES</strong>
                     </h2>
                 </div>
+
                 <div class="col-xs-12 col-sm-3 col">
                     <h2 class="counter-aside-heading">
                         <strong class="countdown element-block">750</strong>
                         <strong class="text element-block">QUALIFIED STAFF</strong>
                     </h2>
                 </div>
+
                 <div class="col-xs-12 col-sm-3 col">
                     <h2 class="counter-aside-heading">
                         <strong class="countdown element-block">1200</strong>
@@ -117,6 +119,7 @@
                         </cite>
                     </blockquote>
                 </div>
+
                 <div>
                     <!-- say quote -->
                     <blockquote class="say-quote">

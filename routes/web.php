@@ -20,6 +20,7 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StudentDocController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,9 +96,11 @@ Route::group(['middleware' => ['student']], function () {
     Route::get('/my_final/{course_id}', [UserStudentController::class, 'myFinal']);
 
     Route::post('/my_final', [UserStudentController::class, 'myFinalSubmit']);
+
+    Route::resource('student_doc', StudentDocController::class);
+
+    Route::get('/student_doc/{id}/verify', [StudentDocController::class, 'verifyDoc']);
 });
-
-
 
 
 /*

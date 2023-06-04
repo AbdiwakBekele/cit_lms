@@ -23,12 +23,32 @@
 </nav>
 <!-- two columns -->
 <div id="" class="container">
+
+    @if(session('success'))
+    Okay
+    <div class="alert alert-danger">
+        {{ session('success') }}
+    </div>
+    @endif
+    -----
+
+    @if(session('error'))
+    Not Okay
+    <div class="alert alert-danger">
+        {{ session('success') }}
+    </div>
+    @endif
     <div class="row">
 
         <br>
+
+
+
         <div class="alert alert-danger"> Please Verify you account by providing all neccassary documents
-            <a href="#" class="btn btn-danger" style="margin-left: 30px">Verify Now</a>
+            <a href="student_doc/{{ $student->id }}/verify" class="btn btn-danger" style="margin-left: 30px">Verify
+                Now</a>
         </div>
+
         <!-- User Form -->
         <a class="btn btn-warning" style="color: black" href="/my_profile/{{$student->id}}/edit"> Edit Info </a>
         <br>
