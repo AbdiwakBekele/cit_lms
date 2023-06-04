@@ -68,7 +68,7 @@ class StudentAuthManager extends Controller{
         if(!$user){
             return redirect('/student_register')->with('error', 'Failed to register');
         }
-        return redirect('/student_register')->with('success', 'Registration Successful, login to access the app <br> Please check your email to verify your account');
+        return redirect('/student_register')->with('success', 'Registration Successful, login to access the app. ** Please check your email to verify your account **');
     }
 
     function logout(){
