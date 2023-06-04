@@ -4,8 +4,6 @@
 /public/hot
 /public/storage
 /public/course_resources
-/public/student_docs
-/public/student_profile
 /storage/*.key
 /vendor
 .env
