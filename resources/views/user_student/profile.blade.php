@@ -30,7 +30,6 @@
         {{ session('success') }}
     </div>
     @endif
-    -----
 
     @if(session('error'))
     Not Okay
@@ -42,12 +41,20 @@
 
         <br>
 
+        @if($student->studentDocuments->contains('document_name', 'National ID') &&
+        $student->studentDocuments->contains('document_name', 'Educational'))
 
-
+        <div class="alert alert-warning"> Your document is submitted | you will receive an approval email when verified
+        </div>
+        @else
         <div class="alert alert-danger"> Please Verify you account by providing all neccassary documents
             <a href="student_doc/{{ $student->id }}/verify" class="btn btn-danger" style="margin-left: 30px">Verify
                 Now</a>
         </div>
+        @endif
+
+
+
 
         <!-- User Form -->
         <a class="btn btn-warning" style="color: black" href="/my_profile/{{$student->id}}/edit"> Edit Info </a>

@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 
 use App\Models\classrooms; 
+use App\Models\StudentDocument; 
 
 class Student extends Model implements Authenticatable
 {
@@ -29,6 +30,10 @@ class Student extends Model implements Authenticatable
 
     public function classrooms(){
         return $this->hasMany(Classroom::class);
+    }
+
+    public function studentDocuments(){
+        return $this->hasMany(StudentDocument::class);
     }
 
 }

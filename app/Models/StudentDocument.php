@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StudentDocument extends Model
-{
+use App\Models\Student; 
+
+class StudentDocument extends Model{
     use HasFactory;
 
     protected $fillable = [
@@ -14,4 +15,8 @@ class StudentDocument extends Model
         'document_name',
         'document_path'
     ];
+
+    public function student(){
+        $this->belongsTo(Student::class);
+    }
 }

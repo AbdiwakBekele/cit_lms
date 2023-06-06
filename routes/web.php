@@ -102,7 +102,6 @@ Route::group(['middleware' => ['student']], function () {
     Route::get('/student_doc/{id}/verify', [StudentDocController::class, 'verifyDoc']);
 });
 
-
 /*
 |--------------------------------------------------------------------------
 | User Auth Manager                                       
