@@ -37,10 +37,9 @@
         {{ session('success') }}
     </div>
     @endif
+
     <div class="row">
-
         <br>
-
         @if($student->studentDocuments->contains('document_name', 'National ID') &&
         $student->studentDocuments->contains('document_name', 'Educational'))
 
@@ -52,9 +51,6 @@
                 Now</a>
         </div>
         @endif
-
-
-
 
         <!-- User Form -->
         <a class="btn btn-warning" style="color: black" href="/my_profile/{{$student->id}}/edit"> Edit Info </a>
@@ -68,9 +64,8 @@
                 @else
                 <img src="{{ asset('images/AM2A1021.JPG') }} " width="100px" alt="Student Profile">
                 @endif
-
-
             </div>
+
             <br>
             <div class="col-lg">
                 <table class="table table-hover ">
@@ -96,7 +91,6 @@
                         <th>Address</th>
                         <td> {{$student->address}} </td>
                     </tr>
-
 
                 </table>
 
