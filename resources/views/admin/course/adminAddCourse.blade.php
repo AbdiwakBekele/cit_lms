@@ -78,10 +78,9 @@
 
                 <!-- Course Intro Video -->
                 <div class="mb-3 mt-3">
-                    <label for="course_intro" class="form-label">Course Intro Video</label>
-                    <span class="text-danger">*</span>
+                    <label for="course_intro" class="form-label">Course Intro Video (Optional)</label>
                     <input type="file" class="form-control" id="course_intro" placeholder="Enter Course Intro Video"
-                        name="course_intro" required>
+                        name="course_intro">
                     @error('course_intro')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror

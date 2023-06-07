@@ -123,6 +123,16 @@ Route::get('/user_logout', [UserAuthManager::class, 'logout']);
 Route::group(['middleware'=> ['auth']], function(){
     // Route::post('/enroll_now', [UserStudentController::class, 'enrollNow']);
 
+    //Show my User profile
+    Route::get('admin_profile', [UserController::class, 'userProfile']);
+
+    // Edit My user profile
+    Route::get('/admin_profile/{id}/edit', [UserController::class, 'userProfileEdit']);
+
+    // Update my user profile
+    Route::put('/admin_profile/{id}', [UserController::class, 'userProfileUpdate']);
+
+
     Route::get('/admin', [AdminController::class, 'index']);
 
     Route::resource('courseCategory', CourseCategoryController::class)->middleware('permission:manage category');

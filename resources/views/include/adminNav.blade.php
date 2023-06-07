@@ -83,8 +83,17 @@
             <div class="user-box dropdown px-3">
                 <a class="d-flex align-items-center nav-link dropdown-toggle gap-3 dropdown-toggle-nocaret" href="#"
                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ asset('assets/admin/images/avatars/Profile picture.JPG') }}" class="user-img"
-                        alt="user avatar">
+
+                    <!-- Profile Image -->
+                    @if(auth()->user()->profile_img)
+                    <img width="30" height="30" class="rounded-circle"
+                        src=" {{ asset('user_profile/'.auth('student')->user()->profile_img) }} ">
+
+                    @else
+                    <img width="30" height="30" class="rounded-circle" src=" {{ asset('images/AM2A1021.JPG') }} ">
+                    @endif
+
+
                     <div class="user-info">
                         <p class="user-name mb-0">{{auth()->user()->fullname}}</p>
                         @php
@@ -100,13 +109,13 @@
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
+                    <li><a class="dropdown-item d-flex align-items-center" href="/admin_profile"><i
                                 class="bx bx-user fs-5"></i><span>Profile</span></a>
                     </li>
                     <li><a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
                                 class="bx bx-cog fs-5"></i><span>Settings</span></a>
                     </li>
-                    <li><a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
+                    <li><a class="dropdown-item d-flex align-items-center" href="/admin"><i
                                 class="bx bx-home-circle fs-5"></i><span>Dashboard</span></a>
                     </li>
 
