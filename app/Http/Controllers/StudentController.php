@@ -6,6 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Student;
+use App\Models\Course;
 use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
@@ -66,7 +67,8 @@ class StudentController extends Controller
      */
     public function show(string $id){
         $student = Student::find($id);
-        return view('admin.student_managment.adminViewStudent', compact('student'));
+        $courses = Course::all();
+        return view('admin.student_managment.adminViewStudent', compact('student', 'courses'));
     }
 
     /**

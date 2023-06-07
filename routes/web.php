@@ -198,6 +198,9 @@ Route::group(['middleware'=> ['auth']], function(){
         Route::get('/approve_student/{id}', [BatchController::class, 'approveStudent']);
         Route::get('/disapprove_student/{id}', [BatchController::class, 'disapproveStudent']);
         Route::post('/add_student_batch', [BatchController::class, 'addStudentBatch']);
+
+        Route::post('/form/batches', [BatchController::class, 'getBatches']);
+
     });
 
     

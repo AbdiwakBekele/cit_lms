@@ -30,30 +30,27 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th style="color: #16416E;font-weight: bold;">No</th>
                             <th style="color: #16416E;font-weight: bold;">ID</th>
                             <th style="color: #16416E;font-weight: bold;">Full Name</th>
                             <th style="color: #16416E;font-weight: bold;">Age</th>
                             <th style="color: #16416E;font-weight: bold;">Email</th>
                             <th style="color: #16416E;font-weight: bold;">Phone</th>
-                            <th style="color: #16416E;font-weight: bold;">Address</th>
                             <th style="color: #16416E;font-weight: bold;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
-                                        $index = 0;
-                                        foreach($students as $student){
 
-                                        printf(
-                                            " <td>%d</td> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td>",
-                                            ++$index,
-                                            $student->fullname,
-                                            $student->age,
-                                            $student->email,
-                                            $student->phone,
-                                            $student->address 
-                                        );
-                                        ?>
+                        @foreach($students as $index => $student)
+                        <td>{{$index + 1}}</td>
+                        <td> CTI{{$student->id}}/23 </td>
+                        <td>{{$student->fullname}}</td>
+                        <td>{{$student->age}}</td>
+                        <td>{{$student->email}}</td>
+                        <td>{{$student->phone}}</td>
+
+
+
 
                         <td>
                             <a href="/student/{{$student->id}}"><i class="fa fa-eye mx-1" style="font-size: 17px"
@@ -90,9 +87,7 @@
                         </td>
                         </tr>
 
-                        <?php
-                                    }
-                                    ?>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

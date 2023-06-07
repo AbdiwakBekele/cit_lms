@@ -138,6 +138,13 @@ class BatchController extends Controller
 
     }
 
+    public function getBatches(Request $request)
+    {
+        $batches = Course::findOrFail($request->input('course_id'))->batches;
+        return response()->json($batches);
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      */
