@@ -207,7 +207,6 @@ class UserController extends Controller
 
         return back()->with('success', 'Password updated successfully.');
     
-
     }
 
     public function userProfileUpload(Request $request, string $id){

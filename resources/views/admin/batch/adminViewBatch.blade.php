@@ -20,13 +20,65 @@
                     </div>
 
                     <div class="col-md">
-                        <p> <strong>Course:</strong> {{$course->course_name}}</p>
+                        <p> <strong>Course:</strong> {{$batch->course->course_name}}</p>
                     </div>
                     <div class="col-md">
                         <p> <strong>Start date:</strong> {{$batch->starting_date}}</p>
                     </div>
                     <div class="col-md">
                         <p> <strong>End date:</strong> {{$batch->ending_date}}</p>
+                    </div>
+                </div>
+            </div>
+
+            @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-block">
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
+
+            @if ($message = Session::get('error'))
+            <div class="alert alert-danger alert-block">
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
+
+            <a href="#" data-bs-toggle="modal" data-bs-target="#myModalStudent"
+                class="btn btn-warning text-dark m-3">Add Student</a>
+
+            <!-- Modal | Deleting Section -->
+            <div class="modal" id="myModalStudent">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal body -->
+                        <div class="modal-body my-4 text-center h5">
+                            <h3>Select Student</h3>
+
+                            <form action="/add_student_batch" method="POST">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="POST">
+                                <input type="hidden" name="batch_id" value="{{$batch->id}}">
+                                <input type="hidden" name="course_id" value="{{$batch->course->id}}">
+                                <select class="form-select" name="student_id" aria-label="Select option" required>
+                                    <option value="">Select Student</option>
+                                    @foreach($students as $student)
+                                    <option value="{{$student->id}}">{{$student->fullname}} (CTI0{{$student->id}}/23)
+                                    </option>
+                                    @endforeach
+                                </select>
+
+                                <input type="submit" class="btn btn-primary m-2" value="Select">
+                                <button type="button" class="btn btn-light m-2" data-bs-dismiss="modal">Close</button>
+                            </form>
+
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer p-1">
+
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -49,25 +101,14 @@
                     </thead>
                     <tbody>
 
-                        <?php 
-                                        $index = 0;
-                                        foreach($classrooms as $classroom){
-                                        
-                                        echo "<br>";
-                                        
-                                        $student = DB::table('students')->where('id', $classroom->student_id)->first();
+                        @foreach($batch->classrooms as $index => $classroom)
 
-                                        printf(
-                                            " <td>%d</td> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td>",
-                                            ++$index,
-                                            $student->fullname,
-                                            $student->age,
-                                            $student->email,
-                                            $student->phone,
-                                            $student->address,
-                                        );
-                                        ?>
-
+                        <td>{{$index + 1}}</td>
+                        <td> {{$classroom->student->fullname}} </td>
+                        <td> {{$classroom->student->age}} </td>
+                        <td> {{$classroom->student->email}} </td>
+                        <td> {{$classroom->student->phone}} </td>
+                        <td> {{$classroom->student->address}} </td>
 
                         @if($classroom->is_approved == 1)
 
@@ -100,9 +141,7 @@
 
                         </tr>
 
-                        <?php
-                                    }
-                                    ?>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

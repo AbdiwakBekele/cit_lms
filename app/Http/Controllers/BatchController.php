@@ -8,6 +8,8 @@ use Illuminate\Http\Response;
 use App\Models\Batch;
 use App\Models\Course;
 use App\Models\Classroom;
+use App\Models\Student;
+use Illuminate\Validation\Rule;
 
 class BatchController extends Controller
 {
@@ -71,10 +73,9 @@ class BatchController extends Controller
      */
     
     public function show(string $id){
+        $students = Student::all();
         $batch = Batch::find($id);
-        $course = Course::find($batch->course_id);
-        $classrooms = Classroom::where('batch_id', $batch->id)->get();
-        return view('admin.batch.adminViewBatch', compact('batch', 'course', 'classrooms'));
+        return view('admin.batch.adminViewBatch', compact('batch', 'students'));
     }
 
     public function approveStudent(string $id){
@@ -105,6 +106,36 @@ class BatchController extends Controller
             return back()
             ->with('error','Error updating course information');
         }
+    }
+
+    public function addStudentBatch(Request $request){
+
+            $course_id =  $request->course_id;
+            $student_id =  $request->student_id;
+            $batch_id =  $request->batch_id;
+
+           $this->validate( $request, [
+            'student_id'=> Rule::unique('classrooms')->where('course_id', $course_id  )
+        ]);
+
+        $classroom = new Classroom([
+            'course_id'=> $course_id,
+            'student_id'=> $student_id, 
+            'batch_id'=>$batch_id,
+            'is_approved'=>1
+        ]);
+
+        $classroom->save();
+
+        if($classroom->save()){
+            // Model has been successfully inserted
+            return back()
+             ->with('success','You have successfully Registered for this batch, Please wait for the approval to start the class');
+        }else{
+            return back()
+            ->with('error','Error registering for this batch');
+        }
+
     }
 
     /**
