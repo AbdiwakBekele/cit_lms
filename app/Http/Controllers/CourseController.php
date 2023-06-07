@@ -48,13 +48,15 @@ class CourseController extends Controller
      */
     public function store(Request $request){
 
+        $course_intro = null;
+
         $this->validate( $request, [
             'course_name'=>'required|unique:courses',
             'short_name'=>'required|unique:courses',
             'course_category'=>'required',
             'description'=>'required',
             'course_image'=>'required|mimes:png,jpg,jpeg',
-            'course_intro'=>'required|mimes:mp4,mkv,avi,flv',
+            'course_intro'=>'nullable|mimes:mp4,mkv,avi,flv',
             'course_duration'=>'required',
             'course_price'=>'required'
         ]);
@@ -72,10 +74,12 @@ class CourseController extends Controller
         $course_image = pathinfo($temp_img->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_img->getClientOriginalExtension();
         $temp_img->move('course_resources', $course_image);
 
-         //course_intro
-         $temp_intro = $request->file('course_intro');
-         $course_intro = pathinfo($temp_intro->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_intro->getClientOriginalExtension();
-         $temp_intro->move('course_resources', $course_intro);
+        if($request->hasFile('course_intro')){
+            //course_intro
+            $temp_intro = $request->file('course_intro');
+            $course_intro = pathinfo($temp_intro->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_intro->getClientOriginalExtension();
+            $temp_intro->move('course_resources', $course_intro);
+        }
         
         $course = new Course([
             'course_category_id'=> $course_category,
@@ -170,14 +174,14 @@ class CourseController extends Controller
         foreach($resources as $resource){
             File::delete(public_path('course_resources/'.$resource->path));
             $resource->delete();
-        
-            if($resource){
-                return back()
-                ->with('success','You have successfully deleted a course informatoin.');
-            }else{
-                return back()
-                ->with('error','Error deleting course information');
-            }
+        }
+
+        if($course){
+            return back()
+            ->with('success','You have successfully deleted a course informatoin.');
+        }else{
+            return back()
+            ->with('error','Error deleting course information');
         }
     }
 }

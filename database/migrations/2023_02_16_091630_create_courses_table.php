@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('course_name');
             $table->string('short_name');
             $table->string('course_image');
-            $table->string('course_intro');
+            $table->string('course_intro')->nullable();;
             $table->string('course_duration');
             $table->string('course_price');
             $table->text('description');

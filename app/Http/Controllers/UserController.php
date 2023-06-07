@@ -9,6 +9,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -145,6 +146,64 @@ class UserController extends Controller
              ->with('error',"Error deleting a user");
         }
 
+    }
+
+    function userProfile(){
+        $user = Auth::user();
+        return view('admin.adminProfile', compact('user'));
+    }
+
+    function userProfileEdit(String $id){
+
+        $courses = Course::all();
+        $student = Student::find($id);
+        return view('user_student.profile_edit', compact('courses', 'student'));
+    }
+
+    function userProfileUpdate(Request $request, string $id){
+        
+        $request->validate([
+            'profile_img'=>'required|mimes:png,jpg,jpeg',
+            'fullname'=>'required',
+            'email'=> 'required',
+            'age'=>'required',
+            'phone'=>'required',
+            'gender'=>'required',
+            'address'=>'required'
+        ]);
+
+        $fullname = $request->fullname;
+        $email = $request->email;
+        $age = $request->age;
+        $phone = $request->phone;
+        $gender = $request->gender;
+        $address = $request->address;
+
+        //Profile Image
+        $temp_img = $request->file('profile_img');
+        $profile_img = pathinfo($temp_img->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_img->getClientOriginalExtension();
+        $temp_img->move('student_profile', $profile_img);
+        
+        $courses = Course::all();
+        $student = Student::find($id);
+
+        $student->fullname = $fullname;
+        $student->email = $email;
+        $student->age = $age;
+        $student->phone = $phone;
+        $student->gender = $gender;
+        $student->address = $address;
+        $student->profile_img = $profile_img;
+
+        $student->save();
+
+        if(!empty($student->id)){
+            return redirect('/my_profile')
+            ->with('success', 'User account successfully updated');
+        }else{
+            return back()
+                ->with('error', "Error updating user account");
+        }
     }
 
     public function assignPermission(Request $request){
