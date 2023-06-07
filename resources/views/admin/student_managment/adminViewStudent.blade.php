@@ -79,6 +79,7 @@
                                 <div>
                                     <label for="course">Course:</label>
                                     <select id="course" name="course_id">
+                                        <option value="">Select Course</option>
                                         @foreach ($courses as $course)
                                         <option value="{{ $course->id }}">{{ $course->course_name }}</option>
                                         @endforeach
@@ -88,7 +89,7 @@
                                 <div>
                                     <label for="batch">Batch:</label>
                                     <select id="batch" name="batch_id">
-                                        <!-- Options will be populated dynamically using JavaScript -->
+                                        <option value="">Select Batch</option>
                                     </select>
                                 </div>
 
