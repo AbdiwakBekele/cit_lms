@@ -87,7 +87,7 @@
                     <!-- Profile Image -->
                     @if(auth()->user()->profile_img)
                     <img width="30" height="30" class="rounded-circle"
-                        src=" {{ asset('user_profile/'.auth('student')->user()->profile_img) }} ">
+                        src=" {{ asset('user_profile/'.auth()->user()->profile_img) }} ">
 
                     @else
                     <img width="30" height="30" class="rounded-circle" src=" {{ asset('images/AM2A1021.JPG') }} ">
@@ -112,7 +112,7 @@
                     <li><a class="dropdown-item d-flex align-items-center" href="/admin_profile"><i
                                 class="bx bx-user fs-5"></i><span>Profile</span></a>
                     </li>
-                    <li><a class="dropdown-item d-flex align-items-center" href="javascript:;"><i
+                    <li><a class="dropdown-item d-flex align-items-center" href="/admin_setting"><i
                                 class="bx bx-cog fs-5"></i><span>Settings</span></a>
                     </li>
                     <li><a class="dropdown-item d-flex align-items-center" href="/admin"><i

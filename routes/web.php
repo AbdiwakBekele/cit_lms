@@ -135,7 +135,15 @@ Route::group(['middleware'=> ['auth']], function(){
     // Update my user profile
     Route::put('/admin_profile_upload/{id}', [UserController::class, 'userProfileUpload']);
 
+    // Change Password
+    Route::get('/admin_edit_password', [UserController::class, 'editPassword']);
+
+    // Update my user profile
+    Route::put('/admin_update_password', [UserController::class, 'updatePassword']);
+
     Route::get('/admin', [AdminController::class, 'index']);
+
+    Route::get('/admin_setting', [AdminController::class, 'setting']);
 
     Route::resource('courseCategory', CourseCategoryController::class)->middleware('permission:manage category');
 

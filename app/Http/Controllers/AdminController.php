@@ -20,4 +20,11 @@ class AdminController extends Controller
         return view('admin.adminDashboard', compact('courses', 'students', 'categories', 'users'));
     }
 
+    public function setting(){
+        return view('admin.adminSetting');
+    }
+
+    
+
+
 }

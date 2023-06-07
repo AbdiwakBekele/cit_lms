@@ -158,7 +158,7 @@ class UserController extends Controller
         return view('admin.adminEditProfile', compact('user'));
     }
 
-    function userProfileUpdate(Request $request, string $id){
+    function userProfileUpdate(Request $request){
         
         $request->validate([
             'fullname'=>'required',
@@ -182,34 +182,58 @@ class UserController extends Controller
         }
     }
 
+    function editPassword(){
+        return view('admin.adminChangePassword');
+    }
+
+    function updatePassword(Request $request){
+
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:8',
+            'confirm_password' => 'required|same:new_password',
+        ]);
+
+        $user = Auth::user();
+
+        // Check if the old password matches the user's current password
+        if (!Hash::check($request->old_password, $user->password)) {
+            return redirect()->back()->withErrors(['old_password' => 'The old password is incorrect.']);
+        }
+
+        // Update the user's password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return back()->with('success', 'Password updated successfully.');
+    
+
+    }
+
     public function userProfileUpload(Request $request, string $id){
       
         $request->validate([
             'profile_img' => 'required|mimes:png,jpg,jpeg,JPG,JPEG',
         ]);
+
+        //Profile Image
+        $temp_img = $request->file('profile_img');
+        $profile_img = pathinfo($temp_img->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_img->getClientOriginalExtension();
+        $temp_img->move('user_profile', $profile_img);
         
-        
-        echo "Check";
-        // echo $request->profile_img;
+        $user = User::find($id);
 
-        // //Profile Image
-        // $temp_img = $request->file('profile_img');
-        // $profile_img = pathinfo($temp_img->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_img->getClientOriginalExtension();
-        // $temp_img->move('user_profile', $profile_img);
-        
-        // $user = User::find($id);
+        $user->profile_img = $profile_img;
 
-        // $user->profile_img = $profile_img;
+        $user->save();
 
-        // $user->save();
-
-        // if(!empty($user->id)){
-        //     return redirect('/admin_profile')
-        //     ->with('success', 'User Profile successfully updated');
-        // }else{
-        //     return back()
-        //         ->with('error', "Error updating user profile");
-        // }
+        if(!empty($user->id)){
+            return redirect('/admin_profile')
+            ->with('success', 'User Profile successfully updated');
+        }else{
+            return back()
+                ->with('error', "Error updating user profile");
+        }
     }
 
     public function assignPermission(Request $request){

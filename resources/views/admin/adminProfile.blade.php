@@ -56,8 +56,8 @@
                                     <div class="modal-body my-4 text-center h5">
                                         Upload Profile
 
-
-                                        <form action="/admin_profile_upload/{{$user->id}}" method="post">
+                                        <form action="/admin_profile_upload/{{$user->id}}" method="post"
+                                            enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="_method" value="PUT">
                                             <input type="file" class="form-control m-3" id="profile_img"
