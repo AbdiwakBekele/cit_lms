@@ -132,6 +132,8 @@ Route::group(['middleware'=> ['auth']], function(){
     // Update my user profile
     Route::put('/admin_profile/{id}', [UserController::class, 'userProfileUpdate']);
 
+    // Update my user profile
+    Route::put('/admin_profile_upload/{id}', [UserController::class, 'userProfileUpload']);
 
     Route::get('/admin', [AdminController::class, 'index']);
 

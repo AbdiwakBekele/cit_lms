@@ -154,56 +154,62 @@ class UserController extends Controller
     }
 
     function userProfileEdit(String $id){
-
-        $courses = Course::all();
-        $student = Student::find($id);
-        return view('user_student.profile_edit', compact('courses', 'student'));
+        $user = User::find($id);
+        return view('admin.adminEditProfile', compact('user'));
     }
 
     function userProfileUpdate(Request $request, string $id){
         
         $request->validate([
-            'profile_img'=>'required|mimes:png,jpg,jpeg',
             'fullname'=>'required',
             'email'=> 'required',
             'age'=>'required',
             'phone'=>'required',
-            'gender'=>'required',
             'address'=>'required'
         ]);
 
-        $fullname = $request->fullname;
-        $email = $request->email;
-        $age = $request->age;
-        $phone = $request->phone;
-        $gender = $request->gender;
-        $address = $request->address;
+        $user = User::find($id);
+        $user->fill($request->only(['fullname', 'email', 'age', 'phone', 'address']));
 
-        //Profile Image
-        $temp_img = $request->file('profile_img');
-        $profile_img = pathinfo($temp_img->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_img->getClientOriginalExtension();
-        $temp_img->move('student_profile', $profile_img);
-        
-        $courses = Course::all();
-        $student = Student::find($id);
+        $user->save();
 
-        $student->fullname = $fullname;
-        $student->email = $email;
-        $student->age = $age;
-        $student->phone = $phone;
-        $student->gender = $gender;
-        $student->address = $address;
-        $student->profile_img = $profile_img;
-
-        $student->save();
-
-        if(!empty($student->id)){
-            return redirect('/my_profile')
-            ->with('success', 'User account successfully updated');
+        if(!empty($user->id)){
+            return redirect('/admin_profile')
+            ->with('success', 'Your account successfully updated');
         }else{
             return back()
                 ->with('error', "Error updating user account");
         }
+    }
+
+    public function userProfileUpload(Request $request, string $id){
+      
+        $request->validate([
+            'profile_img' => 'required|mimes:png,jpg,jpeg,JPG,JPEG',
+        ]);
+        
+        
+        echo "Check";
+        // echo $request->profile_img;
+
+        // //Profile Image
+        // $temp_img = $request->file('profile_img');
+        // $profile_img = pathinfo($temp_img->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_img->getClientOriginalExtension();
+        // $temp_img->move('user_profile', $profile_img);
+        
+        // $user = User::find($id);
+
+        // $user->profile_img = $profile_img;
+
+        // $user->save();
+
+        // if(!empty($user->id)){
+        //     return redirect('/admin_profile')
+        //     ->with('success', 'User Profile successfully updated');
+        // }else{
+        //     return back()
+        //         ->with('error', "Error updating user profile");
+        // }
     }
 
     public function assignPermission(Request $request){
