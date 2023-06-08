@@ -68,6 +68,17 @@
         </li>
         @endcan
 
+        @can('manage registration')
+        <!-- Event -->
+        <li class="{{ Request::is('registration*') ? 'mm-active' : ''}} ">
+            <a href="/registration">
+                <div class="parent-icon"><i class='bx bx-calendar-event'></i>
+                </div>
+                <div class="menu-title">Registration Management</div>
+            </a>
+        </li>
+        @endcan
+
         @can('manage users')
         <!-- User Managment -->
         <li class="{{ Request::is('user*') ? 'mm-active' : ''}} ">
@@ -90,16 +101,7 @@
         </li>
         @endcanany
 
-        @can('manage events')
-        <!-- Event -->
-        <li class="{{ Request::is('event*') ? 'mm-active' : ''}} ">
-            <a href="/event">
-                <div class="parent-icon"><i class='bx bx-calendar-event'></i>
-                </div>
-                <div class="menu-title">Event Management</div>
-            </a>
-        </li>
-        @endcan
+
 
         @can('view report')
         <!-- Report -->

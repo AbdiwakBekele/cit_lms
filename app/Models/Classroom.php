@@ -16,6 +16,13 @@ class Classroom extends Model
         'course_id',
         'batch_id',
         'student_id',
+        'working_in_the_field',
+        'why_interested',
+        'how_did_you_hear',
+        'type_of_training',
+        'additional_info',
+        'payment_mode',
+        'payment_type',
         'is_approved'
     ];
 

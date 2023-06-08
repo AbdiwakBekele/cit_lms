@@ -19,7 +19,25 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('phone');
-            $table->string('address');
+            
+            // Address
+            $table->string('city');
+            $table->string('subcity');
+            $table->string('house_no');
+            
+            // Social Media
+            $table->string('facebook')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('tiktok')->nullable();
+            $table->string('twitter')->nullable();
+            
+            // Education 
+            $table->string('level_of_education');
+            $table->string('work_status');
+            $table->string('current_occupation');
+            $table->string('work_experience');
+
             $table->string('profile_img')->nullable();
             $table->integer('is_approved')->default(0);
             $table->timestamps();

@@ -21,6 +21,7 @@ use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentDocController;
+use App\Http\Controllers\StudentRegistrationController;;
 
 /*
 |--------------------------------------------------------------------------
@@ -165,7 +166,7 @@ Route::group(['middleware'=> ['auth']], function(){
         Route::post('/course/store_resource', [ContentController::class, 'storeResource'] );
     });
 
-
+    // -------------- User Management ------------
     Route::group( ['middleware'=>['permission:manage users']], function(){
 
         Route::resource('user', UserController::class);
@@ -177,12 +178,14 @@ Route::group(['middleware'=> ['auth']], function(){
 
     } );
 
+    // --------------- Role Management -----------------
     Route::group(['middleware'=>['permission:manage roles']], function(){
         Route::resource('role', RoleController::class);
         Route::post('/role/{role_id}/permission', [RoleController::class, 'assignPermission']);
         Route::get('/role/{role_id}/revoke_permission/{permission_id}', [RoleController::class, 'revokePermission']);
     });
 
+    // -------------- Permission Management ------
     Route::group(['middleware'=>['permission:manage permissions']], function(){
         Route::resource('permission', PermissionController::class);
         Route::post('/permission/{permission_id}/role', [PermissionController::class, 'assignRole']);
@@ -203,8 +206,9 @@ Route::group(['middleware'=> ['auth']], function(){
 
     });
 
+    // --------------- Registration Management -------------------
+    Route::resource('registration', StudentRegistrationController::class);
     
-
     // Resource Management
     Route::resource('resource', ResourceController::class);
     Route::get('resource/{id}/download', [ResourceController::class, 'getDownload']);

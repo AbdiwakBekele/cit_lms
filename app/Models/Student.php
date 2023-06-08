@@ -22,7 +22,22 @@ class Student extends Model implements Authenticatable
         'gender',
         'email',
         'phone',
-        'address',
+
+        'city',
+        'subcity',
+        'house_no',
+
+        'facebook',
+        'instagram',
+        'linkedin',
+        'tiktok',
+        'twitter',
+
+        'level_of_education',
+        'work_status',
+        'current_occupation',
+        'work_experience',
+        
         'profile_img',
         'is_approved',
         'password'

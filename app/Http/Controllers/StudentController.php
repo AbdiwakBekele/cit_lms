@@ -31,28 +31,32 @@ class StudentController extends Controller
      */
     public function store(Request $request){
 
-        $this->validate($request, [
+        $data = $request->validate([
             'fullname'=>'required',
             'email'=>'required|unique:students',
             'age'=>'required',
             'gender'=>'required',
             'phone'=>'required',
-            'address'=>'required',
+            'city'=>'required',
+            'subcity'=>'required',
+            'house_no'=>'required',
+            'facebook'=>'nullable',
+            'instagram'=>'nullable',
+            'linkedin'=>'nullable',
+            'tiktok'=>'nullable',
+            'twitter'=>'nullable',
+            'level_of_education'=>'required',
+            'work_status'=>'required',
+            'current_occupation'=>'required',
+            'work_experience'=>'required',
             'password'=>'required'
         ]);
 
-        $fullname = $request->fullname;
-        $email = $request->email;
-        $age = $request->age;
-        $gender = $request->gender;
-        $phone = $request->phone;
-        $address = $request->address;
-        $password =  Hash::make($request->password);
+        $data['password'] =  Hash::make($request->password);
 
-        $student = new Student(['fullname'=>$fullname, 'age'=>$age, 'gender'=>$gender, 'email'=>$email, 'phone'=>$phone,  'address'=>$address, 'password'=>$password]);
-        $student->save();
+        $student = Student::create($data);
 
-        if(!empty($student->id)){
+        if($student){
             return back()
              ->with('success','You have successfully create a new student.');
         }else{

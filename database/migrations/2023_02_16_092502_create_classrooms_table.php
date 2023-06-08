@@ -31,6 +31,14 @@ return new class extends Migration
                     ->references('id')
                     ->on('students')
                     ->onDelete('cascade');
+            
+            $table->string('working_in_the_field');
+            $table->string('why_interested');
+            $table->string('how_did_you_hear');
+            $table->string('type_of_training');
+            $table->string('additional_info');
+            $table->string('payment_mode');
+            $table->string('payment_type');
 
             $table->integer('is_approved');
             $table->timestamps();
