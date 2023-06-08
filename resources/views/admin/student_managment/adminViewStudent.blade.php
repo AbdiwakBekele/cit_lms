@@ -11,6 +11,22 @@
                 Student Detail</h3>
         </div>
 
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
+
+        @if ($message = Session::get('error'))
+        <div class="alert alert-danger alert-block">
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
+
+        @error('student_id')
+        <div class="alert alert-danger"> {{ $message }}</div>
+        @enderror
+
         <!-- User Form -->
         <div class="m-3 p-3 ">
 
@@ -78,7 +94,7 @@
                                 <input type="hidden" name="student_id" value="{{$student->id}}">
                                 <div>
                                     <label for="course">Course:</label>
-                                    <select id="course" name="course_id">
+                                    <select id="course" class="form-control" name="course_id">
                                         <option value="">Select Course</option>
                                         @foreach ($courses as $course)
                                         <option value="{{ $course->id }}">{{ $course->course_name }}</option>
@@ -88,7 +104,7 @@
 
                                 <div>
                                     <label for="batch">Batch:</label>
-                                    <select id="batch" name="batch_id">
+                                    <select id="batch" class="form-control" name="batch_id">
                                         <option value="">Select Batch</option>
                                     </select>
                                 </div>

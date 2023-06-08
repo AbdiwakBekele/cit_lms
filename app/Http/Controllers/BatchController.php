@@ -125,12 +125,10 @@ class BatchController extends Controller
             'is_approved'=>1
         ]);
 
-        $classroom->save();
-
         if($classroom->save()){
             // Model has been successfully inserted
             return back()
-             ->with('success','You have successfully Registered for this batch, Please wait for the approval to start the class');
+             ->with('success','You have successfully Registered for this batch');
         }else{
             return back()
             ->with('error','Error registering for this batch');
