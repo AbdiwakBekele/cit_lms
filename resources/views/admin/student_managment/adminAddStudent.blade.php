@@ -84,7 +84,6 @@
                 </div>
 
                 <hr>
-
                 <!-- City -->
                 <div class="mb-3 mt-3">
                     <label for="city" class="form-label">City</label>
@@ -115,7 +114,6 @@
                 </div>
 
                 <hr>
-
                 <!-- Facebook -->
                 <div class="mb-3 mt-3">
                     <label for="facebook" class="form-label">Facebook Username (Optional)</label>
@@ -173,12 +171,12 @@
                     <label for="level_of_education" class="form-label">Level of Education</label>
                     <select name="level_of_education" id="level_of_education" class="form-control" required>
                         <option value="">Select Your Level of Education</option>
-                        <option value="high_school">High School</option>
-                        <option value="diploma">Diploma</option>
-                        <option value="degree">Degree</option>
-                        <option value="masters">Masters</option>
-                        <option value="phd">PHD</option>
-                        <option value="others">Others Courses</option>
+                        <option value="High School">High School</option>
+                        <option value="Diploma">Diploma</option>
+                        <option value="Degree">Degree</option>
+                        <option value="Masters">Masters</option>
+                        <option value="PHD">PHD</option>
+                        <option value="Others">Others Courses</option>
                     </select>
 
                     @error('level_of_education')
@@ -192,11 +190,11 @@
                     <label for="work_status" class="form-label">Work Status</label>
                     <select name="work_status" id="work_status" class="form-control" required>
                         <option value="">Select Your Work Status</option>
-                        <option value="unemployed">Unemployed</option>
-                        <option value="employed">Employed</option>
-                        <option value="self_employed">Self-Employed</option>
-                        <option value="student">Student</option>
-                        <option value="others">Others</option>
+                        <option value="Unemployed">Unemployed</option>
+                        <option value="Employed">Employed</option>
+                        <option value="Self-Employed">Self-Employed</option>
+                        <option value="Student">Student</option>
+                        <option value="Others">Others</option>
                     </select>
 
                     @error('work_status')
@@ -219,13 +217,12 @@
                     <label for="work_experience" class="form-label">Work Experience</label>
                     <select name="work_experience" id="work_experience" class="form-control" required>
                         <option value="">Select Your Work Experience</option>
-                        <option value="lessthan_1">
+                        <option value="< 1 year">
                             < 1 year</option>
-                        <option value="greaterthan_1">>1 year</option>
-                        <option value="1_3years">1 - 3 Years</option>
-                        <option value="4_7years">4 - 7 Years</option>
-                        <option value="7_10years">7 - 10 Years</option>
-                        <option value="greaterthan_10">10+ Years</option>
+                        <option value="1 - 3 Years">1 - 3 Years</option>
+                        <option value="4 - 7 Years">4 - 7 Years</option>
+                        <option value="7 - 10 Years">7 - 10 Years</option>
+                        <option value="10+ Years">10+ Years</option>
                     </select>
 
                     @error('work_experience')

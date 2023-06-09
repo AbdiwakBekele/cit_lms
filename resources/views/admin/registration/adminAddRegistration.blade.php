@@ -196,7 +196,6 @@
                     @enderror
                 </div>
 
-
                 <!-- Work Status -->
                 <div class="mb-3 mt-3">
                     <label for="work_status" class="form-label">Work Status</label>
@@ -231,7 +230,6 @@
                         <option value="">Select Your Work Experience</option>
                         <option value="< 1 year">
                             < 1 year</option>
-                        <option value=">1 year">>1 year</option>
                         <option value="1 - 3 Years">1 - 3 Years</option>
                         <option value="4 - 7 Years">4 - 7 Years</option>
                         <option value="7 - 10 Years">7 - 10 Years</option>
@@ -253,7 +251,8 @@
                     <select name="course_id" id="course" class="form-select" required>
                         <option value="">Select Course</option>
                         @foreach($courses as $course)
-                        <option value="{{$course->id}}">{{$course->course_name}} | {{$course->course_price}}</option>
+                        <option value="{{$course->id}}">{{$course->course_name}} | {{$course->course_price}} ETB
+                        </option>
                         @endforeach
                     </select>
 
@@ -341,7 +340,6 @@
                         feel may be helpful for the training.</label>
                     <textarea class="form-control" id="additional_info" name="additional_info" rows="4"></textarea>
                 </div>
-
                 @error('additional_info')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror

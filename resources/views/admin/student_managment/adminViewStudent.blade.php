@@ -59,6 +59,12 @@
                             <th>Age</th>
                             <td> {{$student->age}} </td>
                         </tr>
+
+                        <tr>
+                            <th>Gender</th>
+                            <td> {{$student->gender}} </td>
+                        </tr>
+
                         <tr>
                             <th>Phone</th>
                             <td> {{$student->phone}} </td>
@@ -70,25 +76,25 @@
 
                         <tr>
                             <th>Facebook Username</th>
-                            <td> {{$student->facebook}}</td>
+                            <td> {{$student->facebook ?? '-'}}</td>
                         </tr>
                         <tr>
                             <th>Instagram Username</th>
-                            <td> {{$student->instagram}}</td>
+                            <td> {{$student->instagram ?? '-'}}</td>
                         </tr>
 
                         <tr>
                             <th>LinkedIn Username</th>
-                            <td> {{$student->linkedin}}</td>
+                            <td> {{$student->linkedin ?? '-'}}</td>
                         </tr>
 
                         <tr>
                             <th>Tiktok Username</th>
-                            <td> {{$student->tiktok}}</td>
+                            <td> {{$student->tiktok ?? '-'}}</td>
                         </tr>
                         <tr>
                             <th>Twitter Username</th>
-                            <td> {{$student->twitter}}</td>
+                            <td> {{$student->twitter ?? '-'}}</td>
                         </tr>
 
                         <tr>
@@ -128,7 +134,7 @@
                     <div class="modal-content">
 
                         <!-- Modal body -->
-                        <div class="modal-body my-4 text-center h5">
+                        <div class="modal-body my-4">
                             <h3>Select Student</h3>
 
                             <form action="/add_student_batch" method="POST">
@@ -143,7 +149,8 @@
                                         <option value="">Select Course</option>
                                         @foreach ($courses as $course)
                                         <option value="{{ $course->id }}">{{ $course->course_name }} |
-                                            {{$course->course_price}} ETB</option>
+                                            {{$course->course_price}} ETB
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -233,15 +240,13 @@
                                         feel may be helpful for the training.</label>
                                     <textarea class="form-control" id="additional_info" name="additional_info"
                                         rows="4"></textarea>
+
+                                    @error('additional_info')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
-                                @error('additional_info')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                                <br>
-
                                 <hr>
-
                                 <!-- Payment Status -->
                                 <div class="mb-3 mt-3">
                                     <label for="payment_mode" class="form-label">Payment Status/Mode</label>
@@ -272,7 +277,6 @@
                                 </div>
 
                                 <hr>
-
                                 <div class="form-check m-2">
                                     <p> <strong>
                                             By selecting below, you agree to the rights, responsibilities, and
@@ -286,7 +290,6 @@
                                     <label class="form-check-label" for="agree_check"> <strong>I Agree</strong>
                                     </label>
                                 </div>
-
 
                                 <input type="submit" class="btn btn-primary m-2" value="Select">
                                 <button type="button" class="btn btn-light m-2" data-bs-dismiss="modal">Close</button>

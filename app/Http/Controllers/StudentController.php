@@ -56,6 +56,8 @@ class StudentController extends Controller
 
         $student = Student::create($data);
 
+        Mail::to($student->email)->send(new StudentRegistered($student));
+
         if($student){
             return back()
              ->with('success','You have successfully create a new student.');
@@ -89,29 +91,48 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id){
 
-        $this->validate($request, [
+        $data = $request->validate([
             'fullname'=>'required',
             'email'=>'required',
             'age'=>'required',
+            'gender'=>'required',
             'phone'=>'required',
-            'address'=>'required'
+            'city'=>'required',
+            'subcity'=>'required',
+            'house_no'=>'required',
+            'facebook'=>'nullable',
+            'instagram'=>'nullable',
+            'linkedin'=>'nullable',
+            'tiktok'=>'nullable',
+            'twitter'=>'nullable',
+            'level_of_education'=>'required',
+            'work_status'=>'required',
+            'current_occupation'=>'required',
+            'work_experience'=>'required'
         ]);
 
-        $fullname = $request->fullname;
-        $email = $request->email;
-        $age = $request->age;
-        $phone = $request->phone;
-        $address = $request->address;
 
         $student = Student::find($id);
-        $student->fullname = $fullname;
-        $student->email = $email;
-        $student->age = $age;
-        $student->phone = $phone;
-        $student->address = $address;
-        $student->save();
+        $student->fullname = $data['fullname'];
+        $student->email = $data['email'];
+        $student->age = $data['age'];
+        $student->gender = $data['gender'];
+        $student->phone = $data['phone'];
+        $student->city = $data['city'];
+        $student->subcity = $data['subcity'];
+        $student->house_no = $data['house_no'];
+        $student->facebook = $data['facebook'];
+        $student->instagram = $data['instagram'];
+        $student->linkedin = $data['linkedin'];
+        $student->tiktok = $data['tiktok'];
+        $student->twitter = $data['twitter'];
+        $student->level_of_education = $data['level_of_education'];
+        $student->work_status = $data['work_status'];
+        $student->current_occupation = $data['current_occupation'];
+        $student->work_experience = $data['work_experience'];
 
-        if(!empty($student->id)){
+
+        if($student->save()){
             return back()
              ->with('success','You have successfully updated student information.');
         }else{

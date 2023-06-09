@@ -31,7 +31,7 @@ class StudentRegistered extends Mailable
     {
         return new Envelope(
             subject: 'Student Registered',
-            from: new Address('info@californiatraininginstitute.com', 'California Training')
+            from: new Address('info@edu-cti.com', 'California Training')
         );
     }
 

@@ -110,22 +110,29 @@ class BatchController extends Controller
 
     public function addStudentBatch(Request $request){
 
-            $course_id =  $request->course_id;
-            $student_id =  $request->student_id;
-            $batch_id =  $request->batch_id;
-
-           $this->validate( $request, [
-            'student_id'=> Rule::unique('classrooms')->where('course_id', $course_id  )
+        $data = $request->validate([
+            'course_id'=>'required',
+            'student_id'=>'required',
+            'batch_id'=>'required',
+            'working_in_the_field'=>'required',
+            'why_interested'=>'required',
+            'how_did_you_hear'=>'required',
+            'type_of_training'=>'required',
+            'additional_info'=>'required',
+            'payment_mode'=>'required',
+            'payment_type'=>'required'
         ]);
 
-        $classroom = new Classroom([
-            'course_id'=> $course_id,
-            'student_id'=> $student_id, 
-            'batch_id'=>$batch_id,
-            'is_approved'=>1
+        $data['is_approved'] = 1;
+        
+        $this->validate( $request, [
+                'student_id'=> Rule::unique('classrooms')->where('course_id', $request->course_id)
         ]);
 
-        if($classroom->save()){
+        $classroom = Classroom::create($data);
+
+
+        if($classroom){
             // Model has been successfully inserted
             return back()
              ->with('success','You have successfully Registered for this batch');
