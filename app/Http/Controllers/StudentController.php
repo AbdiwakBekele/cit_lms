@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Models\Student;
 use App\Models\Course;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class StudentController extends Controller
 {
