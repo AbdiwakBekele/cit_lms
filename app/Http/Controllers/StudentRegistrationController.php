@@ -10,6 +10,7 @@ use App\Models\Classroom;
 use App\Models\Student;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Mail\StudentRegistered;
 use Illuminate\Support\Facades\Mail;
 
 class StudentRegistrationController extends Controller
