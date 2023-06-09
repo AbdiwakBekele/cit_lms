@@ -10,6 +10,8 @@ use App\Models\Course;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\StudentRegistered;
+use Illuminate\Support\Str;
+
 
 class StudentController extends Controller
 {
@@ -54,11 +56,12 @@ class StudentController extends Controller
             'password'=>'required'
         ]);
 
-        $data['password'] =  Hash::make($request->password);
+        $password = Str::random(8); // Generate a random password with 10 characters
+        $data['password'] =  Hash::make($password);
 
         $student = Student::create($data);
 
-        Mail::to($student->email)->send(new StudentRegistered($student));
+        Mail::to($student->email)->send(new StudentRegistered($student, $password));
 
         if($student){
             return back()

@@ -15,13 +15,15 @@ class StudentRegistered extends Mailable
 {
     use Queueable, SerializesModels;
     public $student;
+    public $password;
     
     /**
      * Create a new message instance.
      */
-    public function __construct(Student $student )
+    public function __construct(Student $student, $password )
     {
         $this->student = $student;
+        $this->password = $password;
     }
 
     /**
