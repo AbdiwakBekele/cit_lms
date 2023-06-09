@@ -9,6 +9,8 @@ use App\Models\Course;
 use App\Models\Classroom;
 use App\Models\Student;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class StudentRegistrationController extends Controller
 {
@@ -44,9 +46,11 @@ class StudentRegistrationController extends Controller
             'work_experience'=>'required'
         ]);
 
-        $password = "0000";
+        $password = Str::random(8); // Generate a random password with 8 character
         $data_student['password'] =  Hash::make($password);
         $student = Student::create($data_student);
+
+        Mail::to($student->email)->send(new StudentRegistered($student, $password));
 
         if($student){
             $data_class = $request->validate([

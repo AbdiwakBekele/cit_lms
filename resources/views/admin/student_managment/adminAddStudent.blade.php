@@ -39,10 +39,11 @@
                 </div>
 
                 <!-- Email -->
-                <div class="mb-3 mt-3">
+                <div class="mb-3 mt-3 form-group">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" placeholder="Enter Email Address" name="email"
                         required>
+                    <div class="invalid-feedback">Please provide a valid email address</div>
 
                     @error('email')
                     <span class="text-danger">{{ $message }}</span>
@@ -226,17 +227,6 @@
                     </select>
 
                     @error('work_experience')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-
-                <!-- Password -->
-                <div class="mb-3 mt-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter Password"
-                        name="password">
-                    @error('password')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
