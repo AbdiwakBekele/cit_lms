@@ -63,7 +63,7 @@ class StudentController extends Controller
 
         $student = Student::create($data);
 
-        Mail::to($student->email)->send(new StudentRegistered($student, $password));
+        // Mail::to($student->email)->send(new StudentRegistered($student, $password));
 
         if($student){
             return back()
