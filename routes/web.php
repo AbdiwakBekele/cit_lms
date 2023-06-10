@@ -38,19 +38,6 @@ Route::get('/fill_student', function () {
     return 'Student created successfully! with thier email address and password = "password" ';
 });
 
-
-Route::get('/', [UserStudentController::class, 'index']);
-
-Route::get('/about', [UserStudentController::class, 'about']);
-
-Route::get('/events', [UserStudentController::class, 'events']);
-
-Route::get('/event_single', [UserStudentController::class, 'eventSingle']);
-
-Route::get('/blog', [UserStudentController::class, 'blog']);
-
-Route::get('/contact', [UserStudentController::class, 'contact']);
-
 /*
 |--------------------------------------------------------------------------
 | Student Auth Manager                                       
@@ -69,12 +56,14 @@ Route::get('/student_logout', [StudentAuthManager::class, 'logout']);
 | Student - Course                                        
 |------------------------------------------------------------------------*/
 
-Route::get('/course_list', [UserStudentController::class, 'courseList']);
-
-Route::get('/course_single/{id}', [UserStudentController::class, 'courseSingle']);
-
 
 Route::group(['middleware' => ['student']], function () {
+
+    Route::get('/', [UserStudentController::class, 'index']);
+
+    Route::get('/course_list', [UserStudentController::class, 'courseList']);
+
+    Route::get('/course_single/{id}', [UserStudentController::class, 'courseSingle']);
 
     Route::get('/my_profile', [UserStudentController::class, 'myProfile']);
 
@@ -87,8 +76,6 @@ Route::group(['middleware' => ['student']], function () {
     Route::get('/enroll_course/{id}', [UserStudentController::class, 'enrollCourse']);
 
     Route::post('/enroll_now', [UserStudentController::class, 'enrollNow']);
-
-    Route::get('/my_learning', [UserStudentController::class, 'myLearning']);
 
     Route::get('/my_quiz/{section_id}', [UserStudentController::class, 'myQuiz']);
 
@@ -194,8 +181,7 @@ Route::group(['middleware'=> ['auth']], function(){
     
     Route::resource('student', StudentController::class)->middleware('permission:manage students');
 
-    //-------------- Admin - Batch -------------/
-
+    //-------------- Admin - Batch -------------
     Route::group( ['middleware'=> ['permission:manage batch']], function(){
         Route::resource('batch', BatchController::class);
         Route::get('/approve_student/{id}', [BatchController::class, 'approveStudent']);
@@ -203,7 +189,6 @@ Route::group(['middleware'=> ['auth']], function(){
         Route::post('/add_student_batch', [BatchController::class, 'addStudentBatch']);
 
         Route::post('/form/batches', [BatchController::class, 'getBatches']);
-
     });
 
     // --------------- Registration Management -------------------

@@ -20,23 +20,14 @@ use Illuminate\Support\Facades\Date;
 class UserStudentController extends Controller{
     
     function index(){
-        $courses = Course::all();
-        return view('home', compact('courses'));
-    }
-    
-    function about(){
-        $courses = Course::all();
-        return view('about', compact('courses'));
-    }
-
-    function events(){
-        $courses = Course::all();
-        return view('events', compact('courses'));
-    }
-
-    function eventSingle(){
-        $courses = Course::all();
-        return view('eventSingle', compact('courses'));
+        if(Auth::guard('student')->check()){
+            $courses = Course::all();
+            $student_id = Auth::guard('student')->user()->id;
+            $classrooms = Classroom::where('student_id', $student_id)->get();
+            $course_categories = CourseCategory::all();
+            return view('user_student.mylearning', compact('courses', 'classrooms', 'course_categories'));
+        }
+        return view('user_student.student_login');
     }
 
     function myProfile(){
@@ -96,16 +87,6 @@ class UserStudentController extends Controller{
             return back()
                 ->with('error', "Error updating user account");
         }
-    }
-
-    function blog(){
-        $courses = Course::all();
-        return view('blog', compact('courses'));
-    }
-    
-    function contact(){
-        $courses = Course::all();
-        return view('contact', compact('courses'));
     }
 
     function courseList(){
@@ -195,18 +176,6 @@ class UserStudentController extends Controller{
             return back()
             ->with('error','Error registering for this batch');
         }
-    }
-
-    public function myLearning(){
-        if(Auth::guard('student')->check()){
-            $courses = Course::all();
-            $student_id = Auth::guard('student')->user()->id;
-            $classrooms = Classroom::where('student_id', $student_id)->get();
-            $course_categories = CourseCategory::all();
-            return view('user_student.mylearning', compact('courses', 'classrooms', 'course_categories'));
-        }
-
-        return view('user_student.student_login');
     }
 
     public function myQuiz(string $section_id){

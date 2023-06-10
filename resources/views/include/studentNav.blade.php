@@ -75,12 +75,8 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <!-- main navigation -->
                             <ul class="nav navbar-nav navbar-right main-navigation font-poppins text-uppercase">
-                                <li class="grow"><a href="/" style="font-size: 1.2em;">Home</a></li>
-                                <li><a href="/about" style="font-size: 1.2em;">About us</a></li>
+                                <li class="grow"><a href="/" style="font-size: 1.2em;">My Learning</a></li>
                                 <li><a href="/course_list" style="font-size: 1.2em;">Courses</a></li>
-                                <li><a href="/events" style="font-size: 1.2em;">Events</a></li>
-                                <li><a href="/blog" style="font-size: 1.2em;">Blog</a></li>
-                                <li><a href="/contact" style="font-size: 1.2em;">Contact</a></li>
                             </ul>
                         </div>
 
@@ -88,7 +84,6 @@
                         @auth('student')
                         <li class="dropdown" style="list-style: none; padding-left: 5%;">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
 
                                 @if(auth('student')->user()->profile_img)
                                 <img width="30" height="30" class="rounded-circle"
@@ -101,7 +96,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="/my_profile">Profile</a></li>
-                                <li><a href="/my_learning">My Learning</a></li>
+                                <li><a href="#">Setting</a></li>
                                 <li><a href="#">Notification</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <li><a href="/student_logout">Sign Out</a></li>

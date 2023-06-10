@@ -52,11 +52,13 @@ class StudentController extends Controller
             'level_of_education'=>'required',
             'work_status'=>'required',
             'current_occupation'=>'required',
-            'work_experience'=>'required',
-            'password'=>'required'
+            'work_experience'=>'required'
         ]);
 
-        $password = Str::random(8); // Generate a random password with 10 characters
+        // Generate a random password with 10 characters
+        $password = Str::random(8); 
+        // $password = '00000000';
+        
         $data['password'] =  Hash::make($password);
 
         $student = Student::create($data);
