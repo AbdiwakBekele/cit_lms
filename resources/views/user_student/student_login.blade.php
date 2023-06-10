@@ -66,7 +66,9 @@
                         <hr>
                     </form>
                     <div class="text-center"></div>
-                    <!-- <div class="text-center"><a class="small" href="/student_register">Create an Account!</a></div> -->
+                    <div class="text-center">
+                        <a class="small" href="/student_register">Create an Account!</a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 col-xl-6 col-xxl-6"
