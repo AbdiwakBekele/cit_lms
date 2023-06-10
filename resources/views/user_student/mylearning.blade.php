@@ -27,7 +27,7 @@
         <article id="content" class="col-xs-12 col-md-9">
             <!-- show head -->
             <header class="show-head">
-                <p> Showing 1–9 of 15 results</p>
+                <!-- <p> Showing 1–9 of 15 results</p> -->
                 <select class="chosen-select-no-single">
                     <option value="0">All Courses</option>
                     <option value="0">On progress</option>
@@ -40,13 +40,12 @@
                 @foreach($classrooms as $classroom)
 
                 <?php 
-                                    $course = DB::table('courses')->where('id', $classroom->course_id)->first();
-                                    $sections = DB::table('sections')->where('course_id', $course->id)->get();
-                                    $batch = DB::table('batches')->where('id', $classroom->batch_id)->first();
-                                    $progresses = DB::table('progress')->where('classroom_id', $classroom->id)->get();
-                                    $user = DB::table('users')->where('id', $course->user_id)->first();
-                                    
-                                ?>
+                    $course = DB::table('courses')->where('id', $classroom->course_id)->first();
+                    $sections = DB::table('sections')->where('course_id', $course->id)->get();
+                    $batch = DB::table('batches')->where('id', $classroom->batch_id)->first();
+                    $progresses = DB::table('progress')->where('classroom_id', $classroom->id)->get();
+                    $user = DB::table('users')->where('id', $course->user_id)->first();       
+                ?>
 
                 <div class="col-xs-12 col-sm-6 col-lg-4">
                     <!-- popular post -->
