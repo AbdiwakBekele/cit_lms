@@ -20,14 +20,13 @@ use Illuminate\Support\Facades\Date;
 class UserStudentController extends Controller{
     
     function index(){
-        if(Auth::guard('student')->check()){
-            $courses = Course::all();
-            $student_id = Auth::guard('student')->user()->id;
-            $classrooms = Classroom::where('student_id', $student_id)->get();
-            $course_categories = CourseCategory::all();
-            return view('user_student.mylearning', compact('courses', 'classrooms', 'course_categories'));
-        }
-        return view('user_student.student_login');
+        
+        $courses = Course::all();
+        $course_categories = CourseCategory::all();
+        $student_id = Auth::guard('student')->user()->id;
+        $classrooms = Classroom::where('student_id', $student_id)->get();
+        return view('user_student.mylearning', compact('courses', 'classrooms', 'course_categories'));
+    
     }
 
     function myProfile(){

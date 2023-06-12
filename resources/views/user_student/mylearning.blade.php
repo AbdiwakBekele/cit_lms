@@ -46,8 +46,6 @@
                     $user = DB::table('users')->where('id', $course->user_id)->first();       
                 ?>
 
-
-
                 <div class="col-xs-12 col-sm-6 col-lg-4">
                     <!-- popular post -->
                     <article class="popular-post">
@@ -77,28 +75,22 @@
                         <div class="progress "
                             style="margin-top: 3%; margin-bottom: 3%; background-color: #777777; border-radius: 10px;">
                             <div class="progress-bar bg-primary text-white" role="progressbar"
-                                style="width: {{ ($progresses->count() / $sections->count()) * 100 }}%; border-radius: 10px; height: 20px; font-size: 12px; "
+                                style="width: {{ ($sections->count() > 0) ? ($progresses->count() / $sections->count()) * 100 : 0 }}%; border-radius: 10px; height: 20px; font-size: 12px; "
                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+
+                                @if ($sections->count() > 0)
                                 {{ ($progresses->count() / $sections->count()) * 100 }}%
+                                @else
+                                0%
+                                @endif
+
+
+
                             </div>
                         </div>
-                        <footer class="post-foot gutter-reset">
-                            <ul class=" star-rating list-unstyled ">
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                            </ul>
-                        </footer>
+
                     </article>
                 </div>
-
                 @endforeach
 
                 <nav aria-label="Page navigation">
@@ -114,6 +106,7 @@
                     </ul>
                 </nav>
         </article>
+
         <!-- sidebar -->
         <aside class="col-xs-12 col-md-3" id="sidebar">
             <!-- widget search -->
