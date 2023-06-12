@@ -92,34 +92,45 @@ class UserStudentController extends Controller{
         $courses = Course::all();
         $course_categories = CourseCategory::all();
         $top_courses = Course::withCount('classrooms');
-
+        $popular_courses;
+        
         if($top_courses->count() >= 3){
             $popular_courses = $top_courses->orderBy('classrooms_count', 'desc')->take(3)->get();
-            return view('user_student.course_list', compact('courses', 'course_categories', 'popular_courses'));
         }else{
             $popular_courses = $top_courses->orderBy('classrooms_count', 'desc')->get();
-            return view('user_student.course_list', compact('courses', 'course_categories', 'popular_courses'));
         }
+        return view('user_student.course_list', compact('courses', 'course_categories', 'popular_courses'));
     }
 
     public function courseSingle(string $id){
         $courses = Course::all();
-        $course = Course::find($id);
-        $sections = Section::where('course_id', $course->id)->get();
-        $user = User::find($course->user_id);
-        $course_category = CourseCategory::find($course->course_category_id);
         $course_categories = CourseCategory::all();
-        return view('user_student.course_single', compact('courses','course', 'user', 'course_category', 'course_categories', 'sections'));
+        $course = Course::find($id);
+        $top_courses = Course::withCount('classrooms');
+        $popular_courses;
+        
+        if($top_courses->count() >= 3){
+            $popular_courses = $top_courses->orderBy('classrooms_count', 'desc')->take(3)->get();
+        }else{
+            $popular_courses = $top_courses->orderBy('classrooms_count', 'desc')->get();
+        }
+        
+        return view('user_student.course_single', compact('courses','course', 'course_categories', 'popular_courses'));
     }
 
     public function myCourseSingle(string $course_id, string $classroom_id){
+        $popular_courses;
         $courses = Course::all();
-
-         $course = Course::find($course_id);
-        $user = User::find($course->user_id);
-        $course_category = CourseCategory::find($course->course_category_id);
         $course_categories = CourseCategory::all();
-
+        $course = Course::find($course_id);
+        $top_courses = Course::withCount('classrooms');
+        
+        if($top_courses->count() >= 3){
+            $popular_courses = $top_courses->orderBy('classrooms_count', 'desc')->take(3)->get();
+        }else{
+            $popular_courses = $top_courses->orderBy('classrooms_count', 'desc')->get();
+        }
+        
         $sectionCount = Section::whereHas('progress', function($query) use ($classroom_id) {
                     $query->where('classroom_id', $classroom_id)
                         ->where('is_passed', 1);
@@ -129,8 +140,7 @@ class UserStudentController extends Controller{
             ->where('sequence', '<=', $sectionCount + 1)
             ->get();
 
-        return view('user_student.my_course_single', compact('courses','course', 'user', 'course_category', 'course_categories', 'sections'));
-
+        return view('user_student.my_course_single', compact('courses','course', 'course_categories', 'sections', 'popular_courses'));
 
     }
 

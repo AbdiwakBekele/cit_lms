@@ -32,7 +32,7 @@
             <header class="view-header row">
                 <div class="col-xs-12 col-sm-9 d-flex">
                     <!-- Course Coordinator -->
-                    @if(!empty($user->fullname))
+                    <!-- @if(!empty($course->courseUser->fullname))
                     <div class="d-col">
                         <div class="post-author">
                             <div class="alignleft no-shrink rounded-circle">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </div>
-                    @endif()
+                    @endif() -->
                     <!-- Course Category -->
                     <div class="d-col">
                         <!-- post author -->
@@ -58,7 +58,7 @@
                             <div class="description-wrap">
                                 <h2 class="author-heading"><a href="#">Category</a></h2>
                                 <h3 class="author-heading-subtitle text-uppercase">
-                                    {{$course_category->category_name}}
+                                    {{$course->courseCategory->category_name}}
                                 </h3>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
 
             <?php $index = 1; ?>
 
-            @foreach($sections as $section)
+            @foreach($course->sections as $section)
             <!-- sectionRow -->
             <section class="sectionRow">
                 <h2 class="h6 text-uppercase fw-semi rowHeading">Section {{$index++}}:
@@ -112,11 +112,7 @@
                 <!-- sectionRowPanelGroup -->
                 <div class="panel-group sectionRowPanelGroup" id="accordion" role="tablist" aria-multiselectable="true">
 
-                    <?php 
-                                    $contents = DB::table('contents')->where('section_id', $section->id)->get();
-                                    ?>
-
-                    @foreach($contents as $content)
+                    @foreach($section->contents as $content)
                     <!-- panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingOne">
@@ -128,20 +124,8 @@
                                         <i class="fas fa-chevron-circle-right accOpenerIcn"></i>
                                         {{$content->content_name}}
                                     </span>
-
                                 </a>
                             </h3>
-                        </div>
-                        <!-- collapseOne -->
-                        <div id="collapse{{$content->id}}" class="panel-collapse collapse" role="tabpanel"
-                            aria-labelledby="headingOne">
-                            <div class="panel-body">
-                                <p><strong>Description</strong></p>
-                                <p>
-                                    {!! $content->content_description !!}
-                                </p>
-                                <hr>
-                            </div>
                         </div>
                     </div>
                     @endforeach
@@ -158,10 +142,10 @@
                         this course</a>
                 </div>
             </div>
-            @if(!empty($user->fullname))
 
+            <!-- User Tempora -->
+            <!-- @if(!empty($user->fullname))
             <h2>About Instructor</h2>
-            <!-- instructorInfoBox -->
             <div class="instructorInfoBox">
                 <div class="alignleft">
                     <a href="instructor-single.html"><img src="http://placehold.it/80x80" alt="Merry Jhonson"></a>
@@ -180,8 +164,8 @@
                         Profile</a>
                 </div>
             </div>
+            @endif -->
 
-            @endif
             <h2>Reviews</h2>
             <h3 class="h6 fw-semi">There are 2 reviews on this course</h3>
             <!-- reviewsList -->
@@ -213,7 +197,7 @@
                 </li>
                 <li>
                     <div class="alignleft">
-                        <a href="instructor-single.html"><img src="http://placehold.it/50x50" alt="Tim Cook"></a>
+                        <a href="#"><img src="http://placehold.it/50x50" alt="Tim Cook"></a>
                     </div>
                     <div class="description-wrap">
                         <div class="descrHead">
@@ -289,15 +273,13 @@
         <aside class="col-xs-12 col-md-3" id="sidebar">
             <!-- widget course select -->
             <section class="widget widget_box widget_course_select">
-                <header class="widgetHead text-center bg-theme">
+                <header class="widgetHead text-center">
                     <h3 class="text-uppercase">Take This Course</h3>
                 </header>
                 <strong class="price element-block font-lato" data-label="price:">{{$course->course_price}} ETB</strong>
                 <ul class="list-unstyled font-lato">
-                    <?php 
-                                        $classroom = DB::table('classrooms')->where('course_id', $course->id)->get();
-                                    ?>
-                    <li><i class="far fa-user icn no-shrink"></i> {{$classroom->count() }} Students</li>
+
+                    <li><i class="far fa-user icn no-shrink"></i> {{$course->classrooms->count() }} Students</li>
                     <li><i class="far fa-clock icn no-shrink"></i> Duration:
                         {{$course->course_duration}} Weeks
                     </li>
@@ -335,55 +317,61 @@
                 <h3>Popular Courses</h3>
                 <!-- widget cources list -->
                 <ul class="widget-cources-list list-unstyled">
+                    @foreach($popular_courses as $popular_course)
                     <li>
-                        <a href="course-single.html">
-                            <div class="alignleft">
-                                <img src="http://placehold.it/60x60" alt="image description">
+                        <a href="/course_single/{{$popular_course->id}}">
+                            <div class="alignleft large">
+                                <img src="/course_resources/{{$popular_course->course_image}}" alt="image description">
                             </div>
                             <div class="description-wrap">
-                                <h4>Introduction to Mobile Apps Development</h4>
+                                <h4>{{$popular_course->course_name}}</h4>
+                                @if($popular_course->course_price != '0')
                                 <strong
-                                    class="price text-primary element-block font-lato text-uppercase">$99.00</strong>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="course-single.html">
-                            <div class="alignleft">
-                                <img src="http://placehold.it/60x60" alt="image description">
-                            </div>
-                            <div class="description-wrap">
-                                <h4>Become a Professional Film Maker</h4>
+                                    class="price text-primary element-block font-lato text-uppercase">{{$popular_course->course_price}}
+                                    ETB</strong>
+                                @else
                                 <strong class="price text-success element-block font-lato text-uppercase">Free</strong>
+
+                                @endif
+
                             </div>
                         </a>
                     </li>
-                    <li>
-                        <a href="course-single.html">
-                            <div class="alignleft">
-                                <img src="http://placehold.it/60x60" alt="image description">
-                            </div>
-                            <div class="description-wrap">
-                                <h4>Swift Programming For Beginners</h4>
-                                <strong
-                                    class="price text-primary element-block font-lato text-uppercase">$75.00</strong>
-                            </div>
-                        </a>
-                    </li>
+                    @endforeach
                 </ul>
             </section>
-            <!-- widget tags -->
-            <nav class="widget widget_tags">
-                <h3>Tags</h3>
-                <!-- tag clouds -->
-                <ul class="list-unstyled tag-clouds font-lato">
-                    <li><a href="#">Future</a></li>
-                    <li><a href="#">Science</a></li>
-                    <li><a href="#">Coding</a></li>
-                    <li><a href="#">Education</a></li>
-                    <li><a href="#">Technology</a></li>
+
+            <!-- Related Courses -->
+            <section class="widget widget_popular_posts">
+                <h3>Related Courses</h3>
+                <!-- widget cources list -->
+                <ul class="widget-cources-list list-unstyled">
+                    @foreach($course->courseCategory->courses as $related_course)
+                    @if($related_course->id !== $course->id)
+                    <li>
+                        <a href="/course_single/{{$related_course->id}}">
+                            <div class="alignleft large">
+                                <img src="/course_resources/{{$related_course->course_image}}" alt="image description">
+                            </div>
+                            <div class="description-wrap">
+                                <h4>{{$related_course->course_name}}</h4>
+                                @if($related_course->course_price != '0')
+                                <strong
+                                    class="price text-primary element-block font-lato text-uppercase">{{$related_course->course_price}}
+                                    ETB</strong>
+                                @else
+                                <strong class="price text-success element-block font-lato text-uppercase">Free</strong>
+                                @endif
+
+                            </div>
+                        </a>
+                    </li>
+                    @endif
+
+                    @endforeach
                 </ul>
-            </nav>
+            </section>
+
         </aside>
     </div>
 </div>

@@ -14,7 +14,7 @@ class CourseCategory extends Model
         'category_detail'
     ];
 
-    public function course(){
+    public function courses(){
         return $this->hasMany('App\Models\Course');
     }
 }

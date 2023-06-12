@@ -79,7 +79,7 @@ td {
                             <div class="description-wrap">
                                 <h2 class="author-heading"><a href="#">Category</a></h2>
                                 <h3 class="author-heading-subtitle text-uppercase">
-                                    {{$course_category->category_name}}
+                                    {{$course->courseCategory->category_name}}
                                 </h3>
                             </div>
                         </div>
@@ -147,11 +147,8 @@ td {
                 <!-- sectionRowPanelGroup -->
                 <div class="panel-group sectionRowPanelGroup" id="accordion" role="tablist" aria-multiselectable="true">
 
-                    <?php 
-                                    $contents = DB::table('contents')->where('section_id', $section->id)->get();
-                                    ?>
 
-                    @foreach($contents as $content)
+                    @foreach($section->contents as $content)
                     <!-- panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingOne">
@@ -235,11 +232,11 @@ td {
             @endforeach
 
             <?php 
-                                $student_id = Auth::guard('student')->user()->id;
-                                $classroom = DB::table('classrooms')->where('course_id', $course->id)->where('student_id', $student_id)->first();
-                                
-                                $progresses = DB::table('progress')->where('classroom_id', $classroom->id)->where('is_passed', 1)->get();
-                            ?>
+                $student_id = Auth::guard('student')->user()->id;
+                $classroom = DB::table('classrooms')->where('course_id', $course->id)->where('student_id', $student_id)->first();
+                
+                $progresses = DB::table('progress')->where('classroom_id', $classroom->id)->where('is_passed', 1)->get();
+            ?>
 
             @if( $sections->count() > 0 && ($progresses->count() /$sections->count() * 100 ) == 100 )
             <!-- Final Exam Section-->
@@ -281,9 +278,10 @@ td {
             </section>
             @endif()
 
-            @if(!empty($user->fullname))
+            <!-- Commented Temporarly -->
+
+            <!-- @if(!empty($user->fullname))
             <h2>About Instructor</h2>
-            <!-- instructorInfoBox -->
             <div class="instructorInfoBox">
                 <div class="alignleft">
                     <a href="instructor-single.html"><img src="http://placehold.it/80x80" alt="Merry Jhonson"></a>
@@ -298,8 +296,7 @@ td {
                         Profile</a>
                 </div>
             </div>
-
-            @endif
+            @endif -->
 
 
             <h2>Reviews</h2>
@@ -408,13 +405,13 @@ td {
         <aside class="col-xs-12 col-md-3" id="sidebar">
             <!-- widget course select -->
             <section class="widget widget_box widget_course_select">
-                <header class="widgetHead text-center bg-theme">
+                <header class="widgetHead text-center">
                     <h3 class="text-uppercase">Take This Course</h3>
                 </header>
-                <strong class="price element-block font-lato" data-label="price:">1500.00 ETB</strong>
+                <strong class="price element-block font-lato" data-label="price:">{{$course->course_price}} ETB</strong>
                 <ul class="list-unstyled font-lato">
-                    <li><i class="far fa-user icn no-shrink"></i> 199 Students</li>
-                    <li><i class="far fa-clock icn no-shrink"></i> Duration: 6 Weeks</li>
+                    <li><i class="far fa-user icn no-shrink"></i> {{$course->classrooms->count() }} Students</li>
+                    <li><i class="far fa-clock icn no-shrink"></i> Duration: {{$course->course_duration}} Weeks</li>
                     <li><i class="fas fa-bullhorn icn no-shrink"></i> Lectures: 3hr/ Day</li>
                     <li><i class="far fa-address-card icn no-shrink"></i> Certificate of Completion</li>
                 </ul>
@@ -436,65 +433,76 @@ td {
             <section class="widget widget_intro">
                 <h3>Course Intro</h3>
                 <div class="aligncenter overlay">
-                    <a href="http://www.youtube.com/embed/9bZkp7q19f0?autoplay=1"
-                        class="btn-play far fa-play-circle lightbox fancybox.iframe"></a>
-                    <img src="http://placehold.it/260x220" alt="image description">
+
+                    <a href="{{ asset('course_resources/'.$course->course_intro) }}"
+                        class="btn-play far fa-play-circle lightbox fancybox.iframe">
+                    </a>
+                    <img src="/course_resources/{{$course->course_image}}"
+                        style="object-fit:cover; width: 300px; height: 175px" alt="Course">
                 </div>
             </section>
+
             <!-- widget popular posts -->
             <section class="widget widget_popular_posts">
                 <h3>Popular Courses</h3>
                 <!-- widget cources list -->
                 <ul class="widget-cources-list list-unstyled">
+                    @foreach($popular_courses as $popular_course)
                     <li>
-                        <a href="course-single.html">
-                            <div class="alignleft">
-                                <img src="http://placehold.it/60x60" alt="image description">
+                        <a href="/course_single/{{$popular_course->id}}">
+                            <div class="alignleft large">
+                                <img src="/course_resources/{{$popular_course->course_image}}" alt="image description">
                             </div>
                             <div class="description-wrap">
-                                <h4>Introduction to Mobile Apps Development</h4>
+                                <h4>{{$popular_course->course_name}}</h4>
+                                @if($popular_course->course_price != '0')
                                 <strong
-                                    class="price text-primary element-block font-lato text-uppercase">$99.00</strong>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="course-single.html">
-                            <div class="alignleft">
-                                <img src="http://placehold.it/60x60" alt="image description">
-                            </div>
-                            <div class="description-wrap">
-                                <h4>Become a Professional Film Maker</h4>
+                                    class="price text-primary element-block font-lato text-uppercase">{{$popular_course->course_price}}
+                                    ETB</strong>
+                                @else
                                 <strong class="price text-success element-block font-lato text-uppercase">Free</strong>
+
+                                @endif
+
                             </div>
                         </a>
                     </li>
-                    <li>
-                        <a href="course-single.html">
-                            <div class="alignleft">
-                                <img src="http://placehold.it/60x60" alt="image description">
-                            </div>
-                            <div class="description-wrap">
-                                <h4>Swift Programming For Beginners</h4>
-                                <strong
-                                    class="price text-primary element-block font-lato text-uppercase">$75.00</strong>
-                            </div>
-                        </a>
-                    </li>
+                    @endforeach
                 </ul>
             </section>
-            <!-- widget tags -->
-            <nav class="widget widget_tags">
-                <h3>Tags</h3>
-                <!-- tag clouds -->
-                <ul class="list-unstyled tag-clouds font-lato">
-                    <li><a href="#">Future</a></li>
-                    <li><a href="#">Science</a></li>
-                    <li><a href="#">Coding</a></li>
-                    <li><a href="#">Education</a></li>
-                    <li><a href="#">Technology</a></li>
+
+            <!-- Related Courses -->
+            <section class="widget widget_popular_posts">
+                <h3>Related Courses</h3>
+                <!-- widget cources list -->
+                <ul class="widget-cources-list list-unstyled">
+                    @foreach($course->courseCategory->courses as $related_course)
+                    @if($related_course->id !== $course->id)
+                    <li>
+                        <a href="/course_single/{{$related_course->id}}">
+                            <div class="alignleft large">
+                                <img src="/course_resources/{{$related_course->course_image}}" alt="image description">
+                            </div>
+                            <div class="description-wrap">
+                                <h4>{{$related_course->course_name}}</h4>
+                                @if($related_course->course_price != '0')
+                                <strong
+                                    class="price text-primary element-block font-lato text-uppercase">{{$related_course->course_price}}
+                                    ETB</strong>
+                                @else
+                                <strong class="price text-success element-block font-lato text-uppercase">Free</strong>
+                                @endif
+
+                            </div>
+                        </a>
+                    </li>
+                    @endif
+
+                    @endforeach
                 </ul>
-            </nav>
+            </section>
+
+
         </aside>
     </div>
 </div>

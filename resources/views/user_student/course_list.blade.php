@@ -46,8 +46,6 @@
             <div class="row flex-wrap">
 
                 @foreach($courses as $course)
-
-
                 <div class="col-xs-12 col-sm-6 col-lg-4">
                     <!-- popular post -->
                     <article class="popular-post">
@@ -106,8 +104,6 @@
                     </article>
                 </div>
                 @endforeach
-
-
 
             </div>
             <nav aria-label="Page navigation">
@@ -174,11 +170,6 @@
                         </a>
                     </li>
                     @endforeach
-
-
-
-
-
 
                 </ul>
             </section>
