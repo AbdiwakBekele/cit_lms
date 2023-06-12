@@ -56,14 +56,14 @@ class StudentController extends Controller
         ]);
 
         // Generate a random password with 10 characters
-        // $password = Str::random(8); 
-        $password = '00000000';
+        $password = Str::random(8); 
+        // $password = '00000000';
         
         $data['password'] =  Hash::make($password);
 
         $student = Student::create($data);
 
-        // Mail::to($student->email)->send(new StudentRegistered($student, $password));
+        Mail::to($student->email)->send(new StudentRegistered($student, $password));
 
         if($student){
             return back()
