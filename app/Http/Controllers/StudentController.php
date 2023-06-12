@@ -60,9 +60,7 @@ class StudentController extends Controller
         // $password = '00000000';
         
         $data['password'] =  Hash::make($password);
-
         $student = Student::create($data);
-
         Mail::to($student->email)->send(new StudentRegistered($student, $password));
 
         if($student){
