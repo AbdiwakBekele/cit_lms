@@ -63,8 +63,8 @@
                             style="background: #151B3D;">Login</button>
                         <a class="small" href="forgot-password.html">Forgot Password?</a>
                         <hr>
-                        <a class="btn btn-primary d-block btn-user w-100 bg-warning text-dark"
-                            href="/user_register">Register</a>
+                        <!-- <a class="btn btn-primary d-block btn-user w-100 bg-warning text-dark"
+                            href="/user_register">Register</a> -->
                     </form>
 
                 </div>
