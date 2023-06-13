@@ -48,22 +48,20 @@ class UserController extends Controller
         $age = $request->age;
         $phone = $request->phone;
         $address = $request->address;
-        // $role_id = $request->assigned_role;
         $password = Hash::make($request->password);
 
         $user = new User([ 'fullname'=>$fullname, 'email'=>$email, 'age'=>$age, 'phone'=>$phone, 'address'=>$address, 'password'=>$password ]);
         
         if(!empty($user->save())){
 
-            if($request->has('assigned_role')){
+            if(!empty($request->assigned_role)){
 
                 $role = Role::findByName($request->assigned_role);
                 $user->assignRole($role);
+            }
 
-                return back()
+            return back()
                 ->with('success','You have successfully created a new user.');
-                   
-                }
 
         }else{
             return back()

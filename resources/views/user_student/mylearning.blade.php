@@ -2,6 +2,7 @@
 
 @section('title', 'My Learning | CTI')
 
+
 @section('content')
 <!-- heading banner -->
 <section class="heading-banner text-white " style="background:#16416E">
@@ -83,8 +84,6 @@
                                 @else
                                 0%
                                 @endif
-
-
 
                             </div>
                         </div>

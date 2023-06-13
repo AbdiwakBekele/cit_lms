@@ -44,42 +44,47 @@ class UserStudentController extends Controller{
 
     function myProfileUpdate(Request $request, string $id){
         
-        $request->validate([
-            'profile_img'=>'required|mimes:png,jpg,jpeg',
+        $data = $request->validate([
             'fullname'=>'required',
-            'email'=> 'required',
+            'email'=>'required',
             'age'=>'required',
-            'phone'=>'required',
             'gender'=>'required',
-            'address'=>'required'
+            'phone'=>'required',
+            'city'=>'required',
+            'subcity'=>'required',
+            'house_no'=>'required',
+            'facebook'=>'nullable',
+            'instagram'=>'nullable',
+            'linkedin'=>'nullable',
+            'tiktok'=>'nullable',
+            'twitter'=>'nullable',
+            'level_of_education'=>'required',
+            'work_status'=>'required',
+            'current_occupation'=>'required',
+            'work_experience'=>'required'
         ]);
 
-        $fullname = $request->fullname;
-        $email = $request->email;
-        $age = $request->age;
-        $phone = $request->phone;
-        $gender = $request->gender;
-        $address = $request->address;
 
-        //Profile Image
-        $temp_img = $request->file('profile_img');
-        $profile_img = pathinfo($temp_img->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_img->getClientOriginalExtension();
-        $temp_img->move('student_profile', $profile_img);
-        
-        $courses = Course::all();
         $student = Student::find($id);
+        $student->fullname = $data['fullname'];
+        $student->email = $data['email'];
+        $student->age = $data['age'];
+        $student->gender = $data['gender'];
+        $student->phone = $data['phone'];
+        $student->city = $data['city'];
+        $student->subcity = $data['subcity'];
+        $student->house_no = $data['house_no'];
+        $student->facebook = $data['facebook'];
+        $student->instagram = $data['instagram'];
+        $student->linkedin = $data['linkedin'];
+        $student->tiktok = $data['tiktok'];
+        $student->twitter = $data['twitter'];
+        $student->level_of_education = $data['level_of_education'];
+        $student->work_status = $data['work_status'];
+        $student->current_occupation = $data['current_occupation'];
+        $student->work_experience = $data['work_experience'];
 
-        $student->fullname = $fullname;
-        $student->email = $email;
-        $student->age = $age;
-        $student->phone = $phone;
-        $student->gender = $gender;
-        $student->address = $address;
-        $student->profile_img = $profile_img;
-
-        $student->save();
-
-        if(!empty($student->id)){
+        if($student->save()){
             return redirect('/my_profile')
             ->with('success', 'User account successfully updated');
         }else{
@@ -87,6 +92,40 @@ class UserStudentController extends Controller{
                 ->with('error', "Error updating user account");
         }
     }
+
+    function myPictureEdit(String $id){
+
+        $courses = Course::all();
+        $student = Student::find($id);
+        return view('user_student.profile_pic_edit', compact('courses', 'student'));
+    }
+
+    function myPictureUpdate(Request $request, string $id){
+        
+        $request->validate([
+            'profile_img'=>'required|mimes:png,jpg,jpeg'
+        ]);
+
+        //Profile Image
+        $temp_img = $request->file('profile_img');
+        $profile_img = pathinfo($temp_img->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_img->getClientOriginalExtension();
+        $temp_img->move('student_profile', $profile_img);
+        
+        $student = Student::find($id);
+        $student->profile_img = $profile_img;
+        $student->save();
+
+        if($student->save()){
+            return redirect('/my_profile')
+            ->with('success', 'User account successfully updated');
+        }else{
+            return back()
+                ->with('error', "Error updating user account");
+        }
+    }
+
+
+
 
     function courseList(){
         $courses = Course::all();

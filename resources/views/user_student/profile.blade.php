@@ -25,21 +25,18 @@
 <div id="" class="container">
 
     @if(session('success'))
-    Okay
-    <div class="alert alert-danger">
+    <div class="alert alert-success">
         {{ session('success') }}
     </div>
     @endif
 
     @if(session('error'))
-    Not Okay
     <div class="alert alert-danger">
         {{ session('success') }}
     </div>
     @endif
 
     <div class="row">
-        <br>
         @if($student->studentDocuments->contains('document_name', 'National ID') &&
         $student->studentDocuments->contains('document_name', 'Educational'))
 
@@ -64,6 +61,10 @@
                 @else
                 <img src="{{ asset('images/AM2A1021.JPG') }} " width="100px" alt="Student Profile">
                 @endif
+
+                <br>
+                <a href="/my_picture/{{$student->id}}/edit" class="btn btn-warning" style="color: black">Change
+                    Profile</a>
             </div>
 
             <br>
@@ -89,16 +90,59 @@
                     </tr>
                     <tr>
                         <th>Address</th>
-                        <td> {{$student->address}} </td>
+                        <td> {{$student->city}}, {{$student->subcity}}, {{$student->house_no}} </td>
                     </tr>
+
+                    <tr>
+                        <th>Facebook Username</th>
+                        <td> {{$student->facebook ?? '-'}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Instagram Username</th>
+                        <td> {{ $student->instagram ?? '-' }} </td>
+                    </tr>
+                    <tr>
+                        <th>Linkedin Username</th>
+                        <td> {{$student->linkedin ?? '-'}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Tiktok Username</th>
+                        <td> {{$student->tiktok ?? '-'}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Twitter Username</th>
+                        <td> {{$student->twitter ?? '-'}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Level of Education</th>
+                        <td> {{$student->level_of_education}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Work Status</th>
+                        <td> {{$student->work_status}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Current Occupation</th>
+                        <td> {{$student->current_occupation}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Work Experience</th>
+                        <td> {{$student->work_experience}} </td>
+                    </tr>
+
 
                 </table>
 
             </div>
 
         </div>
-
-
     </div>
 </div>
 

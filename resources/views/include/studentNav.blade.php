@@ -86,7 +86,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
                                 @if(auth('student')->user()->profile_img)
-                                <img width="30" height="30" class="rounded-circle"
+                                <img style="width:30px; height:30px; object-fit: cover;" class="rounded-circle"
                                     src=" {{ asset('student_profile/'.auth('student')->user()->profile_img) }} ">
 
                                 @else
