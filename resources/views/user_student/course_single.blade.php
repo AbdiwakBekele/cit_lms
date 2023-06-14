@@ -2,6 +2,27 @@
 
 @section('title', 'Course Single | CTI')
 
+@section('style')
+<style>
+.content_description table {
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.content_description th,
+td {
+    border: 1px solid black;
+    padding: 15px;
+}
+
+.content_description th {
+    background-color: #f2f2f2;
+}
+</style>
+
+@endsection
+
+
 @section('content')
 <!-- heading banner -->
 <section class="heading-banner text-white " style="background:#16416E">
@@ -82,23 +103,10 @@
                     alt="image description">
             </div>
             <h3 class="content-h3">Course Description</h3>
-            <p> {{$course->description}} </p>
-            <h3 class="content-h3">What you will learn</h3>
-            <p>Leverage agile frameworks to provide a robust synopsis for high level overviews.
-                Iterative approaches to corporate strategy foster collaborative thinking to further the
-                overall value proposition. Organically grow the holistic world view of disruptive
-                innovation via workplace diversity and empowerment.</p>
-            <ul class="listDefault list-unstyled">
-                <li>Thomas Edison may have been behind the invention.</li>
-                <li>Edison worked alongside partners, both financial and commercial, to get his best
-                    inventions off the ground,</li>
-                <li>Battling challenging cost targets and the need to build.</li>
-            </ul>
-            <p>Quasar the only home we've ever known extraordinary claims require extraordinary evidence
-                billions billions Drake Eqa tion. Stirred by starlight! At the edge of forever. Rich in
-                mystery Sea of Tranquility. Are creatures of the cosmos descend from astronomers.
-                Trillion and billions upon billions upon billions upon billions upon billions. upon
-                billions upon billions!</p>
+            <div id="content_description">
+                {!! $course->description !!}
+            </div>
+
             <h2>Carriculam</h2>
 
             <?php $index = 1; ?>

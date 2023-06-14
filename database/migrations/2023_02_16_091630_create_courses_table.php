@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('course_intro')->nullable();;
             $table->string('course_duration');
             $table->string('course_price');
-            $table->text('description');
+            $table->longText('description');
             $table->integer('user_id')->nullable();
             $table->timestamps();
         });

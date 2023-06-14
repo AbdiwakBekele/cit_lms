@@ -75,7 +75,7 @@ th {
                 <div class="mb-3 mt-3">
                     <label for="content_name" class="form-label">Content Title</label>
                     <input type="text" class="form-control" id="content_name" placeholder="Enter Content Title"
-                        name="content_name">
+                        name="content_name" required>
                     @error('content_name')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -121,11 +121,8 @@ th {
 
                     </div>
                     <input type="hidden" name="description" id="description">
-
                     <div class="mx-3" id="editor" contenteditable="true"></div>
 
-
-                    <!-- <label for="description" class="form-label">Content Description</label> -->
 
                     @error('description')
                     <span class="text-danger">{{ $message }}</span>

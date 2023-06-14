@@ -106,7 +106,7 @@
         @can('view report')
         <!-- Report -->
         <li class="{{ Request::is('report*') ? 'mm-active' : ''}} ">
-            <a href="/report">
+            <a href="#">
                 <div class="parent-icon"><i class='bx bxs-report'></i>
                 </div>
                 <div class="menu-title">Report</div>
