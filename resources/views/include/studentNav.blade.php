@@ -96,7 +96,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="/my_profile">Profile</a></li>
-                                <li><a href="#">Setting</a></li>
+                                <li><a href="/my_setting">Setting</a></li>
                                 <li><a href="#">Notification</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <li><a href="/student_logout">Sign Out</a></li>

@@ -74,6 +74,12 @@ Route::group(['middleware' => ['student']], function () {
     Route::get('/my_picture/{id}/edit', [UserStudentController::class, 'myPictureEdit']);
 
     Route::put('/my_picture_update/{id}', [UserStudentController::class, 'myPictureUpdate']);
+
+    Route::get('/my_setting', [UserStudentController::class, 'mySetting']);
+
+    Route::get('/change_password', [UserStudentController::class, 'changePassword']);
+
+    Route::put('/student_update_password', [UserStudentController::class, 'updatePassword']);
     
     Route::get('/my_course_single/{course_id}/{classroom_id}', [UserStudentController::class, 'myCourseSingle']);
 

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Hash;
 
 class UserStudentController extends Controller{
     
@@ -124,8 +125,38 @@ class UserStudentController extends Controller{
         }
     }
 
+    function mySetting(){
+        $courses = Course::all();
+        return view('user_student.setting', compact('courses'));
+    }
 
+    function changePassword(){
+        $courses = Course::all();
+        return view('user_student.change_password', compact('courses'));
+    }
 
+    function updatePassword(Request $request){
+
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:8',
+            'confirm_password' => 'required|same:new_password',
+        ]);
+
+        $student = Auth::guard('student')->user();
+
+        // Check if the old password matches the user's current password
+        if (!Hash::check($request->old_password, $student->password)) {
+            return redirect()->back()->withErrors(['old_password' => 'The old password is incorrect.']);
+        }
+
+        // Update the user's password
+        $student->password = Hash::make($request->new_password);
+        $student->save();
+
+        return back()->with('success', 'Password updated successfully.');
+    
+    }
 
     function courseList(){
         $courses = Course::all();
