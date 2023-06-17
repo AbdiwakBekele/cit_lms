@@ -55,7 +55,7 @@ class CourseController extends Controller
             'short_name'=>'required|unique:courses',
             'course_category'=>'required',
             'description'=>'required',
-            'course_image'=>'required|mimes:png,jpg,jpeg',
+            'course_image'=>'required|mimes:png,jpg,jpeg,webp',
             'course_intro'=>'nullable|mimes:mp4,mkv,avi,flv',
             'course_duration'=>'required',
             'course_price'=>'required'
