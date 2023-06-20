@@ -120,10 +120,8 @@ class CourseController extends Controller
      */
     public function edit(string $id){
         $categories = CourseCategory::all();
-        $role = Role::where('role_name', 'Teacher Coordinator')->first();
-        $coordinators = User::where('role_id', $role->id)->get();
         $course = Course::find($id);
-        return view('admin.course.adminEditCourse', compact('categories', 'coordinators', 'course'));
+        return view('admin.course.adminEditCourse', compact('categories', 'course'));
     }
 
     /**

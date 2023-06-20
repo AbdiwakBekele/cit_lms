@@ -42,6 +42,9 @@
                     <div class="col-md">
                         <p> <strong>Created at:</strong> {{$course->created_at}}</p>
                     </div>
+                    <!-- Edit Course -->
+                    <a href="/course/{{$course->id}}/edit" class="mx-3" style="float: right; text-decoration:none;">
+                        <i class="fa fa-edit" aria-hidden="true"></i> Edit Course </a>
 
                 </div>
             </div>
