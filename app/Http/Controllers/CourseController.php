@@ -12,6 +12,7 @@ use App\Models\Role;
 use App\Models\Resource;
 use App\Models\Section;
 use File;
+use Illuminate\Validation\Rule;
 
 class CourseController extends Controller
 {
@@ -43,9 +44,6 @@ class CourseController extends Controller
         return view('admin.course.adminCreateCourseSection', compact('course'));
     }
     
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request){
 
         $course_intro = null;
@@ -104,9 +102,6 @@ class CourseController extends Controller
         }
     }
     
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id){
         $course = Course::find($id);
         $category = CourseCategory::where('id', $course->course_category_id)->first();
@@ -115,40 +110,50 @@ class CourseController extends Controller
         return view('admin.course.adminViewCourse', compact('course', 'category', 'sections'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id){
         $categories = CourseCategory::all();
         $course = Course::find($id);
-        return view('admin.course.adminEditCourse', compact('categories', 'course'));
+
+        try{
+            $coordinators = User::role('Coordinator')->get();
+        }catch(\Spatie\Permission\Exceptions\RoleDoesNotExist $e){
+            $coordinators = [];
+        }
+
+        return view('admin.course.adminEditCourse', compact('categories', 'course', 'coordinators'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id){
 
         $this->validate( $request, [
-            'course_name'=>'required',
-            'short_name'=>'required',
+            'course_name'=>[
+                'required',
+                Rule::unique('courses')->ignore($id),
+            ],
+            'short_name'=>[
+                'required',
+                Rule::unique('courses')->ignore($id),
+            ],
             'course_category'=>'required',
             'description'=>'required',
-            'assigned_coordinator'=>'required'
+            'course_duration'=>'required',
+            'course_price'=>'required'
         ]);
         
         $course_name =  $request->course_name;
         $short_name =  $request->short_name;
         $course_category =  $request->course_category;
         $description = $request->description;
-        $assigned_coordinator = $request->assigned_coordinator;
+        $course_duration = $request->course_duration;
+        $course_price = $request->course_price;
 
         $course = Course::find($id);
         $course->course_name = $course_name;
         $course->short_name = $short_name;
         $course->description = $description;
         $course->course_category_id = $course_category;
-        $course->user_id = $assigned_coordinator;
+        $course->course_duration = $course_duration;
+        $course->course_price = $course_price;
         $course->save();
 
 
@@ -162,9 +167,6 @@ class CourseController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id){
         $course = Course::find($id)->delete();
         $resources = Resource::where('course_id', $id)->get();
