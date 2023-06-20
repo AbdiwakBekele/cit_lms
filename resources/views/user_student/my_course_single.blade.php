@@ -116,24 +116,11 @@ td {
                 <img src="/course_resources/{{$course->course_image}}" style="object-fit:cover; height: 450px"
                     alt="image description">
             </div>
+            <!-- Course Description -->
             <h3 class="content-h3">Course Description</h3>
-            <p> {{$course->description}} </p>
-            <h3 class="content-h3">What you will learn</h3>
-            <p>Leverage agile frameworks to provide a robust synopsis for high level overviews.
-                Iterative approaches to corporate strategy foster collaborative thinking to further the
-                overall value proposition. Organically grow the holistic world view of disruptive
-                innovation via workplace diversity and empowerment.</p>
-            <ul class="listDefault list-unstyled">
-                <li>Thomas Edison may have been behind the invention.</li>
-                <li>Edison worked alongside partners, both financial and commercial, to get his best
-                    inventions off the ground,</li>
-                <li>Battling challenging cost targets and the need to build.</li>
-            </ul>
-            <p>Quasar the only home we've ever known extraordinary claims require extraordinary evidence
-                billions billions Drake Eqa tion. Stirred by starlight! At the edge of forever. Rich in
-                mystery Sea of Tranquility. Are creatures of the cosmos descend from astronomers.
-                Trillion and billions upon billions upon billions upon billions upon billions. upon
-                billions upon billions!</p>
+            <div id="content_description">
+                {!! $course->description !!}
+            </div>
             <h2>Carriculam</h2>
 
             <?php $index = 1; ?>
@@ -353,6 +340,8 @@ td {
                     </div>
                 </li>
             </ul>
+            @if( $sections->count() > 0 && ($progresses->count() /$sections->count() * 100 ) == 100 )
+
             <!-- reviesSubmissionForm -->
             <form action="#" class="reviesSubmissionForm">
                 <h2 class="text-noCase">Add a Review</h2>
@@ -400,23 +389,11 @@ td {
                 </div>
                 <button type="submit" class="btn btn-theme btn-warning text-uppercase font-lato fw-bold">Submit</button>
             </form>
+
+            @endif
         </article>
         <!-- sidebar -->
         <aside class="col-xs-12 col-md-3" id="sidebar">
-            <!-- widget course select -->
-            <section class="widget widget_box widget_course_select">
-                <header class="widgetHead text-center">
-                    <h3 class="text-uppercase">Take This Course</h3>
-                </header>
-                <strong class="price element-block font-lato" data-label="price:">{{$course->course_price}} ETB</strong>
-                <ul class="list-unstyled font-lato">
-                    <li><i class="far fa-user icn no-shrink"></i> {{$course->classrooms->count() }} Students</li>
-                    <li><i class="far fa-clock icn no-shrink"></i> Duration: {{$course->course_duration}} Weeks</li>
-                    <li><i class="fas fa-bullhorn icn no-shrink"></i> Lectures: 3hr/ Day</li>
-                    <li><i class="far fa-address-card icn no-shrink"></i> Certificate of Completion</li>
-                </ul>
-            </section>
-
             <!-- widget categories -->
             <section class="widget widget_categories">
                 <h3>Course Categories</h3>
