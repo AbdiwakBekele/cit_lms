@@ -281,7 +281,9 @@
                                 </div>
                                 @endforeach
                             </div>
-                            <button class="btn btn-success m-3" type="submit">Submit</button>
+                            <button
+                                class="btn btn-lg btn-success m-3 f_btn active text-uppercase rounded-pill text-white"
+                                type="submit">Submit</button>
                         </div>
 
                     </div>

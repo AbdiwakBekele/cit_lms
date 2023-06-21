@@ -32,6 +32,10 @@
                 @endauth
 
                 <div class="row justify-content-center">
+
+                    <div id="msg">
+                        Quiz Successfully Completed
+                    </div>
                     <div class="col-md-8">
 
                         <div id="questions">
@@ -49,7 +53,6 @@
                                             $options = DB::table('quiz_options')->where('quiz_id', $question->id)->get();
                                         ?>
                                         @foreach($options as $option)
-
 
                                         <div class="form-check hoverable p-4 m-2 rounded-pill">
                                             <input class="form-check-input" type="radio"
@@ -69,7 +72,7 @@
                             </div>
                             @endforeach
                         </div>
-                        <button class="btn btn-success m-3" type="submit">Submit</button>
+                        <button class="btn btn-success m-3" id="btn_submit" type="submit">Submit</button>
                     </div>
 
                 </div>
@@ -80,17 +83,20 @@
         <script>
         var questions = document.querySelectorAll('.question');
         var currentQuestion = 0;
+        questions[currentQuestion].style.display = 'block';
+        document.getElementById('btn_submit').style.display = 'none';
+        document.getElementById('msg').style.display = 'none';
 
         function nextQuestion() {
             questions[currentQuestion].style.display = 'none';
             currentQuestion++;
-            if (currentQuestion >= questions.length) {
-
+            if (currentQuestion == questions.length) {
+                document.getElementById('msg').style.display = 'block';
+                document.getElementById('btn_submit').style.display = 'block';
             } else {
                 questions[currentQuestion].style.display = 'block';
             }
         }
-        questions[currentQuestion].style.display = 'block';
         </script>
     </body>
 
