@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\Resource;
 use App\Models\Course;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response as FileResponse;
+use Illuminate\Http\Response;
 use File;
 
 class ResourceController extends Controller
@@ -27,9 +29,19 @@ class ResourceController extends Controller
         return view('admin.resource_managment.adminAddResource', compact('courses'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    public function viewDoc($filename){
+
+        $filePath = public_path('course_resources/' . $filename);
+
+        if (file_exists($filePath)) {
+            return FileResponse::file($filePath);
+        }
+
+        abort(404);
+
+    }
+
+
     public function store(Request $request){
         
         $this->validate( $request, [
@@ -73,15 +85,14 @@ class ResourceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
-    {
+    public function show(string $id){
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id): Response
+    public function edit(string $id)
     {
         //
     }

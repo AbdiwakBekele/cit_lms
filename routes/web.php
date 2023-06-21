@@ -21,7 +21,7 @@ use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentDocController;
-use App\Http\Controllers\StudentRegistrationController;;
+use App\Http\Controllers\StudentRegistrationController;
 use App\Models\Student;
 
 /*
@@ -32,7 +32,6 @@ use App\Models\Student;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 */
-
 
 Route::get('/fill_student', function () {
     Student::factory()->times(10)->create();
@@ -93,6 +92,8 @@ Route::group(['middleware' => ['student']], function () {
     Route::resource('student_doc', StudentDocController::class);
 
     Route::get('/student_doc/{id}/verify', [StudentDocController::class, 'verifyDoc']);
+    
+    Route::get('resource/viewDoc/{filename}', [ResourceController::class, 'viewDoc']);
 });
 
 /*

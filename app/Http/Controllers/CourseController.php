@@ -184,4 +184,5 @@ class CourseController extends Controller
             ->with('error','Error deleting course information');
         }
     }
+
 }

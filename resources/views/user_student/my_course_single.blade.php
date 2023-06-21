@@ -162,7 +162,9 @@ td {
 
                                 <hr>
 
-                                <p><strong>Resources</strong></p>
+                                <p>
+                                    <strong>Resources</strong>
+                                </p>
                                 <?php 
                                                 $resources = DB::table('resources')->where('content_id', $content->id)->get();
                                             ?>
@@ -173,10 +175,17 @@ td {
                                     {{$resource->path}}
                                 </span>
 
-                                <span style="display:inline; float:right;">
+                                <span style="display:inline; float:right; margin-left: 15px">
                                     <a href="/resource/{{$resource->id}}/download" class="m-2"
                                         style="float: right; text-decoration:none;">
-                                        <i class="fa fa-download mx-1" aria-hidden="true"></i>
+                                        <i class="fa fa-download mx-1" style="color:black" aria-hidden="true"></i>
+                                    </a>
+                                </span>
+
+                                <span style="display:inline; float:right;">
+                                    <a href="/resource/viewDoc/{{$resource->path}}" class="m-2"
+                                        style="float: right; text-decoration:none;">
+                                        <i class="fa fa-eye mx-1" style="color:black" aria-hidden="true"></i>
                                     </a>
                                 </span>
                                 <hr>
@@ -265,8 +274,7 @@ td {
             </section>
             @endif()
 
-            <!-- Commented Temporarly -->
-
+            <!-- #############  About Instructor Commented  ################# -->
             <!-- @if(!empty($user->fullname))
             <h2>About Instructor</h2>
             <div class="instructorInfoBox">
@@ -286,9 +294,10 @@ td {
             @endif -->
 
 
-            <h2>Reviews</h2>
+            <!-- ############### Commented Review  ################ -->
+            <!-- <h2>Reviews</h2>
             <h3 class="h6 fw-semi">There are 2 reviews on this course</h3>
-            <!-- reviewsList -->
+        
             <ul class="list-unstyled reviewsList">
                 <li>
                     <div class="alignleft">
@@ -339,7 +348,8 @@ td {
                             sriracha</p>
                     </div>
                 </li>
-            </ul>
+            </ul> -->
+
             @if( $sections->count() > 0 && ($progresses->count() /$sections->count() * 100 ) == 100 )
 
             <!-- reviesSubmissionForm -->

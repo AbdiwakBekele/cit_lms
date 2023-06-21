@@ -151,29 +151,6 @@ td {
                 </div>
             </div>
 
-            <!-- User Tempora -->
-            <!-- @if(!empty($user->fullname))
-            <h2>About Instructor</h2>
-            <div class="instructorInfoBox">
-                <div class="alignleft">
-                    <a href="instructor-single.html"><img src="http://placehold.it/80x80" alt="Merry Jhonson"></a>
-                </div>
-                <div class="description-wrap">
-                    <h3 class="fw-normal">
-                        <a href="#">{{$user->fullname}}
-
-                        </a>
-                    </h3>
-                    <h4 class="fw-normal">Back-end Developer</h4>
-                    <p>Encyclopaedia galactica Orion's sword explorations vanquish the impossible,
-                        astonishment radio telescope with pretty stories for which there's little good.
-                    </p>
-                    <a href="#" class="btn btn-default font-lato fw-semi text-uppercase">View
-                        Profile</a>
-                </div>
-            </div>
-            @endif -->
-
             <h2>Reviews</h2>
             <h3 class="h6 fw-semi">There are 2 reviews on this course</h3>
             <!-- reviewsList -->
@@ -228,53 +205,7 @@ td {
                     </div>
                 </li>
             </ul>
-            <!-- reviesSubmissionForm -->
-            <form action="#" class="reviesSubmissionForm">
-                <h2 class="text-noCase">Add a Review</h2>
-                <p>Your email address will not be published. Required fields are marked <span class="required">*</span>
-                </p>
-                <div class="form-group">
-                    <span class="formLabel fw-normal font-lato no-shrink">Your Rating</span>
-                    <ul class="star-rating list-unstyled">
-                        <li>
-                            <input type="checkbox" id="rate1" class="customFormReset">
-                            <label for="rate1" class="fas fa-star"><span class="sr-only">star</span></label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="rate2" class="customFormReset">
-                            <label for="rate2" class="fas fa-star"><span class="sr-only">star</span></label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="rate3" class="customFormReset">
-                            <label for="rate3" class="fas fa-star"><span class="sr-only">star</span></label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="rate4" class="customFormReset">
-                            <label for="rate4" class="fas fa-star"><span class="sr-only">star</span></label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="rate5" class="customFormReset">
-                            <label for="rate5" class="fas fa-star"><span class="sr-only">star</span></label>
-                        </li>
-                    </ul>
-                </div>
-                <div class="form-group">
-                    <label for="rview" class="formLabel fw-normal font-lato no-shrink">Your Review <span
-                            class="required">*</span></label>
-                    <textarea id="rview" class="form-control element-block"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="name" class="formLabel fw-normal font-lato no-shrink">Name <span
-                            class="required">*</span></label>
-                    <input type="text" id="name" class="form-control element-block">
-                </div>
-                <div class="form-group">
-                    <label for="Email" class="formLabel fw-normal font-lato no-shrink">Email <span
-                            class="required">*</span></label>
-                    <input type="email" id="Email" class="form-control element-block">
-                </div>
-                <button type="submit" class="btn btn-theme btn-warning text-uppercase font-lato fw-bold">Submit</button>
-            </form>
+
         </article>
 
         <!-- sidebar -->
