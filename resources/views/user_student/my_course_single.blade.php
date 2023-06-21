@@ -176,7 +176,7 @@ td {
                                 </span>
 
                                 <span style="display:inline; float:right; margin-left: 15px">
-                                    <a href="/resource/{{$resource->id}}/download" class="m-2"
+                                    <a href="/resource/{{$resource->id}}/downloadStu" class="m-2"
                                         style="float: right; text-decoration:none;">
                                         <i class="fa fa-download mx-1" style="color:black" aria-hidden="true"></i>
                                     </a>

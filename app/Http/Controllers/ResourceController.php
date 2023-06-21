@@ -122,17 +122,31 @@ class ResourceController extends Controller
         }
     }
 
-    //For downloading resources
+    //For downloading resources - Admin
     public function getDownload(string $id){
         $resource = Resource::find($id);
         $file = public_path(). "/course_resources/$resource->path";
 
-    $headers = ['Content-Type: */*'];
+        $headers = ['Content-Type: */*'];
 
-    if (file_exists($file)) {
-        return \Response::download($file, $resource->path, $headers);
-    } else {
-        echo('File not found.');
+        if (file_exists($file)) {
+            return \Response::download($file, $resource->path, $headers);
+        } else {
+            echo('File not found.');
+        }
     }
+
+    // Download Resource - For Students
+    public function getDownloadStu(string $id){
+        $resource = Resource::find($id);
+        $file = public_path(). "/course_resources/$resource->path";
+
+        $headers = ['Content-Type: */*'];
+
+        if (file_exists($file)) {
+            return \Response::download($file, $resource->path, $headers);
+        } else {
+            echo('File not found.');
+        }
     }
 }

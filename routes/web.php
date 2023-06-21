@@ -92,6 +92,8 @@ Route::group(['middleware' => ['student']], function () {
     Route::resource('student_doc', StudentDocController::class);
 
     Route::get('/student_doc/{id}/verify', [StudentDocController::class, 'verifyDoc']);
+
+    Route::get('resource/{id}/downloadStu', [ResourceController::class, 'getDownloadStu']);
     
     Route::get('resource/viewDoc/{filename}', [ResourceController::class, 'viewDoc']);
 });
