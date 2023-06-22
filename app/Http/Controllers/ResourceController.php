@@ -33,8 +33,16 @@ class ResourceController extends Controller
 
         $filePath = public_path('course_resources/' . $filename);
 
+        // if (file_exists($filePath)) {
+        //     return FileResponse::file($filePath);
+        // }
+
         if (file_exists($filePath)) {
-            return FileResponse::file($filePath);
+            $headers = [
+                'Content-Type' => mime_content_type($filePath),
+            ];
+    
+            return response()->file($filePath, $headers);
         }
 
         abort(404);
