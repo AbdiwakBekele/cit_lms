@@ -42,7 +42,7 @@ class ResourceController extends Controller
                 'Content-Type' => mime_content_type($filePath),
             ];
     
-            return response()->file($filePath, $headers);
+            return response()->file($filePath, $headers, ['Content-Disposition' => 'inline']);
         }
 
         abort(404);
