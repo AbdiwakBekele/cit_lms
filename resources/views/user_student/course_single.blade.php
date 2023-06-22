@@ -145,9 +145,9 @@ td {
             <!-- bookmarkFoot -->
             <div class="bookmarkFoot">
                 <div class="bookmarkCol text-right">
-                    <a href="/enroll_course/{{$course->id}}"
+                    <!-- <a href="/enroll_course/{{$course->id}}"
                         class="btn btn-warning text-dark text-uppercase fw-bold">Enroll
-                        this course</a>
+                        this course</a> -->
                 </div>
             </div>
 
