@@ -42,11 +42,11 @@
                 <h3>Quick Links</h3>
                 <!-- fooer navigation -->
                 <ul class="fooer-navigation list-unstyled">
-                    <li><a href="#">All Courses</a></li>
+                    <li><a href="/course_list">All Courses</a></li>
                     <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">About us</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="https://www.edu-cti.com/blog/">Blog</a></li>
+                    <li><a href="https://www.edu-cti.com/about/">About us</a></li>
+                    <li><a href="https://www.edu-cti.com/contact/">Contact Us</a></li>
                 </ul>
             </nav>
             <div class="col-xs-12 col-sm-6 col-md-3 col">

@@ -56,7 +56,6 @@ Route::get('/student_logout', [StudentAuthManager::class, 'logout']);
 | Student - Course                                        
 |------------------------------------------------------------------------*/
 
-
 Route::group(['middleware' => ['student']], function () {
 
     Route::get('/', [UserStudentController::class, 'index']);
