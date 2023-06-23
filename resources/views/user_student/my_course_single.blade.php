@@ -169,8 +169,6 @@ td {
                                                 $resources = DB::table('resources')->where('content_id', $content->id)->get();
                                             ?>
                                 @foreach($resources as $resource)
-
-
                                 <span style=" display:inline; width:50%; ">
                                     {{$resource->path}}
                                 </span>
@@ -188,6 +186,7 @@ td {
                                         <i class="fa fa-eye mx-1" style="color:black" aria-hidden="true"></i>
                                     </a>
                                 </span>
+
                                 <hr>
                                 @endforeach
                             </div>
