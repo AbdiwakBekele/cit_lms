@@ -157,11 +157,11 @@ td {
             <ul class="list-unstyled reviewsList">
                 <li>
                     <div class="alignleft">
-                        <a href="#"><img src="http://placehold.it/50x50" alt="Lavin Duster"></a>
+                        <a href="#"><img src="{{ asset('images/AM2A1021.JPG') }}" width="30px" alt="Alemu Kebede"></a>
                     </div>
                     <div class="description-wrap">
                         <div class="descrHead">
-                            <h3>Lavin Duster – <time datetime="2011-01-12">March 7, 2016</time></h3>
+                            <h3>Alemu Kebede – <time datetime="2011-01-12">June 7, 2023</time></h3>
                             <ul class="star-rating list-unstyled justify-end">
                                 <li><span class="fas fa-star"><span class="sr-only">star</span></span>
                                 </li>
@@ -175,18 +175,18 @@ td {
                                 </li>
                             </ul>
                         </div>
-                        <p>Brunch fap cardigan, gentrify put a bird on it distillery mumblecore you
-                            probably haven't heard of them asymmetrical bushwick. Put a bird on it
-                            schlitz fashion.</p>
+                        <p>I found the digital marketing course to be highly informative and up-to-date with the latest
+                            trends in the industry. The instructors were knowledgeable and engaging, and they shared
+                            practical insights and real-world examples that enhanced my understanding.</p>
                     </div>
                 </li>
                 <li>
                     <div class="alignleft">
-                        <a href="#"><img src="http://placehold.it/50x50" alt="Tim Cook"></a>
+                        <a href="#"><img src="{{ asset('images/AM2A1021.JPG') }}" width="30px" alt="Yonas Asefa"></a>
                     </div>
                     <div class="description-wrap">
                         <div class="descrHead">
-                            <h3>Tim Cook – <time datetime="2011-01-12">March 5, 2016</time></h3>
+                            <h3>Yonas Asefa – <time datetime="2011-01-12">June 16, 2023</time></h3>
                             <ul class="star-rating list-unstyled justify-end">
                                 <li><span class="fas fa-star"><span class="sr-only">star</span></span>
                                 </li>
@@ -200,8 +200,10 @@ td {
                                 </li>
                             </ul>
                         </div>
-                        <p>Flxie sartorial cray flexitarian pop-up health goth single-origin coffee
-                            sriracha</p>
+                        <p>As someone new to the world of digital marketing, I found this course to be a perfect
+                            introduction. It covered the fundamentals of digital marketing, including website
+                            optimization, social media advertising, and digital analytics. The course materials were
+                            easy to follow, and the instructors provided clear explanations of complex concepts.</p>
                     </div>
                 </li>
             </ul>

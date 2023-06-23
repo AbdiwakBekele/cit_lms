@@ -7,7 +7,7 @@
                 </div>
                 <p>California Training Institute (CTI) is a digital skills training institute that supports
                     Ethiopians to develop their digital skills through resources, tools, and technology.</p>
-                <a href="#" class="btn btn-default text-uppercase">Start Leaning Now</a>
+                <a href="/course_list" class="btn btn-default text-uppercase">Start Leaning Now</a>
             </div>
 
 
