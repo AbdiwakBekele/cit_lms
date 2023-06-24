@@ -18,12 +18,44 @@
             cursor: pointer;
             background-color: #f5f5f5;
         }
+        .question{
+    width: 100%;
+}
+body{
+    background-color: #FFB600;
+}
+.container{
+    background-color: #16416E;
+    color: #ddd;
+    
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    max-width: 75%;
+    
+}
+.form-check-input{
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    border: 1px solid #FFB600;
+    border-radius: 50%;
+    
+}
+
+.form-check label{
+   
+    font-size: 20px;
+    cursor: pointer;
+}
+.form-check input{
+    opacity: 1;
+}
         </style>
     </head>
 
     <body>
 
-        <div class="container">
+        <div class="container mt-sm-5 my-1">
             <h1 class="text-center mb-4">Quiz</h1>
             <form method="post" action="/my_quiz">
                 @csrf
@@ -36,17 +68,17 @@
                     <div id="msg">
                         Quiz Successfully Completed
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8 ">
 
-                        <div id="questions">
+                        <div  id="questions">
 
                             @foreach($questions as $question)
-                            <div class="question" style="display:none;">
+                            <div class="question ml-sm-5 pl-sm-5 pt-2" style="display:none;">
 
-                                <div class="card mb-4">
-                                    <div class="card-header">
+                            <div class="py-2 h5"><b>{{ $question->question }}</b></div>
+                                    <!-- <div class="card-header">
                                         <h2>{{ $question->question }}</h2>
-                                    </div>
+                                    </div> -->
 
                                     <div class="card-body">
                                         <?php 
@@ -54,11 +86,11 @@
                                         ?>
                                         @foreach($options as $option)
 
-                                        <div class="form-check hoverable p-4 m-2 rounded-pill">
+                                        <div class="form-check py-1">
                                             <input class="form-check-input" type="radio"
                                                 name="answer[{{$question->id}}]" value="{{ $option->option}}"
                                                 id="{{ $option->id }}">
-                                            <label class="form-check-label" for="{{ $option->id }}">
+                                            <label class="form-check-label px-2" for="{{ $option->id }}">
                                                 {{ $option->option}}
                                             </label>
                                         </div>
@@ -66,7 +98,7 @@
 
                                     </div>
 
-                                </div>
+                                
                                 <button class="btn btn-primary float-right m-3" type="button"
                                     onclick="nextQuestion()">Next question</button>
                             </div>
