@@ -18,6 +18,42 @@ td {
 .content_description th {
     background-color: #f2f2f2;
 }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
 </style>
 
 @endsection
@@ -213,9 +249,32 @@ td {
                             aria-labelledby="headingOne">
                             <div class="panel-body">
 
-                                <a href="/my_quiz/{{$section->id}}" class="btn btn-warning m-3" style="color:black">
-                                    Take Quiz
+                                <a href="#" id="openModal" class="btn btn-warning m-3" style="color:black"> Take Quiz
                                 </a>
+
+                                <div id="myModal" class="modal">
+                                    <div class="modal-content">
+                                        <span class="close">&times;</span>
+                                        <h3>Important Exam Instructions</h3>
+                                        <p>Please read the following instructions carefully before starting the exam:
+                                        </p>
+                                        <ul class="alert alert-danger">
+                                            <li>You are not allowed to copy and paste any content during the exam.</li>
+                                            <li>Do not attempt to switch tabs or open other browser windows while taking
+                                                the exam.</li>
+                                            <li>Clicking outside of the exam window may result in automatic submission
+                                                of your exam.</li>
+                                        </ul>
+                                        <p class="text-danger">
+                                            <strong> Failure to comply with these instructions may lead to penalties or
+                                                disqualification from the exam.</strong>
+                                        </p>
+                                        <a href="#" onclick="openNewWindow('/my_quiz/{{$section->id}}')"
+                                            class="btn btn-warning m-3" style="color:black"> Start Exam </a>
+                                    </div>
+                                </div>
+
+
                                 <p></p>
 
                             </div>
@@ -291,63 +350,6 @@ td {
                 </div>
             </div>
             @endif -->
-
-
-            <!-- ############### Commented Review  ################ -->
-            <!-- <h2>Reviews</h2>
-            <h3 class="h6 fw-semi">There are 2 reviews on this course</h3>
-        
-            <ul class="list-unstyled reviewsList">
-                <li>
-                    <div class="alignleft">
-                        <a href="#"><img src="http://placehold.it/50x50" alt="Lavin Duster"></a>
-                    </div>
-                    <div class="description-wrap">
-                        <div class="descrHead">
-                            <h3>Lavin Duster – <time datetime="2011-01-12">March 7, 2016</time></h3>
-                            <ul class="star-rating list-unstyled justify-end">
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                            </ul>
-                        </div>
-                        <p>Brunch fap cardigan, gentrify put a bird on it distillery mumblecore you
-                            probably haven't heard of them asymmetrical bushwick. Put a bird on it
-                            schlitz fashion.</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="alignleft">
-                        <a href="instructor-single.html"><img src="http://placehold.it/50x50" alt="Tim Cook"></a>
-                    </div>
-                    <div class="description-wrap">
-                        <div class="descrHead">
-                            <h3>Tim Cook – <time datetime="2011-01-12">March 5, 2016</time></h3>
-                            <ul class="star-rating list-unstyled justify-end">
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                                <li><span class="fas fa-star"><span class="sr-only">star</span></span>
-                                </li>
-                            </ul>
-                        </div>
-                        <p>Flxie sartorial cray flexitarian pop-up health goth single-origin coffee
-                            sriracha</p>
-                    </div>
-                </li>
-            </ul> -->
 
             @if( $sections->count() > 0 && ($progresses->count() /$sections->count() * 100 ) == 100 )
 
@@ -492,5 +494,30 @@ td {
         </aside>
     </div>
 </div>
+
+<script>
+function openNewWindow(url) {
+    window.open(url, '_blank',
+        'toolbar=yes,scrollbars=yes,resizable=yes,width=800,height=600');
+}
+
+var modal = document.getElementById("myModal");
+var btn = document.getElementById("openModal");
+var closeBtn = document.getElementsByClassName("close")[0];
+
+btn.addEventListener("click", function() {
+    modal.style.display = "block";
+});
+
+closeBtn.addEventListener("click", function() {
+    modal.style.display = "none";
+});
+
+window.addEventListener("click", function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+});
+</script>
 
 @endsection
