@@ -1,28 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-    </script>
 
-    <title>Quiz</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+        </script>
 
-    <style>
-    .hoverable:hover {
-        cursor: pointer;
-        background-color: #f5f5f5;
-    }
-    </style>
-</head>
+        <title>Quiz</title>
 
-<body>
+        <style>
+        .hoverable:hover {
+            cursor: pointer;
+            background-color: #f5f5f5;
+        }
+        .question{
+    width: 100%;
+}
+body{
+    background-color: #FFB600;
+}
+.container{
+    background-color: #16416E;
+    color: #ddd;
+    
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    max-width: 75%;
+    
+}
+.form-check-input{
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    border: 1px solid #FFB600;
+    border-radius: 50%;
+    
+}
 
+.form-check label{
+   
+    font-size: 20px;
+    cursor: pointer;
+}
+.form-check input{
+    opacity: 1;
+}
+        </style>
+    </head>
+
+
+
+        <div class="container mt-sm-5 my-1">
+            <h1 class="text-center mb-4">Quiz</h1>
+            <form method="post" action="/my_quiz">
+                @csrf
+                @auth('student')
+                <input type="hidden" name="student_id" value="{{auth('student')->user()->id}}">
+                @endauth
 
 
     <div class="container">
@@ -41,36 +81,44 @@
                     <img src=" {{ asset('images/checkmark.png') }}" width="100px" alt="image_not_found">
                     <h4 class="text-center">
                         Quiz Successfully Completed
-                    </h4>
-                </div>
-                <div class="col-md-8">
 
-                    <div id="questions">
+                    </div>
+                    <div class="col-md-8 ">
 
-                        @foreach($questions as $question)
-                        <div class="question" style="display:none;">
+                        <div  id="questions">
 
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <h2>{{ $question->question }}</h2>
-                                </div>
+                            @foreach($questions as $question)
+                            <div class="question ml-sm-5 pl-sm-5 pt-2" style="display:none;">
+
+                            <div class="py-2 h5"><b>{{ $question->question }}</b></div>
+                                    <!-- <div class="card-header">
+                                        <h2>{{ $question->question }}</h2>
+                                    </div> -->
 
                                 <div class="card-body">
                                     <?php 
                                             $options = DB::table('quiz_options')->where('quiz_id', $question->id)->get();
                                         ?>
-                                    @foreach($options as $option)
 
-                                    <div class="form-check hoverable p-4 m-2 rounded-pill">
-                                        <input class="form-check-input" type="radio" name="answer[{{$question->id}}]"
-                                            value="{{ $option->option}}" id="{{ $option->id }}">
-                                        <label class="form-check-label" for="{{ $option->id }}">
-                                            {{ $option->option}}
-                                        </label>
+                                        @foreach($options as $option)
+
+                                        <div class="form-check py-1">
+                                            <input class="form-check-input" type="radio"
+                                                name="answer[{{$question->id}}]" value="{{ $option->option}}"
+                                                id="{{ $option->id }}">
+                                            <label class="form-check-label px-2" for="{{ $option->id }}">
+                                                {{ $option->option}}
+                                            </label>
+                                        </div>
+                                        @endforeach
+
+
                                     </div>
                                     @endforeach
 
-                                </div>
+                                
+                                <button class="btn btn-primary float-right m-3" type="button"
+                                    onclick="nextQuestion()">Next question</button>
 
                             </div>
                             <button class="btn btn-primary float-right m-3" type="button" onclick="nextQuestion()">Next
