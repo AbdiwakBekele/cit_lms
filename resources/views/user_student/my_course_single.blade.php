@@ -252,6 +252,7 @@ td {
                                 <a href="#" id="openModal" class="btn btn-warning m-3" style="color:black"> Take Quiz
                                 </a>
 
+                                <!-- Modal Quiz Instruction -->
                                 <div id="myModal" class="modal">
                                     <div class="modal-content">
                                         <span class="close">&times;</span>
@@ -319,9 +320,33 @@ td {
                             aria-labelledby="headingOne">
                             <div class="panel-body">
 
-                                <a href="/my_final/{{$course->id}}" class="btn btn-warning m-3" style="color:black">
-                                    Take Exam
+                                <a href="#" id="openModalFinal" class="btn btn-warning m-3" style="color:black"> Take
+                                    Exam
                                 </a>
+
+                                <!-- Modal - Final Instruction -->
+                                <div id="myModalFinal" class="modal">
+                                    <div class="modal-content">
+                                        <span class="close">&times;</span>
+                                        <h3>Important Exam Instructions</h3>
+                                        <p>Please read the following instructions carefully before starting the exam:
+                                        </p>
+                                        <ul class="alert alert-danger">
+                                            <li>You are not allowed to copy and paste any content during the exam.</li>
+                                            <li>Do not attempt to switch tabs or open other browser windows while taking
+                                                the exam.</li>
+                                            <li>Clicking outside of the exam window may result in automatic submission
+                                                of your exam.</li>
+                                        </ul>
+                                        <p class="text-danger">
+                                            <strong> Failure to comply with these instructions may lead to penalties or
+                                                disqualification from the exam.</strong>
+                                        </p>
+                                        <a href="#" onclick="openNewWindow('/my_final/{{$course->id}}}}')"
+                                            class="btn btn-warning m-3" style="color:black"> Start Exam </a>
+                                    </div>
+                                </div>
+
                                 <p></p>
 
                             </div>
@@ -501,10 +526,18 @@ function openNewWindow(url) {
         'toolbar=yes,scrollbars=yes,resizable=yes,width=800,height=600');
 }
 
+// Modal for Quiz
 var modal = document.getElementById("myModal");
 var btn = document.getElementById("openModal");
-var closeBtn = document.getElementsByClassName("close")[0];
 
+// Modal for final
+var modalFinal = document.getElementById("myModalFinal");
+var btnFinal = document.getElementById("openModalFinal");
+
+var closeBtn = document.getElementsByClassName("close")[0];
+var closeBtnFinal = document.getElementsByClassName("close")[1];
+
+// Modal - Quiz clicked
 btn.addEventListener("click", function() {
     modal.style.display = "block";
 });
@@ -513,9 +546,19 @@ closeBtn.addEventListener("click", function() {
     modal.style.display = "none";
 });
 
+// Modal - Final Clicked
+btnFinal.addEventListener("click", function() {
+    modalFinal.style.display = "block";
+});
+
+closeBtnFinal.addEventListener("click", function() {
+    modalFinal.style.display = "none";
+});
+
 window.addEventListener("click", function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
+        modalFinal.style.display = "none";
     }
 });
 </script>

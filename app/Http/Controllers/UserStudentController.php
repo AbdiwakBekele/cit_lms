@@ -261,13 +261,13 @@ class UserStudentController extends Controller{
         $count = Quiz::where('section_id', $section_id)->count();
         if ($count != 0  && $count >= 10) {
             $questions = Quiz::where('section_id', $section_id)->take(10)->get();
-            return view('quiz.qquiz', compact('questions'));
+            return view('quiz.quiz', compact('questions'));
         }else if($count == 0) {
             return back()
             ->with('error','Sorry! No Quiz Question Available');
         }else{
             $questions = Quiz::where('section_id', $section_id)->get();
-            return view('quiz.qquiz', compact('questions'));
+            return view('quiz.quiz', compact('questions'));
         }
     }
 
@@ -349,7 +349,6 @@ class UserStudentController extends Controller{
         $count = Quiz::where('course_id', $course_id)->count();
         if ($count != 0  && $count >= 50) {
             $questions = Quiz::where('course_id', $course_id)->take(50)->inRandomOrder()->get();
-            // return view('quiz.quiz', compact('questions'));
             return view('quiz.final', compact('questions'));
         }else if($count == 0) {
             return back()
@@ -357,7 +356,6 @@ class UserStudentController extends Controller{
             
         }else{
             $questions = Quiz::where('course_id', $course_id)->inRandomOrder()->get();
-            // return view('quiz.quiz', compact('questions'));
             return view('quiz.final', compact('questions'));
         }
     }
