@@ -320,12 +320,11 @@ class UserStudentController extends Controller{
             $progress->is_passed = ($correct_score / count($answers) >= 0.5) ? 1 : 0;
             $progress->save();
 
-            return view('quiz.quizResult', compact('correct_score', 'course_id'))
+            return view('quiz.quizResult', compact('correct_score', 'course_id', 'classroom'))
                  ->with('success','You have successfully Submitted your result');
 
         }else{
             // Validation succeeded
-
             $progress = new Progress([
                 'classroom_id'=> $classroom->id,
                 'section_id'=> $section_id, 
@@ -336,7 +335,7 @@ class UserStudentController extends Controller{
 
             if (!empty($progress->id)) {
                 // Model has been successfully inserted
-                return view('quiz.quizResult', compact('correct_score', 'course_id'))
+                return view('quiz.quizResult', compact('correct_score', 'course_id', 'classroom'))
                  ->with('success','You have successfully Submitted your result');
             }else{
                 return view('quiz.quizResult')

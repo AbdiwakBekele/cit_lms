@@ -11,47 +11,35 @@ use Illuminate\Support\Facades\Response as FileResponse;
 use Illuminate\Http\Response;
 use File;
 
-class ResourceController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
+class ResourceController extends Controller{
+
     public function index(){
         $resources = Resource::all();
         return view('admin.resource_managment.adminResource', compact('resources'));
     }
     
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(){
         $courses = Course::all();
         return view('admin.resource_managment.adminAddResource', compact('courses'));
     }
 
     public function viewDoc($filename){
-
         $filePath = public_path('course_resources/' . $filename);
 
-        // if (file_exists($filePath)) {
-        //     return FileResponse::file($filePath);
-        // }
-
         if (file_exists($filePath)) {
+            $fileContents = file_get_contents($filePath);
+
             $headers = [
-                'Content-Type' => mime_content_type($filePath),
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="' . $filename . '"',
+                'Content-Length' => strlen($fileContents),
             ];
-    
-            return response()->file($filePath, $headers, ['Content-Disposition' => 'inline']);
+
+            return FileResponse::make($fileContents, 200, $headers);
         }
-
-        abort(404);
-
     }
 
-
     public function store(Request $request){
-        
         $this->validate( $request, [
             'course'=>'required',
             'course_resource'=>'required|array',
@@ -90,32 +78,18 @@ class ResourceController extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id){
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
+    public function edit(string $id){
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id): RedirectResponse
-    {
+    public function update(Request $request, string $id){
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id){
         $resource = Resource::find($id);
         File::delete(public_path('course_resources/'.$resource->path));
