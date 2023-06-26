@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Section;
 use App\Models\Classroom;
 
-class progress extends Model
+class Progress extends Model
 {
     use HasFactory;
     protected $fillable = [
