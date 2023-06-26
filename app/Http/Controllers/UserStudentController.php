@@ -367,10 +367,6 @@ class UserStudentController extends Controller{
             $currentDate = Date::now();
             return view('user_student.certificate', compact('student_name'));
         }
-
-        
-
-        
        
     }
 

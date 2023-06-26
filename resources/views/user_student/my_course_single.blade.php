@@ -527,6 +527,7 @@ td {
 </div>
 
 <script>
+
 function openNewWindow(url) {
     window.open(url, '_blank',
         'toolbar=yes,scrollbars=yes,resizable=yes,width=800,height=600');

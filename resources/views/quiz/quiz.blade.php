@@ -130,6 +130,7 @@
         </div>
 
         <script>
+
         var questions = document.querySelectorAll('.question');
         var currentQuestion = 0;
         questions[currentQuestion].style.display = 'block';
@@ -151,6 +152,7 @@
         document.addEventListener('copy', function(e) {
             e.preventDefault();
             showMessage('Unable to copy. Copying content is not allowed.');
+            sendRequestAndCloseWindow();
         });
 
         document.addEventListener('paste', function(e) {
@@ -161,12 +163,10 @@
         // Detect when the user switches tabs
         document.addEventListener('visibilitychange', function() {
             if (document.visibilityState === 'hidden') {
-                // User switched away from the tab, take appropriate action here
                 showMessage('Switching tabs is not allowed during the quiz.');
             }
         });
 
-        // Detect when the browser window loses focus
         window.addEventListener('blur', function() {
             // Perform necessary actions when the window loses focus
             showMessage('Please stay within the current browser window.');
