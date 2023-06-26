@@ -162,14 +162,23 @@ td {
             <?php $index = 1; ?>
 
             @foreach($sections as $section)
+            @php
+            $progress = $section->progress->where('classroom_id', $classroom_id)->first();
+            @endphp
             <!-- sectionRow -->
             <section class="sectionRow">
                 <h2 class="h6 text-uppercase fw-semi rowHeading">Section {{$index++}}:
                     {{$section->section_name}}
+                    @if ($progress)
+                    @if($progress->is_passed == 1)
+                    <span class="text-success"> <i></i> Completed </span>
+                    @endif
+                    @endif
                 </h2>
+
+
                 <!-- sectionRowPanelGroup -->
                 <div class="panel-group sectionRowPanelGroup" id="accordion" role="tablist" aria-multiselectable="true">
-
 
                     @foreach($section->contents as $content)
                     <!-- panel -->
@@ -249,7 +258,7 @@ td {
                             aria-labelledby="headingOne">
                             <div class="panel-body">
 
-                                <a href="#" id="openModal" class="btn btn-warning m-3" style="color:black"> Take Quiz
+                                <a href="#" id="" class="btn btn-warning m-3 openModal" style="color:black"> Take Quiz
                                 </a>
 
                                 <!-- Modal Quiz Instruction -->
@@ -288,9 +297,7 @@ td {
 
             <?php 
                 $student_id = Auth::guard('student')->user()->id;
-                $classroom = DB::table('classrooms')->where('course_id', $course->id)->where('student_id', $student_id)->first();
-                
-                $progresses = DB::table('progress')->where('classroom_id', $classroom->id)->where('is_passed', 1)->get();
+                $progresses = DB::table('progress')->where('classroom_id', $classroom_id)->where('is_passed', 1)->get();
             ?>
 
             @if( $sections->count() > 0 && ($progresses->count() /$sections->count() * 100 ) == 100 )
@@ -327,7 +334,7 @@ td {
                                 <!-- Modal - Final Instruction -->
                                 <div id="myModalFinal" class="modal">
                                     <div class="modal-content">
-                                        <span class="close">&times;</span>
+                                        <span id="closeFinal" class="close">&times;</span>
                                         <h3>Important Exam Instructions</h3>
                                         <p>Please read the following instructions carefully before starting the exam:
                                         </p>
@@ -348,7 +355,6 @@ td {
                                 </div>
 
                                 <p></p>
-
                             </div>
                         </div>
                     </div>
@@ -527,24 +533,30 @@ function openNewWindow(url) {
 }
 
 // Modal for Quiz
-var modal = document.getElementById("myModal");
-var btn = document.getElementById("openModal");
+var modalButtons = document.getElementsByClassName("openModal");
+var closeButtons = document.getElementsByClassName("close");
+var modals = document.getElementsByClassName("modal");
+
+// Attach event listeners to each modal button
+for (var i = 0; i < modalButtons.length; i++) {
+    modalButtons[i].addEventListener("click", function() {
+        var modal = this.nextElementSibling; // Get the corresponding modal
+        modal.style.display = "block";
+    });
+}
+
+// Attach event listeners to each close button
+for (var i = 0; i < closeButtons.length; i++) {
+    closeButtons[i].addEventListener("click", function() {
+        var modal = this.parentNode.parentNode; // Get the parent modal element
+        modal.style.display = "none";
+    });
+}
 
 // Modal for final
 var modalFinal = document.getElementById("myModalFinal");
 var btnFinal = document.getElementById("openModalFinal");
-
-var closeBtn = document.getElementsByClassName("close")[0];
-var closeBtnFinal = document.getElementsByClassName("close")[1];
-
-// Modal - Quiz clicked
-btn.addEventListener("click", function() {
-    modal.style.display = "block";
-});
-
-closeBtn.addEventListener("click", function() {
-    modal.style.display = "none";
-});
+var closeBtnFinal = document.getElementById("closeFinal");;
 
 // Modal - Final Clicked
 btnFinal.addEventListener("click", function() {

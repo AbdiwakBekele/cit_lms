@@ -210,7 +210,7 @@ class UserStudentController extends Controller{
             ->where('sequence', '<=', $sectionCount + 1)
             ->get();
 
-        return view('user_student.my_course_single', compact('courses','course', 'course_categories', 'sections', 'popular_courses'));
+        return view('user_student.my_course_single', compact('courses','course', 'course_categories', 'sections', 'popular_courses', 'classroom_id'));
 
     }
 

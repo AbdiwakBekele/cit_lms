@@ -35,8 +35,7 @@
 
                     </div>
                     <div>
-                        <button class="btn btn-warning"><a href="#">Continue
-                                Learning</a></button>
+                        <button id="btn_continue" class="btn btn-warning">Continue Learning</button>
                     </div>
                 </div>
             </div>
@@ -44,5 +43,12 @@
         <!-- Bootstrap-js include -->
         <script src="assets/js/bootstrap.min.js"></script>
     </body>
+
+    <script>
+    var btn_continue = document.getElementById('btn_continue');
+    btn_continue.addEventListener('click', function() {
+        window.close();
+    });
+    </script>
 
 </html>
