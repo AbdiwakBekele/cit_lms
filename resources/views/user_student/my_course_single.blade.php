@@ -152,13 +152,16 @@ td {
                 <img src="/course_resources/{{$course->course_image}}" style="object-fit:cover; height: 450px"
                     alt="image description">
             </div>
+            <!-- Checking for Student-Classroom Approval -->
+            @if($classroom->is_approved == 1)
+
             <!-- Course Description -->
             <h3 class="content-h3">Course Description</h3>
             <div id="content_description">
                 {!! $course->description !!}
             </div>
-            <h2>Carriculam</h2>
 
+            <h2>Carriculam</h2>
             <?php $index = 1; ?>
 
             @foreach($sections as $section)
@@ -171,11 +174,11 @@ td {
                     {{$section->section_name}}
                     @if ($progress)
                     @if($progress->is_passed == 1)
-                    <span class="text-success"> <i></i> Completed </span>
+                    <span class="text-success" style="margin-left: 15px"> <strong>Passed</strong> | Score:
+                        {{$progress->score}} / 10 </span>
                     @endif
                     @endif
                 </h2>
-
 
                 <!-- sectionRowPanelGroup -->
                 <div class="panel-group sectionRowPanelGroup" id="accordion" role="tablist" aria-multiselectable="true">
@@ -279,7 +282,8 @@ td {
                                             <strong> Failure to comply with these instructions may lead to penalties or
                                                 disqualification from the exam.</strong>
                                         </p>
-                                        <a href="#" onclick="openNewWindow('/my_quiz/{{$section->id}}')"
+                                        <a href="#"
+                                            onclick="openNewWindow('/my_quiz/{{$section->id}}/{{$classroom_id}}')"
                                             class="btn btn-warning m-3" style="color:black"> Start Exam </a>
                                     </div>
                                 </div>
@@ -431,9 +435,19 @@ td {
                 </div>
                 <button type="submit" class="btn btn-theme btn-warning text-uppercase font-lato fw-bold">Submit</button>
             </form>
+            @endif
+
+            @else
+
+            <div class="alert alert-danger"> This Course has been Disabled, Please contact your admin </div>
 
             @endif
         </article>
+
+
+
+
+
         <!-- sidebar -->
         <aside class="col-xs-12 col-md-3" id="sidebar">
             <!-- widget categories -->
@@ -527,7 +541,6 @@ td {
 </div>
 
 <script>
-
 function openNewWindow(url) {
     window.open(url, '_blank',
         'toolbar=yes,scrollbars=yes,resizable=yes,width=800,height=600');

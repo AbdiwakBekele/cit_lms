@@ -11,7 +11,7 @@
         </div>
         <div class="container">
             <a class="btn btn-primary m-3" role="button"
-                style="color: #16416E;background: #ffb600;font-weight: bold;width: 143.3px;height: 32px;font-size: 14px;border-style: none;"
+                style="color: #16416E;background: #ffb600;font-weight: bold; height: 32px;font-size: 14px;border-style: none;"
                 href="student/create">Add New Student</a>
 
             @if ($message = Session::get('success'))

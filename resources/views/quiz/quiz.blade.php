@@ -3,6 +3,7 @@
 
 
     <head>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,9 +65,7 @@
             <h1 class="text-center mb-4">Quiz</h1>
             <form method="post" action="/my_quiz">
                 @csrf
-                @auth('student')
-                <input type="hidden" name="student_id" value="{{auth('student')->user()->id}}">
-                @endauth
+                <input type="hidden" name="classroom_id" id="classroom_id" value="{{$classroom_id}}">
 
                 <div class="container">
                     <div id="warning_msg"></div>
@@ -106,7 +105,6 @@
                                         </div>
                                         @endforeach
 
-
                                     </div>
 
 
@@ -130,7 +128,6 @@
         </div>
 
         <script>
-
         var questions = document.querySelectorAll('.question');
         var currentQuestion = 0;
         questions[currentQuestion].style.display = 'block';
@@ -148,42 +145,73 @@
             }
         }
 
-        // Disable copy and paste events
-        document.addEventListener('copy', function(e) {
-            e.preventDefault();
-            showMessage('Unable to copy. Copying content is not allowed.');
-            sendRequestAndCloseWindow();
-        });
+        // Finish Loading all the script
+        document.addEventListener('DOMContentLoaded', function() {
+            var classroomId = document.getElementById('classroom_id').value;
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        document.addEventListener('paste', function(e) {
-            e.preventDefault();
-            showMessage('Unable to paste. Pasting content is not allowed.');
-        });
+            // Disable copy and paste events
+            document.addEventListener('copy', function(e) {
+                e.preventDefault();
+                showMessage('Unable to copy. Copying content is not allowed.');
+            });
 
-        // Detect when the user switches tabs
-        document.addEventListener('visibilitychange', function() {
-            if (document.visibilityState === 'hidden') {
-                showMessage('Switching tabs is not allowed during the quiz.');
+            document.addEventListener('paste', function(e) {
+                e.preventDefault();
+                showMessage('Unable to paste. Pasting content is not allowed.');
+            });
+
+            // Detect when the user switches tabs
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'hidden') {
+                    disqualifyStudent(classroomId);
+                    showMessage('Switching tabs is not allowed during the quiz.');
+                    window.close();
+                }
+            });
+
+            //Right Click Detection
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                showMessage('Right Click is Disabled');
+            });
+
+            window.addEventListener('blur', function() {
+                disqualifyStudent(classroomId);
+                showMessage('Please stay within the current browser window.');
+                window.close();
+            });
+
+            // Helper function to display the message
+            function showMessage(message) {
+                var messageElement = document.createElement('div');
+                messageElement.className = 'copy-message alert alert-danger';
+                messageElement.textContent = message;
+
+                document.getElementById("warning_msg").appendChild(messageElement);
+
+                setTimeout(function() {
+                    document.getElementById("warning_msg").removeChild(messageElement);
+                }, 2000);
             }
+
+            // Disqualify Student
+            function disqualifyStudent(classroomId) {
+                // Send an AJAX request to the server to disqualify the student
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/disqualify', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // Handle the response from the server if necessary
+                        console.log('Student disqualified');
+                    }
+                };
+                xhr.send('classroomId=' + encodeURIComponent(classroomId));
+            }
+
         });
-
-        window.addEventListener('blur', function() {
-            // Perform necessary actions when the window loses focus
-            showMessage('Please stay within the current browser window.');
-        });
-
-        // Helper function to display the message
-        function showMessage(message) {
-            var messageElement = document.createElement('div');
-            messageElement.className = 'copy-message alert alert-danger';
-            messageElement.textContent = message;
-
-            document.getElementById("warning_msg").appendChild(messageElement);
-
-            setTimeout(function() {
-                document.getElementById("warning_msg").removeChild(messageElement);
-            }, 2000);
-        }
         </script>
     </body>
 

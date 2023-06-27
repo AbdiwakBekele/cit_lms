@@ -210,7 +210,9 @@ class UserStudentController extends Controller{
             ->where('sequence', '<=', $sectionCount + 1)
             ->get();
 
-        return view('user_student.my_course_single', compact('courses','course', 'course_categories', 'sections', 'popular_courses', 'classroom_id'));
+            $classroom = Classroom::find($classroom_id);
+
+        return view('user_student.my_course_single', compact('courses','course', 'course_categories', 'sections', 'popular_courses', 'classroom_id', 'classroom'));
 
     }
 
@@ -257,43 +259,40 @@ class UserStudentController extends Controller{
         }
     }
 
-    public function myQuiz(string $section_id){
+    public function myQuiz(string $section_id, string $classroom_id){
         $count = Quiz::where('section_id', $section_id)->count();
         if ($count != 0  && $count >= 10) {
             $questions = Quiz::where('section_id', $section_id)->take(10)->get();
-            return view('quiz.quiz', compact('questions'));
+            return view('quiz.quiz', compact('questions', 'classroom_id'));
         }else if($count == 0) {
             return back()
             ->with('error','Sorry! No Quiz Question Available');
         }else{
             $questions = Quiz::where('section_id', $section_id)->get();
-            return view('quiz.quiz', compact('questions'));
+            return view('quiz.quiz', compact('questions', 'classroom_id'));
         }
     }
 
     public function myQuizSubmit(Request $request){
 
         $answers = $request->input('answer');
-        $student_id = $request->student_id;
+        $classroom_id = $request->classroom_id;
+
         $correct_score = 0;
-        $course_id;
         $section_id;
 
         foreach ($answers as $questionId => $option) {
             $question = Quiz::find($questionId);
-            $course_id = $question->course_id;
             $section_id = $question->section_id;
 
             if($question->answer == $option){
                 $correct_score++;
             }
         }
-
-        $classroom = Classroom::where('student_id', $student_id)->where('course_id', $course_id)->first();
         
         //Data to be validated
         $data = [
-            'classroom_id' => $classroom->id,
+            'classroom_id' => $classroom_id,
             'section_id' => $section_id
         ];
         
@@ -312,7 +311,7 @@ class UserStudentController extends Controller{
         if ($validator->fails()) {
             // Validation failed
             
-            $progress = Progress::where('classroom_id', $classroom->id)
+            $progress = Progress::where('classroom_id', $classroom_id)
                     ->where('section_id', $section_id)
                     ->first();
 
@@ -320,13 +319,13 @@ class UserStudentController extends Controller{
             $progress->is_passed = ($correct_score / count($answers) >= 0.5) ? 1 : 0;
             $progress->save();
 
-            return view('quiz.quizResult', compact('correct_score', 'course_id', 'classroom'))
+            return view('quiz.quizResult', compact('correct_score'))
                  ->with('success','You have successfully Submitted your result');
 
         }else{
             // Validation succeeded
             $progress = new Progress([
-                'classroom_id'=> $classroom->id,
+                'classroom_id'=> $classroom_id,
                 'section_id'=> $section_id, 
                 'score'=>$correct_score,
                 'is_passed'=> ($correct_score / count($answers) >= 0.5) ? 1 : 0
@@ -335,7 +334,7 @@ class UserStudentController extends Controller{
 
             if (!empty($progress->id)) {
                 // Model has been successfully inserted
-                return view('quiz.quizResult', compact('correct_score', 'course_id', 'classroom'))
+                return view('quiz.quizResult', compact('correct_score'))
                  ->with('success','You have successfully Submitted your result');
             }else{
                 return view('quiz.quizResult')
@@ -368,6 +367,13 @@ class UserStudentController extends Controller{
             return view('user_student.certificate', compact('student_name'));
         }
        
+    }
+
+    public function disqualify(Request $request){
+        $classroomId = $request->input('classroomId');
+        $classroom = Classroom::find($classroomId);
+        $classroom->is_approved = 0;
+        $classroom->save();
     }
 
 }

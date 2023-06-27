@@ -88,13 +88,15 @@ Route::group(['middleware' => ['student']], function () {
 
     Route::post('/enroll_now', [UserStudentController::class, 'enrollNow']);
 
-    Route::get('/my_quiz/{section_id}', [UserStudentController::class, 'myQuiz']);
+    Route::get('/my_quiz/{section_id}/{classroom_id}', [UserStudentController::class, 'myQuiz']);
 
     Route::post('/my_quiz', [UserStudentController::class, 'myQuizSubmit']);
 
     Route::get('/my_final/{course_id}', [UserStudentController::class, 'myFinal']);
 
     Route::post('/my_final', [UserStudentController::class, 'myFinalSubmit']);
+
+    Route::post('/disqualify', [UserStudentController::class, 'disqualify']);
 
     Route::resource('student_doc', StudentDocController::class);
 
