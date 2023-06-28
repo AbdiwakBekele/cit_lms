@@ -62,7 +62,7 @@
     <body>
         <div class="container mt-sm-5 my-1">
             <h1 class="text-center mb-4">Final Exam</h1>
-            <form method="post" action="/my_quiz">
+            <form method="post" action="/my_final/{{$classroom_id}}">
                 @csrf
                 @auth('student')
                 <input type="hidden" name="student_id" value="{{auth('student')->user()->id}}">
@@ -168,7 +168,6 @@
 
         // Detect when the browser window loses focus
         window.addEventListener('blur', function() {
-            // Perform necessary actions when the window loses focus
             showMessage('Please stay within the current browser window.');
         });
 

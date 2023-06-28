@@ -263,13 +263,13 @@ class UserStudentController extends Controller{
         $count = Quiz::where('section_id', $section_id)->count();
         if ($count != 0  && $count >= 10) {
             $questions = Quiz::where('section_id', $section_id)->take(10)->get();
-            return view('quiz.quiz', compact('questions', 'classroom_id'));
+            return view('quiz.quiz', compact('questions', 'classroom_id', 'section_id'));
         }else if($count == 0) {
             return back()
             ->with('error','Sorry! No Quiz Question Available');
         }else{
             $questions = Quiz::where('section_id', $section_id)->get();
-            return view('quiz.quiz', compact('questions', 'classroom_id'));
+            return view('quiz.quiz', compact('questions', 'classroom_id', 'section_id'));
         }
     }
 
@@ -277,17 +277,20 @@ class UserStudentController extends Controller{
 
         $answers = $request->input('answer');
         $classroom_id = $request->classroom_id;
+        $section_id = $request->section_id;
 
         $correct_score = 0;
-        $section_id;
 
-        foreach ($answers as $questionId => $option) {
-            $question = Quiz::find($questionId);
-            $section_id = $question->section_id;
+        if($answers != null){
+            foreach ($answers as $questionId => $option) {
+                $question = Quiz::find($questionId);
 
-            if($question->answer == $option){
-                $correct_score++;
+                if($question->answer == $option){
+                    $correct_score++;
+                }
             }
+        }else{
+            $answers = [];
         }
         
         //Data to be validated
@@ -310,13 +313,17 @@ class UserStudentController extends Controller{
         
         if ($validator->fails()) {
             // Validation failed
-            
             $progress = Progress::where('classroom_id', $classroom_id)
                     ->where('section_id', $section_id)
                     ->first();
 
             $progress->score = $correct_score;
-            $progress->is_passed = ($correct_score / count($answers) >= 0.5) ? 1 : 0;
+            if(count($answers) > 0){
+                $progress->is_passed = ($correct_score / count($answers) >= 0.5) ? 1 : 0;
+            }else{
+                $progress->is_passed = 0;
+            }
+            
             $progress->save();
 
             return view('quiz.quizResult', compact('correct_score'))
@@ -344,18 +351,18 @@ class UserStudentController extends Controller{
     }
 
     // Final 
-    public function myFinal(string $course_id){
+    public function myFinal(string $course_id, string $classroom_id){
         $count = Quiz::where('course_id', $course_id)->count();
         if ($count != 0  && $count >= 50) {
             $questions = Quiz::where('course_id', $course_id)->take(50)->inRandomOrder()->get();
-            return view('quiz.final', compact('questions'));
+            return view('quiz.final', compact('questions', 'classroom_id'));
         }else if($count == 0) {
             return back()
             ->with('error','Sorry! No Quiz Question Available');
             
         }else{
             $questions = Quiz::where('course_id', $course_id)->inRandomOrder()->get();
-            return view('quiz.final', compact('questions'));
+            return view('quiz.final', compact('questions', 'classroom_id'));
         }
     }
 

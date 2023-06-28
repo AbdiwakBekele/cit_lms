@@ -63,9 +63,10 @@
     <body>
         <div class="container mt-sm-5 my-1">
             <h1 class="text-center mb-4">Quiz</h1>
-            <form method="post" action="/my_quiz">
+            <form method="post" action="/my_quiz/{{$classroom_id}}">
                 @csrf
                 <input type="hidden" name="classroom_id" id="classroom_id" value="{{$classroom_id}}">
+                <input type="hidden" name="section_id" id="section_id" value="{{$section_id}}">
 
                 <div class="container">
                     <div id="warning_msg"></div>

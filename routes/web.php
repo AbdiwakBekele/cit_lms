@@ -90,11 +90,11 @@ Route::group(['middleware' => ['student']], function () {
 
     Route::get('/my_quiz/{section_id}/{classroom_id}', [UserStudentController::class, 'myQuiz']);
 
-    Route::post('/my_quiz', [UserStudentController::class, 'myQuizSubmit']);
+    Route::post('/my_quiz/{classroom_id}', [UserStudentController::class, 'myQuizSubmit']);
 
-    Route::get('/my_final/{course_id}', [UserStudentController::class, 'myFinal']);
+    Route::get('/my_final/{course_id}/{classroom_id}', [UserStudentController::class, 'myFinal']);
 
-    Route::post('/my_final', [UserStudentController::class, 'myFinalSubmit']);
+    Route::post('/my_final/{classroom_id}', [UserStudentController::class, 'myFinalSubmit']);
 
     Route::post('/disqualify', [UserStudentController::class, 'disqualify']);
 

@@ -353,7 +353,8 @@ td {
                                             <strong> Failure to comply with these instructions may lead to penalties or
                                                 disqualification from the exam.</strong>
                                         </p>
-                                        <a href="#" onclick="openNewWindow('/my_final/{{$course->id}}}}')"
+                                        <a href="#"
+                                            onclick="openNewWindow('/my_final/{{$course->id}}/{{$classroom_id}} ')"
                                             class="btn btn-warning m-3" style="color:black"> Start Exam </a>
                                     </div>
                                 </div>
