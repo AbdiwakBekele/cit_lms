@@ -49,7 +49,8 @@
                     <!-- Age -->
                     <div class="mb-3 mt-3">
                         <label for="age" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="age" placeholder="Enter Age" name="age" required>
+                        <input type="number" class="form-control" id="age" placeholder="Enter Age" name="age" min="18"
+                            max="60" required>
                         @error('age')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -86,16 +87,6 @@
 
                         </select>
                         @error('assigned_role')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-
-                    <!-- Password -->
-                    <div class="mb-3 mt-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter Password"
-                            name="password" required>
-                        @error('password')
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

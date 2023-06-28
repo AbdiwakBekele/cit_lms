@@ -77,23 +77,6 @@
                         @enderror
                     </div>
 
-                    <!-- Assigned Role -->
-                    <div class="mb-3 mt-3">
-                        <label for="assigned_role" class="form-label">Assigned Role</label>
-                        <select class="form-control" name="assigned_role" id="assigned_role">
-                            <option value=""> Choose... </option>
-                            <?php 
-                                            foreach($roles as $role){
-                                            $selected = ($role->id == $user->role_id) ? "selected" : "";
-                                                echo "<option value='".$role->id."'". $selected."  >".$role->role_name."</option>";
-                                            }   
-                                        ?>
-                        </select>
-                        @error('assigned_role')
-                        <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-
                     <!-- Submit Button -->
                     <input type="submit" name="submit" class="btn btn-warning">
                 </form>

@@ -10,52 +10,42 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserRegistration;
+use Illuminate\Support\Str;
 
-class UserController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
+class UserController extends Controller{
+
     public function index(){
         $users = User::all();
         return view('admin.user_management.adminUserManagement', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(){
         $roles = Role::all();
         return view('admin.user_management.adminAddUser', compact('roles'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request){
 
-        $this->validate($request, [
+        $data = $request->validate([
             'fullname'=> 'required',
             'email'=>'required|unique:users',
             'age'=>'required',
             'phone'=>'required',
             'address'=> 'required',
-            'password'=>'required'
         ]);
 
-        $fullname = $request->fullname;
-        $email = $request->email;
-        $age = $request->age;
-        $phone = $request->phone;
-        $address = $request->address;
-        $password = Hash::make($request->password);
-
-        $user = new User([ 'fullname'=>$fullname, 'email'=>$email, 'age'=>$age, 'phone'=>$phone, 'address'=>$address, 'password'=>$password ]);
+        // Generate a random password with 10 characters
+        $password = Str::random(8); 
+        // $password = '00000000';
         
-        if(!empty($user->save())){
+        $data['password'] =  Hash::make($password);
+        $user = User::create($data);
+        Mail::to($user->email)->send(new UserRegistration($user, $password));
 
+        if($user){
             if(!empty($request->assigned_role)){
-
                 $role = Role::findByName($request->assigned_role);
                 $user->assignRole($role);
             }
@@ -70,9 +60,6 @@ class UserController extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id){
         $user = User::find($id);
         $roles = Role::all();
@@ -83,18 +70,12 @@ class UserController extends Controller
         return view('admin.user_management.adminViewUser', compact('user', 'roles', 'permissions', 'user_roles', 'user_permissions'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id){
         $user = User::find($id);
         $roles = Role::all();
         return view('admin.user_management.adminEditUser', compact('user', 'roles'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id){
         $this->validate($request, [
             'fullname'=> 'required',
@@ -102,7 +83,6 @@ class UserController extends Controller
             'age'=>'required',
             'phone'=>'required',
             'address'=> 'required',
-            'assigned_role'=> 'required'
         ]);
 
         $fullname = $request->fullname;
@@ -110,7 +90,6 @@ class UserController extends Controller
         $age = $request->age;
         $phone = $request->phone;
         $address = $request->address;
-        $role_id = $request->assigned_role;
 
         $user = User::find($id);
         $user->fullname = $fullname;
@@ -118,7 +97,6 @@ class UserController extends Controller
         $user->age = $age;
         $user->phone = $phone;
         $user->address = $address;
-        $user->role_id = $role_id;
         $user->save();
 
         if(!empty($user->id)){
@@ -130,12 +108,9 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id){
         $user = User::find($id)->delete();
-
         if($user){
             return back()
              ->with('success',"You have successfully deleted a user");
@@ -143,7 +118,6 @@ class UserController extends Controller
             return back()
              ->with('error',"Error deleting a user");
         }
-
     }
 
     function userProfile(){
@@ -157,7 +131,6 @@ class UserController extends Controller
     }
 
     function userProfileUpdate(Request $request){
-        
         $request->validate([
             'fullname'=>'required',
             'email'=> 'required',
