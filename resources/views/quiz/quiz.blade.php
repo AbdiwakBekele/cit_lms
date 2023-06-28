@@ -130,9 +130,16 @@
         <script>
         var questions = document.querySelectorAll('.question');
         var currentQuestion = 0;
+        var submitClicked = false;
+        var submitButton = document.getElementById('btn_submit');
+
         questions[currentQuestion].style.display = 'block';
         document.getElementById('btn_submit').style.display = 'none';
         document.getElementById('msg').style.display = 'none';
+
+        submitButton.addEventListener('click', function() {
+            submitClicked = true;
+        });
 
         function nextQuestion() {
             questions[currentQuestion].style.display = 'none';
@@ -163,23 +170,27 @@
 
             // Detect when the user switches tabs
             document.addEventListener('visibilitychange', function() {
-                if (document.visibilityState === 'hidden') {
+                if (document.visibilityState === 'hidden' && !submitClicked) {
                     disqualifyStudent(classroomId);
                     showMessage('Switching tabs is not allowed during the quiz.');
                     window.close();
                 }
             });
 
+            // When Window loses focus
+            window.addEventListener('blur', function() {
+                if (!submitClicked) {
+                    disqualifyStudent(classroomId);
+                    showMessage('Please stay within the current browser window.');
+                    window.close();
+                }
+
+            });
+
             //Right Click Detection
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
                 showMessage('Right Click is Disabled');
-            });
-
-            window.addEventListener('blur', function() {
-                disqualifyStudent(classroomId);
-                showMessage('Please stay within the current browser window.');
-                window.close();
             });
 
             // Helper function to display the message
