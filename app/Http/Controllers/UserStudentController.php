@@ -274,7 +274,6 @@ class UserStudentController extends Controller{
     }
 
     public function myQuizSubmit(Request $request){
-
         $answers = $request->input('answer');
         $classroom_id = $request->classroom_id;
         $section_id = $request->section_id;
