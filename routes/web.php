@@ -35,10 +35,10 @@ use App\Models\Student;
 
 
 
-Route::get('/fill_student', function () {
-    Student::factory()->times(10)->create();
-    return 'Student created successfully! with thier email address and password = "password" ';
-});
+// Route::get('/fill_student', function () {
+//     Student::factory()->times(10)->create();
+//     return 'Student created successfully! with thier email address and password = "password" ';
+// });
 
 /*
 |--------------------------------------------------------------------------
@@ -128,7 +128,6 @@ Route::get('/user_logout', [UserAuthManager::class, 'logout']);
 |------------------------------------------------------------------------*/
 
 Route::group(['middleware'=> ['auth']], function(){
-    // Route::post('/enroll_now', [UserStudentController::class, 'enrollNow']);
 
     //Show my User profile
     Route::get('admin_profile', [UserController::class, 'userProfile']);

@@ -10,6 +10,8 @@ use App\Models\Course;
 use App\Models\Classroom;
 use App\Models\Student;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\StudentEnroll;
 
 class BatchController extends Controller
 {
@@ -131,8 +133,12 @@ class BatchController extends Controller
 
         $classroom = Classroom::create($data);
 
-
         if($classroom){
+            $student = Student::find($data['student_id']);
+            $course = Course::find($data['course_id']);
+            $batch = Batch::find($data['batch_id']);
+            Mail::to($student->email)->send(new StudentEnroll($student->fullname, $course->name,$batch->shift));
+            
             // Model has been successfully inserted
             return back()
              ->with('success','You have successfully Registered for this batch');

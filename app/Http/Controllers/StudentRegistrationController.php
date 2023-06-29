@@ -11,6 +11,7 @@ use App\Models\Student;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Mail\StudentRegistered;
+use App\Mail\StudentEnroll;
 use Illuminate\Support\Facades\Mail;
 
 class StudentRegistrationController extends Controller
@@ -55,16 +56,16 @@ class StudentRegistrationController extends Controller
 
         if($student){
             $data_class = $request->validate([
-                        'course_id'=>'required',
-                        'batch_id'=>'required',
-                        'working_in_the_field'=>'required',
-                        'why_interested'=>'required',
-                        'how_did_you_hear'=>'required',
-                        'type_of_training'=>'required',
-                        'additional_info'=>'required',
-                        'payment_mode'=>'required',
-                        'payment_type'=>'required'
-                    ]);
+                'course_id'=>'required',
+                'batch_id'=>'required',
+                'working_in_the_field'=>'required',
+                'why_interested'=>'required',
+                'how_did_you_hear'=>'required',
+                'type_of_training'=>'required',
+                'additional_info'=>'required',
+                'payment_mode'=>'required',
+                'payment_type'=>'required'
+            ]);
 
                 $data_class['student_id'] = $student->id;
                 $data_class['is_approved'] = 1;
@@ -72,6 +73,10 @@ class StudentRegistrationController extends Controller
                 $classroom = Classroom::create($data_class);
                     
                 if($classroom){
+                    $course = Course::find($data_class['course_id']);
+                    $batch = Batch::find($data_class['batch_id']);
+                    Mail::to($student->email)->send(new StudentEnroll($student->fullname, $course->name, $batch->shift));
+            
                     return back()
                             ->with('success','Successfully Registered a student');
                 }else{
