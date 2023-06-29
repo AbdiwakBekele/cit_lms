@@ -12,11 +12,13 @@
 
     <p>Dear {{$student_name}},</p>
 
-    <p>You successfuly enrolled for the course {{$course_name}} on the {{$batch_name}} shift. We are excited to have you
+    <p>You successfuly enrolled for the course <strong>{{$course_name}}</strong> on the <strong>{{$batch_name}}</strong>
+        shift. We are excited to have you
         on board!
     </p>
 
-    <p>Find the course in "My Learning" section. Please feel free to explore our platform and take advantage of our
+    <p>Find the course in <strong>"My Learning"</strong> section. Please feel free to explore our platform and take
+        advantage of our
         training resources.</p>
 
     <p>If you have any questions or need assistance, don't hesitate to reach out to our support team at

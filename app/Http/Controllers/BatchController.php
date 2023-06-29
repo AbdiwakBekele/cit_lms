@@ -137,7 +137,7 @@ class BatchController extends Controller
             $student = Student::find($data['student_id']);
             $course = Course::find($data['course_id']);
             $batch = Batch::find($data['batch_id']);
-            Mail::to($student->email)->send(new StudentEnroll($student->fullname, $course->name,$batch->shift));
+            Mail::to($student->email)->send(new StudentEnroll($student->fullname, $course->course_name, $batch->shift));
             
             // Model has been successfully inserted
             return back()
@@ -149,10 +149,13 @@ class BatchController extends Controller
 
     }
 
-    public function getBatches(Request $request)
-    {
+    public function getBatches(Request $request){
         $batches = Course::findOrFail($request->input('course_id'))->batches;
         return response()->json($batches);
+    }
+
+    public function unenrollStudent(Requset $request){
+
     }
 
 
@@ -174,8 +177,7 @@ class BatchController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
-    {
+    public function destroy(string $id){
         //
     }
 }

@@ -43,6 +43,10 @@
             </div>
             @endif
 
+            @error('student_id')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
             <a href="#" data-bs-toggle="modal" data-bs-target="#myModalStudent"
                 class="btn btn-warning text-dark m-3">Add Student</a>
 
@@ -227,7 +231,6 @@
                             <th style="color: #16416E;font-weight: bold;">Age</th>
                             <th style="color: #16416E;font-weight: bold;">Email</th>
                             <th style="color: #16416E;font-weight: bold;">Phone</th>
-                            <th style="color: #16416E;font-weight: bold;">Address</th>
                             <th style="color: #16416E;font-weight: bold;">Status</th>
                             <th style="color: #16416E;font-weight: bold;">Action</th>
                         </tr>
@@ -235,52 +238,66 @@
                     <tbody>
 
                         @foreach($batch->classrooms as $index => $classroom)
+                        <tr>
 
-                        <td>{{$index + 1}}</td>
-                        <td> {{$classroom->student->fullname}} </td>
-                        <td> {{$classroom->student->age}} </td>
-                        <td> {{$classroom->student->email}} </td>
-                        <td> {{$classroom->student->phone}} </td>
-                        <td> {{$classroom->student->address}} </td>
+                            <td>{{$index + 1}}</td>
+                            <td> {{$classroom->student->fullname}} </td>
+                            <td> {{$classroom->student->age}} </td>
+                            <td> {{$classroom->student->email}} </td>
+                            <td> {{$classroom->student->phone}} </td>
 
-                        @if($classroom->is_approved == 1)
+                            <td>
+                                @if($classroom->is_approved == 1)
+                                <p class="text-success"> <strong>Approved</strong> </p>
+                                @else
+                                <p class="text-danger"> <strong>Not Approved</strong> </p>
+                                @endif
 
-                        <td>
-                            <p class="text-success"> <strong>Approved</strong> </p>
+                            </td>
 
-                        </td>
+                            <td>
+                                @if($classroom->is_approved == 1)
+                                <a class="btn btn-primary" href="/disapprove_student/{{$classroom->id}}"> Dismiss </a>
+                                @else
+                                <a class="btn btn-primary" href="/approve_student/{{$classroom->id}}"> Approve </a>
+                                @endif
 
-                        <td>
-                            <a class="btn btn-primary" href="/disapprove_student/{{$classroom->id}}">Dismiss</a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#myModal{{$classroom->id}}">
+                                    <i class="fa fa-trash text-danger mx-1" style="font-size: 17px"
+                                        aria-hidden="true"></i>
+                                </a>
 
-                        </td>
+                                <!-- The Modal -->
+                                <div class="modal" id="myModal{{$classroom->id}}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
 
+                                            <!-- Modal body -->
+                                            <div class="modal-body my-4 text-center h5">
+                                                Are you sure?
+                                            </div>
 
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer p-1">
+                                                <form action="/unenroll_student/{{$classroom->id}}" method="post">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                                </form>
+                                                <button type="button" class="btn btn-light"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
 
-                        @endif
-
-                        @if($classroom->is_approved == 0)
-
-                        <td>
-                            <p class="text-danger"> <strong>Not Approved</strong> </p>
-                        </td>
-
-                        <td>
-                            <a class="btn btn-primary" href="/approve_student/{{$classroom->id}}">Approve
-                            </a>
-                        </td>
-
-                        @endif
-
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
 
                         @endforeach
                     </tbody>
                 </table>
             </div>
-
-
-
 
         </div>
     </div>
