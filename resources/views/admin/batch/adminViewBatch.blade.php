@@ -275,17 +275,25 @@
                                             <!-- Modal body -->
                                             <div class="modal-body my-4 text-center h5">
                                                 Are you sure?
+                                                <hr>
+                                                <form action="/unenroll_student/{{$classroom->id}}" method="post">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <label for="password"> Confirm your password
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <input type="password" name="password" id="password"
+                                                        class="form-control mx-2 my-3" required>
+                                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                                    <button type="button" class="btn btn-light"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                </form>
                                             </div>
 
                                             <!-- Modal footer -->
                                             <div class="modal-footer p-1">
-                                                <form action="/unenroll_student/{{$classroom->id}}" method="post">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="submit" class="btn btn-danger" value="Delete">
-                                                </form>
-                                                <button type="button" class="btn btn-light"
-                                                    data-bs-dismiss="modal">Close</button>
+
+
                                             </div>
 
                                         </div>

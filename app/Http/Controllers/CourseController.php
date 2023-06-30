@@ -13,6 +13,8 @@ use App\Models\Resource;
 use App\Models\Section;
 use File;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class CourseController extends Controller
 {
@@ -167,22 +169,32 @@ class CourseController extends Controller
         }
     }
 
-    public function destroy(string $id){
-        $course = Course::find($id)->delete();
-        $resources = Resource::where('course_id', $id)->get();
+    public function destroy(string $id, Request $request){
+        $this->validate($request, [
+            'password'=>'required'
+        ]);
+        $user = Auth::user();
+        if(Hash::check($request->password, $user->password)){
+            $course = Course::find($id)->delete();
+            $resources = Resource::where('course_id', $id)->get();
 
-        foreach($resources as $resource){
-            File::delete(public_path('course_resources/'.$resource->path));
-            $resource->delete();
-        }
+            foreach($resources as $resource){
+                File::delete(public_path('course_resources/'.$resource->path));
+                $resource->delete();
+            }
 
-        if($course){
-            return back()
-            ->with('success','You have successfully deleted a course informatoin.');
+            if($course){
+                return back()
+                ->with('success','You have successfully deleted a course informatoin.');
+            }else{
+                return back()
+                ->with('error','Error deleting course information');
+            }
         }else{
             return back()
-            ->with('error','Error deleting course information');
+                ->with('error','Incorrect Password');
         }
+        
     }
 
 }

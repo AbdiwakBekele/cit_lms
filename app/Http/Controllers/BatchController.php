@@ -12,6 +12,9 @@ use App\Models\Student;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\StudentEnroll;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 class BatchController extends Controller
 {
@@ -23,17 +26,11 @@ class BatchController extends Controller
         return view('admin.batch.adminBatchManagment', compact('batches'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(){
         $courses = Course::all();
         return view('admin.batch.adminAddBatch', compact('courses'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request){
         $this->validate( $request, [
             'course_id'=>'required',
@@ -70,10 +67,6 @@ class BatchController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    
     public function show(string $id){
         $students = Student::all();
         $batch = Batch::find($id);
@@ -154,7 +147,29 @@ class BatchController extends Controller
         return response()->json($batches);
     }
 
-    public function unenrollStudent(Requset $request){
+    public function unenrollStudent(string $classroom_id, Request $request){
+        $this->validate($request, [
+            'password'=>'required'
+        ]);
+
+        $user = Auth::user();
+
+        if(Hash::check($request->password, $user->password)){
+            $classroom = Classroom::find($classroom_id)->delete();
+            if($classroom){
+                return back()
+                ->with('success','Student Successfully unenrolled from this batch');
+
+            }else{
+                return back()
+                ->with('error','Error unenrolling student');
+            }
+        }else{
+            return back()
+                ->with('error','Incorrect Password');
+        }
+
+        
 
     }
 
