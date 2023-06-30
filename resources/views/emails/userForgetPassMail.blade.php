@@ -14,7 +14,7 @@
             support@edu-cti.com.</p>
 
         <p>
-            http://portal.edu-cti.com/
+            http://portal.edu-cti.com/admin
             <br>
             Your password is: <strong>{{$password}}</strong>
 

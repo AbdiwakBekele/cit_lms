@@ -29,6 +29,10 @@
                         <div class="alert alert-danger"> {{ session('error') }} </div>
                         @endif
 
+                        @if(session()->has('success'))
+                        <div class="alert alert-success"> {{ session('success') }} </div>
+                        @endif
+
                         <form action="/user_login" method="post" class="user">
 
                             @csrf
@@ -62,7 +66,7 @@
                             </div>
                             <button class="btn btn-primary d-block btn-user w-100" type="submit"
                                 style="background: #151B3D;">Login</button>
-                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            <a class="small" href="/user_forget_password">Forgot Password?</a>
                             <hr>
                             <!-- <a class="btn btn-primary d-block btn-user w-100 bg-warning text-dark"
                             href="/user_register">Register</a> -->

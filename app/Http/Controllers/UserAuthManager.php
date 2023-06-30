@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\userForgetPassword;
+use Illuminate\Support\Str;
 
 class UserAuthManager extends Controller{
     
@@ -73,6 +76,33 @@ class UserAuthManager extends Controller{
         Session::forget('user_session_key');
         Auth::logout();
         return redirect('/user_login');
+    }
+
+    function userForgetPassword(){
+        return view('user_forget_password');
+    }
+    
+    function userResetPassword(Request $request){
+        $request->validate([
+            'email'=>'required|email|exists:users,email'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        $password = Str::random(8); 
+        $password_hash = Hash::make($password);
+        $user->password = $password_hash;
+        $user->save();
+
+        Mail::to($user->email)->send(new UserForgetPassword($password));
+
+        if($user){
+            return redirect('/user_login')->with('success', 'Password Reseted successfully, Check Email');
+        }else{
+            return redirect('/user_login')->with('error', 'Error Reseting Password');
+        }
+
+
+        
     }
 
 }

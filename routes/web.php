@@ -123,6 +123,8 @@ Route::get('/user_register', [UserAuthManager::class, 'register']);
 Route::post('/user_register', [UserAuthManager::class, 'registrationPost'] );
 
 Route::get('/user_logout', [UserAuthManager::class, 'logout']);
+Route::get('/user_forget_password', [UserAuthManager::class, 'userForgetPassword']);
+Route::post('/user_reset_password', [UserAuthManager::class, 'userResetPassword']);
 
 /*
 |--------------------------------------------------------------------------

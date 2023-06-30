@@ -17,7 +17,6 @@ use Illuminate\Support\Str;
 class StudentAuthManager extends Controller{
     
     function login(){
-
         if(Auth::guard('student')->check()){
             return redirect()->intended();
         }
@@ -26,7 +25,6 @@ class StudentAuthManager extends Controller{
     }
 
     function loginPost(Request $request){
-
         $request->validate([
             'email'=>'required',
             'password'=>'required'
