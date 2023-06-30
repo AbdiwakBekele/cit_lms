@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\StudentRegistered;
+use App\Mail\StudentForgetPassword;
+use Illuminate\Support\Str;
+
 
 class StudentAuthManager extends Controller{
     
@@ -75,5 +78,32 @@ class StudentAuthManager extends Controller{
         Session::forget('student_session_key');
         Auth::guard('student')->logout();
         return redirect('/student_login');
+    }
+
+    function forgetPassword(){
+        return view('user_student.forget_password');
+    }
+    
+    function resetPassword(Request $request){
+        $request->validate([
+            'email'=>'required|email|exists:students,email'
+        ]);
+
+        $student = Student::where('email', $request->email)->first();
+        $password = Str::random(8); 
+        $password_hash = Hash::make($password);
+        $student->password = $password_hash;
+        $student->save();
+
+        Mail::to($student->email)->send(new StudentForgetPassword($password));
+
+        if($student){
+            return redirect('/student_login')->with('success', 'Password Reseted successfully, Check Email');
+        }else{
+            return redirect('/student_login')->with('error', 'Error Reseting Password');
+        }
+
+
+        
     }
 }

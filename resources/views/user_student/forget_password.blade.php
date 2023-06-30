@@ -22,51 +22,25 @@
                             <img width="182" height="68" src="{{ asset('assets/img/logo11-1@2x.png') }}">
                         </a>
                         <div class="text-center">
-                            <h4 class="text-dark mb-4" style="color: #151b3d;font-weight: bold;">Welcome Back!</h4>
+                            <h4 class="text-dark mb-4" style="color: #151b3d;font-weight: bold;">Reset Password</h4>
                         </div>
 
                         @if(session()->has('error'))
                         <div class="alert alert-danger"> {{ session('error') }} </div>
                         @endif
 
-                        @if(session()->has('success'))
-                        <div class="alert alert-success"> {{ session('success') }} </div>
-                        @endif
-
-                        <form action="/student_login" method="post" class="user">
+                        <form action="/reset_password" method="post" class="user">
                             @csrf
-                            <a class="btn btn-primary d-block btn-google btn-user w-100 mb-2" role="button"
-                                style="background: #ffffff;box-shadow: 0px 0px 9px 0px;color: #000000;border-top-color: #ffffff;border-right-style: none;border-right-color: #ffffff;border-bottom-color: #ffffff;border-left-color: #ffffff;">
-                                <i class="fab fa-google"></i> &nbsp; Login with Google
-                            </a>
                             <div class="mb-3">
-                                <p class="text-start" style="width: 539px;text-align: center;">Or Login with</p>
                                 <input class="form-control form-control-user" type="email" id="email"
-                                    aria-describedby="emailHelp" placeholder="Enter Email Address..." name="email">
+                                    aria-describedby="emailHelp" placeholder="Enter Email Address..." name="email"
+                                    required>
                                 @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="mb-3">
-                                <input class="form-control form-control-user" type="password" id="password"
-                                    placeholder="Password" name="password">
-                                @error('password')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <div class="custom-control custom-checkbox small">
-                                    <div class="form-check">
-                                        <input class="form-check-input custom-control-input" type="checkbox"
-                                            id="formCheck-1">
-                                        <label class="form-check-label custom-control-label" for="formCheck-1">Keep Me
-                                            Logged in</label>
-                                    </div>
-                                </div>
-                            </div>
                             <button class="btn btn-primary d-block btn-user w-100" type="submit"
-                                style="background: #151B3D;">Login</button>
-                            <a class="small" href="/forget_password">Forgot Password?</a>
+                                style="background: #151B3D;">Reset Password</button>
                             <hr>
                         </form>
                         <div class="text-center"></div>

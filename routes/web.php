@@ -52,6 +52,8 @@ Route::get('/student_register', [StudentAuthManager::class, 'register']);
 Route::post('/student_register', [StudentAuthManager::class, 'registrationPost'] );
 
 Route::get('/student_logout', [StudentAuthManager::class, 'logout']);
+Route::get('/forget_password', [StudentAuthManager::class, 'forgetPassword']);
+Route::post('/reset_password', [StudentAuthManager::class, 'resetPassword']);
 
 /*
 |--------------------------------------------------------------------------
