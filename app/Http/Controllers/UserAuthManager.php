@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\userForgetPassword;
+use App\Mail\UserForgetPassword;
 use Illuminate\Support\Str;
 
 class UserAuthManager extends Controller{
