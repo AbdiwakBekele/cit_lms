@@ -13,12 +13,26 @@
         <div class="container">
 
             <div class="alert alert-primary">
+
                 <!-- Batch Information -->
                 <div class="row">
+                    <a href="/batch/{{$batch->id}}/edit" class="my-3" style="float: right; text-decoration:none;">
+                        <i class="fa fa-edit" aria-hidden="true"></i> Edit Batch </a>
+                    <br>
+                    <div class="col-md">
+                        <p><strong> Batch ID:</strong> BT/{{$batch->id}}/23</p>
+                    </div>
+
+                    <div class="col-md">
+                        <p><strong> Batch Name:</strong> {{$batch->batch_name}}</p>
+                    </div>
+
                     <div class="col-md">
                         <p><strong> Batch shift:</strong> {{$batch->shift}}</p>
                     </div>
+                </div>
 
+                <div class="row">
                     <div class="col-md">
                         <p> <strong>Course:</strong> {{$batch->course->course_name}}</p>
                     </div>

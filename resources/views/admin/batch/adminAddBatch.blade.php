@@ -30,7 +30,7 @@
                 <!-- Course Fullname -->
                 <div class="mb-3 mt-3">
                     <label for="course_id" class="form-label">Course Fullname</label>
-                    <select class="form-control" name="course_id" id="course_id">
+                    <select class="form-control" name="course_id" id="course_id" required>
                         <option value=""> Choose... </option>
 
                         @foreach($courses as $course)
@@ -43,11 +43,21 @@
                     @enderror
                 </div>
 
+                <!-- Batch Name -->
+                <div class="mb-3 mt-3">
+                    <label for="batch_name" class="form-label">Batch Name</label>
+                    <input type="text" class="form-control" name="batch_name" id="batch_name"
+                        placeholder="Please provide batch name" required>
+                    @error('batch_name')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
 
                 <!-- Batch Shift -->
                 <div class="mb-3 mt-3">
                     <label for="batch_shift" class="form-label">Batch Shift</label>
-                    <select class="form-control" name="batch_shift" id="batch_shift">
+                    <select class="form-control" name="batch_shift" id="batch_shift" required>
                         <option value=""> Choose... </option>
                         <option value="morning"> Morning </option>
                         <option value="afternoon"> Afternoon </option>
@@ -61,7 +71,7 @@
                 <!-- Starting Date -->
                 <div class="mb-3 mt-3">
                     <label for="starting_date" class="form-label">Starting Date</label>
-                    <input type="date" class="form-control" name="starting_date" id="starting_date">
+                    <input type="date" class="form-control w-50" name="starting_date" id="starting_date" required>
                     @error('starting_date')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -70,7 +80,7 @@
                 <!-- Ending Date -->
                 <div class="mb-3 mt-3">
                     <label for="ending_date" class="form-label">Ending Date</label>
-                    <input type="date" class="form-control" name="ending_date" id="ending_date">
+                    <input type="date" class="form-control w-50" name="ending_date" id="ending_date" required>
                     @error('ending_date')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror

@@ -31,7 +31,9 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th style="color: #16416E;font-weight: bold;">ID</th>
+                            <th style="color: #16416E;font-weight: bold;">No</th>
+                            <th style="color: #16416E;font-weight: bold;">Batch ID</th>
+                            <th style="color: #16416E;font-weight: bold;">Batch Name</th>
                             <th style="color: #16416E;font-weight: bold;">Course Name</th>
                             <th style="color: #16416E;font-weight: bold;">Shift</th>
                             <th style="color: #16416E;font-weight: bold;">Start Date</th>
@@ -41,59 +43,56 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
-                                        $index = 0;
-                                        foreach($batches as $batch){
 
-                                            $course = DB::table('courses')->where('id', $batch->course_id)->first();
-                                            printf(
-                                            "<tr> <td>%d</td> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s</td>",
-                                            ++$index,
-                                            $course->course_name,
-                                            $batch->shift,
-                                            $batch->starting_date,
-                                            $batch->ending_date,
-                                            $batch->status 
-                                        );
-                                        ?>
-                        <td>
-                            <a href="/batch/{{$batch->id}}"><i class="fa fa-eye mx-1" style="font-size: 17px"
-                                    aria-hidden="true"></i></a>
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#myModal{{$batch->id}}"><i
-                                    class="fa fa-trash text-danger mx-1" style="font-size: 17px"
-                                    aria-hidden="true"></i></a>
+                        @foreach($batches as $index => $batch)
+                        <tr>
+                            <td>{{$index + 1}}</td>
+                            <td>BT/{{$batch->id}}/23</td>
+                            <td>{{$batch->batch_name}}</td>
+                            <td>{{$batch->course->course_name}}</td>
+                            <td>{{$batch->shift}}</td>
+                            <td>{{$batch->starting_date}}</td>
+                            <td>{{$batch->ending_date}}</td>
+                            <td>{{$batch->status}}</td>
 
-                            <!-- The Modal -->
-                            <div class="modal" id="myModal{{$batch->id}}">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
+                            <td>
+                                <a href="/batch/{{$batch->id}}"><i class="fa fa-eye mx-1" style="font-size: 17px"
+                                        aria-hidden="true"></i></a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#myModal{{$batch->id}}"><i
+                                        class="fa fa-trash text-danger mx-1" style="font-size: 17px"
+                                        aria-hidden="true"></i></a>
 
-                                        <!-- Modal body -->
-                                        <div class="modal-body my-4 text-center h5">
-                                            Are you sure?
+                                <!-- The Modal -->
+                                <div class="modal" id="myModal{{$batch->id}}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <div class="modal-body my-4 text-center h5">
+                                                Are you sure?
+                                                <hr>
+                                                <form action="/batch/{{$batch->id}}" method="post">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <label for="password">Confirm your password
+                                                        <span class="text-danger">*</span> </label>
+                                                    <input type="password" class="form-control mx-2 my-3"
+                                                        name="password" id="password" required>
+
+                                                    <input type="submit" class="btn btn-danger" value="Delete">
+
+                                                    <button type="button" class="btn btn-light"
+                                                        data-bs-dismiss="modal">Close</button>
+
+                                                </form>
+                                            </div>
+
                                         </div>
-
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer p-1">
-                                            <form action="/batch/{{$batch->id}}" method="post">
-                                                {{ csrf_field() }}
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <input type="submit" class="btn btn-danger" value="Delete">
-                                            </form>
-                                            <button type="button" class="btn btn-light"
-                                                data-bs-dismiss="modal">Close</button>
-                                        </div>
-
                                     </div>
                                 </div>
-                            </div>
 
-                        </td>
+                            </td>
                         </tr>
-
-                        <?php
-                                    }
-                                ?>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

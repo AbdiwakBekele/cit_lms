@@ -18,6 +18,7 @@ return new class extends Migration
                     ->references('id')
                     ->on('courses')
                     ->onDelete('cascade');
+            $table->string('batch_name');
             $table->string('shift');
             $table->string('starting_date');
             $table->string('ending_date');

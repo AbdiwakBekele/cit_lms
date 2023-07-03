@@ -16,11 +16,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
-class BatchController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
+class BatchController extends Controller{
+
     public function index(){
         $batches = Batch::all();
         return view('admin.batch.adminBatchManagment', compact('batches'));
@@ -34,6 +31,7 @@ class BatchController extends Controller
     public function store(Request $request){
         $this->validate( $request, [
             'course_id'=>'required',
+            'batch_name'=>'required|unique:batches',
             'batch_shift'=>'required',
             'starting_date'=>'required',
             'ending_date'=>'required',
@@ -41,6 +39,7 @@ class BatchController extends Controller
         ]);
 
         $course_id =  $request->course_id;
+        $batch_name = $request->batch_name;
         $batch_shift =  $request->batch_shift;
         $starting_date =  $request->starting_date;
         $ending_date = $request->ending_date;
@@ -48,6 +47,7 @@ class BatchController extends Controller
 
         $batch = new Batch([
             'course_id'=> $course_id, 
+            'batch_name'=>$batch_name,
             'shift'=>$batch_shift, 
             'starting_date'=>$starting_date,
             'ending_date'=>$ending_date,
@@ -173,26 +173,60 @@ class BatchController extends Controller
 
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id){
-        //
+        $batch = Batch::find($id);
+        $courses = Course::all();
+        return view('admin.batch.adminEditBatch', compact('batch', 'courses'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id): RedirectResponse
-    {
-        //
+    public function update(Request $request, string $id){
+        $this->validate( $request, [
+            'course_id'=>'required',
+            'batch_name'=>'required',
+            'batch_shift'=>'required',
+            'starting_date'=>'required',
+            'ending_date'=>'required',
+            'description'=>'required'
+        ]);
+
+        $batch = Batch::find($id);
+
+        $batch->course_id = $request->course_id;
+        $batch->batch_name = $request->batch_name;
+        $batch->shift = $request->batch_shift;
+        $batch->starting_date = $request->starting_date;
+        $batch->ending_date = $request->ending_date;
+        $batch->description = $request->description;
+
+        if($batch->save()){
+            return back()
+             ->with('success','You have successfully updated a batch informatoin.');
+        }else{
+            return back()
+            ->with('error','Error updating batch information');
+        }
+
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id){
-        //
+    public function destroy(string $id, Request $request){
+        $this->validate($request, [
+            'password'=>'required'
+        ]);
+        $user = Auth::user();
+        if(Hash::check($request->password, $user->password)){
+            $batch = Batch::find($id)->delete();
+
+            if($batch){
+                return back()
+                ->with('success','You have successfully deleted a batch informatoin.');
+            }else{
+                return back()
+                ->with('error','Error deleting batch information');
+            }
+        }else{
+            return back()
+                ->with('error','Incorrect Password');
+        }
     }
 }
