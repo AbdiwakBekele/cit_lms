@@ -18,7 +18,12 @@
                 <!-- User Info -->
                 <div class="row alert alert-primary ">
                     <div class="col-lg">
-                        <p>photo</p>
+                        @if($user->profile_img)
+                        <img class="img-fluid" src=" {{ asset('user_profile/'.$user->profile_img) }} ">
+
+                        @else
+                        <img class="img-fluid" src=" {{ asset('images/AM2A1021.JPG') }} ">
+                        @endif
 
                     </div>
                     <div class="col-lg-8">
