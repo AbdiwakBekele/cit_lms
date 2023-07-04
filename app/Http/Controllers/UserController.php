@@ -109,15 +109,27 @@ class UserController extends Controller{
     }
 
 
-    public function destroy(string $id){
-        $user = User::find($id)->delete();
-        if($user){
-            return back()
-             ->with('success',"You have successfully deleted a user");
+    public function destroy(string $id, Request $request){
+
+        $this->validate($request, [
+            'password'=>'required'
+        ]);
+        
+        $user_admin = Auth::user();
+        if(Hash::check($request->password, $user_admin->password)){
+            $user = User::find($id)->delete();
+            if($user){
+                return back()
+                ->with('success',"You have successfully deleted a user");
+            }else{
+                return back()
+                ->with('error',"Error deleting a user");
+            }
         }else{
             return back()
-             ->with('error',"Error deleting a user");
+                ->with('error','Incorrect Password');
         }
+
     }
 
     function userProfile(){

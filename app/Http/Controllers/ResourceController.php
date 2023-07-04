@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response as FileResponse;
 use Illuminate\Http\Response;
 use File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ResourceController extends Controller{
 
@@ -90,17 +92,28 @@ class ResourceController extends Controller{
         //
     }
 
-    public function destroy(string $id){
-        $resource = Resource::find($id);
-        File::delete(public_path('course_resources/'.$resource->path));
-        $resource->delete();
+    public function destroy(string $id, Request $request){
 
-        if($resource){
-            return back()
-            ->with('success','You have successfully delete a resource.');
+        $this->validate($request, [
+            'password'=>'required'
+        ]);
+        
+        $user = Auth::user();
+        if(Hash::check($request->password, $user->password)){
+            $resource = Resource::find($id);
+            File::delete(public_path('course_resources/'.$resource->path));
+            $resource->delete();
+
+            if($resource){
+                return back()
+                ->with('success','You have successfully delete a resource.');
+            }else{
+                return back()
+                ->with('error','Error deleting resource.');
+            }
         }else{
             return back()
-            ->with('error','Error deleting resource.');
+                ->with('error','Incorrect Password');
         }
     }
 

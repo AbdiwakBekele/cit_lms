@@ -11,28 +11,19 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\StudentRegistered;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
+class StudentController extends Controller{
 
-class StudentController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
     public function index(){
         $students = Student::all();
         return view('admin.student_managment.adminStudent', compact('students'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(){
         return view('admin.student_managment.adminAddStudent');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request){
 
         $data = $request->validate([
@@ -73,27 +64,20 @@ class StudentController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id){
         $student = Student::find($id);
         $courses = Course::all();
         return view('admin.student_managment.adminViewStudent', compact('student', 'courses'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id){
         
         $student = Student::find($id);
         return view('admin.student_managment.adminEditStudent', compact('student'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id){
 
         $data = $request->validate([
@@ -146,18 +130,28 @@ class StudentController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id){
-        $student = Student::find($id)->delete();
+    public function destroy(string $id, Request $request){
 
-        if($student){
-            return back()
-             ->with('success','You have successfully deleted a student information.');
+        $this->validate($request, [
+            'password'=>'required'
+        ]);
+        
+        $user = Auth::user();
+        if(Hash::check($request->password, $user->password)){
+            $student = Student::find($id)->delete();
+
+            if($student){
+                return back()
+                ->with('success','You have successfully deleted a student information.');
+            }else{
+                return back()
+                ->with('error','Error deleting student information');
+            }
         }else{
             return back()
-            ->with('error','Error deleting student information');
+                ->with('error','Incorrect Password');
         }
+
+        
     }
 }
