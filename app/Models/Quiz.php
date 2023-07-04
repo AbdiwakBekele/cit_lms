@@ -20,14 +20,14 @@ class Quiz extends Model
     ];
 
     public function quiz_options(){
-        $this->hasMany(QuizOption::class);
+       return $this->hasMany(QuizOption::class);
     }
 
     public function section(){
-        $this->belongsTo(Section::class);
+        return $this->belongsTo(Section::class);
     }
 
     public function course(){
-        $this->belongsTo(Course::class);
+        return $this->belongsTo(Course::class);
     }
 }

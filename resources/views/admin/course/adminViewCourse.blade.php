@@ -241,11 +241,9 @@
                 <div id="accordion">
                     <div class="card">
                         <div class="card-header">
-                            <?php 
-                                $quizzes = DB::table('quizzes')->where('section_id', $section->id)->get();
-                            ?>
+
                             <a class="btn" data-bs-toggle="collapse" href="#collapseQuiz{{$section->id}}">
-                                Quiz | Test Practice ({{$quizzes->count()}}) <i class="fa fa-caret-down mx-2"
+                                Quiz | Test Practice ({{$section->quizzes->count()}}) <i class="fa fa-caret-down mx-2"
                                     aria-hidden="true"></i>
                             </a>
 
@@ -253,10 +251,45 @@
                         <div id="collapseQuiz{{$section->id}}" class="collapse" data-bs-parent="#accordion">
                             <div class="card-body">
 
-                                @foreach($quizzes as $quiz)
+                                @foreach($section->quizzes as $index => $quiz)
+
+                                <!-- Edit Content -->
+                                <a href="/quiz/{{$quiz->id}}/edit" class="mx-3" style="text-decoration:none;">
+                                    <i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
+
+                                <!-- Delete Content -->
+                                <a href="#" data-bs-toggle="modal" class="mx-3 text-danger"
+                                    style="text-decoration:none;" data-bs-target="#myModalQuiz{{$quiz->id}}"><i
+                                        class="fa fa-trash text-danger mx-1" style="font-size: 17px"
+                                        aria-hidden="true"></i>Delete</a>
+
+                                <!-- Modal | Deleting Section -->
+                                <div class="modal" id="myModalQuiz{{$quiz->id}}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body my-4 text-center h5">
+                                                Are you sure?
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer p-1">
+                                                <form action="/quiz/{{$quiz->id}}" method="post">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                                </form>
+                                                <button type="button" class="btn btn-light"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div>
-                                    {{$quiz->question}}
+                                    <strong>{{$index+1}}.</strong> {{$quiz->question}}
                                     <hr>
                                 </div>
 
@@ -265,21 +298,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
-
             </div>
-
-
             @endforeach
-
-
-
-
-
-
 
         </div>
     </div>

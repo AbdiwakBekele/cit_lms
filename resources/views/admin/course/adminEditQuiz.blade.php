@@ -40,17 +40,15 @@
 
         <div class="container">
 
-            <form action="/quiz" method="post" enctype="multipart/form-data">
+            <form action="/quiz/{{$quiz->id}}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
-                <input type="hidden" name="_method" value="POST">
-
-                <input type="hidden" name="course_id" value="{{$course->id}}">
-                <input type="hidden" name="section_id" value="{{$section->id}}">
+                <input type="hidden" name="_method" value="PUT">
 
                 <!-- Question -->
                 <div class="mb-3 mt-3">
                     <label for="question" class="form-label"> <strong>Question</strong> </label>
-                    <textarea class="form-control" name="question" id="question" cols="30" rows="5" required></textarea>
+                    <textarea class="form-control" name="question" id="question" cols="30" rows="5"
+                        required>{{$quiz->question}}</textarea>
                     @error('question')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -62,20 +60,24 @@
 
                 <table>
                     <tbody id="answer_fields">
+                        @foreach($quiz->quiz_options as $index => $option)
                         <tr>
                             <td>
-                                <input type="radio" name="answer" value="1" required>
+                                <input type="radio" name="answer" value="{{$index + 1}}"
+                                    {{$quiz->answer == $option->option ? 'checked' : ''}} required>
                                 <label class="form-label">
-                                    <strong>Option 1</strong>
+                                    <strong>Option {{$index + 1}}</strong>
                                 </label>
                             </td>
                             <td>
                                 <div class="m-3">
                                     <textarea class="form-control" name="options[]" cols="50" rows="3"
-                                        required></textarea>
+                                        required>{{$option->option}}</textarea>
                                 </div>
                             </td>
                         </tr>
+
+                        @endforeach
 
                     </tbody>
                 </table>
@@ -96,11 +98,16 @@
     </div>
 </div>
 
+<?php 
+    $x = $quiz->quiz_options->count() + 1;
+?>
 
 <script>
-var index = 2;
+var index = <?php echo $x; ?>
+
 
 function addRow() {
+
     var table = document.getElementById('answer_fields');
     var newRow = table.insertRow();
     var labelCell = newRow.insertCell(0);

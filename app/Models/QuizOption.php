@@ -15,6 +15,6 @@ class QuizOption extends Model
     ];
 
     public function quiz(){
-        $this->belongsTo(Quiz::class);
+        return $this->belongsTo(Quiz::class);
     }
 }

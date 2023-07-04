@@ -35,10 +35,6 @@ class QuizController extends Controller
     }
 
     
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request){
         $this->validate( $request, [
             'course_id'=>'required',
@@ -48,7 +44,6 @@ class QuizController extends Controller
             'options.*' => 'required',
             'answer'=>'required'
         ]);
-
 
         $course_id =  $request->course_id;
         $section_id =  $request->section_id;
@@ -63,10 +58,6 @@ class QuizController extends Controller
         ]);
 
         $quiz->save();
-    
-        // return redirect()->route('quiz.index')->with('success', 'Question created successfully!');
-    
-
         if (!empty($quiz->id)) {
             // Quiz Option Insert
 
@@ -85,35 +76,60 @@ class QuizController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id): Response
-    {
+    public function show(string $id){
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id): Response
-    {
-        //
+    public function edit(string $id){
+        $quiz = Quiz::find($id);
+        return view('admin.course.adminEditQuiz', compact('quiz'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id): RedirectResponse
-    {
-        //
+    public function update(Request $request, string $id){
+        $this->validate( $request, [
+            'question'=>'required',
+            'options' => 'required|array|min:2|max:5',
+            'options.*' => 'required',
+            'answer'=>'required'
+        ]);
+
+        $question =  $request->question;
+        $answer = $request->options[($request->answer - 1)];
+
+        $quiz = Quiz::find($id);
+        $quiz->question = $question;
+        $quiz->answer = $answer;
+
+        if ($quiz->save()) {
+            // Deleting the previous Options
+            foreach($quiz->quiz_options as $quiz_option){
+                $quiz_option->delete();
+            }
+            // Quiz Option Insert
+            foreach ($request->options as $option) {
+                QuizOption::create([
+                    'quiz_id' => $quiz->id,
+                    'option' => $option,
+                ]);
+            }
+
+            return back()
+             ->with('success','You have successfully updated a quiz question.');
+        }else{
+            return back()
+            ->with('error','Error Updating a quiz question');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id): RedirectResponse
-    {
-        //
+    public function destroy(string $id){
+        $quiz = Quiz::find($id)->delete();
+
+        if($quiz){
+            return back()
+             ->with('success','You have successfully deleted a quiz question.');
+        }else{
+            return back()
+             ->with('error','Error deleting a quiz question.');
+        }
     }
 }

@@ -19,10 +19,10 @@ class Progress extends Model
     ];
 
     public function section(){
-        $this->belongsTo(Section::class);
+        return $this->belongsTo(Section::class);
     }
 
     public function classroom(){
-        $this->belongsTo(Classroom::class);
+        return $this->belongsTo(Classroom::class);
     }
 }
