@@ -9,6 +9,7 @@ use App\Models\Batch;
 use App\Models\Course;
 use App\Models\Classroom;
 use App\Models\Student;
+use App\Models\Progress;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\StudentEnroll;
@@ -71,6 +72,12 @@ class BatchController extends Controller{
         $students = Student::all();
         $batch = Batch::find($id);
         return view('admin.batch.adminViewBatch', compact('batch', 'students'));
+    }
+
+    public function batchStudentProgress(string $classroom_id){
+        $classroom = Classroom::find($classroom_id);
+        $progresses_passed = Progress::where('classroom_id', $classroom_id)->where('is_passed', 1)->get();
+        return view('admin.batch.batchStudentProgress', compact('classroom', 'progresses_passed'));
     }
 
     public function approveStudent(string $id){

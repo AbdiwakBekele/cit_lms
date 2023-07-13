@@ -16,53 +16,108 @@
         <title>Quiz</title>
 
         <style>
-        .hoverable:hover {
-            cursor: pointer;
-            background-color: #f5f5f5;
-        }
-
-        .question {
-            width: 100%;
-        }
-
         body {
-            background-color: #FFB600;
+            background: linear-gradient(to right, #FFB600, #16416E);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .container {
-            background-color: #16416E;
-            color: #ddd;
-
+            max-width: 500px;
             padding: 20px;
-            font-family: 'Montserrat', sans-serif;
-            max-width: 75%;
-
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            position: relative;
         }
 
-        .form-check-input {
-            height: 25px;
-            width: 25px;
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            height: 50px;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #16416E;
+        }
+
+        .question {
+            margin-bottom: 20px;
             background-color: #fff;
-            border: 1px solid #FFB600;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background-color: #16416E;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+            margin-top: 3px;
+            display: none;
+        }
+
+        .form-check-label {
+            font-size: 18px;
+            font-weight: 400;
+            margin-left: 10px;
+            padding-left: 5px;
+            padding-bottom: 5px;
+            position: relative;
+        }
+
+        .form-check-label::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-left: -30px;
+            margin-right: 10px;
+            border: 2px solid #16416E;
             border-radius: 50%;
-
+            background-color: white;
+            position: absolute;
+            left: 0;
+            top: 2px;
         }
 
-        .form-check label {
-
-            font-size: 20px;
-            cursor: pointer;
+        .form-check-input:checked+.form-check-label::before {
+            border-color: #16416E;
+            background-color: #16416E;
         }
 
-        .form-check input {
-            opacity: 1;
+        .form-check-input:focus+.form-check-label::before {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         }
         </style>
     </head>
 
     <body>
-        <div class="container mt-sm-5 my-1">
-            <h1 class="text-center mb-4">Quiz</h1>
+        <img src="{{ asset( 'images/Asset 3@300x.png') }}" alt="Logo" class="logo">
+        <div class="container">
+            <h1>Quiz</h1>
             <form method="post" action="/my_quiz/{{$classroom_id}}">
                 @csrf
                 <input type="hidden" name="classroom_id" id="classroom_id" value="{{$classroom_id}}">
@@ -79,52 +134,51 @@
                                 Quiz Successfully Completed
                         </div>
 
-                        <div class="col-md-8 ">
+                        <!-- <div class="col-md-8 "> -->
 
-                            <div id="questions">
+                        <div id="questions">
 
-                                @foreach($questions as $question)
-                                <div class="question ml-sm-5 pl-sm-5 pt-2" style="display:none;">
+                            @foreach($questions as $question)
+                            <div class="question " style="display:none;">
 
-                                    <div class="py-2 h5"><b>{{ $question->question }}</b></div>
+                                <div class="py-2 h5"><b>{{ $question->question }}</b></div>
 
 
-                                    <div class="card-body">
-                                        <?php 
+                                <div class="card-body">
+                                    <?php 
                                             $options = DB::table('quiz_options')->where('quiz_id', $question->id)->get();
                                         ?>
 
-                                        @foreach($options as $option)
+                                    @foreach($options as $option)
 
-                                        <div class="form-check py-1">
-                                            <input class="form-check-input" type="radio"
-                                                name="answer[{{$question->id}}]" value="{{ $option->option}}"
-                                                id="{{ $option->id }}">
-                                            <label class="form-check-label px-2" for="{{ $option->id }}">
-                                                {{ $option->option}}
-                                            </label>
-                                        </div>
-                                        @endforeach
-
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="answer[{{$question->id}}]"
+                                            value="{{ $option->option}}" id="{{ $option->id }}">
+                                        <label class="form-check-label" for="{{ $option->id }}">
+                                            {{ $option->option}}
+                                        </label>
                                     </div>
-
-
-                                    <button class="btn btn-primary float-right m-3" type="button"
-                                        onclick="nextQuestion()">Next question</button>
-
+                                    @endforeach
 
                                 </div>
-                                @endforeach
-                            </div>
 
-                            <div class="d-flex justify-content-center">
-                                <button class="btn btn-success m-3" id="btn_submit" type="submit">Submit</button>
-                            </div>
 
+                                <button class="btn btn-primary float-end m-3" type="button"
+                                    onclick="nextQuestion()">Next question</button>
+
+
+                            </div>
+                            @endforeach
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-success m-3" id="btn_submit" type="submit">Submit</button>
                         </div>
 
                     </div>
+
                 </div>
+
             </form>
         </div>
 

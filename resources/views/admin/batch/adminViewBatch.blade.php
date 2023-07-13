@@ -64,7 +64,7 @@
             <a href="#" data-bs-toggle="modal" data-bs-target="#myModalStudent"
                 class="btn btn-warning text-dark m-3">Add Student</a>
 
-            <!-- Modal | Deleting Section -->
+            <!-- Modal | Assign Student to Course -->
             <div class="modal" id="myModalStudent">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -242,7 +242,6 @@
                         <tr>
                             <th style="color: #16416E;font-weight: bold;">ID</th>
                             <th style="color: #16416E;font-weight: bold;">Full Name</th>
-                            <th style="color: #16416E;font-weight: bold;">Age</th>
                             <th style="color: #16416E;font-weight: bold;">Email</th>
                             <th style="color: #16416E;font-weight: bold;">Phone</th>
                             <th style="color: #16416E;font-weight: bold;">Status</th>
@@ -256,7 +255,6 @@
 
                             <td>{{$index + 1}}</td>
                             <td> {{$classroom->student->fullname}} </td>
-                            <td> {{$classroom->student->age}} </td>
                             <td> {{$classroom->student->email}} </td>
                             <td> {{$classroom->student->phone}} </td>
 
@@ -276,6 +274,12 @@
                                 <a class="btn btn-primary" href="/approve_student/{{$classroom->id}}"> Approve </a>
                                 @endif
 
+                                <!-- View -->
+                                <a href="/batch_student_progress/{{$classroom->id}}">
+                                    <i class="fa fa-eye mx-1" style="font-size: 17px" aria-hidden="true"></i>
+                                </a>
+
+                                <!-- Delete -->
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#myModal{{$classroom->id}}">
                                     <i class="fa fa-trash text-danger mx-1" style="font-size: 17px"
                                         aria-hidden="true"></i>
