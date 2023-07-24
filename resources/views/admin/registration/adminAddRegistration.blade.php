@@ -200,6 +200,7 @@
                     <label for="work_status" class="form-label">Work Status</label>
                     <select name="work_status" id="work_status" class="form-control" required>
                         <option value="">Select Your Work Status</option>
+                        <option value="None">None</option>
                         <option value="Unemployed">Unemployed</option>
                         <option value="Employed">Employed</option>
                         <option value="Self-Employed">Self-Employed</option>
