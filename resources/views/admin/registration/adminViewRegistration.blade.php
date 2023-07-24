@@ -24,8 +24,6 @@
             </div>
             @endif
 
-
-
             <div class="m-4">
                 <a href="/registration/create" class="btn btn-warning mx-2"> Add New
                     Registration</a>

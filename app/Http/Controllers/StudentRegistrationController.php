@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Models\Course;
 use App\Models\Classroom;
 use App\Models\Student;
+use App\Models\Batch;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Mail\StudentRegistered;

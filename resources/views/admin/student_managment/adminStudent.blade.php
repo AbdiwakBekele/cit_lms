@@ -41,7 +41,7 @@
                             <th style="color: #16416E;font-weight: bold;">No</th>
                             <th style="color: #16416E;font-weight: bold;">ID</th>
                             <th style="color: #16416E;font-weight: bold;">Full Name</th>
-                            <th style="color: #16416E;font-weight: bold;">Age</th>
+                            <th style="color: #16416E;font-weight: bold;">Date of Birth</th>
                             <th style="color: #16416E;font-weight: bold;">Email</th>
                             <th style="color: #16416E;font-weight: bold;">Phone</th>
                             <th style="color: #16416E;font-weight: bold;">Action</th>

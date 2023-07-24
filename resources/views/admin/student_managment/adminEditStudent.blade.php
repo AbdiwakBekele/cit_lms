@@ -51,11 +51,10 @@
                     @enderror
                 </div>
 
-                <!-- Age -->
+                <!-- Date of Birth -->
                 <div class="mb-3 mt-3">
-                    <label for="age" class="form-label">Age</label>
-                    <input type="number" class="form-control" id="age" placeholder="Enter Age" name="age" min="18"
-                        max="60" value="{{$student->age}}" required>
+                    <label for="age" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control w-25" id="age" name="age" value="{{$student->age}}" required>
                     @error('age')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -252,4 +251,25 @@
 
     </div>
 </div>
+
+<script>
+//Setting min date of birth
+const dobInput = document.getElementById("age");
+
+// Calculate the minimum and maximum date values based on the current date
+const currentDate = new Date();
+const minDate = new Date(currentDate);
+minDate.setFullYear(currentDate.getFullYear() - 60);
+
+const maxDate = new Date(currentDate);
+maxDate.setFullYear(currentDate.getFullYear() - 18);
+
+// Format the minimum and maximum date values in "yyyy-mm-dd" format
+const minDateFormatted = minDate.toISOString().split("T")[0];
+const maxDateFormatted = maxDate.toISOString().split("T")[0];
+
+// Set the dynamic minimum and maximum date values to the input element
+dobInput.setAttribute("min", minDateFormatted);
+dobInput.setAttribute("max", maxDateFormatted);
+</script>
 @endsection
