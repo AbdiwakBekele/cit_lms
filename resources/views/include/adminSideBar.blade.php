@@ -59,7 +59,7 @@
 
         @can('manage students')
         <!-- Student Managment -->
-        <li class="{{ Request::is('student*') ? 'mm-active' : ''}} ">
+        <li class="{{ Request::is('student*') || Request::is('registration*') ? 'mm-active' : ''}} ">
             <a href="/student">
                 <div class="parent-icon"><i class='bx bxs-user'></i>
                 </div>
@@ -68,16 +68,6 @@
         </li>
         @endcan
 
-        @can('manage registration')
-        <!-- Event -->
-        <li class="{{ Request::is('registration*') ? 'mm-active' : ''}} ">
-            <a href="/registration">
-                <div class="parent-icon"><i class='bx bx-calendar-event'></i>
-                </div>
-                <div class="menu-title">Registration Management</div>
-            </a>
-        </li>
-        @endcan
 
         @can('manage users')
         <!-- User Managment -->

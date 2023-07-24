@@ -10,9 +10,17 @@
                 Management</h3>
         </div>
         <div class="container">
+
             <a class="btn btn-primary m-3" role="button"
                 style="color: #16416E;background: #ffb600;font-weight: bold; height: 32px;font-size: 14px;border-style: none;"
-                href="student/create">Add New Student</a>
+                href="/registration/create"> New
+                Registration</a>
+
+            <a class="btn btn-primary m-3" role="button"
+                style="color: #16416E;background: #ffb600;font-weight: bold; height: 32px;font-size: 14px;border-style: none;"
+                href="student/create">Create Student Account Only</a>
+
+
 
             @if ($message = Session::get('success'))
             <div class="alert alert-success alert-block m-3">
