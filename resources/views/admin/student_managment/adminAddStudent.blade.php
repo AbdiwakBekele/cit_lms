@@ -201,6 +201,7 @@
                     <label for="work_status" class="form-label">Work Status</label>
                     <select name="work_status" id="work_status" class="form-control" required>
                         <option value="">Select Your Work Status</option>
+                        <option value="None">None</option>
                         <option value="Unemployed">Unemployed</option>
                         <option value="Employed">Employed</option>
                         <option value="Self-Employed">Self-Employed</option>
@@ -228,6 +229,7 @@
                     <label for="work_experience" class="form-label">Work Experience</label>
                     <select name="work_experience" id="work_experience" class="form-control" required>
                         <option value="">Select Your Work Experience</option>
+                        <option value="None">None</option>
                         <option value="< 1 year">
                             < 1 year</option>
                         <option value="1 - 3 Years">1 - 3 Years</option>

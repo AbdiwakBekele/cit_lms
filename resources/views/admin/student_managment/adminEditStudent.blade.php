@@ -195,6 +195,8 @@
                     <label for="work_status" class="form-label">Work Status</label>
                     <select name="work_status" id="work_status" class="form-control" required>
                         <option value="">Select Your Work Status</option>
+                        <option value="None" {{$student->work_status == 'None' ? 'selected' : ''}}>
+                            None</option>
                         <option value="Unemployed" {{$student->work_status == 'Unemployed' ? 'selected' : ''}}>
                             Unemployed</option>
                         <option value="Employed" {{$student->work_status == 'Employed' ? 'selected' : ''}}>Employed
@@ -226,6 +228,7 @@
                     <label for="work_experience" class="form-label">Work Experience</label>
                     <select name="work_experience" id="work_experience" class="form-control" required>
                         <option value="">Select Your Work Experience</option>
+                        <option value="None" {{$student->work_experience == 'None' ? 'selected' : ''}}> None</option>
                         <option value="< 1 year" {{$student->work_experience == '< 1 year' ? 'selected' : ''}}>
                             < 1 year</option>
                         <option value="1 - 3 Years" {{$student->work_experience == '1 - 3 Years' ? 'selected' : ''}}> 1

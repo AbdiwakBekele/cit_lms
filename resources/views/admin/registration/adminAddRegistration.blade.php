@@ -228,6 +228,7 @@
                     <label for="work_experience" class="form-label">Work Experience</label>
                     <select name="work_experience" id="work_experience" class="form-control" required>
                         <option value="">Select Your Work Experience</option>
+                        <option value="None">None</option>
                         <option value="< 1 year">
                             < 1 year</option>
                         <option value="1 - 3 Years">1 - 3 Years</option>
@@ -354,8 +355,9 @@
                     <label for="payment_mode" class="form-label">Payment Status/Mode</label>
                     <select name="payment_mode" id="payment_mode" class="form-control" required>
                         <option value="">Select your answer</option>
-                        <option value="normal">Full Payment</option>
-                        <option value="special">Half Payment</option>
+                        <option value="full_payment">Full Payment</option>
+                        <option value="half_payment">Half Payment</option>
+                        <option value="sponsorship">Sponsorship</option>
                     </select>
 
                     @error('payment_mode')

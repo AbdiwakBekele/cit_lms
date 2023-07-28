@@ -180,8 +180,9 @@
                                     <label for="payment_mode" class="form-label">Payment Status/Mode</label>
                                     <select name="payment_mode" id="payment_mode" class="form-control" required>
                                         <option value="">Select your answer</option>
-                                        <option value="normal">Full Payment</option>
-                                        <option value="special">Half Payment</option>
+                                        <option value="full_payment">Full Payment</option>
+                                        <option value="half_payment">Half Payment</option>
+                                        <option value="sponsorship">Sponsorship</option>
                                     </select>
 
                                     @error('payment_mode')
