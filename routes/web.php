@@ -209,6 +209,7 @@ Route::group(['middleware'=> ['auth']], function(){
         Route::delete('/unenroll_student/{classroom_id}', [BatchController::class, 'unenrollStudent']);
         Route::get('/approve_student/{id}', [BatchController::class, 'approveStudent']);
         Route::get('/disapprove_student/{id}', [BatchController::class, 'disapproveStudent']);
+        Route::get('batch_student_progress/{classroom_id}', [BatchController::class, 'batchStudentProgress']);
         Route::post('/add_student_batch', [BatchController::class, 'addStudentBatch']);
         Route::post('/form/batches', [BatchController::class, 'getBatches']);
     });
