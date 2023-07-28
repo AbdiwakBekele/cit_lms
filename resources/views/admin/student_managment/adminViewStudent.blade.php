@@ -12,20 +12,29 @@
         </div>
 
         @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-block">
+        <div class="alert alert-success alert-block mx-3">
             <strong>{{ $message }}</strong>
         </div>
         @endif
 
         @if ($message = Session::get('error'))
-        <div class="alert alert-danger alert-block">
+        <div class="alert alert-danger alert-block mx-3">
             <strong>{{ $message }}</strong>
         </div>
         @endif
 
-        @error('student_id')
-        <div class="alert alert-danger"> {{ $message }}</div>
-        @enderror
+        <!-- Displaying Errors -->
+
+        @if($errors->any())
+
+        @foreach($errors->all() as $error)
+
+        <div class="alert alert-danger mx-3">
+            {{ $error }}
+        </div>
+
+        @endforeach
+        @endif
 
         <!-- User Form -->
         <div class="m-3 p-3 ">
@@ -35,12 +44,73 @@
             <div class="row alert alert-primary ">
                 <div class="col-lg">
                     <!-- Profile Image -->
-                    @if($student->profile_img)
-                    <img class="img-fluid" src=" {{ asset('student_profile/'.$student->profile_img) }} ">
 
+
+                    @if($student->profile_img)
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#viewPhoto">
+                        <img class="img-fluid" src=" {{ asset('student_profile/'.$student->profile_img) }}" width="250"
+                            height="300">
+                    </a>
                     @else
-                    <img class="img-fluid" src=" {{ asset('images/AM2A1021.JPG') }} ">
+                    <img class="img-fluid" src=" {{ asset('images/AM2A1021.JPG') }} " width="250" height="300">
+
                     @endif
+
+
+                    <!-- Upload Pic -->
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#profileUpdate" class="btn btn-warning m-4">
+                        Upload
+                        Picture</a>
+
+                    <!-- The Modal -->
+                    <div class="modal" id="profileUpdate">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- Modal body -->
+                                <div class="modal-body my-4 text-center h5">
+                                    Upload Picture
+                                    <hr>
+                                    <form action="/student/{{$student->id}}/updateStudentProfile" method="post"
+                                        enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="_method" value="POST">
+                                        <label for="profile_img"> Choose Picture
+                                            <span class="text-danger h6">* (.jpg, .png, .jpeg)</span>
+                                        </label>
+                                        <input type="file" name="profile_img" id="profile_img"
+                                            class="form-control mx-2 my-3" required>
+                                        <input type="submit" class="btn btn-warning">
+                                        <button type="button" class="btn btn-light"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </form>
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer p-1">
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- The Modal - Photo View -->
+                    <div class="modal" id="viewPhoto">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- Modal body -->
+                                <div class="modal-body my-4 text-center h5">
+                                    <img class="img-fluid" src=" {{ asset('student_profile/'.$student->profile_img) }}">
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
 
                 </div>
                 <div class="col-lg-8">

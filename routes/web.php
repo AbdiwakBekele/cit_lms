@@ -202,6 +202,7 @@ Route::group(['middleware'=> ['auth']], function(){
     });
     
     Route::resource('student', StudentController::class)->middleware('permission:manage students');
+    Route::post('student/{id}/updateStudentProfile', [StudentController::class, 'updateStudentProfile']);
 
     //-------------- Admin - Batch -------------
     Route::group( ['middleware'=> ['permission:manage batch']], function(){

@@ -154,4 +154,28 @@ class StudentController extends Controller{
 
         
     }
+
+    function updateStudentProfile(Request $request, string $id){
+        
+        $request->validate([
+            'profile_img'=>'required|mimes:png,jpg,jpeg'
+        ]);
+
+        //Profile Image
+        $temp_img = $request->file('profile_img');
+        $profile_img = pathinfo($temp_img->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_img->getClientOriginalExtension();
+        $temp_img->move('student_profile', $profile_img);
+        
+        $student = Student::find($id);
+        $student->profile_img = $profile_img;
+        $student->save();
+
+        if($student->save()){
+            return back()
+            ->with('success', 'Student account successfully updated');
+        }else{
+            return back()
+                ->with('error', "Error updating user account");
+        }
+    }
 }
