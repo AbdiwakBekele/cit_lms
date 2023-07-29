@@ -59,8 +59,7 @@
 
                     <!-- Upload Pic -->
                     <a href="#" data-bs-toggle="modal" data-bs-target="#profileUpdate" class="btn btn-warning m-4">
-                        Upload
-                        Picture</a>
+                        Upload Picture</a>
 
                     <!-- The Modal -->
                     <div class="modal" id="profileUpdate">
@@ -126,7 +125,7 @@
                         </tr>
 
                         <tr>
-                            <th>Age</th>
+                            <th>Date of Birth</th>
                             <td> {{$student->age}} </td>
                         </tr>
 
