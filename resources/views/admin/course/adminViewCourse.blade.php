@@ -77,10 +77,14 @@
                         <i class="fa fa-edit" aria-hidden="true"></i> Edit Section </a>
 
                     <!-- Add Quiz -->
-                    <a href="/course/create_quiz/{{$course->id}}/{{$section->id}}" class="mx-3"
+                    <!-- <a href="/course/create_quiz/{{$course->id}}/{{$section->id}}" class="mx-3"
                         style="float: right; text-decoration:none;">
-                        <i class="fa fa-file-text" aria-hidden="true"></i> Add
-                        Quiz Questions </a>
+                        <i class="fa fa-file-text" aria-hidden="true"></i> Add Quiz Questions </a> -->
+
+                    <!-- Add Quiz Section -->
+                    <a href="#" data-bs-toggle="modal" class="mx-3" style="float: right; text-decoration:none;"
+                        data-bs-target="#quiz{{$section->id}}">
+                        <i class="fa fa-file-text" aria-hidden="true"></i> Add Quiz Questions </a>
 
                     <!-- Add Content -->
                     <a href="/course/create_content/{{$section->id}}" class="mx-3"
@@ -88,6 +92,32 @@
                         <i class="fa fa-plus-circle" aria-hidden="true"></i> Add
                         Content </a>
                 </div>
+
+                <!-- Modal | Quiz Type Section -->
+                <div class="modal" id="quiz{{$section->id}}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal body -->
+                            <div class="modal-body my-4 text-center h5">
+                                Select Question Type
+
+                                <hr>
+                                <a href="/course/create_quiz_multiple/{{$course->id}}/{{$section->id}}" class="h6">
+                                    <i class="fa fa-edit" aria-hidden="true"></i> Multiple Choice </a>
+                                <hr>
+
+                                <a href="/course/create_quiz_short/{{$course->id}}/{{$section->id}}" class="h6">
+                                    <i class="fa fa-edit" aria-hidden="true"></i> Short Answer
+                                </a>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- Modal | Deleting Section -->
                 <div class="modal" id="myModal{{$section->id}}">

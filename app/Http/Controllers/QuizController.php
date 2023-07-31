@@ -26,12 +26,20 @@ class QuizController extends Controller
         //
     }
 
-    public function createQuiz(string $course_id, string $section_id){
+    public function createQuizMultiple(string $course_id, string $section_id){
 
         $course = Course::find($course_id);
         $section = Section::find($section_id);
         
         return view('admin.course.adminAddSectionQuiz', compact('course', 'section'));
+    }
+
+    public function createQuizShort(string $course_id, string $section_id){
+
+        $course = Course::find($course_id);
+        $section = Section::find($section_id);
+        
+        return view('admin.course.adminAddSectionQuizShort', compact('course', 'section'));
     }
 
     
