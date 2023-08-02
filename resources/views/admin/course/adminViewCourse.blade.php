@@ -51,19 +51,17 @@
 
             <div class="m-4">
                 <h3 style="color: #16416E;font-size: 35px;font-weight: bold;">
-                    Course Sections</h3>
+                    Course Chapter</h3>
                 <a href="/course/create_section/{{$course->id}}" class="btn btn-warning "> Add New
-                    Section </a>
+                    Chapter </a>
             </div>
 
-            <?php $index = 1; ?>
-
-            @foreach($sections as $section)
+            @foreach($sections as $index => $section)
 
             <div class="shadow p-3 m-3">
 
                 <div class="my-4">
-                    <span class="text-dark"> <strong> Section {{$index++}}:
+                    <span class="text-dark"> <strong> Chapter {{++$index}}:
                             {{$section->section_name}}</strong></span>
 
                     <!-- Delete Section -->
@@ -75,11 +73,6 @@
                     <!-- Edit Section -->
                     <a href="/section/{{$section->id}}/edit" class="mx-3" style="float: right; text-decoration:none;">
                         <i class="fa fa-edit" aria-hidden="true"></i> Edit Section </a>
-
-                    <!-- Add Quiz -->
-                    <!-- <a href="/course/create_quiz/{{$course->id}}/{{$section->id}}" class="mx-3"
-                        style="float: right; text-decoration:none;">
-                        <i class="fa fa-file-text" aria-hidden="true"></i> Add Quiz Questions </a> -->
 
                     <!-- Add Quiz Section -->
                     <a href="#" data-bs-toggle="modal" class="mx-3" style="float: right; text-decoration:none;"

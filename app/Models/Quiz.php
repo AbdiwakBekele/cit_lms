@@ -16,7 +16,8 @@ class Quiz extends Model
         'course_id',
         'section_id',
         'question',
-        'answer'
+        'answer',
+        'type'
     ];
 
     public function quiz_options(){

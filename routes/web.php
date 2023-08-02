@@ -165,6 +165,7 @@ Route::group(['middleware'=> ['auth']], function(){
 
         //-------------- Admin - Quiz -------------/
         Route::resource('quiz', QuizController::class);
+        Route::post('quiz_short', [QuizController::class, 'storeShortQuestion']);
         Route::get('/course/create_quiz_multiple/{course_id}/{section_id}', [QuizController::class, 'createQuizMultiple']);
         Route::get('/course/create_quiz_short/{course_id}/{section_id}', [QuizController::class, 'createQuizShort']);
 

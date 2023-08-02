@@ -143,11 +143,12 @@
 
                                 <div class="py-2 h5"><b>{{ $question->question }}</b></div>
 
+                                @if($question->type == '1')
 
                                 <div class="card-body">
                                     <?php 
-                                            $options = DB::table('quiz_options')->where('quiz_id', $question->id)->get();
-                                        ?>
+                                        $options = DB::table('quiz_options')->where('quiz_id', $question->id)->get();
+                                    ?>
 
                                     @foreach($options as $option)
 
@@ -161,6 +162,15 @@
                                     @endforeach
 
                                 </div>
+                                @else 
+
+                                <div class="card-body" >
+                                    <textarea name="answer[{{$question->id}}]" cols="30" rows="10" placeholder="Your Answer" ></textarea>
+
+                                </div>
+
+
+                                @endif
 
 
                                 <button class="btn btn-primary float-end m-3" type="button"

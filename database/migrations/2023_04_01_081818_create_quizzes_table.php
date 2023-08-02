@@ -28,6 +28,7 @@ return new class extends Migration
 
             $table->text('question');
             $table->text('answer')->nullable();
+            $table->text('type');
             $table->timestamps();
         });
     }

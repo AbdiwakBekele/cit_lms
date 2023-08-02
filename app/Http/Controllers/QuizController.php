@@ -42,7 +42,7 @@ class QuizController extends Controller
         return view('admin.course.adminAddSectionQuizShort', compact('course', 'section'));
     }
 
-    
+    // Storing Quiz - Multiple Questions
     public function store(Request $request){
         $this->validate( $request, [
             'course_id'=>'required',
@@ -57,12 +57,14 @@ class QuizController extends Controller
         $section_id =  $request->section_id;
         $question =  $request->question;
         $answer = $request->options[($request->answer - 1)];
+        $type = '1'; // Quiz type 1 -  Multiple Choice
 
         $quiz = new Quiz([
             'course_id'=> $course_id,
             'section_id'=> $section_id, 
             'question'=>$question,
-            'answer'=> $answer
+            'answer'=> $answer,
+            'type'=> $type
         ]);
 
         $quiz->save();
@@ -75,6 +77,36 @@ class QuizController extends Controller
                     'option' => $option,
                 ]);
             }
+
+            return back()
+             ->with('success','You have successfully created a new quiz question.');
+        }else{
+            return back()
+            ->with('error','Error Creating a New quiz question');
+        }
+    }
+
+    //  Storing Quiz - Short Answer
+    public function storeShortQuestion(Request $request){
+        $this->validate( $request, [
+            'course_id'=>'required',
+            'section_id'=>'required',
+            'question'=>'required'
+        ]);
+
+        $course_id =  $request->course_id;
+        $section_id =  $request->section_id;
+        $question =  $request->question;
+        $type = '2';  //Quiz Type 2 - Short Answer
+
+        $quiz = new Quiz([
+            'course_id'=> $course_id,
+            'section_id'=> $section_id, 
+            'question'=>$question,
+            'type'=> $type  
+        ]);
+
+        if ($quiz->save()) {
 
             return back()
              ->with('success','You have successfully created a new quiz question.');
