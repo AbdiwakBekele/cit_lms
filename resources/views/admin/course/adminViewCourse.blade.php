@@ -4,11 +4,22 @@
 
 @section('content')
 
+
 <div class="d-flex flex-column" id="content-wrapper">
     <div id="content">
         <div class="container-fluid">
             <h3 class="mb-4" style="margin: 26px;color: #16416E;font-size: 35px;font-weight: bold;">
                 Course</h3>
+
+            <!-- Breadcrumb - Nav -->
+            <nav class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/course">Course Management</a></li>
+                        <li class="breadcrumb-item active"><a href="#">Course Contents</a></li>
+                    </ol>
+                </div>
+            </nav>
         </div>
         <div class="container">
 
@@ -68,16 +79,11 @@
                     <a href="#" data-bs-toggle="modal" class="mx-3 text-danger"
                         style="float: right; text-decoration:none;" data-bs-target="#myModal{{$section->id}}"><i
                             class="fa fa-trash text-danger mx-1" style="font-size: 17px" aria-hidden="true"></i>Delete
-                        Section</a>
+                        Chapter</a>
 
                     <!-- Edit Section -->
                     <a href="/section/{{$section->id}}/edit" class="mx-3" style="float: right; text-decoration:none;">
-                        <i class="fa fa-edit" aria-hidden="true"></i> Edit Section </a>
-
-                    <!-- Add Quiz Section -->
-                    <a href="#" data-bs-toggle="modal" class="mx-3" style="float: right; text-decoration:none;"
-                        data-bs-target="#quiz{{$section->id}}">
-                        <i class="fa fa-file-text" aria-hidden="true"></i> Add Quiz Questions </a>
+                        <i class="fa fa-edit" aria-hidden="true"></i> Edit Chapter </a>
 
                     <!-- Add Content -->
                     <a href="/course/create_content/{{$section->id}}" class="mx-3"
@@ -85,30 +91,6 @@
                         <i class="fa fa-plus-circle" aria-hidden="true"></i> Add
                         Content </a>
                 </div>
-
-                <!-- Modal | Quiz Type Section -->
-                <div class="modal" id="quiz{{$section->id}}">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-
-                            <!-- Modal body -->
-                            <div class="modal-body my-4 text-center h5">
-                                Select Question Type
-
-                                <hr>
-                                <a href="/course/create_quiz_multiple/{{$course->id}}/{{$section->id}}" class="h6">
-                                    <i class="fa fa-edit" aria-hidden="true"></i> Multiple Choice </a>
-                                <hr>
-
-                                <a href="/course/create_quiz_short/{{$course->id}}/{{$section->id}}" class="h6">
-                                    <i class="fa fa-edit" aria-hidden="true"></i> Short Answer
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
 
                 <!-- Modal | Deleting Section -->
                 <div class="modal" id="myModal{{$section->id}}">
@@ -187,6 +169,112 @@
                                 <p>
                                     {!! $content->content_description !!}
                                 </p>
+
+                                <hr>
+                                <p>
+                                    <strong>Quiz Questions</strong>
+
+                                    <!-- Add Quiz Section -->
+                                    <a href="#" data-bs-toggle="modal" class="mx-3"
+                                        style="float: right; text-decoration:none;"
+                                        data-bs-target="#quiz{{$content->id}}">
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Quiz Questions </a>
+
+                                </p>
+
+                                <!-- Modal | Quiz Type Section -->
+                                <div class="modal" id="quiz{{$content->id}}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body my-4 text-center h5">
+                                                Select Question Type
+
+                                                <hr>
+                                                <a href="/course/create_quiz_multiple/{{$course->id}}/{{$content->id}}"
+                                                    class="h6">
+                                                    <i class="fa fa-edit" aria-hidden="true"></i> Multiple Choice </a>
+                                                <hr>
+
+                                                <a href="/course/create_quiz_short/{{$course->id}}/{{$content->id}}"
+                                                    class="h6">
+                                                    <i class="fa fa-edit" aria-hidden="true"></i> Short Answer
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Quiz Section Accordion -->
+                                <div id="accordion_quiz">
+                                    <div class="card">
+                                        <div class="card-header">
+
+                                            <a class="btn" data-bs-toggle="collapse"
+                                                href="#collapseQuiz{{$content->id}}">
+                                                Quiz | Test Practice ({{$content->quizzes->count()}})
+                                                <i class="fa fa-caret-down mx-2" aria-hidden="true"></i>
+                                            </a>
+
+                                        </div>
+                                        <div id="collapseQuiz{{$content->id}}" class="collapse"
+                                            data-bs-parent="#accordion_quiz">
+                                            <div class="card-body">
+
+                                                @foreach($content->quizzes as $index => $quiz)
+
+                                                <!-- Edit Quiz -->
+                                                <a href="/quiz/{{$quiz->id}}/edit" class="mx-3"
+                                                    style="text-decoration:none;">
+                                                    <i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
+
+                                                <!-- Delete Quiz -->
+                                                <a href="#" data-bs-toggle="modal" class="mx-3 text-danger"
+                                                    style="text-decoration:none;"
+                                                    data-bs-target="#myModalQuiz{{$quiz->id}}"><i
+                                                        class="fa fa-trash text-danger mx-1" style="font-size: 17px"
+                                                        aria-hidden="true"></i>Delete</a>
+
+                                                <!-- Modal | Deleting Quiz -->
+                                                <div class="modal" id="myModalQuiz{{$quiz->id}}">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+
+                                                            <!-- Modal body -->
+                                                            <div class="modal-body my-4 text-center h5">
+                                                                Are you sure?
+                                                            </div>
+
+                                                            <!-- Modal footer -->
+                                                            <div class="modal-footer p-1">
+                                                                <form action="/quiz/{{$quiz->id}}" method="post">
+                                                                    {{ csrf_field() }}
+                                                                    <input type="hidden" name="_method" value="DELETE">
+                                                                    <input type="submit" class="btn btn-danger"
+                                                                        value="Delete">
+                                                                </form>
+                                                                <button type="button" class="btn btn-light"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <strong>{{$index+1}}.</strong> {{$quiz->question}}
+                                                    <hr>
+                                                </div>
+
+                                                @endforeach
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <hr>
                                 <p><strong>Resources</strong>
                                     <!-- Add Resources -->
@@ -199,6 +287,7 @@
                                 <?php 
                                     $resources = DB::table('resources')->where('content_id', $content->id)->get();
                                 ?>
+                                <!-- List of Resources -->
                                 @foreach($resources as $resource)
                                 <div class="row alert alert-secondary">
 
@@ -219,7 +308,7 @@
                                             <i class="fa fa-trash text-danger mx-1" aria-hidden="true"></i>
                                         </a>
 
-                                        <!-- The Modal -->
+                                        <!-- Modal - Delete Resource -->
                                         <div class="modal" id="myModal{{$resource->id}}">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -258,68 +347,7 @@
                 </div>
                 @endforeach
 
-                <!-- Quiz Section -->
-                <div id="accordion">
-                    <div class="card">
-                        <div class="card-header">
 
-                            <a class="btn" data-bs-toggle="collapse" href="#collapseQuiz{{$section->id}}">
-                                Quiz | Test Practice ({{$section->quizzes->count()}}) <i class="fa fa-caret-down mx-2"
-                                    aria-hidden="true"></i>
-                            </a>
-
-                        </div>
-                        <div id="collapseQuiz{{$section->id}}" class="collapse" data-bs-parent="#accordion">
-                            <div class="card-body">
-
-                                @foreach($section->quizzes as $index => $quiz)
-
-                                <!-- Edit Content -->
-                                <a href="/quiz/{{$quiz->id}}/edit" class="mx-3" style="text-decoration:none;">
-                                    <i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
-
-                                <!-- Delete Content -->
-                                <a href="#" data-bs-toggle="modal" class="mx-3 text-danger"
-                                    style="text-decoration:none;" data-bs-target="#myModalQuiz{{$quiz->id}}"><i
-                                        class="fa fa-trash text-danger mx-1" style="font-size: 17px"
-                                        aria-hidden="true"></i>Delete</a>
-
-                                <!-- Modal | Deleting Section -->
-                                <div class="modal" id="myModalQuiz{{$quiz->id}}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-
-                                            <!-- Modal body -->
-                                            <div class="modal-body my-4 text-center h5">
-                                                Are you sure?
-                                            </div>
-
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer p-1">
-                                                <form action="/quiz/{{$quiz->id}}" method="post">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="submit" class="btn btn-danger" value="Delete">
-                                                </form>
-                                                <button type="button" class="btn btn-light"
-                                                    data-bs-dismiss="modal">Close</button>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <strong>{{$index+1}}.</strong> {{$quiz->question}}
-                                    <hr>
-                                </div>
-
-                                @endforeach
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             @endforeach
 

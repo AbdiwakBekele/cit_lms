@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Course;
 use App\Models\Section;
+use App\Models\Content;
 use App\Models\Quiz;
 use App\Models\QuizOption;
 
@@ -26,27 +27,27 @@ class QuizController extends Controller
         //
     }
 
-    public function createQuizMultiple(string $course_id, string $section_id){
+    public function createQuizMultiple(string $course_id, string $content_id){
 
         $course = Course::find($course_id);
-        $section = Section::find($section_id);
+        $content = Content::find($content_id);
         
-        return view('admin.course.adminAddSectionQuiz', compact('course', 'section'));
+        return view('admin.course.adminAddContentQuiz', compact('course', 'content'));
     }
 
-    public function createQuizShort(string $course_id, string $section_id){
+    public function createQuizShort(string $course_id, string $content_id){
 
         $course = Course::find($course_id);
-        $section = Section::find($section_id);
+        $content = Content::find($content_id);
         
-        return view('admin.course.adminAddSectionQuizShort', compact('course', 'section'));
+        return view('admin.course.adminAddContentQuizShort', compact('course', 'content'));
     }
 
     // Storing Quiz - Multiple Questions
     public function store(Request $request){
         $this->validate( $request, [
             'course_id'=>'required',
-            'section_id'=>'required',
+            'content_id'=>'required',
             'question'=>'required',
             'options' => 'required|array|min:2|max:5',
             'options.*' => 'required',
@@ -54,14 +55,14 @@ class QuizController extends Controller
         ]);
 
         $course_id =  $request->course_id;
-        $section_id =  $request->section_id;
+        $content_id =  $request->content_id;
         $question =  $request->question;
         $answer = $request->options[($request->answer - 1)];
         $type = '1'; // Quiz type 1 -  Multiple Choice
 
         $quiz = new Quiz([
             'course_id'=> $course_id,
-            'section_id'=> $section_id, 
+            'content_id'=> $content_id, 
             'question'=>$question,
             'answer'=> $answer,
             'type'=> $type
@@ -90,18 +91,18 @@ class QuizController extends Controller
     public function storeShortQuestion(Request $request){
         $this->validate( $request, [
             'course_id'=>'required',
-            'section_id'=>'required',
+            'content_id'=>'required',
             'question'=>'required'
         ]);
 
         $course_id =  $request->course_id;
-        $section_id =  $request->section_id;
+        $content_id =  $request->content_id;
         $question =  $request->question;
         $type = '2';  //Quiz Type 2 - Short Answer
 
         $quiz = new Quiz([
             'course_id'=> $course_id,
-            'section_id'=> $section_id, 
+            'content_id'=> $content_id, 
             'question'=>$question,
             'type'=> $type  
         ]);

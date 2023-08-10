@@ -23,6 +23,6 @@ class Resource extends Model
     }
 
     public function content(){
-        return $this->belongsTo(Contnet::class);
+        return $this->belongsTo(Content::class);
     }
 }

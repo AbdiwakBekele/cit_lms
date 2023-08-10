@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Course;
-use App\Models\Section;
+use App\Models\Content;
 use App\Models\QuizOption;
 
 class Quiz extends Model
@@ -14,7 +14,7 @@ class Quiz extends Model
 
     protected $fillable = [
         'course_id',
-        'section_id',
+        'content_id',
         'question',
         'answer',
         'type'
@@ -24,8 +24,8 @@ class Quiz extends Model
        return $this->hasMany(QuizOption::class);
     }
 
-    public function section(){
-        return $this->belongsTo(Section::class);
+    public function content(){
+        return $this->belongsTo(Content::class);
     }
 
     public function course(){

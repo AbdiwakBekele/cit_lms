@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('course_id');
-            $table->unsignedBigInteger('section_id');
+            $table->unsignedBigInteger('content_id');
 
             $table->foreign('course_id')
                 ->references('id')
                 ->on('courses')
                 ->onDelete('cascade');
                 
-            $table->foreign('section_id')
+            $table->foreign('content_id')
                 ->references('id')
-                ->on('sections')
+                ->on('contents')
                 ->onDelete('cascade');
 
             $table->text('question');

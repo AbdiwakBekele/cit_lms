@@ -9,6 +9,19 @@
         <div class="container-fluid">
             <h3 class="mb-4" style="margin: 26px;color: #16416E;font-size: 35px;font-weight: bold;">
                 Add Section Quiz Question (Short Answer)</h3>
+
+                <!-- Breadcrumb - Nav -->
+            <nav class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/course">Course Management</a></li>
+                        <li class="breadcrumb-item"><a href="/course/{{$course->id}}">Course Contents</a></li>
+                        <li class="breadcrumb-item"><a href="#">Add Quiz</a></li>
+                    </ol>
+                </div>
+            </nav>
+
+
         </div>
         @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block m-3">
@@ -30,7 +43,7 @@
                 <input type="hidden" name="_method" value="POST">
 
                 <input type="hidden" name="course_id" value="{{$course->id}}">
-                <input type="hidden" name="section_id" value="{{$section->id}}">
+                <input type="hidden" name="content_id" value="{{$content->id}}">
 
                 <!-- Question -->
                 <div class="mb-3 mt-3">

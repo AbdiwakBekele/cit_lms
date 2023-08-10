@@ -84,7 +84,7 @@ class StudentRegistrationController extends Controller
                     return back()
                             ->with('error','Error Registering a Student');
                 }
-        }
+            }
             
         }
 
