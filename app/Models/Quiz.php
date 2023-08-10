@@ -12,6 +12,7 @@ class Quiz extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'course_id',
         'content_id',
