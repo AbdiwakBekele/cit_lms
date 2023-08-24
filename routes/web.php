@@ -34,7 +34,7 @@ use App\Models\Student;
 */
 
 
-
+// Filling dumy student data
 // Route::get('/fill_student', function () {
 //     Student::factory()->times(10)->create();
 //     return 'Student created successfully! with thier email address and password = "password" ';
