@@ -116,111 +116,250 @@
 
     <body>
         <img src="{{ asset( 'images/Asset 3@300x.png') }}" alt="Logo" class="logo">
+
         <div class="container">
-            <h1>Quiz</h1>
-            <form method="post" action="/my_quiz/{{$classroom_id}}">
-                @csrf
-                <input type="hidden" name="classroom_id" id="classroom_id" value="{{$classroom_id}}">
-                <input type="hidden" name="section_id" id="section_id" value="{{$section_id}}">
+            <div id="warning_msg"></div>
 
-                <div class="container">
-                    <div id="warning_msg"></div>
-
-                    <div class="row justify-content-center">
-
-                        <div class="text-center" id="msg">
-                            <img src=" {{ asset('images/checkmark.png') }}" width="100px" alt="image_not_found">
-                            <h4 class="text-center">
-                                Quiz Successfully Completed
-                        </div>
-
-                        <!-- <div class="col-md-8 "> -->
-
-                        <div id="questions">
-
-                            @foreach($questions as $question)
-                            <div class="question " style="display:none;">
-
-                                <div class="py-2 h5"><b>{{ $question->question }}</b></div>
-
-                                @if($question->type == '1')
-
-                                <div class="card-body">
-                                    <?php 
-                                        $options = DB::table('quiz_options')->where('quiz_id', $question->id)->get();
-                                    ?>
-
-                                    @foreach($options as $option)
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="answer[{{$question->id}}]"
-                                            value="{{ $option->option}}" id="{{ $option->id }}">
-                                        <label class="form-check-label" for="{{ $option->id }}">
-                                            {{ $option->option}}
-                                        </label>
-                                    </div>
-                                    @endforeach
-
-                                </div>
-                                @else 
-
-                                <div class="card-body" >
-                                    <textarea name="answer[{{$question->id}}]" cols="30" rows="10" placeholder="Your Answer" ></textarea>
-
-                                </div>
-
-
-                                @endif
-
-
-                                <button class="btn btn-primary float-end m-3" type="button"
-                                    onclick="nextQuestion()">Next question</button>
-
-
-                            </div>
-                            @endforeach
-                        </div>
-
-                        <div class="d-flex justify-content-center">
-                            <button class="btn btn-success m-3" id="btn_submit" type="submit">Submit</button>
-                        </div>
-
-                    </div>
-
+            <div class="row justify-content-center">
+                <!-- Completed Message Display -->
+                <div class="text-center" id="msg">
+                    <img src=" {{ asset('images/checkmark.png') }}" width="100px" alt="image_not_found">
+                    <h4 class="text-center">
+                        Quiz Successfully Completed
                 </div>
 
-            </form>
+                <div id="questions">
+                    <input type="hidden" id="classroom_id" value="{{$classroom_id}}">
+                    <input type="hidden" id="content_id" value="{{$content_id}}">
+
+                    @foreach($questions as $question)
+                    <div class="question" style="display:none;">
+                        <div class="py-2 h5"><b>{{ $question->question }}</b></div>
+
+                        <div class="card-body">
+                            <!-- Question Type - Choose -->
+                            @if($question->type == '1')
+
+                            @foreach($question->quiz_options as $option)
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="answer_{{$question->id}}"
+                                    value="{{ $option->option}}" id="{{ $option->id }}">
+                                <label class="form-check-label" for="{{ $option->id }}">
+                                    {{ $option->option}}
+                                </label>
+                            </div>
+                            @endforeach
+
+                            <!-- Question Type - Short Answer -->
+                            @elseif($question->type == '2')
+                            <textarea id="answer_{{$question->id}}" name="answer_{{$question->id}}" cols="30"
+                                rows="10"></textarea>
+
+                            <!-- Question Type - Matching -->
+                            @elseif($question->type == '3')
+
+                            <!-- Displaying Column Datas -->
+                            <div class="row">
+                                <div class="col"></div>
+                                @foreach($question->match_columns as $match_column)
+                                <div class="col"> {{$match_column->column_content}} </div>
+                                @endforeach
+                            </div>
+                            <hr>
+
+                            <form id="match_form">
+
+                                @foreach($question->match_rows as $match_row)
+                                <div class="row">
+                                    <!-- Displaying Row Data -->
+                                    <div class="col"> {{$match_row->row_content}} </div>
+
+                                    <!-- Generating CheckBox -->
+                                    @foreach($question->match_columns as $match_column)
+                                    <div class="col">
+                                        <input type="checkbox" data-row="{{ $match_row->id }}"
+                                            data-column="{{ $match_column->id }}">
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <hr>
+                                @endforeach
+
+                            </form>
+
+                            @endif
+                        </div>
+
+                        <button type="button" class="submitQuestion btn btn-primary float-end m-3"
+                            data-question-id="{{ $question->id }}" data-question-type="{{ $question->type }}">Next
+                            Question</button>
+
+
+                    </div>
+                    @endforeach
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-success m-3" id="btn_submit" type="submit">Submit</button>
+                </div>
+
+            </div>
         </div>
 
         <script>
-        var questions = document.querySelectorAll('.question');
-        var currentQuestion = 0;
-        var submitClicked = false;
-        var submitButton = document.getElementById('btn_submit');
-
-        questions[currentQuestion].style.display = 'block';
-        document.getElementById('btn_submit').style.display = 'none';
-        document.getElementById('msg').style.display = 'none';
-
-        submitButton.addEventListener('click', function() {
-            submitClicked = true;
-        });
-
-        function nextQuestion() {
-            questions[currentQuestion].style.display = 'none';
-            currentQuestion++;
-            if (currentQuestion == questions.length) {
-                document.getElementById('msg').style.display = 'block';
-                document.getElementById('btn_submit').style.display = 'block';
-            } else {
-                questions[currentQuestion].style.display = 'block';
-            }
-        }
-
         // Finish Loading all the script
         document.addEventListener('DOMContentLoaded', function() {
+
+            console.log("Loading Finishted");
             var classroomId = document.getElementById('classroom_id').value;
+            var contentId = document.getElementById('content_id').value;
             var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            var questions = document.querySelectorAll('.question');
+            var currentQuestion = 0;
+            var submitClicked = false;
+
+            // Last Submit Button - Initially Disabled
+            var finalSubmitButton = document.getElementById('btn_submit');
+            finalSubmitButton.style.display = 'none';
+            document.getElementById('msg').style.display = 'none';
+
+            // First Question Displayed
+            questions[currentQuestion].style.display = 'block';
+
+            const submitButtons = document.querySelectorAll('.submitQuestion');
+
+            // Submit Button - Onclick Event
+            submitButtons.forEach(submitButton => {
+                submitButton.addEventListener('click', function() {
+                    const questionId = submitButton.getAttribute('data-question-id');
+                    const questionType = submitButton.getAttribute('data-question-type');
+                    submitQuestion(questionId, questionType);
+                });
+            });
+
+            finalSubmitButton.addEventListener('click', function() {
+                submitClicked = true;
+                submitQuiz();
+
+            });
+
+            // Submit Question - Next Quesiont
+            function submitQuestion(questionId, questionType) {
+                questions[currentQuestion].style.display = 'none';
+                currentQuestion++;
+                if (currentQuestion == questions.length) {
+                    document.getElementById('msg').style.display = 'block';
+                    finalSubmitButton.style.display = 'block';
+                } else {
+                    questions[currentQuestion].style.display = 'block';
+                }
+
+                var answer = "";
+                if (questionType == 1) {
+                    answer = document.querySelector('input[name=answer_' + questionId + ']:checked').value;
+                    submitAnswer(classroomId, questionId, answer);
+                } else if (questionType == 2) {
+                    answer = document.getElementById("answer_" + questionId).value;
+                    submitAnswer(classroomId, questionId, answer);
+                } else if (questionType == 3) {
+                    submitMatchAnswer(classroomId, questionId);
+                }
+
+            }
+
+            // Submit Each Answer
+            function submitAnswer(classroomId, questionId, answer) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/quiz_answer_submit/' + classroomId + '/' + questionId, true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // Handle the response from the server if necessary
+                        var response = JSON.parse(xhr.responseText); // Parse the JSON response
+                        console.log(response);
+                    }
+                };
+                var data = 'classroomId=' + encodeURIComponent(classroomId) +
+                    '&questionId=' + encodeURIComponent(questionId) +
+                    '&answer=' + encodeURIComponent(answer);
+
+                xhr.send(data);
+            }
+
+            // Submit Match Answer
+            function submitMatchAnswer(classroomId, questionId) {
+
+                var checkboxes = document.querySelectorAll('#match_form input[type="checkbox"]:checked');
+                var matchAnswers = [];
+
+                checkboxes.forEach(function(checkbox) {
+                    var rowId = checkbox.getAttribute('data-row');
+                    var columnId = checkbox.getAttribute('data-column');
+                    matchAnswers.push({
+                        row_id: rowId,
+                        column_id: columnId
+                    });
+                });
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/quiz_match_submit/' + classroomId + '/' + questionId, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // Handle the response from the server if necessary
+                        var response = JSON.parse(xhr.responseText); // Parse the JSON response
+                        console.log(response);
+                    }
+                };
+                var requestBody = JSON.stringify({
+                    match_answers: matchAnswers
+                });
+
+                xhr.send(requestBody);
+            }
+
+            // Submit Quiz - Finish
+            function submitQuiz() {
+                // Send an AJAX request to the server to disqualify the student
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/quiz_submit/' + classroomId + '/' + contentId, true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // Handle the response from the server if necessary
+                        var response = JSON.parse(xhr.responseText); // Parse the JSON response
+                        console.log(response);
+                        window.close();
+                    }
+                };
+                var data = 'classroomId=' + encodeURIComponent(classroomId) +
+                    '&contentId=' + encodeURIComponent(contentId);
+
+                xhr.send(data);
+            }
+
+            // Disqualify Student
+            function disqualifyStudent(classroomId) {
+                // Send an AJAX request to the server to disqualify the student
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/disqualify/' + classroomId, true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // Handle the response from the server if necessary
+                        console.log('Student disqualified');
+                    } else {
+                        console.log('Unable to access');
+                    }
+                };
+                xhr.send('classroomId=' + encodeURIComponent(classroomId));
+            }
 
             // Disable copy and paste events
             document.addEventListener('copy', function(e) {
@@ -238,7 +377,7 @@
                 if (document.visibilityState === 'hidden' && !submitClicked) {
                     disqualifyStudent(classroomId);
                     showMessage('Switching tabs is not allowed during the quiz.');
-                    window.close();
+                    // window.close();
                 }
             });
 
@@ -247,14 +386,14 @@
                 if (!submitClicked) {
                     disqualifyStudent(classroomId);
                     showMessage('Please stay within the current browser window.');
-                    window.close();
+                    // window.close();
                 }
 
             });
 
             //Right Click Detection
             document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
+                // e.preventDefault();
                 showMessage('Right Click is Disabled');
             });
 
@@ -271,21 +410,6 @@
                 }, 2000);
             }
 
-            // Disqualify Student
-            function disqualifyStudent(classroomId) {
-                // Send an AJAX request to the server to disqualify the student
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/disqualify', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                        // Handle the response from the server if necessary
-                        console.log('Student disqualified');
-                    }
-                };
-                xhr.send('classroomId=' + encodeURIComponent(classroomId));
-            }
 
         });
         </script>

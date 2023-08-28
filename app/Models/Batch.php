@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Course; 
 use App\Models\Classroom; 
+use App\Models\BatchContent; 
 
 class Batch extends Model
 {
@@ -26,6 +27,10 @@ class Batch extends Model
 
     public function classrooms(){
         return $this->hasMany(Classroom::class);
+    }
+
+    public function batchContents(){
+        return $this->hasMany(BatchContent::class);
     }
     
 }

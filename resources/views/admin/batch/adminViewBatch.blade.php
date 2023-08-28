@@ -57,6 +57,47 @@
             </div>
             @endif
 
+            <!-- Batch Contents -->
+            <h4> Batch Chapters </h4>
+            <div id="result"></div>
+            <div class="alert alert-primary">
+
+                @foreach($batch->course->sections as $index => $section)
+
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header">
+                            <!-- Section Title -->
+                            <a class="btn" data-bs-toggle="collapse" href="#collapse{{$section->id}}">
+                                Chapter {{++$index}}. {{ $section->section_name }}
+                                <i class="fa fa-caret-down mx-2" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div id="collapse{{$section->id}}" class="collapse" data-bs-parent="#accordion">
+                            <div class="card-body">
+                                <!-- Section Contents -->
+                                @foreach($section->contents as $content_index => $content)
+                                <div class="alert alert-light row">
+                                    <div class="col">
+                                        {{++$content_index}}. {{$content->content_name}}
+                                    </div>
+                                    <span class="col-2 form-check form-switch">
+                                        <input class="form-check-input h5 toggleSwitch" type="checkbox"
+                                            {{ ($batch->batchContents->contains('content_id', $content->id)) ? 'checked' : '' }}
+                                            data-content-id="{{ $content->id }}" data-batch-id="{{ $batch->id }}">
+                                        <label class=" form-check-label">Active</label>
+                                    </span>
+                                </div>
+
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @endforeach
+            </div>
+
             @error('student_id')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -86,7 +127,7 @@
                                 <select class="form-select" name="student_id" aria-label="Select option" required>
                                     <option value="">Select Student</option>
                                     @foreach($students as $student)
-                                    <option value="{{$student->id}}">{{$student->fullname}} (CTI0{{$student->id}}/23)
+                                    <option value="{{$student->id}}">{{$student->fullname}} (CTI/0{{$student->id}}/23)
                                     </option>
                                     @endforeach
                                 </select>
@@ -329,4 +370,66 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Get all toggle switch elements
+    var toggleSwitches = document.querySelectorAll('.toggleSwitch');
+
+    toggleSwitches.forEach(function(toggleSwitch) {
+        toggleSwitch.addEventListener('change', function() {
+            var content_id = toggleSwitch.getAttribute('data-content-id');
+            var batch_id = toggleSwitch.getAttribute('data-batch-id');
+
+            if (toggleSwitch.checked) {
+                $.ajax({
+                    url: '/batch_content',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        content_id: content_id,
+                        batch_id: batch_id
+                    },
+                    success: function(response) {
+                        $('#result').html(response.message);
+                    },
+                    error: function(error) {
+                        console.error(
+                            'Error submitting content ID to batch_content model: ' +
+                            error);
+                    }
+                });
+            } else {
+
+                $.ajax({
+                    url: '/batch_content/dismiss_content',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        content_id: content_id,
+                        batch_id: batch_id
+                    },
+                    success: function(response) {
+                        $('#result').html(response.message);
+                    },
+                    error: function(error) {
+                        console.error(
+                            'Error submitting content ID to batch_content model: ' +
+                            error);
+                    }
+                });
+
+            }
+        });
+    });
+});
+</script>
+
+
+
 @endsection

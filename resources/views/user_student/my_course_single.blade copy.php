@@ -162,16 +162,28 @@ td {
             </div>
 
             <h2>Carriculam</h2>
+            <?php $index = 1; ?>
 
-            @foreach($sections as $index => $section)
+            @foreach($sections as $section)
+            @php
+            $progress = $section->progress->where('classroom_id', $classroom_id)->first();
+            @endphp
             <!-- sectionRow -->
             <section class="sectionRow">
-                <h2 class="h6 text-uppercase fw-semi rowHeading">Chapter {{++$index}}: {{$section->section_name}}</h2>
+                <h2 class="h6 text-uppercase fw-semi rowHeading">Section {{$index++}}:
+                    {{$section->section_name}}
+                    @if ($progress)
+                    @if($progress->is_passed == 1)
+                    <span class="text-success" style="margin-left: 15px"> <strong>Passed</strong> | Score:
+                        {{$progress->score}} / 10 </span>
+                    @endif
+                    @endif
+                </h2>
 
                 <!-- sectionRowPanelGroup -->
                 <div class="panel-group sectionRowPanelGroup" id="accordion" role="tablist" aria-multiselectable="true">
 
-                    @foreach($groupedContents[$section->id] as $content)
+                    @foreach($section->contents as $content)
                     <!-- panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingOne">
@@ -225,6 +237,29 @@ td {
 
                                 <hr>
                                 @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+
+                    <!-- Quiz Panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h3 class="panel-title fw-normal">
+                                <a class="accOpener" role="button" data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseSection{{$section->id}}Quiz" aria-expanded="false"
+                                    aria-controls="collapseSection{{$section->id}}Quiz">
+                                    <span class="accOpenerCol">
+                                        <i class="fas fa-chevron-circle-right accOpenerIcn"></i>
+                                        Quiz | Test Exam
+                                    </span>
+                                </a>
+                            </h3>
+                        </div>
+                        <!-- collapseOne -->
+                        <div id="collapseSection{{$section->id}}Quiz" class="panel-collapse collapse" role="tabpanel"
+                            aria-labelledby="headingOne">
+                            <div class="panel-body">
 
                                 <a href="#" id="" class="btn btn-warning m-3 openModal" style="color:black"> Take Quiz
                                 </a>
@@ -248,24 +283,171 @@ td {
                                                 disqualification from the exam.</strong>
                                         </p>
                                         <a href="#"
-                                            onclick="openNewWindow('/my_quiz/{{$content->id}}/{{$classroom->id}}')"
+                                            onclick="openNewWindow('/my_quiz/{{$section->id}}/{{$classroom_id}}')"
                                             class="btn btn-warning m-3" style="color:black"> Start Exam </a>
                                     </div>
                                 </div>
+
+
+                                <p></p>
+
                             </div>
                         </div>
                     </div>
-                    @endforeach
 
                 </div>
             </section>
             @endforeach
 
-            <!-- If the course is Disabled for the student -->
+            <?php 
+                $student_id = Auth::guard('student')->user()->id;
+                $progresses = DB::table('progress')->where('classroom_id', $classroom_id)->where('is_passed', 1)->get();
+            ?>
+
+            @if( $sections->count() > 0 && ($progresses->count() /$sections->count() * 100 ) == 100 )
+            <!-- Final Exam Section-->
+            <section class="sectionRow">
+                <h2 class="h6 text-uppercase fw-semi rowHeading">Final Exam
+                </h2>
+                <!-- sectionRowPanelGroup -->
+                <div class="panel-group sectionRowPanelGroup" id="accordion" role="tablist" aria-multiselectable="true">
+
+                    <!-- Quiz Panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h3 class="panel-title fw-normal">
+                                <a class="accOpener" role="button" data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapseSectionFinal" aria-expanded="false"
+                                    aria-controls="collapseSectionFinal">
+                                    <span class="accOpenerCol">
+                                        <i class="fas fa-chevron-circle-right accOpenerIcn"></i>
+                                        Final Exam | Take Exam
+                                    </span>
+                                </a>
+                            </h3>
+                        </div>
+                        <!-- collapseOne -->
+                        <div id="collapseSectionFinal" class="panel-collapse collapse" role="tabpanel"
+                            aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                                <a href="#" id="openModalFinal" class="btn btn-warning m-3" style="color:black"> Take
+                                    Exam
+                                </a>
+
+                                <!-- Modal - Final Instruction -->
+                                <div id="myModalFinal" class="modal">
+                                    <div class="modal-content">
+                                        <span id="closeFinal" class="close">&times;</span>
+                                        <h3>Important Exam Instructions</h3>
+                                        <p>Please read the following instructions carefully before starting the exam:
+                                        </p>
+                                        <ul class="alert alert-danger">
+                                            <li>You are not allowed to copy and paste any content during the exam.</li>
+                                            <li>Do not attempt to switch tabs or open other browser windows while taking
+                                                the exam.</li>
+                                            <li>Clicking outside of the exam window may result in automatic submission
+                                                of your exam.</li>
+                                        </ul>
+                                        <p class="text-danger">
+                                            <strong> Failure to comply with these instructions may lead to penalties or
+                                                disqualification from the exam.</strong>
+                                        </p>
+                                        <a href="#"
+                                            onclick="openNewWindow('/my_final/{{$course->id}}/{{$classroom_id}} ')"
+                                            class="btn btn-warning m-3" style="color:black"> Start Exam </a>
+                                    </div>
+                                </div>
+
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            @endif()
+
+            <!-- #############  About Instructor Commented  ################# -->
+            <!-- @if(!empty($user->fullname))
+            <h2>About Instructor</h2>
+            <div class="instructorInfoBox">
+                <div class="alignleft">
+                    <a href="instructor-single.html"><img src="http://placehold.it/80x80" alt="Merry Jhonson"></a>
+                </div>
+                <div class="description-wrap">
+                    <h3 class="fw-normal"><a href="#">{{$user->fullname}}</a></h3>
+                    <h4 class="fw-normal">Back-end Developer</h4>
+                    <p>Encyclopaedia galactica Orion's sword explorations vanquish the impossible,
+                        astonishment radio telescope with pretty stories for which there's little good.
+                    </p>
+                    <a href="#" class="btn btn-default font-lato fw-semi text-uppercase">View
+                        Profile</a>
+                </div>
+            </div>
+            @endif -->
+
+            @if( $sections->count() > 0 && ($progresses->count() /$sections->count() * 100 ) == 100 )
+
+            <!-- reviesSubmissionForm -->
+            <form action="#" class="reviesSubmissionForm">
+                <h2 class="text-noCase">Add a Review</h2>
+                <p>Your email address will not be published. Required fields are marked <span class="required">*</span>
+                </p>
+                <div class="form-group">
+                    <span class="formLabel fw-normal font-lato no-shrink">Your Rating</span>
+                    <ul class="star-rating list-unstyled">
+                        <li>
+                            <input type="checkbox" id="rate1" class="customFormReset">
+                            <label for="rate1" class="fas fa-star"><span class="sr-only">star</span></label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="rate2" class="customFormReset">
+                            <label for="rate2" class="fas fa-star"><span class="sr-only">star</span></label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="rate3" class="customFormReset">
+                            <label for="rate3" class="fas fa-star"><span class="sr-only">star</span></label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="rate4" class="customFormReset">
+                            <label for="rate4" class="fas fa-star"><span class="sr-only">star</span></label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="rate5" class="customFormReset">
+                            <label for="rate5" class="fas fa-star"><span class="sr-only">star</span></label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label for="rview" class="formLabel fw-normal font-lato no-shrink">Your Review <span
+                            class="required">*</span></label>
+                    <textarea id="rview" class="form-control element-block"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="formLabel fw-normal font-lato no-shrink">Name <span
+                            class="required">*</span></label>
+                    <input type="text" id="name" class="form-control element-block">
+                </div>
+                <div class="form-group">
+                    <label for="Email" class="formLabel fw-normal font-lato no-shrink">Email <span
+                            class="required">*</span></label>
+                    <input type="email" id="Email" class="form-control element-block">
+                </div>
+                <button type="submit" class="btn btn-theme btn-warning text-uppercase font-lato fw-bold">Submit</button>
+            </form>
+            @endif
+
             @else
+
             <div class="alert alert-danger"> This Course has been Disabled, Please contact your admin </div>
+
             @endif
         </article>
+
+
+
+
 
         <!-- sidebar -->
         <aside class="col-xs-12 col-md-3" id="sidebar">

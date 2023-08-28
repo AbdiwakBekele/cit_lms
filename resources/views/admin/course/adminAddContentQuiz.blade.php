@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <h3 class="mb-4" style="margin: 26px;color: #16416E;font-size: 35px;font-weight: bold;">
                 Add Content Quiz Question</h3>
-                <!-- Breadcrumb - Nav -->
+            <!-- Breadcrumb - Nav -->
             <nav class="breadcrumb-nav">
                 <div class="container">
                     <ol class="breadcrumb">
@@ -60,6 +60,8 @@
 
                 <!-- Question -->
                 <div class="mb-3 mt-3">
+                    <label class="form-label" for="points"> Points </label>
+                    <input class="form-control w-25" type="number" name="points" id="points" value="1" min="1">
                     <label for="question" class="form-label"> <strong>Question</strong> </label>
                     <textarea class="form-control" name="question" id="question" cols="30" rows="5" required></textarea>
                     @error('question')
