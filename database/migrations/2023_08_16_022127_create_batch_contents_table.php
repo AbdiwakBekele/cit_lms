@@ -11,25 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('quizzes', function (Blueprint $table) {
+        Schema::create('batch_contents', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('batch_id');
             $table->unsignedBigInteger('content_id');
-            $table->text('question');
-            $table->text('answer')->nullable();
-            $table->text('points');
-            $table->text('type');
 
-            $table->foreign('course_id')
+            $table->foreign('batch_id')
                 ->references('id')
-                ->on('courses')
+                ->on('batches')
                 ->onDelete('cascade');
-                
+
             $table->foreign('content_id')
                 ->references('id')
                 ->on('contents')
                 ->onDelete('cascade');
-                
+
             $table->timestamps();
         });
     }
@@ -39,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('quizzes');
+        Schema::dropIfExists('batch_contents');
     }
 };

@@ -201,6 +201,13 @@
                                                     class="h6">
                                                     <i class="fa fa-edit" aria-hidden="true"></i> Short Answer
                                                 </a>
+
+                                                <hr>
+
+                                                <a href="/course/create_quiz_match/{{$course->id}}/{{$content->id}}"
+                                                    class="h6">
+                                                    <i class="fa fa-edit" aria-hidden="true"></i> Matching
+                                                </a>
                                             </div>
 
                                         </div>

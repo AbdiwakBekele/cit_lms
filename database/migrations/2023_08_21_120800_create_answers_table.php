@@ -11,25 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('quizzes', function (Blueprint $table) {
+        Schema::create('answers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('course_id');
-            $table->unsignedBigInteger('content_id');
-            $table->text('question');
-            $table->text('answer')->nullable();
-            $table->text('points');
-            $table->text('type');
+            $table->unsignedBigInteger('quiz_id');
+            $table->unsignedBigInteger('classroom_id');
+            $table->longText('answer')->nullable();
 
-            $table->foreign('course_id')
+            $table->foreign('quiz_id')
                 ->references('id')
-                ->on('courses')
+                ->on('quizzes')
                 ->onDelete('cascade');
-                
-            $table->foreign('content_id')
+
+            $table->foreign('classroom_id')
                 ->references('id')
-                ->on('contents')
+                ->on('classrooms')
                 ->onDelete('cascade');
-                
+
             $table->timestamps();
         });
     }
@@ -39,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('quizzes');
+        Schema::dropIfExists('answers');
     }
 };

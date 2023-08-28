@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('match__columns', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('quiz_id');
+            $table->foreign('quiz_id')
+                    ->references('id')
+                    ->on('quizzes')
+                    ->onDelete('cascade');
+            $table->longText('column_content');
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('match__columns');
     }
 };

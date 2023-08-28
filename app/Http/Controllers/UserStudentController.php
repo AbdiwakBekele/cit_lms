@@ -12,6 +12,9 @@ use App\Models\Section;
 use App\Models\Quiz;
 use App\Models\Progress;
 use App\Models\Student;
+use App\Models\BatchContent;
+use App\Models\Content;
+use App\Models\Answer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
@@ -188,6 +191,33 @@ class UserStudentController extends Controller{
         return view('user_student.course_single', compact('courses','course', 'course_categories', 'popular_courses'));
     }
 
+    /***** Commented Out Because of Change of Feature ******/
+    // public function myCourseSingle(string $course_id, string $classroom_id){
+    //     $popular_courses;
+    //     $courses = Course::all();
+    //     $course_categories = CourseCategory::all();
+    //     $course = Course::find($course_id);
+    //     $top_courses = Course::withCount('classrooms');
+        
+    //     if($top_courses->count() >= 3){
+    //         $popular_courses = $top_courses->orderBy('classrooms_count', 'desc')->take(3)->get();
+    //     }else{
+    //         $popular_courses = $top_courses->orderBy('classrooms_count', 'desc')->get();
+    //     }
+        
+    //     $sectionCount = Section::whereHas('progress', function($query) use ($classroom_id) {
+    //                 $query->where('classroom_id', $classroom_id)
+    //                     ->where('is_passed', 1);
+    //                 })->count();
+                    
+    //     $sections = Section::where('course_id', $course_id)
+    //         ->where('sequence', '<=', $sectionCount + 1)
+    //         ->get();
+
+    //         $classroom = Classroom::find($classroom_id);
+    //     return view('user_student.my_course_single', compact('courses','course', 'course_categories', 'sections', 'popular_courses', 'classroom_id', 'classroom'));
+    // }
+
     public function myCourseSingle(string $course_id, string $classroom_id){
         $popular_courses;
         $courses = Course::all();
@@ -200,20 +230,21 @@ class UserStudentController extends Controller{
         }else{
             $popular_courses = $top_courses->orderBy('classrooms_count', 'desc')->get();
         }
-        
-        $sectionCount = Section::whereHas('progress', function($query) use ($classroom_id) {
-                    $query->where('classroom_id', $classroom_id)
-                        ->where('is_passed', 1);
-                    })->count();
-                    
-        $sections = Section::where('course_id', $course_id)
-            ->where('sequence', '<=', $sectionCount + 1)
-            ->get();
+        $classroom = Classroom::find($classroom_id);
 
-            $classroom = Classroom::find($classroom_id);
+        $batchContents = BatchContent::where('batch_id', $classroom->batch_id)->get();
+        $contents = [];
+        foreach ($batchContents as $batchContent) {
+            $content = Content::find($batchContent->content_id);
+            if ($content) {
+                $contents[] = $content;
+            }
+        }
 
-        return view('user_student.my_course_single', compact('courses','course', 'course_categories', 'sections', 'popular_courses', 'classroom_id', 'classroom'));
+        $groupedContents = collect($contents)->groupBy('section_id');
+        $sections = Section::whereIn('id', $groupedContents->keys())->get();
 
+        return view('user_student.my_course_single', compact('courses','course', 'course_categories', 'popular_courses', 'classroom', 'sections', 'groupedContents'));
     }
 
     public function enrollCourse(string $id){
@@ -259,21 +290,39 @@ class UserStudentController extends Controller{
         }
     }
 
-    public function myQuiz(string $section_id, string $classroom_id){
-        $count = Quiz::where('section_id', $section_id)->count();
+    // Fetch Quiz Questions
+    public function myQuiz(string $content_id, string $classroom_id){
+        $quizzes = Quiz::where('content_id', $content_id);
+        $count = $quizzes->count();
         if ($count != 0  && $count >= 10) {
-            $questions = Quiz::where('section_id', $section_id)->take(10)->get();
-            return view('quiz.quiz', compact('questions', 'classroom_id', 'section_id'));
+            $questions = $quizzes->inRandomOrder()->take(10)->get();
+            return view('quiz.quiz', compact('questions', 'classroom_id', 'content_id'));
         }else if($count == 0) {
             return back()
             ->with('error','Sorry! No Quiz Question Available');
         }else{
-            $questions = Quiz::where('section_id', $section_id)->get();
-            return view('quiz.quiz', compact('questions', 'classroom_id', 'section_id'));
+            $questions = $quizzes->inRandomOrder()->get();
+            return view('quiz.quiz', compact('questions', 'classroom_id', 'content_id'));
         }
     }
 
-    public function myQuizSubmit(Request $request){
+    // Quiz Submit - Final
+    public function quizSubmit(Request $request, $classroom_id, $content_id){
+        
+        $user_progress = new Progress([
+            'content_id'=>$content_id,
+            'classroom_id'=>$classroom_id,
+            'has_taken'=>1
+        ]);
+        
+        if($user_progress->save()){
+            return response()->json(['message' => 'Quiz Submitted Successfully']);
+        }else{
+            return response()->json(['message' => 'Error Submitting Answers']);
+        }
+    }
+
+    public function myQuizSubmit_previous(Request $request){
         $answers = $request->input('answer');
         $classroom_id = $request->classroom_id;
         $section_id = $request->section_id;

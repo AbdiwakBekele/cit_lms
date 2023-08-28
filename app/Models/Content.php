@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Quiz;
 use App\Models\Resource;
 use App\Models\Section;
+use App\Models\Progress;
+use App\Models\BatchContent;
+use App\Models\Classroom;
 
 class Content extends Model
 {
@@ -27,5 +30,17 @@ class Content extends Model
 
     public function section(){
         return $this->belongsTo(Section::class);
+    }
+
+    public function progress(){
+        return $this->hasMany(Progress::class);
+    }
+
+    public function batchContents(){
+        return $this->hasMany(BatchContent::class);
+    }
+
+    public function classrooms(){
+        return $this->belongsToMany(Classroom::class, 'progress');
     }
 }

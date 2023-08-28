@@ -14,21 +14,21 @@ return new class extends Migration
         Schema::create('progress', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('classroom_id');
-            $table->unsignedBigInteger('section_id');
+            $table->unsignedBigInteger('content_id');
+            $table->string('score')->nullable();
+            $table->integer('has_taken');
+            $table->integer('is_passed')->default(0);
+            $table->timestamps();
 
             $table->foreign('classroom_id')
                     ->references('id')
                     ->on('classrooms')
                     ->onDelete('cascade');
 
-            $table->foreign('section_id')
+            $table->foreign('content_id')
                     ->references('id')
-                    ->on('sections')
+                    ->on('contents')
                     ->onDelete('cascade');
-            
-            $table->string('score');
-            $table->integer('is_passed')->default(0);
-            $table->timestamps();
         });
     }
 

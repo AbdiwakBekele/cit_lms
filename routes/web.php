@@ -22,6 +22,8 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentDocController;
 use App\Http\Controllers\StudentRegistrationController;
+use App\Http\Controllers\BatchContentController;
+use App\Http\Controllers\AnswerController;
 use App\Models\Student;
 
 /*
@@ -90,15 +92,22 @@ Route::group(['middleware' => ['student']], function () {
 
     Route::post('/enroll_now', [UserStudentController::class, 'enrollNow']);
 
-    Route::get('/my_quiz/{section_id}/{classroom_id}', [UserStudentController::class, 'myQuiz']);
+    // Fetch Quiz Questions
+    Route::get('/my_quiz/{content_id}/{classroom_id}', [UserStudentController::class, 'myQuiz']);
 
-    Route::post('/my_quiz/{classroom_id}', [UserStudentController::class, 'myQuizSubmit']);
+    // Submit QUiz Answers - Each
+    Route::post('/quiz_answer_submit/{classroom_id}/{quiz_id}', [AnswerController::class, 'quizAnswerSubmit']);
+    // Submit Quiz Match Answer - Each
+    Route::post('/quiz_match_submit/{classroom_id}/{quiz_id}', [AnswerController::class, 'quizMatchSubmit']);
+
+    // Submit Quiz - Finish
+    Route::post('/quiz_submit/{classroom_id}/{content_id}', [UserStudentController::class, 'quizSubmit']);
 
     Route::get('/my_final/{course_id}/{classroom_id}', [UserStudentController::class, 'myFinal']);
 
     Route::post('/my_final/{classroom_id}', [UserStudentController::class, 'myFinalSubmit']);
 
-    Route::post('/disqualify', [UserStudentController::class, 'disqualify']);
+    Route::post('/disqualify/{classroom_id}', [UserStudentController::class, 'disqualify']);
 
     Route::resource('student_doc', StudentDocController::class);
 
@@ -107,8 +116,6 @@ Route::group(['middleware' => ['student']], function () {
     Route::get('resource/{id}/downloadStu', [ResourceController::class, 'getDownloadStu']);
     
     Route::get('resource/viewDoc/{filename}', [ResourceController::class, 'viewDoc']);
-
-    
 });
 
 /*
@@ -166,8 +173,10 @@ Route::group(['middleware'=> ['auth']], function(){
         //-------------- Admin - Quiz -------------/
         Route::resource('quiz', QuizController::class);
         Route::post('quiz_short', [QuizController::class, 'storeShortQuestion']);
+        Route::post('quiz_match', [QuizController::class, 'storeMatchQuestion']);
         Route::get('/course/create_quiz_multiple/{course_id}/{content_id}', [QuizController::class, 'createQuizMultiple']);
         Route::get('/course/create_quiz_short/{course_id}/{content_id}', [QuizController::class, 'createQuizShort']);
+        Route::get('course/create_quiz_match/{course_id}/{content_id}', [QuizController::class, 'createQuizMatch']);
 
         //-------------- Admin - Content -------------/
 
@@ -209,12 +218,16 @@ Route::group(['middleware'=> ['auth']], function(){
     //-------------- Admin - Batch -------------
     Route::group( ['middleware'=> ['permission:manage batch']], function(){
         Route::resource('batch', BatchController::class);
+        Route::resource('batch_content', BatchContentController::class);
+        Route::post('/batch_content/dismiss_content', [BatchContentController::class, 'dismissContent']);
         Route::delete('/unenroll_student/{classroom_id}', [BatchController::class, 'unenrollStudent']);
         Route::get('/approve_student/{id}', [BatchController::class, 'approveStudent']);
         Route::get('/disapprove_student/{id}', [BatchController::class, 'disapproveStudent']);
         Route::get('batch_student_progress/{classroom_id}', [BatchController::class, 'batchStudentProgress']);
         Route::post('/add_student_batch', [BatchController::class, 'addStudentBatch']);
         Route::post('/form/batches', [BatchController::class, 'getBatches']);
+        Route::get('/review_quiz/{classroom_id}/{content_id}', [BatchController::class, 'reviewQuiz']);
+        Route::post('/submit_quiz_result/{classroom_id}/{content_id}', [BatchController::class, 'submitQuizResult']);
     });
 
     // --------------- Registration Management -------------------

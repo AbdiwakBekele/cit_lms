@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Course;
 use App\Models\Content;
 use App\Models\QuizOption;
+use App\Models\Answer;
+use App\Models\Match_Row;
+use App\Models\Match_Column;
 
 class Quiz extends Model
 {
@@ -18,11 +21,24 @@ class Quiz extends Model
         'content_id',
         'question',
         'answer',
+        'points',
         'type'
     ];
 
     public function quiz_options(){
        return $this->hasMany(QuizOption::class);
+    }
+
+    public function answers(){
+       return $this->hasMany(Answer::class);
+    }
+
+    public function match_rows(){
+       return $this->hasMany(Match_Row::class);
+    }
+
+    public function match_columns(){
+       return $this->hasMany(Match_Column::class);
     }
 
     public function content(){

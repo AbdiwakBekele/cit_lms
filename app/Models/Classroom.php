@@ -8,6 +8,9 @@ use App\Models\Batch;
 use App\Models\Course; 
 use App\Models\Student; 
 use App\Models\Progress;
+use App\Models\Answer;
+use App\Models\Content;
+
 
 class Classroom extends Model
 {
@@ -30,6 +33,10 @@ class Classroom extends Model
         return $this->belongsTo(Course::class);
     }
 
+    public function answers(){
+       return $this->hasMany(Answer::class);
+    }
+
     public function batch(){
         return $this->belongsTo(Batch::class);
     }
@@ -40,5 +47,9 @@ class Classroom extends Model
 
     public function progress(){
         return $this->hasMany(Progress::class);
+    }
+
+    public function contents(){
+        return $this->belongsToMany(Content::class, 'progress');
     }
 }

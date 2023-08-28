@@ -10,6 +10,7 @@ use App\Models\Course;
 use App\Models\Classroom;
 use App\Models\Student;
 use App\Models\Progress;
+use App\Models\Answer;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\StudentEnroll;
@@ -235,5 +236,39 @@ class BatchController extends Controller{
             return back()
                 ->with('error','Incorrect Password');
         }
+    }
+
+    public function reviewQuiz(string $classroom_id, string $content_id){
+
+        $classroom = Classroom::find($classroom_id);
+        
+        $answers = Answer::whereHas('quiz', function ($query) use ($classroom_id, $content_id) {
+                    $query->where('classroom_id', $classroom_id)
+                        ->where('content_id', $content_id);
+                    })->get();
+
+        return view('admin.batch.reviewQuiz', compact('answers', 'classroom', 'content_id'));
+
+    }
+    public function submitQuizResult(Request $request, $classroom_id, $content_id){
+        $this->validate($request, [
+            'points.*'=>'required',
+            'points'=>'required|array'
+        ]);
+
+        $total_score = 0;
+
+        foreach($request->points as $points){
+            $total_score += $points;
+        }
+        $progress = Progress::where('classroom_id', $classroom_id)->where('content_id', $content_id)->first();
+        $progress->score= $total_score;
+
+        if($progress->save()){
+            return redirect('/batch_student_progress/'. $classroom_id)->with('success','You have successfully submitted a quiz score');
+        }else{
+            return redirect()->back()->with('error','Error Submitting Student Score Record');
+        }
+        
     }
 }
