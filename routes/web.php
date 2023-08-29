@@ -47,43 +47,6 @@ use Carbon\Carbon;
 
 // Generate Id for students
 
-Route::get('/generate_id', function(){
-
-    function generateUniqueStudentId() {
-        $randomNumber = str_pad(mt_rand(0, 999), 3, '0', STR_PAD_LEFT);
-        $randomLetter = chr(mt_rand(65, 90)); // Generates a random lowercase letter
-        $currentYear = Carbon::now()->format('y'); // Get last 2 digits of the current year
-        $uniqueId = $randomNumber . $randomLetter . '/' . $currentYear;
-
-        // Check if the generated ID is unique in the database
-        $existingStudent = Student::where('identification', $uniqueId)->first();
-        if ($existingStudent) {
-            // If not unique, generate a new ID recursively
-            return generateUniqueStudentId();
-        }
-
-        return $uniqueId;
-    }
-
-    // Fetch all existing student records
-    $existingStudents = Student::all();
-
-    foreach ($existingStudents as $student) {
-        // Generate a unique student ID
-        $uniqueStudentId = generateUniqueStudentId();
-        
-        // Update the identification column with the new ID
-        $student->identification = $uniqueStudentId;
-        if($student->save()){
-            echo "done ". $student->fullname. ' '. $student->identification.'<br>';
-        }
-        
-    }
-
-    echo "Completed";
-
-});
-
 /*
 |--------------------------------------------------------------------------
 | Student Auth Manager                                       
