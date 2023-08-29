@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\StudentRegistered;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class StudentController extends Controller{
 
@@ -46,13 +47,31 @@ class StudentController extends Controller{
             'work_experience'=>'required'
         ]);
 
+        function generateUniqueStudentId() {
+            $randomNumber = str_pad(mt_rand(0, 999), 3, '0', STR_PAD_LEFT);
+            $randomLetter = chr(mt_rand(65, 90)); // Generates a random lowercase letter
+            $currentYear = Carbon::now()->format('y'); // Get last 2 digits of the current year
+            $uniqueId = $randomNumber . $randomLetter . '/' . $currentYear;
+
+            // Check if the generated ID is unique in the database
+            $existingStudent = Student::where('identification', $uniqueId)->first();
+            if ($existingStudent) {
+                // If not unique, generate a new ID recursively
+                return generateUniqueStudentId();
+            }
+
+            return $uniqueId;
+        }
+
         // Generate a random password with 10 characters
         $password = Str::random(8); 
-        // $password = '00000000';
+        $uniqueStudentId = generateUniqueStudentId();
         
         $data['password'] =  Hash::make($password);
+        $data['identification'] = $uniqueStudentId;
+        
         $student = Student::create($data);
-        Mail::to($student->email)->send(new StudentRegistered($student, $password));
+        Mail::to($student->email)->send(new StudentRegistered($student, $password, $uniqueStudentId));
 
         if($student){
             return back()

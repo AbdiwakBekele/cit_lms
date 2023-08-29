@@ -51,7 +51,7 @@
 
                         @foreach($students as $index => $student)
                         <td>{{$index + 1}}</td>
-                        <td> CTI{{$student->id}}/23 </td>
+                        <td> CTI/{{$student->identification}} </td>
                         <td>{{$student->fullname}}</td>
                         <td>{{$student->age}}</td>
                         <td>{{$student->email}}</td>

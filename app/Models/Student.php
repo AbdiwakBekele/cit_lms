@@ -17,6 +17,7 @@ class Student extends Model implements Authenticatable
     use AuthenticableTrait;
 
     protected $fillable = [
+        'identification',
         'fullname',
         'age',
         'gender',
