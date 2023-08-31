@@ -293,17 +293,20 @@ class UserStudentController extends Controller{
     // Fetch Quiz Questions
     public function myQuiz(string $content_id, string $classroom_id){
         $quizzes = Quiz::where('content_id', $content_id);
-        $count = $quizzes->count();
-        if ($count != 0  && $count >= 10) {
-            $questions = $quizzes->inRandomOrder()->take(10)->get();
-            return view('quiz.quiz', compact('questions', 'classroom_id', 'content_id'));
-        }else if($count == 0) {
-            return back()
-            ->with('error','Sorry! No Quiz Question Available');
-        }else{
-            $questions = $quizzes->inRandomOrder()->get();
-            return view('quiz.quiz', compact('questions', 'classroom_id', 'content_id'));
-        }
+        $questions = $quizzes->inRandomOrder()->get();
+        return view('quiz.quiz', compact('questions', 'classroom_id', 'content_id'));
+
+        // $count = $quizzes->count();
+        // if ($count != 0  && $count >= 10) {
+        //     $questions = $quizzes->inRandomOrder()->take(10)->get();
+        //     return view('quiz.quiz', compact('questions', 'classroom_id', 'content_id'));
+        // }else if($count == 0) {
+        //     return back()
+        //     ->with('error','Sorry! No Quiz Question Available');
+        // }else{
+        //     $questions = $quizzes->inRandomOrder()->get();
+        //     return view('quiz.quiz', compact('questions', 'classroom_id', 'content_id'));
+        // }
     }
 
     // Quiz Submit - Final
