@@ -147,9 +147,9 @@
                                 <div
                                     class="col{{ $isMatched ? ' alert alert-primary mx-3' : ' alert alert-light mx-3' }}">
                                     @if($isMatched)
-                                    Selected
+                                    <i class="fa fa-check text-primary" aria-hidden="true"></i>
                                     @else
-                                    Unselected
+                                    <i class="fa fa-check" aria-hidden="true"></i>
                                     @endif
                                 </div>
                                 @endforeach
