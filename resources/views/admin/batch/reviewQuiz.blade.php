@@ -70,7 +70,7 @@
                 $quiz= $answer->quiz;
                 @endphp
                 <div class="alert alert-light">
-                    <p> Question: {{$quiz->question}} </p>
+                    <p> Question: {!!$quiz->question!!} </p>
 
                     @if($quiz->type == 1)
                     <div class="row">
