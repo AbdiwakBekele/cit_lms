@@ -107,7 +107,7 @@ td {
                 {!! $course->description !!}
             </div>
 
-            <h2>Carriculam</h2>
+            <h2>Curriculum</h2>
 
             <?php $index = 1; ?>
 
