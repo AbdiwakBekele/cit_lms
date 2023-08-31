@@ -287,7 +287,7 @@
                                                 </div>
 
                                                 <div>
-                                                    <strong>{{$index+1}}.</strong> {{$quiz->question}}
+                                                    <strong>{{$index+1}}.</strong> {!! $quiz->question !!}
                                                     <hr>
                                                 </div>
 

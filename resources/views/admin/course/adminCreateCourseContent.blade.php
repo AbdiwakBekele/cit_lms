@@ -54,7 +54,7 @@ th {
             <h3 class="mb-4" style="margin: 26px;color: #16416E;font-size: 35px;font-weight: bold;">
                 Add Chapter Content</h3>
 
-                <!-- Breadcrumb - Nav -->
+            <!-- Breadcrumb - Nav -->
             <nav class="breadcrumb-nav">
                 <div class="container">
                     <ol class="breadcrumb">
