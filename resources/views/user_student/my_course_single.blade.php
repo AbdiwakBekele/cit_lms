@@ -160,9 +160,7 @@ td {
             <div id="content_description">
                 {!! $course->description !!}
             </div>
-
             <h2>Curriculum</h2>
-
             @foreach($sections as $index => $section)
             <!-- sectionRow -->
             <section class="sectionRow">
