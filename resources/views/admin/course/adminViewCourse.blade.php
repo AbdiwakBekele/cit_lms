@@ -35,6 +35,22 @@
             </div>
             @endif
 
+            <!-- Displaying Error - Worksheet -->
+            @if ($errors->has('course_worksheets.*'))
+            @foreach($errors->get('course_worksheets.*') as $error)
+            <span class="text-danger">{{ $error[0] }}</span>
+            <br>
+            @endforeach
+            @endif
+
+            <!-- Displaying Error - Resource -->
+            @if ($errors->has('course_resource.*'))
+            @foreach($errors->get('course_resource.*') as $error)
+            <span class="text-danger">{{ $error[0] }}</span>
+            <br>
+            @endforeach
+            @endif
+
             <div class="alert alert-primary">
                 <!-- Batch Information -->
                 <div class="row">
@@ -281,21 +297,161 @@
                                         </div>
                                     </div>
                                 </div>
+                                <hr>
+                                <p>
+                                    <strong>Worksheets</strong>
+                                    <!-- Add Worksheets -->
+
+                                    <a href="#" class="mx-3" data-bs-toggle="modal"
+                                        data-bs-target="#worksheet{{$content->id}}"
+                                        style="float: right; text-decoration:none;">
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Add
+                                        Worksheet </a>
+                                </p>
+
+                                <!-- Modal | Add Worksheet -->
+                                <div class="modal" id="worksheet{{$content->id}}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body my-4 text-center h5">
+                                                Upload Worksheet
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer p-1">
+                                                <form action="/course/store_worksheet/{{$content->id}}" method="post"
+                                                    enctype="multipart/form-data">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="course_id" value="{{$course->id}}">
+                                                    <input type="file" class="form-control" id="course_worksheet"
+                                                        placeholder="Upload course worksheets"
+                                                        name="course_worksheets[]" multiple require>
+                                                    <br>
+                                                    <input type="submit" class="btn btn-primary" value="Upload">
+                                                    <button type="button" class="btn btn-light"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                </form>
+                                                <br>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- List of Worksheets -->
+                                @foreach($content->resources->filter(function($resource) {
+                                return $resource->type == 1;
+                                }) as $worksheet)
+                                <div class="row alert alert-secondary">
+
+                                    <div class="col-9">
+                                        {{$worksheet->path}}
+                                    </div>
+
+                                    <div class="col">
+                                        <!-- Download Resource -->
+                                        <a href="/resource/{{$worksheet->id}}/download" class="m-2"
+                                            style="float: right; text-decoration:none;">
+                                            <i class="fa fa-download mx-1" aria-hidden="true"></i>
+                                        </a>
+                                        <!-- Delete Resource -->
+                                        <a href="#" data-bs-toggle="modal" class="m-2"
+                                            style="float: right; text-decoration:none;"
+                                            data-bs-target="#myModal{{$worksheet->id}}">
+                                            <i class="fa fa-trash text-danger mx-1" aria-hidden="true"></i>
+                                        </a>
+
+                                        <!-- Modal - Delete Resource -->
+                                        <div class="modal" id="myModal{{$worksheet->id}}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body my-4 text-center h5">
+                                                        Are you sure?
+                                                        <hr>
+                                                        <form action="/resource/{{$worksheet->id}}" method="post">
+                                                            {{ csrf_field() }}
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <label for="password">Confirm your password
+                                                                <span class="text-danger">*</span> </label>
+                                                            <input type="password" class="form-control mx-2 my-3"
+                                                                name="password" id="password" placeholder="password"
+                                                                required>
+
+                                                            <input type="submit" class="btn btn-danger" value="Delete">
+
+                                                            <button type="button" class="btn btn-light"
+                                                                data-bs-dismiss="modal">Close</button>
+
+                                                        </form>
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <hr>
+                                </div>
+                                @endforeach
+
 
                                 <hr>
-                                <p><strong>Resources</strong>
+                                <p>
+                                    <strong>Resources</strong>
                                     <!-- Add Resources -->
-                                    <a href="/course/create_resource/{{$course->id}}/{{$content->id}}" class="mx-3"
+                                    <a href="#" class="mx-3" data-bs-toggle="modal"
+                                        data-bs-target="#resource{{$content->id}}"
                                         style="float: right; text-decoration:none;">
                                         <i class="fa fa-plus-circle" aria-hidden="true"></i> Add
                                         Resource </a>
                                 </p>
 
-                                <?php 
-                                    $resources = DB::table('resources')->where('content_id', $content->id)->get();
-                                ?>
+                                <!-- Modal | Add Resource -->
+                                <div class="modal" id="resource{{$content->id}}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body my-4 text-center h5">
+                                                Upload Resource
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer p-1">
+                                                <form action="/course/store_resource/{{$content->id}}" method="post"
+                                                    enctype="multipart/form-data">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="course_id" value="{{$course->id}}">
+                                                    <input type="file" class="form-control" id="course_resource"
+                                                        placeholder="Upload course worksheets" name="course_resource[]"
+                                                        multiple require>
+                                                    <br>
+                                                    <input type="submit" class="btn btn-primary" value="Upload">
+                                                    <button type="button" class="btn btn-light"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                </form>
+                                                <br>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
                                 <!-- List of Resources -->
-                                @foreach($resources as $resource)
+                                @foreach($content->resources->filter(function($resource) {
+                                return $resource->type == 2;
+                                }) as $resource)
                                 <div class="row alert alert-secondary">
 
                                     <div class="col-9">

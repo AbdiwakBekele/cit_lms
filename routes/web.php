@@ -188,7 +188,8 @@ Route::group(['middleware'=> ['auth']], function(){
         Route::resource('content', ContentController::class);
         Route::get('/course/create_content/{id}', [ContentController::class, 'createContent'] );
         Route::get('/course/create_resource/{course_id}/{content_id}', [ContentController::class, 'createResource'] );
-        Route::post('/course/store_resource', [ContentController::class, 'storeResource'] );
+        Route::post('/course/store_resource/{content_id}', [ContentController::class, 'storeResource'] );
+        Route::post('/course/store_worksheet/{content_id}', [ContentController::class, 'storeWorksheet'] );
     });
 
     // -------------- User Management ------------

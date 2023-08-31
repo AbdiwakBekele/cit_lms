@@ -33,23 +33,15 @@ class ContentController extends Controller
         return view('admin.course.adminCreateCourseContent', compact('section'));
     }
 
-    public function createResource(string $course_id, string $content_id){
-        $course = Course::find($course_id);
-        $content = Content::find($content_id);
-        return view('admin.course.adminCreateCourseContentResource', compact('content', 'course'));
-    }
-
-    public function storeResource(Request $request){
+    public function storeResource(Request $request, string $content_id){
 
         $this->validate( $request, [
             'course_id'=> 'required',
-            'content_id'=> 'required',
             'course_resource'=>'required|array',
             'course_resource.*'=>'mimes:docx,pdf,pptx'
         ]);
 
         $course_id =  $request->course_id;
-        $content_id =  $request->content_id;
         //Course Resource
         $files = $request->file('course_resource');
         $status = true;
@@ -61,6 +53,7 @@ class ContentController extends Controller
             $resource = new Resource([
                 'course_id'=> $course_id,
                 'content_id'=> $content_id,
+                'type'=>2,
                 'path'=> $filename
             ]);
             $resource->save();
@@ -73,7 +66,48 @@ class ContentController extends Controller
         // Model has been successfully inserted
         if($status){
             return back()
-             ->with('success','You have successfully created a new course.');
+             ->with('success','You have successfully uploaded a course resource.');
+        }else{
+            return back()
+             ->with('error','Error creating a resource');
+        }
+        
+    }
+
+    public function storeWorksheet(Request $request, string $content_id){
+
+        $this->validate( $request, [
+            'course_id'=> 'required',
+            'course_worksheets'=>'required|array',
+            'course_worksheets.*'=>'mimes:docx,pdf,pptx'
+        ]);
+
+        $course_id =  $request->course_id;
+        //Course Worksheet
+        $files = $request->file('course_worksheets');
+        $status = true;
+
+        foreach($files as $file){
+            $extension = $file->getClientOriginalExtension();
+            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$extension;
+            $file->move('course_resources', $filename);
+            $resource = new Resource([
+                'course_id'=> $course_id,
+                'content_id'=> $content_id,
+                'type'=>1,
+                'path'=> $filename
+            ]);
+            $resource->save();
+            if(!$resource){
+                $status = false;
+                break;
+            }
+        }
+        
+        // Model has been successfully inserted
+        if($status){
+            return back()
+             ->with('success','You have successfully uploaded a course worksheet.');
         }else{
             return back()
              ->with('error','Error creating a resource');

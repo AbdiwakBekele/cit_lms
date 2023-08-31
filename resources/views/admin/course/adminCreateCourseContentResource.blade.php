@@ -26,7 +26,7 @@
             </div>
             @endif
 
-            <form action="/course/store_resource" method="post" enctype="multipart/form-data">
+            <form action="/course/store_resource/{{$content->id}}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="hidden" name="_method" value="POST">
                 <input type="hidden" name="course_id" value="{{$course->id}}">
