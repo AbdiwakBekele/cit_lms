@@ -293,7 +293,8 @@ class UserStudentController extends Controller{
     // Fetch Quiz Questions
     public function myQuiz(string $content_id, string $classroom_id){
         $quizzes = Quiz::where('content_id', $content_id);
-        $questions = $quizzes->inRandomOrder()->get();
+        // $questions = $quizzes->inRandomOrder()->get();
+        $questions = $quizzes->get();
         return view('quiz.quiz', compact('questions', 'classroom_id', 'content_id'));
 
         // $count = $quizzes->count();
