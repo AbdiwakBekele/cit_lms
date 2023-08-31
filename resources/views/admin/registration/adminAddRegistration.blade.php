@@ -431,7 +431,7 @@ function fetchBatches(courseId) {
             data.forEach(batch => {
                 const option = document.createElement('option');
                 option.value = batch.id;
-                option.innerText = batch.shift;
+                option.innerText = batch.batch_name;
                 batchSelect.appendChild(option);
             });
         });
