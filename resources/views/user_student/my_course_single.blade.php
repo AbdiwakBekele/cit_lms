@@ -359,8 +359,10 @@ td {
 
 <script>
 function openNewWindow(url) {
-    window.open(url, '_blank',
-        'toolbar=yes,scrollbars=yes,resizable=yes,width=800,height=600');
+    var width = screen.width;
+    var height = screen.height;
+
+    window.open(url, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,width=' + width + ',height=' + height);
 }
 
 // Modal for Quiz
