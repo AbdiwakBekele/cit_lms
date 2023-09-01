@@ -292,10 +292,15 @@ class UserStudentController extends Controller{
 
     // Fetch Quiz Questions
     public function myQuiz(string $content_id, string $classroom_id){
-        $quizzes = Quiz::where('content_id', $content_id);
-        // $questions = $quizzes->inRandomOrder()->get();
-        $questions = $quizzes->get();
-        return view('quiz.quiz', compact('questions', 'classroom_id', 'content_id'));
+        $progress = Progress::where('content_id', $content_id)->where('classroom_id', $classroom_id)->get();
+        if ($progress->count() > 0) {
+            return back()->with('error', 'Exam Already Taken');
+        } else {
+            $quizzes = Quiz::where('content_id', $content_id);
+            $questions = $quizzes->get();
+            return view('quiz.quiz', compact('questions', 'classroom_id', 'content_id'));
+        }
+        
 
         // $count = $quizzes->count();
         // if ($count != 0  && $count >= 10) {
