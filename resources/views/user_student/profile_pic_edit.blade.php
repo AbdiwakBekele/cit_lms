@@ -46,7 +46,6 @@
         </div>
 
         <br>
-
         <button class="btn btn-warning" type="submit"
             style="color: black; font-size: 18px;font-family: Poppins, sans-serif;">Update Info</button>
         <hr>

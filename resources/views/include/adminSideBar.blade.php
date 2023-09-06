@@ -68,6 +68,14 @@
         </li>
         @endcan
 
+        <!-- Student Managment -->
+        <li class="{{ Request::is('scholarship*') ? 'mm-active' : ''}} ">
+            <a href="/scholarship">
+                <div class="parent-icon"><i class='fa fa-trophy'></i>
+                </div>
+                <div class="menu-title">Scholarships</div>
+            </a>
+        </li>
 
         @can('manage users')
         <!-- User Managment -->

@@ -11,6 +11,7 @@ use App\Models\CourseCategory;
 use App\Models\Classroom;
 use App\Models\Resource;
 use App\Models\Quiz;
+use App\Models\Scholarship;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -56,6 +57,10 @@ class Course extends Model
 
     public function courseUser(){
         return $this->belongsTo(User::class);
+    }
+
+    public function scholarships(){
+        return $this->hasMany(Scholarship::class);
     }
 
 }
