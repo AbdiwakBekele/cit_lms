@@ -24,8 +24,8 @@ use App\Http\Controllers\StudentDocController;
 use App\Http\Controllers\StudentRegistrationController;
 use App\Http\Controllers\BatchContentController;
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\ScholarshipController;
 use App\Models\Student;
-
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
@@ -45,7 +45,7 @@ use Carbon\Carbon;
 //     return 'Student created successfully! with thier email address and password = "password" ';
 // });
 
-// Generate Id for students
+
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +61,11 @@ Route::post('/student_register', [StudentAuthManager::class, 'registrationPost']
 Route::get('/student_logout', [StudentAuthManager::class, 'logout']);
 Route::get('/forget_password', [StudentAuthManager::class, 'forgetPassword']);
 Route::post('/reset_password', [StudentAuthManager::class, 'resetPassword']);
+
+
+// Scholarship Apply
+Route::resource('scholarship', ScholarshipController::class);
+
 
 /*
 |--------------------------------------------------------------------------
