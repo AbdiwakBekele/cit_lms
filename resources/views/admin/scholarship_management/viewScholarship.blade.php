@@ -9,11 +9,14 @@
         style="width: 40px;background: #D9D9D9;--bs-primary: #D9D9D9;--bs-primary-rgb: 217,217,217;"></div>
 
     <div class="d-flex flex-column" id="content-wrapper">
-        <div id="content">
+        <div class="container" id="content">
             <div class="container-fluid">
                 <h3 class="mb-4" style="margin: 26px;color: #16416E;font-size: 35px;font-weight: bold;">Scholarship
                     Applicant Details</h3>
             </div>
+            <hr>
+            <p class="mx-4">Application Date: {{$scholarship->created_at}}</p>
+            <hr>
 
             <div class="container">
 
