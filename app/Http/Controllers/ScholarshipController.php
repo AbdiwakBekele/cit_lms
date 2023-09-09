@@ -36,8 +36,8 @@ class ScholarshipController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'resume.*'=>'mimes:pdf', 
-            'financial.*'=>'mimes:pdf'
+            'resume'=>'mimes:pdf', 
+            'financial'=>'mimes:pdf'
         ]);
         
         $data_scholar = $request->validate([
