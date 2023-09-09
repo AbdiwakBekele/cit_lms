@@ -10,6 +10,7 @@ use App\Models\Scholarship;
 use File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response as FileResponse;
 
 class ScholarshipController extends Controller
 {
@@ -90,6 +91,22 @@ class ScholarshipController extends Controller
     public function show(string $id){
         $scholarship = Scholarship::find($id);
         return view('admin.scholarship_management.viewScholarship', compact('scholarship'));
+    }
+
+    public function viewScholarshipDoc($filename){
+        $filePath = public_path('scholarship_applications/' . $filename);
+
+        if (file_exists($filePath)) {
+            $fileContents = file_get_contents($filePath);
+
+            $headers = [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="' . $filename . '"',
+                'Content-Length' => strlen($fileContents),
+            ];
+
+            return FileResponse::make($fileContents, 200, $headers);
+        }
     }
 
     /**

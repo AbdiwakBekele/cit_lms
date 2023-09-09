@@ -65,6 +65,7 @@ Route::post('/reset_password', [StudentAuthManager::class, 'resetPassword']);
 
 // Scholarship Apply
 Route::resource('scholarship', ScholarshipController::class);
+Route::get('/viewScholarshipDoc/{fileName}', [ScholarshipController::class, 'viewScholarshipDoc']);
 
 
 /*

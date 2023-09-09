@@ -23,7 +23,7 @@
                 <div class="row mx-5">
                     @if(!empty($scholarship->resume))
                     <div class="col">
-                        <a href="#">
+                        <a href="/viewScholarshipDoc/{{$scholarship->resume}}">
                             <i class="fa fa-file-text" style="font-size: 30px" aria-hidden="true"></i>
                             <br>
                             Download Resume
@@ -34,7 +34,7 @@
 
                     @if(!empty($scholarship->financial))
                     <div class="col">
-                        <a href="#">
+                        <a href="/viewScholarshipDoc/{{$scholarship->financial}}">
                             <i class="fa fa-file-text" style="font-size: 30px" aria-hidden="true"></i>
                             <br>
                             Download Financial Doc
