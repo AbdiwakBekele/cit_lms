@@ -64,9 +64,8 @@ Route::post('/reset_password', [StudentAuthManager::class, 'resetPassword']);
 
 
 // Scholarship Apply
-Route::resource('scholarship', ScholarshipController::class);
-Route::get('/viewScholarshipDoc/{fileName}', [ScholarshipController::class, 'viewScholarshipDoc']);
-
+Route::get('/scholarship/create', [ScholarshipController::class, 'create']);
+Route::post('/scholarship', [ScholarshipController::class, 'store']);
 
 /*
 |--------------------------------------------------------------------------
@@ -248,5 +247,9 @@ Route::group(['middleware'=> ['auth']], function(){
     // Resource Management
     Route::resource('resource', ResourceController::class);
     Route::get('resource/{id}/download', [ResourceController::class, 'getDownload']);
+
+    // Scholarship Management
+    Route::resource('scholarship', ScholarshipController::class)->except(['create', 'store']);
+    Route::get('/viewScholarshipDoc/{fileName}', [ScholarshipController::class, 'viewScholarshipDoc']);
 
 });
