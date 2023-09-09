@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Course;
 use App\Models\Scholarship;
+use File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ScholarshipController extends Controller
 {
@@ -108,8 +111,28 @@ class ScholarshipController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
-    {
-        //
+    public function destroy(string $id, Request $request ){
+        $this->validate($request, [
+            'password'=>'required'
+        ]);
+
+        $user = Auth::user();
+        if(Hash::check($request->password, $user->password)){
+            $scholarship = Scholarship::find($id);
+            File::delete(public_path('scholarship_applications/'.$scholarship->resume));
+            File::delete(public_path('scholarship_applications/'.$scholarship->financial));
+            $scholarship->delete();
+
+            if($scholarship){
+                return back()
+                ->with('success','You have successfully delete a scholarship info.');
+            }else{
+                return back()
+                ->with('error','Error deleting scholarship.');
+            }
+        }else{
+            return back()
+                ->with('error','Incorrect Password');
+        }
     }
 }
