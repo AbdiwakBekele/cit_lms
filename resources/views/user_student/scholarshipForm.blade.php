@@ -306,7 +306,7 @@
                         <div class="form-input">
                             <label for="resume">Upload Resume</label> <i>(pdf format)</i>
                             <input type="file" class="form-control" id="resume" placeholder="Upload Resume"
-                                name="resume" required>
+                                name="resume">
                             @error('resume')
                             <span class="error-message">{{ $message }}</span>
                             @enderror
@@ -316,7 +316,7 @@
                         <div class="form-input">
                             <label for="financial">Financial Information</label> <i>(pdf format)</i>
                             <input type="file" class="form-control" id="financial" placeholder="Upload financial info"
-                                name="financial" required>
+                                name="financial">
                             @error('financial')
                             <span class="error-message">{{ $message }}</span>
                             @enderror

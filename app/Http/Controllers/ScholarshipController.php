@@ -32,10 +32,7 @@ class ScholarshipController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'resume'=>'required',
             'resume.*'=>'mimes:pdf', 
-
-            'financial'=>'required',
             'financial.*'=>'mimes:pdf'
         ]);
         
@@ -57,17 +54,22 @@ class ScholarshipController extends Controller
             'essay'=>'required'
         ]);
 
-        // Resume Upload
-        $temp_resume = $request->file('resume');
-        $resume = pathinfo($temp_resume->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_resume->getClientOriginalExtension();
-        $temp_resume->move('scholarship_applications', $resume);
-        $data_scholar['resume'] = $resume;
+        if($request->hasFile('resume')){
+            // Resume Upload
+            $temp_resume = $request->file('resume');
+            $resume = pathinfo($temp_resume->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_resume->getClientOriginalExtension();
+            $temp_resume->move('scholarship_applications', $resume);
+            $data_scholar['resume'] = $resume;
+        }
 
-        // Financial Upload
-        $temp_financial = $request->file('financial');
-        $financial = pathinfo($temp_financial->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_financial->getClientOriginalExtension();
-        $temp_financial->move('scholarship_applications', $financial);
-        $data_scholar['financial'] = $financial;
+        if($request->hasFile('financial')){
+            // Financial Upload
+            $temp_financial = $request->file('financial');
+            $financial = pathinfo($temp_financial->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_financial->getClientOriginalExtension();
+            $temp_financial->move('scholarship_applications', $financial);
+            $data_scholar['financial'] = $financial;
+        }
+
 
         $scholarship = Scholarship::create($data_scholar);
 
