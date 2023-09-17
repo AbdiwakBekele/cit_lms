@@ -90,6 +90,25 @@
                                 <!-- bar links -->
                                 <ul class="font-lato list-unstyled bar-links">
                                     <li>
+                                        <a href="https://www.edu-cti.com">
+                                            <img src="{{ asset('assets/admin/images/wAsset 3@300x.png') }}" width="35px"
+                                                alt="logo icon">
+                                            <strong
+                                                style="font-size: 8px; font-family: 'Times New Roman', Times, serif;"
+                                                class="text-white">
+                                                <span class="h4 text-white"
+                                                    style="font-family: 'Times New Roman', Times, serif;">
+                                                    CALIFORNIA
+                                                </span>
+                                                <br> TRAINING INSTITUTE
+
+                                            </strong>
+
+                                        </a>
+
+                                    </li>
+
+                                    <li>
                                         <a href="tel:+251929737373">
 
                                             <strong class="dt element-block text-capitalize hd-phone text-white">Call
