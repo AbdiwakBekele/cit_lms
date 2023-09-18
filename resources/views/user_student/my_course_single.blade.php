@@ -181,8 +181,17 @@ td {
                                         <i class="fas fa-chevron-circle-right accOpenerIcn"></i>
                                         {{$content->content_name}}
                                     </span>
+                                    @php
+                                    $progress = $classroom->progress->where('content_id', $content->id)->first();
+                                    @endphp
 
+                                    @if($progress && $progress->has_taken == 1)
+                                    <strong class="text-success"> Score: {{$progress->score}} </strong>
+
+                                    @endif
                                 </a>
+
+
                             </h3>
                         </div>
                         <!-- collapseOne -->

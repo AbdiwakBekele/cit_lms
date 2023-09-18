@@ -101,7 +101,6 @@
                                     </div>
                                     @php
                                     $progress = $classroom->progress->where('content_id', $content->id)->first();
-
                                     @endphp
 
                                     @if($progress && $progress->has_taken == 1)
