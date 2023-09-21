@@ -186,7 +186,8 @@ td {
                                     @endphp
 
                                     @if($progress && $progress->has_taken == 1)
-                                    <strong class="text-success"> Score: {{$progress->score}} </strong>
+                                    <strong class="text-success"> Score: {{$progress->score}} /
+                                        {{$content->quizzes->sum('points')}} </strong>
 
                                     @endif
                                 </a>
