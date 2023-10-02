@@ -79,11 +79,13 @@ td {
         </ol>
     </div>
 </nav>
+@if($course->id == 20)
 <div style="text-align: center;">
     <img src="{{ asset('images/tele_1.png') }}" width="300px" alt="">
 
     <img src="{{ asset('images/tele_2.png') }}" width="400px" alt="">
 </div>
+@endif
 <!-- two columns -->
 <div id="two-columns" class="container">
     <div class="row">
