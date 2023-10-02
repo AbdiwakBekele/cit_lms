@@ -12,6 +12,7 @@ use App\Models\Quiz;
 use App\Models\QuizOption;
 use App\Models\Match_Row;
 use App\Models\Match_Column;
+use File;
 
 class QuizController extends Controller
 {
@@ -58,37 +59,56 @@ class QuizController extends Controller
             'course_id'=>'required',
             'content_id'=>'required',
             'question'=>'required',
+            'question_image'=> 'image|mimes:png,jpg,jpeg,webp',
             'points'=>'required',
             'options' => 'required|array|min:2|max:5',
             'options.*' => 'required',
+            'options_img.*' => 'image|mimes:jpeg,png,jpg,webp',
             'answer'=>'required'
         ]);
 
-        $course_id =  $request->course_id;
-        $content_id =  $request->content_id;
-        $question =  $request->question;
-        $points =  $request->points;
-        $answer = $request->options[($request->answer - 1)];
-        $type = '1'; // Quiz type 1 -  Multiple Choice
+        // $course_id =  $request->course_id;
+        // $content_id =  $request->content_id;
+        // $question =  $request->question;
+        // $points =  $request->points;
+        // $answer = $request->options[($request->answer - 1)];
+        // $type = '1'; // Quiz type 1 -  Multiple Choice
 
-        $quiz = new Quiz([
-            'course_id'=> $course_id,
-            'content_id'=> $content_id, 
-            'question'=>$question,
-            'answer'=> $answer,
-            'points'=>$points,
-            'type'=> $type
-        ]);
+        $quiz_data = [
+            'course_id'=> $request->course_id,
+            'content_id'=> $request->content_id, 
+            'question'=>$request->question,
+            'answer'=> $request->options[($request->answer - 1)],
+            'points'=>$request->points,
+            'type'=> '1', // Quiz type 1 - Multiple Choice
+        ];
+
+        // If Quiz Image is Available
+        if($request->hasFile('question_image')){
+            $temp_img = $request->file('question_image');
+            $question_image = pathinfo($temp_img->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_img->getClientOriginalExtension();
+            $temp_img->move('question_images', $question_image);
+            $quiz_data['question_image'] = $question_image;
+        }
+
+        $quiz = new Quiz($quiz_data);
 
         $quiz->save();
         if (!empty($quiz->id)) {
             // Quiz Option Insert
 
-            foreach ($request->options as $option) {
-                QuizOption::create([
-                    'quiz_id' => $quiz->id,
-                    'option' => $option,
-                ]);
+            foreach ($request->input('options') as $key => $optionText) {
+                $option = new QuizOption;
+                $option->quiz_id = $quiz->id;
+                $option->option = $optionText;
+
+                if ($request->hasFile('options_img.' . $key)) {
+                    $temp_img_option = $request->file('options_img.' . $key);
+                    $option_image = pathinfo($temp_img_option->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_img_option->getClientOriginalExtension();
+                    $temp_img_option->move('question_images', $option_image);
+                    $option->option_image = $option_image;
+                }
+                $option->save(); 
             }
 
             return back()
@@ -230,7 +250,18 @@ class QuizController extends Controller
     }
 
     public function destroy(string $id){
-        $quiz = Quiz::find($id)->delete();
+        $quiz = Quiz::find($id);
+        $options = $quiz->quiz_options;
+
+        if($quiz->question_image != null){
+            File::delete(public_path('question_images/'.$quiz->question_image));
+        }
+
+        foreach($options as $option){
+            File::delete(public_path('question_images/'.$option->option_image));
+        }
+
+        $quiz->delete();
 
         if($quiz){
             return back()

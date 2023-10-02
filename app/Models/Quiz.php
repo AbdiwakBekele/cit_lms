@@ -22,7 +22,8 @@ class Quiz extends Model
         'question',
         'answer',
         'points',
-        'type'
+        'type',
+        'question_image'
     ];
 
     public function quiz_options(){

@@ -134,6 +134,9 @@
 
                     @foreach($questions as $question)
                     <div class="question" style="display:none;">
+                        @if($question->question_image != null)
+                        <img src="{{ asset('question_images/'.$question->question_image) }}" width="50%" alt="">
+                        @endif
                         <div class="py-2 h5"><b>{!! $question->question !!}</b></div>
 
                         <div class="card-body">
@@ -148,6 +151,10 @@
                                 <label class="form-check-label" for="{{ $option->id }}">
                                     {{ $option->option}}
                                 </label>
+
+                                @if( $option->option_image != null)
+                                <img src="{{ asset('question_images/'.$option->option_image) }}" width="20%" alt="">
+                                @endif
                             </div>
                             @endforeach
 

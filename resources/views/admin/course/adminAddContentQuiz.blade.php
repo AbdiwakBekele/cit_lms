@@ -102,12 +102,18 @@ th {
 
                 <!-- Question -->
                 <div class="mb-3 mt-3">
-                    <label class="form-label" for="points"> Points </label>
+                    <label for="points"> Points </label>
                     <input class="form-control w-25" type="number" name="points" id="points" value="1" min="1">
+                    <!-- Quiz Image -->
+
+                    <label class="form-label" for="question_image"> Include Image </label>
+                    <input type="file" class="form-control w-25" name="question_image" id="question_image">
+                    @error('question_image')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <hr>
+
                     <label for="question" class="form-label"> <strong>Question</strong> </label>
-
-
-
                     <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
                     <div class="my-3 bg-white px-3 py-1 rounded">
@@ -161,8 +167,7 @@ th {
                 </div>
 
                 <span style="font-style: italic" class="text-secondary h6"> <span class="text-danger">*</span> Check the
-                    correct
-                    answer as well</span>
+                    correct answer as well</span>
 
                 <table>
                     <tbody id="answer_fields">
@@ -177,6 +182,7 @@ th {
                                 <div class="m-3">
                                     <textarea class="form-control" name="options[]" cols="50" rows="3"
                                         required></textarea>
+                                    <input type="file" class="form-control" name="options_img[]">
                                 </div>
                             </td>
                         </tr>
@@ -213,7 +219,7 @@ function addRow() {
     labelCell.innerHTML = ' <input type="radio" name="answer" value="' + index +
         '" required > <label for="answer_1" class="form-label"><strong> Option ' + index + '</strong></label>';
     optionCell.innerHTML =
-        '<div class="m-3"><textarea class="form-control" name="options[]" cols="50" rows="3" required></textarea></div>';
+        '<div class="m-3"><textarea class="form-control" name="options[]" cols="50" rows="3" required></textarea> <input type="file" class="form-control" name="options_img[]"> </div>';
     index++;
 }
 

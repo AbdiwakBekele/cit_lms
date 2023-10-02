@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('answer')->nullable();
             $table->text('points');
             $table->text('type');
+            $table->string('question_image')->nullable();
 
             $table->foreign('course_id')
                 ->references('id')
