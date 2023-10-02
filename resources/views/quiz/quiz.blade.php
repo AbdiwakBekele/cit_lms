@@ -151,6 +151,7 @@
                                 <label class="form-check-label" for="{{ $option->id }}">
                                     {{ $option->option}}
                                 </label>
+                                <br>
 
                                 @if( $option->option_image != null)
                                 <img src="{{ asset('question_images/'.$option->option_image) }}" width="20%" alt="">
