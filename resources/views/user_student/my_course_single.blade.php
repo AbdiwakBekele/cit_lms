@@ -79,6 +79,11 @@ td {
         </ol>
     </div>
 </nav>
+<div style="text-align: center;">
+    <img src="{{ asset('images/tele_1.png') }}" width="300px" alt="">
+
+    <img src="{{ asset('images/tele_2.png') }}" width="400px" alt="">
+</div>
 <!-- two columns -->
 <div id="two-columns" class="container">
     <div class="row">
@@ -315,12 +320,16 @@ td {
                             </div>
                             <div class="description-wrap">
                                 <h4>{{$popular_course->course_name}}</h4>
+                                @if($popular_course->id != 20)
+
                                 @if($popular_course->course_price != '0')
                                 <strong
                                     class="price text-primary element-block font-lato text-uppercase">{{$popular_course->course_price}}
                                     ETB</strong>
                                 @else
                                 <strong class="price text-success element-block font-lato text-uppercase">Free</strong>
+
+                                @endif
 
                                 @endif
 
@@ -345,12 +354,16 @@ td {
                             </div>
                             <div class="description-wrap">
                                 <h4>{{$related_course->course_name}}</h4>
+                                @if($related_course->id != 20)
+
                                 @if($related_course->course_price != '0')
                                 <strong
                                     class="price text-primary element-block font-lato text-uppercase">{{$related_course->course_price}}
                                     ETB</strong>
                                 @else
                                 <strong class="price text-success element-block font-lato text-uppercase">Free</strong>
+                                @endif
+
                                 @endif
 
                             </div>

@@ -25,9 +25,12 @@
                             </div>
                             <div class="description-wrap">
                                 <h4>{{$course->course_name}}</h4>
+                                @if($course->id != 20)
                                 <strong
                                     class="price text-primary element-block font-lato text-uppercase">{{$course->course_price}}
                                     ETB</strong>
+
+                                @endif
                             </div>
                         </a>
                         </li>

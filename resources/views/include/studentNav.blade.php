@@ -78,7 +78,7 @@
                                 <li class="grow"><a href="https://www.edu-cti.com/" style="font-size: 1.2em;">Home</a>
                                 </li>
                                 <li class="grow"><a href="/" style="font-size: 1.2em;">My Learning</a></li>
-                                <li><a href="/course_list" style="font-size: 1.2em;">Courses</a></li>
+                                <!-- <li><a href="/course_list" style="font-size: 1.2em;">Courses</a></li> -->
                             </ul>
                         </div>
 
