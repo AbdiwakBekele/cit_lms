@@ -74,7 +74,7 @@ td {
         <!-- breadcrumb -->
         <ol class="breadcrumb">
             <li><a href="/home">Home</a></li>
-            <li><a href="/course_list">Course</a></li>
+            <li><a href="/">My Learning</a></li>
             <li class="active">{{$course->course_name}}</li>
         </ol>
     </div>
