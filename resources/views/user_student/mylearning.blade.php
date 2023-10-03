@@ -25,6 +25,8 @@
     <img src="{{ asset('images/tele_1.png') }}" width="300px" alt="">
 
     <img src="{{ asset('images/tele_2.png') }}" width="400px" alt="">
+
+    <img src="{{ asset('images/telebirr.svg') }}" width="250px" alt="">
 </div>
 <!-- two columns -->
 <div id="two-columns" class="container">
