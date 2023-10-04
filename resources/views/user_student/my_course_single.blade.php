@@ -312,9 +312,8 @@ td {
             </section>
 
             <!-- widget popular posts -->
-            <section class="widget widget_popular_posts">
+            <!-- <section class="widget widget_popular_posts">
                 <h3>Popular Courses</h3>
-                <!-- widget cources list -->
                 <ul class="widget-cources-list list-unstyled">
                     @foreach($popular_courses as $popular_course)
                     <li>
@@ -342,12 +341,11 @@ td {
                     </li>
                     @endforeach
                 </ul>
-            </section>
+            </section> -->
 
             <!-- Related Courses -->
-            <section class="widget widget_popular_posts">
+            <!-- <section class="widget widget_popular_posts">
                 <h3>Related Courses</h3>
-                <!-- widget cources list -->
                 <ul class="widget-cources-list list-unstyled">
                     @foreach($course->courseCategory->courses as $related_course)
                     @if($related_course->id !== $course->id)
@@ -377,7 +375,7 @@ td {
 
                     @endforeach
                 </ul>
-            </section>
+            </section> -->
 
 
         </aside>

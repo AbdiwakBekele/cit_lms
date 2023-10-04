@@ -11,10 +11,9 @@
             </div>
 
 
-            <div class="col-xs-12 col-sm-6 col-md-3 col hidden-xs">
+            <!-- <div class="col-xs-12 col-sm-6 col-md-3 col hidden-xs">
                 <h3>Popular Courses</h3>
 
-                <!-- widget cources list -->
                 <ul class="widget-cources-list list-unstyled">
                     @foreach($courses as $course)
                     @if($loop->iteration <= 3) <li>
@@ -40,7 +39,8 @@
                         @endforeach
 
                 </ul>
-            </div>
+            </div> -->
+
             <nav class="col-xs-12 col-sm-6 col-md-3 col">
                 <h3>Quick Links</h3>
                 <!-- fooer navigation -->
