@@ -127,14 +127,14 @@
                 </form>
             </section>
             <!-- widget categories -->
-            <section class="widget widget_categories">
+            <!-- <section class="widget widget_categories">
                 <h3>Course Categories</h3>
                 <ul class="list-unstyled text-capitalize font-lato">
                     @foreach( $course_categories as $category )
                     <li class="cat-item cat-item-1"><a href="#">{{$category->category_name}}</a></li>
                     @endforeach
                 </ul>
-            </section>
+            </section> -->
         </aside>
     </div>
 </div>

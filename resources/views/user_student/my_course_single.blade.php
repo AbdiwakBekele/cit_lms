@@ -287,7 +287,7 @@ td {
         <!-- sidebar -->
         <aside class="col-xs-12 col-md-3" id="sidebar">
             <!-- widget categories -->
-            <section class="widget widget_categories">
+            <!-- <section class="widget widget_categories">
                 <h3>Course Categories</h3>
                 <ul class="list-unstyled text-capitalize font-lato">
 
@@ -297,9 +297,9 @@ td {
                     @endforeach
 
                 </ul>
-            </section>
+            </section> -->
             <!-- widget intro -->
-            <section class="widget widget_intro">
+            <!-- <section class="widget widget_intro">
                 <h3>Course Intro</h3>
                 <div class="aligncenter overlay">
 
@@ -309,7 +309,7 @@ td {
                     <img src="/course_resources/{{$course->course_image}}"
                         style="object-fit:cover; width: 300px; height: 175px" alt="Course">
                 </div>
-            </section>
+            </section> -->
 
             <!-- widget popular posts -->
             <!-- <section class="widget widget_popular_posts">
