@@ -63,7 +63,8 @@
                         </div>
                         <h3 class="post-heading">
                             <a href="/my_course_single/{{$course->id}}/{{$classroom->id}}">{{$course->course_name}}
-                                ({{$batch->shift}})</a>
+                                <!-- ({{$batch->shift}}) -->
+                            </a>
                         </h3>
 
                         @if(!empty($user->fullname))
