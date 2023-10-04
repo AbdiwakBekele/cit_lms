@@ -131,7 +131,7 @@ td {
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-3">
-                    <div class="rating-holder">
+                    <!-- <div class="rating-holder">
                         <ul class="star-rating list-unstyled justify-end">
                             <li><span class="fas fa-star"><span class="sr-only">star</span></span></li>
                             <li><span class="fas fa-star"><span class="sr-only">star</span></span></li>
@@ -140,7 +140,7 @@ td {
                             <li><span class="fas fa-star"><span class="sr-only">star</span></span></li>
                         </ul>
                         <strong class="element-block text-right subtitle fw-normal">(2 Reviews)</strong>
-                    </div>
+                    </div> -->
                 </div>
             </header>
 
