@@ -35,10 +35,9 @@
             @endif
 
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-hover" id="datatablesSimple">
                     <thead>
                         <tr>
-                            <th style="color: #16416E;font-weight: bold;">No</th>
                             <th style="color: #16416E;font-weight: bold;">ID</th>
                             <th style="color: #16416E;font-weight: bold;">Full Name</th>
                             <th style="color: #16416E;font-weight: bold;">Date of Birth</th>
@@ -49,8 +48,7 @@
                     </thead>
                     <tbody>
 
-                        @foreach($students as $index => $student)
-                        <td>{{$index + 1}}</td>
+                        @foreach($students as $student)
                         <td> CTI/{{$student->identification}} </td>
                         <td>{{$student->fullname}}</td>
                         <td>{{$student->age}}</td>

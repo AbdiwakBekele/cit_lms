@@ -29,6 +29,10 @@
         <link rel="stylesheet" href=" {{ asset('assets/admin/css/header-colors.css') }} " />
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- Table Data -->
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+
         <title>@yield('title')</title>
         @yield('styles')
     </head>
@@ -57,7 +61,6 @@
             @include('include.adminFooter')
         </div>
 
-
         <!--end switcher-->
         <!-- Bootstrap JS -->
         <script src="{{ asset('assets/admin/js/bootstrap.bundle.min.js') }}"></script>
@@ -72,6 +75,12 @@
         <script src="{{ asset('assets/admin/js/index.js') }} "></script>
         <!--app JS-->
         <script src="{{ asset('assets/admin/js/app.js') }}"></script>
+
+        <!-- Table Data -->
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+            crossorigin="anonymous"></script>
+        <script src=" {{ asset('assets/js/datatables-simple-demo.js') }} "></script>
+
         <script>
         new PerfectScrollbar(".app-container")
         </script>

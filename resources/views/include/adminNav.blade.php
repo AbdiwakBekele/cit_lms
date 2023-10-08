@@ -4,21 +4,13 @@
             <div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
             </div>
 
-            <div class="position-relative search-bar d-lg-block d-none" data-bs-toggle="modal"
-                data-bs-target="#SearchModal">
-                <input class="form-control px-5" disabled type="search" placeholder="Search">
-                <span class="position-absolute top-50 search-show ms-3 translate-middle-y start-0 top-50 fs-5"><i
-                        class='bx bx-search'></i></span>
-            </div>
+
 
 
             <div class="top-menu ms-auto">
                 <ul class="navbar-nav align-items-center gap-1">
-                    <li class="nav-item mobile-search-icon d-flex d-lg-none" data-bs-toggle="modal"
-                        data-bs-target="#SearchModal">
-                        <a class="nav-link" href="avascript:;"><i class='bx bx-search'></i>
-                        </a>
-                    </li>
+
+                    <!-- Language Drop Down -->
                     <li class="nav-item dropdown dropdown-laungauge d-none d-sm-flex">
                         <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="avascript:;"
                             data-bs-toggle="dropdown"><img src="{{ asset('assets/admin/images/county/USA Flag.png') }}"

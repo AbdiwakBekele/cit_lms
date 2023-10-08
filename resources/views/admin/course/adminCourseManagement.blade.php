@@ -41,7 +41,7 @@
                 </div>
                 @endif
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="datatablesSimple">
                         <thead>
                             <tr>
                                 <th style="color: #16416E;font-weight: bold;">ID</th>
