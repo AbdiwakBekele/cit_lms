@@ -28,10 +28,9 @@
             @endif
 
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-hover" id="datatablesSimple">
                     <thead>
                         <tr>
-                            <th style="color: #16416E;font-weight: bold;">No</th>
                             <th style="color: #16416E;font-weight: bold;">Batch ID</th>
                             <th style="color: #16416E;font-weight: bold;">Batch Name</th>
                             <th style="color: #16416E;font-weight: bold;">Course Name</th>
@@ -44,9 +43,8 @@
                     </thead>
                     <tbody>
 
-                        @foreach($batches as $index => $batch)
+                        @foreach($batches as $batch)
                         <tr>
-                            <td>{{$index + 1}}</td>
                             <td>BT/{{$batch->id}}/23</td>
                             <td>{{$batch->batch_name}}</td>
                             <td>{{$batch->course->course_name}}</td>

@@ -32,10 +32,9 @@
                     href="user/create">Add New User</a>
 
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover" id="datatablesSimple">
                         <thead>
                             <tr>
-                                <th style="color: #16416E;font-weight: bold;">ID</th>
                                 <th style="color: #16416E;font-weight: bold;">User Name</th>
                                 <th style="color: #16416E;font-weight: bold;">Email</th>
                                 <th style="color: #16416E;font-weight: bold;">Role</th>
@@ -48,7 +47,6 @@
                             @foreach($users as $user)
 
                             <tr>
-                                <td>{{$loop->iteration}}</td>
                                 <td>{{ $user->fullname }}</td>
                                 <td>{{ $user->email }}</td>
 

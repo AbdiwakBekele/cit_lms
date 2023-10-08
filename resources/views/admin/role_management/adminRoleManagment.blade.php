@@ -32,10 +32,9 @@
                     href="role/create">Add New Role</a>
 
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th style="color: #16416E;font-weight: bold;">ID</th>
                                 <th style="color: #16416E;font-weight: bold;">Role Name</th>
                                 <th style="color: #16416E;font-weight: bold;">Action</th>
                             </tr>
@@ -47,7 +46,6 @@
                             @foreach($roles as $role)
 
                             <tr>
-                                <td>{{ $loop->index + 1 }}</td>
                                 <td>{{$role->name}}</td>
                                 <td>
 
@@ -97,10 +95,9 @@
                     href="permission/create">Add New Permission</a>
 
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover" id="datatablesSimple">
                         <thead>
                             <tr>
-                                <th style="color: #16416E;font-weight: bold;">ID</th>
                                 <th style="color: #16416E;font-weight: bold;">Permission Name</th>
                                 <th style="color: #16416E;font-weight: bold;">Action</th>
                             </tr>
@@ -109,7 +106,6 @@
 
                             @foreach($permissions as $permission)
                             <tr>
-                                <td>{{ $loop->index + 1 }}</td>
                                 <td>{{$permission->name}}</td>
                                 <td>
                                     <a href="/permission/{{$permission->id}}"><i class="fa fa-eye mx-1"

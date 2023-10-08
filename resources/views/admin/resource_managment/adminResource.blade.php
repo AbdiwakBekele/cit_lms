@@ -27,10 +27,9 @@
             @endif
 
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-hover" id="datatablesSimple">
                     <thead>
                         <tr>
-                            <th style="color: #16416E;font-weight: bold;">No</th>
                             <th style="color: #16416E;font-weight: bold;">Resource Name</th>
                             <th style="color: #16416E;font-weight: bold;">Resource Course</th>
                             <th style="color: #16416E;font-weight: bold;">Action</th>
@@ -38,11 +37,8 @@
                     </thead>
                     <tbody>
 
-                        @foreach($resources as $index => $resource)
+                        @foreach($resources as $resource)
                         <tr>
-                            <td>
-                                {{$index + 1}}
-                            </td>
 
                             <td>
                                 {{$resource->path}}

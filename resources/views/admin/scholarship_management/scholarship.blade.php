@@ -18,25 +18,25 @@
             <div class="container">
 
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="datatablesSimple">
                         <thead>
                             <tr>
-                                <th style="color: #16416E;font-weight: bold;">No</th>
                                 <th style="color: #16416E;font-weight: bold;">Applicant Name</th>
                                 <th style="color: #16416E;font-weight: bold;">Email</th>
                                 <th style="color: #16416E;font-weight: bold;">Phone</th>
+                                <th style="color: #16416E;font-weight: bold;">Date</th>
                                 <th style="color: #16416E;font-weight: bold;">Status</th>
                                 <th style="color: #16416E;font-weight: bold;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            @foreach($scholarships as $index => $scholarship)
+                            @foreach($scholarships as $scholarship)
                             <tr>
-                                <td>{{++$index}}</td>
                                 <td> {{$scholarship->fullname}} </td>
                                 <td> {{$scholarship->email}} </td>
                                 <td> {{$scholarship->phone}}</td>
+                                <td> {{$scholarship->created_at}}</td>
                                 @if(!empty($scholarship->status))
                                 <td>{{$scholarship->status}}</td>
                                 @else
