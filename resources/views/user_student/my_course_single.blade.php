@@ -195,8 +195,15 @@ td {
                                     @endphp
 
                                     @if($progress && $progress->has_taken == 1)
-                                    <strong class="text-success"> Score: {{$progress->score}} /
-                                        {{$content->quizzes->sum('points')}} </strong>
+                                    <strong>
+                                        @if($progress->score != null)
+                                        <span class="text-success"> Score: {{$progress->score}} /
+                                            {{$content->quizzes->sum('points')}}</span>
+
+                                        @else
+                                        <span>Exam Taken | Not Reviewed</span>
+                                        @endif
+                                    </strong>
 
                                     @endif
                                 </a>

@@ -376,15 +376,14 @@
                 </div>
             </div>
 
-
-
             <div class="alert alert-primary">
                 <strong>Enrolling Course</strong>
 
                 @foreach($student->classrooms as $classroom)
                 <div class="alert alert-light">
                     <strong>{{$classroom->course->course_name}} </strong>
-                    <span> | {{$classroom->batch->shift}} shift</span>
+                    <span> - {{$classroom->batch->batch_name}} shift</span>
+                    <span> - {{$classroom->batch->shift}} shift</span>
 
                 </div>
 
@@ -423,7 +422,7 @@ function fetchBatches(courseId) {
             data.forEach(batch => {
                 const option = document.createElement('option');
                 option.value = batch.id;
-                option.innerText = batch.shift;
+                option.innerText = batch.batch_name;
                 batchSelect.appendChild(option);
             });
         });

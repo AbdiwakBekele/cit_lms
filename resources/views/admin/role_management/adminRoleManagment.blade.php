@@ -41,8 +41,6 @@
                         </thead>
                         <tbody>
 
-
-
                             @foreach($roles as $role)
 
                             <tr>

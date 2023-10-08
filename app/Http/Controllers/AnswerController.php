@@ -25,13 +25,12 @@ class AnswerController extends Controller
     public function quizAnswerSubmit(Request $request, $classroom_id, $quiz_id ){
         $answer = $request->input('answer');
         
-        $user_answer = new Answer([
-            'quiz_id'=>$quiz_id,
-            'classroom_id'=>$classroom_id,
-            'answer'=>$answer
-        ]);
+        $user_answer = Answer::updateOrCreate(
+            ['classroom_id' => $classroom_id, 'quiz_id' => $quiz_id],
+            ['answer' => $answer]
+        );
         
-        if($user_answer->save()){
+        if($user_answer){
             return response()->json(['message' => 'Question Submitted Successfully']);
         }else{
             return response()->json(['message' => 'Error Submitting Answers']);
@@ -42,14 +41,22 @@ class AnswerController extends Controller
         
             $matchAnswersData = $request->input('match_answers');
 
-            $user_answer = new Answer([
-                'quiz_id'=>$quiz_id,
-                'classroom_id'=>$classroom_id
-            ]);
+            // $user_answer = new Answer([
+            //     'quiz_id'=>$quiz_id,
+            //     'classroom_id'=>$classroom_id
+            // ]);
 
-            if($user_answer->save()){
+            $user_answer = Answer::updateOrCreate(
+                ['classroom_id' => $classroom_id, 'quiz_id' => $quiz_id],
+                []
+            );
+
+            if($user_answer){
                 
                 $answer_id =  $user_answer->id;
+
+                // Delete existing match answers for this answer
+                Match_Answer::where('answer_id', $answer_id)->delete();
 
                 foreach ($matchAnswersData as $answerData) {
                     $rowId = $answerData['row_id'];
@@ -68,11 +75,6 @@ class AnswerController extends Controller
                 return response()->json(['message' => 'Error Sending Message']);
 
             }
-
-
-            
-            
-        
     }
 
     public function store(Request $request): RedirectResponse
