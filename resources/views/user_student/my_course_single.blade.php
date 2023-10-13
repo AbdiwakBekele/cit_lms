@@ -198,10 +198,11 @@ td {
                                     <strong>
                                         @if($progress->score != null)
                                         <span class="text-success"> Score: {{$progress->score}} /
-                                            {{$content->quizzes->sum('points')}}</span>
+                                            {{$content->quizzes->sum('points')}}
+                                        </span>
 
                                         @else
-                                        <span>Exam Taken | Not Reviewed</span>
+                                        <span>Exam Taken</span>
                                         @endif
                                     </strong>
 
@@ -250,8 +251,21 @@ td {
                                 <hr>
                                 @endforeach
 
+                                @if($progress && $progress->has_taken == 1)
+                                @if($progress->score != null)
+                                <a class="btn btn-warning" style="color:black"
+                                    href="/my_quiz_result/{{$classroom->id}}/{{$content->id}}">View Result</a>
+
+                                @else
+                                <span>Exam Taken</span>
+                                @endif
+
+                                @else
                                 <a href="#" id="" class="btn btn-warning m-3 openModal" style="color:black"> Take Quiz
                                 </a>
+                                @endif
+
+
 
                                 <!-- Modal Quiz Instruction -->
                                 <div id="myModal" class="modal">

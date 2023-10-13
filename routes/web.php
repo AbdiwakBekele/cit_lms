@@ -98,6 +98,8 @@ Route::group(['middleware' => ['student']], function () {
     
     Route::get('/my_course_single/{course_id}/{classroom_id}', [UserStudentController::class, 'myCourseSingle']);
 
+    Route::get('/my_quiz_result/{classroom_id}/{content_id}', [UserStudentController::class, 'myQuizResult']);
+
     Route::get('/enroll_course/{id}', [UserStudentController::class, 'enrollCourse']);
 
     Route::post('/enroll_now', [UserStudentController::class, 'enrollNow']);

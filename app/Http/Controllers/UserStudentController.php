@@ -407,6 +407,22 @@ class UserStudentController extends Controller{
         }
     }
 
+    // Quiz Result
+
+    public function myQuizResult(string $classroom_id, string $content_id){
+
+        $classroom = Classroom::find($classroom_id);
+        $content = Content::find($content_id);
+        
+        $answers = Answer::whereHas('quiz', function ($query) use ($classroom_id, $content_id) {
+                    $query->where('classroom_id', $classroom_id)
+                        ->where('content_id', $content_id);
+                    })->get();
+
+        return view('user_student.view_quiz_result', compact('answers', 'classroom', 'content'));
+
+    }
+
     // Final 
     public function myFinal(string $course_id, string $classroom_id){
         $count = Quiz::where('course_id', $course_id)->count();
