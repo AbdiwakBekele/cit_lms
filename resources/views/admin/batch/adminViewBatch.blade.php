@@ -78,26 +78,34 @@
                                 <!-- Section Contents -->
                                 @foreach($section->contents as $content_index => $content)
                                 <div class="alert alert-light row">
-                                    <div class="col">
+                                    <div class="col-4">
                                         {{++$content_index}}. {{$content->content_name}}
                                     </div>
-                                    <div class="col-2 form-check form-switch">
+
+                                    <!-- Content Active/Deactive -->
+                                    <div class="col form-check form-switch">
                                         <p> <strong>Content</strong> </p>
                                         <input class="form-check-input h5 toggleSwitch mx-2" type="checkbox"
                                             id="content_{{$content->id}}" data-content-id="{{ $content->id }}"
                                             data-batch-id="{{ $batch->id }}"
                                             {{ ($batch->batchContents->where('content_id', $content->id)->where('content_status', '1')->isNotEmpty()) ? 'checked' : '' }}>
-
                                     </div>
 
-                                    <div class="col-2 form-check form-switch">
+                                    <!-- Quiz Active/Deactive -->
+                                    <div class="col form-check form-switch">
                                         <p> <strong>Quiz</strong> </p>
-
                                         <input class="form-check-input h5 mx-2 toggleSwitchQuiz" type="checkbox"
                                             id="content_quiz_{{$content->id}}" data-content-id="{{ $content->id }}"
                                             data-batch-id="{{ $batch->id }}"
                                             {{ ($batch->batchContents->where('content_id', $content->id)->where('quiz_status', '1')->isNotEmpty()) ? 'checked' : '' }}
                                             {{ ($batch->batchContents->where('content_id', $content->id)->where('content_status', '1')->isNotEmpty()) ? '' : 'disabled' }}>
+                                    </div>
+
+                                    <!-- View Content Result -->
+                                    <div class="col">
+                                        <a href="/view_content_result/{{$content->id}}/{{$batch->id}}">View Content
+                                            Result</a>
+
                                     </div>
                                 </div>
 

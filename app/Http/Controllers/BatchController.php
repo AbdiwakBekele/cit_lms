@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Models\Batch;
 use App\Models\Course;
 use App\Models\Classroom;
+use App\Models\Content;
 use App\Models\Student;
 use App\Models\Progress;
 use App\Models\Answer;
@@ -250,6 +251,7 @@ class BatchController extends Controller{
         return view('admin.batch.reviewQuiz', compact('answers', 'classroom', 'content_id'));
 
     }
+
     public function submitQuizResult(Request $request, $classroom_id, $content_id){
         $this->validate($request, [
             'points.*'=>'required',
@@ -270,5 +272,29 @@ class BatchController extends Controller{
             return redirect()->back()->with('error','Error Submitting Student Score Record');
         }
         
+    }
+
+    public function viewContentResult(string $content_id, string $batch_id){
+        $batch = Batch::find($batch_id);
+        $content = Content::find($content_id);
+        $results = [];
+        foreach($batch->classrooms as $classroom){
+            $progress = Progress::where('content_id', $content->id)->where('classroom_id', $classroom->id)->first();
+            if($progress){
+                $score = $progress->score;
+            }else{
+                $score = null;
+            }
+            
+            $results[] = [
+                // 'classroom'=> $classroom,
+                // 'content'=> $content,
+                'score'=>$score
+            ];
+        }
+
+        // return $results;
+
+        return view('admin.batch.viewContentResult', compact('results', 'batch'));
     }
 }

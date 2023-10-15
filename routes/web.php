@@ -243,6 +243,7 @@ Route::group(['middleware'=> ['auth']], function(){
         Route::post('/form/batches', [BatchController::class, 'getBatches']);
         Route::get('/review_quiz/{classroom_id}/{content_id}', [BatchController::class, 'reviewQuiz']);
         Route::post('/submit_quiz_result/{classroom_id}/{content_id}', [BatchController::class, 'submitQuizResult']);
+        Route::get('/view_content_result/{content_id}/{batch_id}', [BatchController::class, 'viewContentResult']);
     });
 
     // --------------- Registration Management -------------------
