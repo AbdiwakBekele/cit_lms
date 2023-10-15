@@ -261,8 +261,14 @@ td {
                                 @endif
 
                                 @else
+                                @php
+                                $quiz_status = $classroom->batch->batchContents->where('content_id',
+                                $content->id)->first()->quiz_status
+                                @endphp
+                                @if($quiz_status == '1')
                                 <a href="#" id="" class="btn btn-warning m-3 openModal" style="color:black"> Take Quiz
                                 </a>
+                                @endif
                                 @endif
 
 

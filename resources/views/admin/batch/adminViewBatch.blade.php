@@ -81,12 +81,24 @@
                                     <div class="col">
                                         {{++$content_index}}. {{$content->content_name}}
                                     </div>
-                                    <span class="col-2 form-check form-switch">
-                                        <input class="form-check-input h5 toggleSwitch" type="checkbox"
-                                            {{ ($batch->batchContents->contains('content_id', $content->id)) ? 'checked' : '' }}
-                                            data-content-id="{{ $content->id }}" data-batch-id="{{ $batch->id }}">
-                                        <label class=" form-check-label">Active</label>
-                                    </span>
+                                    <div class="col-2 form-check form-switch">
+                                        <p> <strong>Content</strong> </p>
+                                        <input class="form-check-input h5 toggleSwitch mx-2" type="checkbox"
+                                            id="content_{{$content->id}}" data-content-id="{{ $content->id }}"
+                                            data-batch-id="{{ $batch->id }}"
+                                            {{ ($batch->batchContents->where('content_id', $content->id)->where('content_status', '1')->isNotEmpty()) ? 'checked' : '' }}>
+
+                                    </div>
+
+                                    <div class="col-2 form-check form-switch">
+                                        <p> <strong>Quiz</strong> </p>
+
+                                        <input class="form-check-input h5 mx-2 toggleSwitchQuiz" type="checkbox"
+                                            id="content_quiz_{{$content->id}}" data-content-id="{{ $content->id }}"
+                                            data-batch-id="{{ $batch->id }}"
+                                            {{ ($batch->batchContents->where('content_id', $content->id)->where('quiz_status', '1')->isNotEmpty()) ? 'checked' : '' }}
+                                            {{ ($batch->batchContents->where('content_id', $content->id)->where('content_status', '1')->isNotEmpty()) ? '' : 'disabled' }}>
+                                    </div>
                                 </div>
 
                                 @endforeach
@@ -376,6 +388,7 @@
 $(document).ready(function() {
     // Get all toggle switch elements
     var toggleSwitches = document.querySelectorAll('.toggleSwitch');
+    var toggleSWitches_Quiz = document.querySelectorAll('.toggleSwitchQuiz');
 
     toggleSwitches.forEach(function(toggleSwitch) {
         toggleSwitch.addEventListener('change', function() {
@@ -395,6 +408,9 @@ $(document).ready(function() {
                     },
                     success: function(response) {
                         $('#result').html(response.message);
+                        var quizInputId = 'content_quiz_' + content_id;
+                        document.getElementById(quizInputId).disabled = false;
+
                     },
                     error: function(error) {
                         console.error(
@@ -406,6 +422,61 @@ $(document).ready(function() {
 
                 $.ajax({
                     url: '/batch_content/dismiss_content',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        content_id: content_id,
+                        batch_id: batch_id
+                    },
+                    success: function(response) {
+                        $('#result').html(response.message);
+                        var quizInputId = 'content_quiz_' + content_id;
+                        document.getElementById(quizInputId).disabled = true;
+                    },
+                    error: function(error) {
+                        console.error(
+                            'Error submitting content ID to batch_content model: ' +
+                            error);
+                    }
+                });
+
+            }
+        });
+    });
+
+    // Quiz Toggle 
+    toggleSWitches_Quiz.forEach(function(toggleSwitchQuiz) {
+        toggleSwitchQuiz.addEventListener('change', function() {
+            var content_id = toggleSwitchQuiz.getAttribute('data-content-id');
+            var batch_id = toggleSwitchQuiz.getAttribute('data-batch-id');
+
+            if (toggleSwitchQuiz.checked) {
+                console.log(content_id);
+                console.log(batch_id);
+                $.ajax({
+                    url: '/batch_content/activate_quiz',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        content_id: content_id,
+                        batch_id: batch_id
+                    },
+                    success: function(response) {
+                        $('#result').html(response.message);
+                    },
+                    error: function(error) {
+                        console.error(
+                            'Error submitting content ID to batch_content model: ' +
+                            error);
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: '/batch_content/dismiss_quiz',
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

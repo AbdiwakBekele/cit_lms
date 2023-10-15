@@ -31,6 +31,7 @@ class BatchContentController extends Controller
     public function store(Request $request){
         $content_id = $request->input('content_id');
         $batch_id = $request->input('batch_id');
+        $content_status = '1';
 
         // Store content_id and batch_id in batch_content model
         $batchContent = new BatchContent([
@@ -38,10 +39,18 @@ class BatchContentController extends Controller
             'batch_id' => $batch_id,
         ]);
 
-        if($batchContent->save()){
+        $batchContent = BatchContent::updateOrCreate(
+            [
+                'content_id' => $content_id,
+                'batch_id' => $batch_id,
+            ],
+            ['content_status'=>$content_status]
+        );
+
+        if($batchContent){
             return response()->json(['message' => '<p class="alert alert-success" >Content Activated Successfully</p>']);
         }else{
-            
+            return response()->json(['message' => '<p class="alert alert-danger" >Unable to Activate</p>']);
         }
     }
 
@@ -50,8 +59,42 @@ class BatchContentController extends Controller
         $batch_id = $request->input('batch_id');
 
         // Deleting Content from Batch
-        $batchContent = BatchContent::where('batch_id', $batch_id)->where('content_id', $content_id)->delete();
-        return response()->json(['message' => '<p class="alert alert-success" >Content Deactivated Successfully</p>']);
+        $batchContent = BatchContent::where('batch_id', $batch_id)->where('content_id', $content_id)->first();
+        $batchContent->content_status = '0';
+        if($batchContent->save()){
+            return response()->json(['message' => '<p class="alert alert-success" >Content Deactivated Successfully</p>']);
+        }else{
+            return response()->json(['message' => '<p class="alert alert-danger" >Error Deactivating Content</p>']);
+        }
+        
+    }
+
+    public function activateQuiz(Request $request){
+        $content_id = $request->input('content_id');
+        $batch_id = $request->input('batch_id');
+
+        // Deleting Content from Batch
+        $batchContent = BatchContent::where('batch_id', $batch_id)->where('content_id', $content_id)->first();
+        $batchContent->quiz_status = '1';
+        if($batchContent->save()){
+            return response()->json(['message' => '<p class="alert alert-success" >Content Quiz Activated Successfully</p>']);
+        }else{
+            return response()->json(['message' => '<p class="alert alert-danger" >Error Activating Content Quiz</p>']);
+        }
+    }
+
+    public function dismissQuiz(Request $request){
+        $content_id = $request->input('content_id');
+        $batch_id = $request->input('batch_id');
+
+        // Deleting Content from Batch
+        $batchContent = BatchContent::where('batch_id', $batch_id)->where('content_id', $content_id)->first();
+        $batchContent->quiz_status = '0';
+        if($batchContent->save()){
+            return response()->json(['message' => '<p class="alert alert-success" >Content Quiz Deactivated Successfully</p>']);
+        }else{
+            return response()->json(['message' => '<p class="alert alert-danger" >Error Deactivating Content Quiz</p>']);
+        }
     }
 
     /**

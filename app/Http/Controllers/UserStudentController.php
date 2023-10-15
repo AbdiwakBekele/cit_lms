@@ -230,10 +230,12 @@ class UserStudentController extends Controller{
         }else{
             $popular_courses = $top_courses->orderBy('classrooms_count', 'desc')->get();
         }
+        
         $classroom = Classroom::find($classroom_id);
 
-        $batchContents = BatchContent::where('batch_id', $classroom->batch_id)->get();
+        $batchContents = BatchContent::where('batch_id', $classroom->batch_id)->where('content_status', '1')->get();
         $contents = [];
+        
         foreach ($batchContents as $batchContent) {
             $content = Content::find($batchContent->content_id);
             if ($content) {

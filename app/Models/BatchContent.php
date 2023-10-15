@@ -12,7 +12,9 @@ class BatchContent extends Model
     use HasFactory;
     protected $fillable = [
         'batch_id',
-        'content_id'
+        'content_id',
+        'content_status',
+        'quiz_status'
         
     ];
 

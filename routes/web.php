@@ -233,6 +233,8 @@ Route::group(['middleware'=> ['auth']], function(){
         Route::resource('batch', BatchController::class);
         Route::resource('batch_content', BatchContentController::class);
         Route::post('/batch_content/dismiss_content', [BatchContentController::class, 'dismissContent']);
+        Route::post('/batch_content/activate_quiz', [BatchContentController::class, 'activateQuiz']);
+        Route::post('/batch_content/dismiss_quiz', [BatchContentController::class, 'dismissQuiz']);
         Route::delete('/unenroll_student/{classroom_id}', [BatchController::class, 'unenrollStudent']);
         Route::get('/approve_student/{id}', [BatchController::class, 'approveStudent']);
         Route::get('/disapprove_student/{id}', [BatchController::class, 'disapproveStudent']);

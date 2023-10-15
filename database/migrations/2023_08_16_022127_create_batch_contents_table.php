@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('batch_id');
             $table->unsignedBigInteger('content_id');
+            $table->string('content_status')->nullable();
+            $table->string('quiz_status')->nullable();
 
             $table->foreign('batch_id')
                 ->references('id')
