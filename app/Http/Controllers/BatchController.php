@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Hash;
 class BatchController extends Controller{
 
     public function index(){
-        $batches = Batch::all();
+        $batches = Batch::orderBy('created_at', 'desc')->get();
         return view('admin.batch.adminBatchManagment', compact('batches'));
     }
 
