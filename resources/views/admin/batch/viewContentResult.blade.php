@@ -45,49 +45,44 @@
                 </div>
             </div>
 
-            @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-block">
-                <strong>{{ $message }}</strong>
-            </div>
-            @endif
-
-            @if ($message = Session::get('error'))
-            <div class="alert alert-danger alert-block">
-                <strong>{{ $message }}</strong>
-            </div>
-            @endif
-
-
-            @error('student_id')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-
-            <a href="#" data-bs-toggle="modal" data-bs-target="#myModalStudent"
-                class="btn btn-warning text-dark m-3">Add Student</a>
-
             <!-- Batch Students -->
-            <div class="table-responsive">
-                <h4> Batch Students Result</h4>
-                <table class="table">
+            <div>
+                <h4> Batch Students Result - {{$content->content_name}}</h4>
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th style="color: #16416E;font-weight: bold;">ID</th>
                             <th style="color: #16416E;font-weight: bold;">Full Name</th>
                             <th style="color: #16416E;font-weight: bold;">Score</th>
-                            <th style="color: #16416E;font-weight: bold;">Action</th>
+                            <th style="color: #16416E;font-weight: bold;">Status</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         @foreach($results as $result)
                         <tr>
-                            <td> -</td>
-                            <td> - </td>
-                            <td> {{$result['score']}} </td>
-
-
+                            <td> CTI/{{ $result['student']->identification }}</td>
+                            <td> {{ $result['student']->fullname }}</td>
+                            <td>
+                                @empty( $result['score'])
+                                -
+                                @else
+                                {{$result['score']}} / {{$content->quizzes->sum('points')}}
+                                @endempty
+                            </td>
 
                             <td>
+                                @empty( $result['score'])
+                                <span class="text-secondary"> Not Taken </span>
+                                @else
+                                @if ($result['score'] >= ($content->quizzes->sum('points')/2) )
+                                <span class="text-success">Pass</span>
+                                @else
+                                <span class="text-danger"> Fail</span>
+                                @endif
+
+                                @endempty
+
 
 
                             </td>

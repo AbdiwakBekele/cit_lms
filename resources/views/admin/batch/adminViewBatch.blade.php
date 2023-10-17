@@ -312,10 +312,10 @@
                     </thead>
                     <tbody>
 
-                        @foreach($batch->classrooms as $index => $classroom)
+                        @foreach($batch->classrooms as $classroom)
                         <tr>
 
-                            <td>{{$index + 1}}</td>
+                            <td>CTI/{{$classroom->student->identification}}</td>
                             <td> {{$classroom->student->fullname}} </td>
                             <td> {{$classroom->student->email}} </td>
                             <td> {{$classroom->student->phone}} </td>

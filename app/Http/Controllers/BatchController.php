@@ -287,14 +287,13 @@ class BatchController extends Controller{
             }
             
             $results[] = [
-                // 'classroom'=> $classroom,
-                // 'content'=> $content,
+                'student'=> $classroom->student,
                 'score'=>$score
             ];
         }
 
-        // return $results;
+        // return dd($results);
 
-        return view('admin.batch.viewContentResult', compact('results', 'batch'));
+        return view('admin.batch.viewContentResult', compact('results', 'batch', 'content'));
     }
 }
