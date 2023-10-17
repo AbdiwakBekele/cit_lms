@@ -24,11 +24,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        /* height: 100vh; */
     }
 
     .container {
         /* max-width: 500px; */
+        margin-top: 10%;
         padding: 20px;
         background-color: #f8f9fa;
         border-radius: 10px;
@@ -110,6 +111,12 @@
 
     .form-check-input:focus+.form-check-label::before {
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px;
     }
     </style>
 </head>
