@@ -147,7 +147,8 @@
                                 <select class="form-select" name="student_id" aria-label="Select option" required>
                                     <option value="">Select Student</option>
                                     @foreach($students as $student)
-                                    <option value="{{$student->id}}">{{$student->fullname}} (CTI/0{{$student->id}}/23)
+                                    <option value="{{$student->id}}">{{$student->fullname}}
+                                        (CTI/{{$student->identification}})
                                     </option>
                                     @endforeach
                                 </select>
