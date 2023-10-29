@@ -79,7 +79,8 @@ td {
         </ol>
     </div>
 </nav>
-@if($course->id == 20)
+<!-- If the Course name contains "Ethio-Telecom" -->
+@if(Str::contains($course->course_name, 'Ethio-Telecom'))
 <div style="text-align: center;">
     <img src="{{ asset('images/tele_1.png') }}" width="300px" alt="">
 
