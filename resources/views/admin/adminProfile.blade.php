@@ -43,11 +43,11 @@
                         @endif
 
 
-                        <!-- Delete Section -->
+                        <!-- Change Profile -->
                         <a href="#" data-bs-toggle="modal" class="btn btn-light m-1"
                             data-bs-target="#myModalProfile">Change Profile</a>
 
-                        <!-- Modal | Deleting Section -->
+                        <!-- Modal | Updating Profile -->
                         <div class="modal" id="myModalProfile">
                             <div class="modal-dialog">
                                 <div class="modal-content">

@@ -179,6 +179,7 @@ Route::group(['middleware'=> ['auth']], function(){
     //-------------- Admin - Section -------------/
     Route::group( ['middleware'=> ['permission:manage course']], function(){
         Route::resource('course', CourseController::class);
+        Route::put('/course/{course_id}/update_thumbnail', [CourseController::class, 'updateThumbnail']);
         Route::resource('section', SectionController::class);
         Route::get('/course/create_section/{id}', [CourseController::class, 'createSection'] );
 

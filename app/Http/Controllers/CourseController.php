@@ -169,6 +169,32 @@ class CourseController extends Controller
         }
     }
 
+    public function updateThumbnail(Request $request, string $course_id){
+
+        $request->validate([
+            'course_thumbnail' => 'required|mimes:png,jpg,jpeg,JPG,JPEG',
+        ]);
+
+        //Course Thumbnail
+        $temp_img = $request->file('course_thumbnail');
+        $course_thumbnail = pathinfo($temp_img->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$temp_img->getClientOriginalExtension();
+        $temp_img->move('course_resources', $course_thumbnail);
+        
+        $course = Course::find($course_id);
+        File::delete(public_path('course_resources/'.$course->course_image));
+
+        $course->course_image = $course_thumbnail;
+
+        if($course->save()){
+            return back()
+            ->with('success', 'Course Thumbnail successfully updated');
+        }else{
+            return back()
+                ->with('error', "Error updating coures thumbnail");
+        }
+
+    }
+
     public function destroy(string $id, Request $request){
         $this->validate($request, [
             'password'=>'required'

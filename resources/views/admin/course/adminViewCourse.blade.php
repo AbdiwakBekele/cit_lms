@@ -73,6 +73,45 @@
                     <a href="/course/{{$course->id}}/edit" class="mx-3" style="float: right; text-decoration:none;">
                         <i class="fa fa-edit" aria-hidden="true"></i> Edit Course </a>
 
+                    <!-- Update Thumbnail -->
+                    <a href="#" class="mx-3" style="float: right; text-decoration:none;" data-bs-toggle="modal"
+                        data-bs-target="#myModalProfile">
+                        <i class="fa fa-edit" aria-hidden="true"></i> Update Course Thumbnail
+                    </a>
+
+                    <!-- Modal | Updating Thumbnail -->
+                    <div class="modal" id="myModalProfile">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- Modal body -->
+                                <div class="modal-body my-4 text-center h5">
+                                    Upload New Course Thumbnail
+
+                                    <form action="/course/{{$course->id}}/update_thumbnail" method="post"
+                                        enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <input type="file" class="form-control m-3" id="course_thumbnail"
+                                            name="course_thumbnail" required>
+
+                                        <input type="submit" class="btn btn-primary" value="Upload">
+
+                                        <button type="button" class="btn btn-light"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </form>
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
