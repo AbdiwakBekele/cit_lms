@@ -75,7 +75,7 @@
                         <p class="text-danger"> Pending </p>
                         @endif
 
-                        <div class="progress "
+                        <!-- <div class="progress "
                             style="margin-top: 3%; margin-bottom: 3%; background-color: #777777; border-radius: 10px;">
                             <div class="progress-bar bg-primary text-white" role="progressbar"
                                 style="width: {{ ($sections->count() > 0) ? ($progresses->count() / $sections->count()) * 100 : 0 }}%; border-radius: 10px; height: 20px; font-size: 12px; "
@@ -88,7 +88,7 @@
                                 @endif
 
                             </div>
-                        </div>
+                        </div> -->
 
                     </article>
                 </div>
