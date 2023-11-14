@@ -29,23 +29,12 @@ use App\Models\Student;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-*/
-
 
 // Filling dumy student data
 // Route::get('/fill_student', function () {
 //     Student::factory()->times(20)->create();
 //     return 'Student created successfully! with thier email address and password = "password" ';
 // });
-
-
 
 /*
 |--------------------------------------------------------------------------
