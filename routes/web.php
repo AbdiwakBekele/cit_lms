@@ -36,6 +36,9 @@ use Carbon\Carbon;
 //     return 'Student created successfully! with thier email address and password = "password" ';
 // });
 
+
+// Route Starts here
+
 /*
 |--------------------------------------------------------------------------
 | Student Auth Manager                                       
