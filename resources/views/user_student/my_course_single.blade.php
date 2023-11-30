@@ -80,7 +80,7 @@ td {
     </div>
 </nav>
 <!-- If the Course name contains "Ethio-Telecom" -->
-@if(Str::contains($course->course_name, 'Ethio-Telecom'))
+@if(Str::contains($course->course_name, 'Ethio-Telecom') || $course->id == 21 )
 <div style="text-align: center;">
     <img src="{{ asset('images/tele_1.png') }}" width="300px" alt="">
 
