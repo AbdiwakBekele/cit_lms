@@ -175,7 +175,7 @@ class ContentController extends Controller
 
         $content_name = $request->content_name;
         $content_description = $request->description;
-        $content_reference = $request->references;
+        $content_reference = $request->references ;
 
         $content = Content::find($id);
         $content->content_name = $content_name;
