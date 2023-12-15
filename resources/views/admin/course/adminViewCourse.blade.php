@@ -441,7 +441,6 @@
                                 </div>
                                 @endforeach
 
-
                                 <hr>
                                 <p>
                                     <strong>Resources</strong>
@@ -484,8 +483,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
 
                                 <!-- List of Resources -->
                                 @foreach($content->resources->filter(function($resource) {
@@ -547,6 +544,13 @@
                                     <hr>
                                 </div>
                                 @endforeach
+                                <hr>
+
+                                <!-- References -->
+                                <p><strong>References</strong></p>
+                                <p>
+                                    {!! $content->content_reference !!}
+                                </p>
 
 
                             </div>

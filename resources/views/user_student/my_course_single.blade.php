@@ -253,6 +253,13 @@ td {
 
                                 <hr>
                                 @endforeach
+                                <hr>
+
+
+                                <div>
+                                    <p><strong>References</strong></p>
+                                    {!! $content->content_reference !!}
+                                </div>
 
                                 @if($progress && $progress->has_taken == 1)
                                 @if($progress->score != null)

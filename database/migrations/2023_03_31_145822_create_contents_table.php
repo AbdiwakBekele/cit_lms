@@ -20,6 +20,7 @@ return new class extends Migration
                     ->onDelete('cascade');
             $table->string('content_name');
             $table->longText('content_description');
+            $table->longText('content_reference');
             $table->timestamps();
         });
     }

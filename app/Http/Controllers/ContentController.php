@@ -119,17 +119,21 @@ class ContentController extends Controller
         $this->validate( $request, [
             'section_id'=>'required',
             'content_name'=>'required',
-            'description'=>'required'
+            'description'=>'required',
+            // 'references'=>'required',
+
         ]);
 
         $section_id =  $request->section_id;
         $content_name =  $request->content_name;
         $description =  $request->description;
+        $references =  $request->references;
 
         $content = new Content([
             'section_id'=> $section_id,
             'content_name'=> $content_name, 
-            'content_description'=>$description]);
+            'content_description'=>$description,
+            'content_reference'=>$references]);
 
         $content->save();
 
@@ -165,15 +169,18 @@ class ContentController extends Controller
 
         $this->validate( $request, [
             'content_name'=>'required',
-            'description'=>'required'
+            'description'=>'required',
+            // 'references'=>'required'
         ]);
 
         $content_name = $request->content_name;
         $content_description = $request->description;
+        $content_reference = $request->references;
 
         $content = Content::find($id);
         $content->content_name = $content_name;
         $content->content_description = $content_description;
+        $content->content_reference = $content_reference;
 
         $content->save();
 

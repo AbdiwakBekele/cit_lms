@@ -17,7 +17,8 @@ class Content extends Model
     protected $fillable =[
         'section_id',
         'content_name',
-        'content_description'
+        'content_description',
+        'content_reference'
     ];
 
     public function resources(){
