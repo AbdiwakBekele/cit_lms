@@ -149,7 +149,8 @@ th {
                 <div class="my-3 bg-white px-3 py-1 rounded">
                     <label for="content_name" class="form-label"> <strong>References</strong> </label><br>
                     <span>Note: Please separate each links using semi-colon(;)</span>
-                    <textarea class="form-control" name="references" id="references" cols="30" rows="10"></textarea>
+                    <textarea class="form-control" name="references" id="references" cols="30"
+                        rows="10">$content->content_reference</textarea>
 
 
                     @error('references')
