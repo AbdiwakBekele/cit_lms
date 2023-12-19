@@ -265,7 +265,7 @@ td {
 
                                     @foreach($urls as $url)
                                     @if($url)
-                                    <a href="{{$url}}" target="_blank">{{ $url }}</a><br>
+                                    <a href="{{asset($url)}}" target="_blank">{{ $url }}</a><br>
                                     @endif
                                     @endforeach
                                     @endif
