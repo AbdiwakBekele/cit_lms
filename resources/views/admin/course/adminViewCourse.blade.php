@@ -549,7 +549,22 @@
                                 <!-- References -->
                                 <p><strong>References</strong></p>
                                 <p>
-                                    {!! $content->content_reference !!}
+                                    @if($content->content_reference)
+                                    @php
+                                    $urls = explode(';', $content->content_reference);
+                                    @endphp
+
+                                    @foreach($urls as $url)
+                                    @if($url)
+                                    @if (!preg_match("~^(?:f|ht)tps?://~i", $url))
+                                    @php $url = 'http://' . ltrim($url, '/'); @endphp
+                                    @else
+                                    @php $url = ltrim($url, '/'); @endphp
+                                    @endif
+                                    - <a class="text-primary" href="{{ $url }}" target="_blank">{{ $url }}</a><br>
+                                    @endif
+                                    @endforeach
+                                    @endif
                                 </p>
 
 
