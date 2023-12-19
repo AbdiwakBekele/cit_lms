@@ -258,7 +258,17 @@ td {
 
                                 <div>
                                     <p><strong>References</strong></p>
-                                    {!! $content->content_reference !!}
+                                    @if($content->content_reference)
+                                    @php
+                                    $urls = explode(';', $content->content_reference);
+                                    @endphp
+
+                                    @foreach($urls as $url)
+                                    @if($url)
+                                    <a href="{{ $url }}" target="_blank">{{ $url }}</a><br>
+                                    @endif
+                                    @endforeach
+                                    @endif
                                 </div>
 
                                 @if($progress && $progress->has_taken == 1)

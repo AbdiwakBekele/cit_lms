@@ -147,44 +147,10 @@ th {
 
                 <!-- References -->
                 <div class="my-3 bg-white px-3 py-1 rounded">
-                    <label for="content_name" class="form-label"> <strong>References</strong> </label>
-                    <div class="m-3">
-                        <button type="button" class='btn btn-light m-1' onclick="execCmd('bold')"><b>B</b></button>
-                        <button type="button" class='btn btn-light m-1' onclick="execCmd('italic')"><i>I</i></button>
-                        <button type="button" class='btn btn-light m-1' onclick="execCmd('underline')"><u>U</u></button>
-                        <button type="button" class='btn btn-light m-1'
-                            onclick="execCmd('insertUnorderedList')"><b>&#8226;</b></button>
+                    <label for="content_name" class="form-label"> <strong>References</strong> </label><br>
+                    <span>Note: Please separate each links using semi-colon(;)</span>
+                    <textarea class="form-control" name="references" id="references" cols="30" rows="10"></textarea>
 
-                        <button type="button" class='btn btn-light m-1' onclick="execCmd('justifyLeft')"><b><i
-                                    class="fa fa-align-left" aria-hidden="true"></i></b></button>
-                        <button type="button" class='btn btn-light m-1' onclick="execCmd('justifyCenter')"><b><i
-                                    class="fa fa-align-center" aria-hidden="true"></i></b></button>
-                        <button type="button" class='btn btn-light m-1' onclick="execCmd('justifyRight')"><b><i
-                                    class="fa fa-align-right" aria-hidden="true"></i></b></button>
-                        <button type="button" class='btn btn-light m-1' onclick="execCmd('justifyFull')"><b><i
-                                    class="fa fa-align-justify" aria-hidden="true"></i></b></button>
-
-                        <select class="p-1 m-1" onchange="execCmd('formatBlock', this.value)">
-                            <option value="p">Normal</option>
-                            <option value="H1">Header 1</option>
-                            <option value="H2">Header 2</option>
-
-                        </select>
-
-                        <select class="p-1 m-1" onchange="execCmd('fontSize', this.value)">
-                            <option value="1">8</option>
-                            <option value="2">10</option>
-                            <option value="3" selected>12</option>
-                            <option value="4">14</option>
-                            <option value="5">16</option>
-                            <option value="6">18</option>
-                            <option value="7">20</option>
-                        </select>
-
-                    </div>
-                    <input type="hidden" name="references" id="references">
-                    <div class="mx-3" id="editor_reference" contenteditable="true">{!! $content->content_reference !!}
-                    </div>
 
                     @error('references')
                     <span class="text-danger">{{ $message }}</span>
@@ -230,11 +196,6 @@ document.querySelector('form').addEventListener('submit', function(event) {
     var editor = document.getElementById('editor');
     var content = editor.innerHTML;
     document.getElementById('description').value = content;
-
-    var editor_reference = document.getElementById('editor_reference');
-    var content_reference = editor_reference.innerHTML;
-    document.getElementById('references').value = content_reference;
-
     this.submit();
 });
 </script>
