@@ -270,7 +270,7 @@ td {
                                     @else
                                     @php $url = ltrim($url, '/'); @endphp
                                     @endif
-                                    <a href="{{ $url }}" target="_blank">{{ $url }}</a><br>
+                                    - <a class="text-primary" href="{{ $url }}" target="_blank">{{ $url }}</a><br>
                                     @endif
                                     @endforeach
                                     @endif
