@@ -150,7 +150,7 @@ th {
                     <label for="content_name" class="form-label"> <strong>References</strong> </label><br>
                     <span>Note: Please separate each links using semi-colon(;)</span>
                     <textarea class="form-control" name="references" id="references" cols="30"
-                        rows="10">$content->content_reference</textarea>
+                        rows="10">{{$content->content_reference}}</textarea>
 
 
                     @error('references')
