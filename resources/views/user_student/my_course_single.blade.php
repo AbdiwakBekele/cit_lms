@@ -265,7 +265,12 @@ td {
 
                                     @foreach($urls as $url)
                                     @if($url)
-                                    <a href="{{asset($url)}}" target="_blank">{{ $url }}</a><br>
+                                    @if (!preg_match("~^(?:f|ht)tps?://~i", $url))
+                                    @php $url = 'http://' . ltrim($url, '/'); @endphp
+                                    @else
+                                    @php $url = ltrim($url, '/'); @endphp
+                                    @endif
+                                    <a href="{{ $url }}" target="_blank">{{ $url }}</a><br>
                                     @endif
                                     @endforeach
                                     @endif
