@@ -24,13 +24,11 @@ use Illuminate\Support\Facades\Hash;
 class UserStudentController extends Controller{
     
     function index(){
-        
         $courses = Course::all();
         $course_categories = CourseCategory::all();
         $student_id = Auth::guard('student')->user()->id;
         $classrooms = Classroom::where('student_id', $student_id)->get();
         return view('user_student.mylearning', compact('courses', 'classrooms', 'course_categories'));
-    
     }
 
     function myProfile(){
