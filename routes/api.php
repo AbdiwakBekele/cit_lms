@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\ClassroomApiController;
 use App\Http\Controllers\StudentAuthManager;
+use App\Http\Controllers\UserStudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,5 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/student_login_api', [StudentAuthManager::class, 'loginPostApi']);
 
-
 Route::get('classrooms/{student_id}', [ClassroomApiController::class, 'index']);
+
+Route::get('/my_quiz/{content_id}/{classroom_id}', [UserStudentController::class, 'myQuiz']);
