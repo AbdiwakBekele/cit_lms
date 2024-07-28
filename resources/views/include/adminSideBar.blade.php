@@ -100,6 +100,14 @@
         @endcanany
 
 
+        <!-- Feedback-->
+        <li class="{{ Request::is('feedback*') ? 'mm-active' : ''}} ">
+            <a href="/feedback">
+                <div class="parent-icon"><i class='bx bx-chat'></i>
+                </div>
+                <div class="menu-title">Feedbacks</div>
+            </a>
+        </li>
 
         @can('view report')
         <!-- Report -->

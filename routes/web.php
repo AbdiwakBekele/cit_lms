@@ -24,6 +24,7 @@ use App\Http\Controllers\StudentDocController;
 use App\Http\Controllers\StudentRegistrationController;
 use App\Http\Controllers\BatchContentController;
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ScholarshipController;
 use App\Models\Student;
 use Illuminate\Support\Str;
@@ -44,16 +45,19 @@ use Carbon\Carbon;
 | Student Auth Manager                                       
 |------------------------------------------------------------------------*/
 
-Route::get('/student_login', [StudentAuthManager::class, 'login'] )->name('student.login');
-Route::post('/student_login', [StudentAuthManager::class, 'loginPost'] );
+Route::get('/student_login', [StudentAuthManager::class, 'login'])->name('student.login');
+Route::post('/student_login', [StudentAuthManager::class, 'loginPost']);
 
 Route::get('/student_register', [StudentAuthManager::class, 'register']);
-Route::post('/student_register', [StudentAuthManager::class, 'registrationPost'] );
+Route::post('/student_register', [StudentAuthManager::class, 'registrationPost']);
 
 Route::get('/student_logout', [StudentAuthManager::class, 'logout']);
 Route::get('/forget_password', [StudentAuthManager::class, 'forgetPassword']);
 Route::post('/reset_password', [StudentAuthManager::class, 'resetPassword']);
 
+
+// Feedback
+Route::resource('feedback', FeedbackController::class);
 
 // Scholarship Apply
 Route::get('/scholarship/create', [ScholarshipController::class, 'create']);
@@ -87,7 +91,7 @@ Route::group(['middleware' => ['student']], function () {
     Route::get('change_password', [UserStudentController::class, 'changePassword']);
 
     Route::put('/student_update_password', [UserStudentController::class, 'updatePassword']);
-    
+
     Route::get('/my_course_single/{course_id}/{classroom_id}', [UserStudentController::class, 'myCourseSingle']);
 
     Route::get('/my_quiz_result/{classroom_id}/{content_id}', [UserStudentController::class, 'myQuizResult']);
@@ -118,7 +122,7 @@ Route::group(['middleware' => ['student']], function () {
     Route::get('/student_doc/{id}/verify', [StudentDocController::class, 'verifyDoc']);
 
     Route::get('resource/{id}/downloadStu', [ResourceController::class, 'getDownloadStu']);
-    
+
     Route::get('resource/viewDoc/{filename}', [ResourceController::class, 'viewDoc']);
 });
 
@@ -127,11 +131,11 @@ Route::group(['middleware' => ['student']], function () {
 | User Auth Manager                                       
 |------------------------------------------------------------------------*/
 
-Route::get('/user_login', [UserAuthManager::class, 'login'] )->name('user.login');
-Route::post('/user_login', [UserAuthManager::class, 'loginPost'] );
+Route::get('/user_login', [UserAuthManager::class, 'login'])->name('user.login');
+Route::post('/user_login', [UserAuthManager::class, 'loginPost']);
 
 Route::get('/user_register', [UserAuthManager::class, 'register']);
-Route::post('/user_register', [UserAuthManager::class, 'registrationPost'] );
+Route::post('/user_register', [UserAuthManager::class, 'registrationPost']);
 
 Route::get('/user_logout', [UserAuthManager::class, 'logout']);
 Route::get('/user_forget_password', [UserAuthManager::class, 'userForgetPassword']);
@@ -142,7 +146,7 @@ Route::post('/user_reset_password', [UserAuthManager::class, 'userResetPassword'
 | Admin Entry - Left Menu                                         
 |------------------------------------------------------------------------*/
 
-Route::group(['middleware'=> ['auth']], function(){
+Route::group(['middleware' => ['auth']], function () {
 
     //Show my User profile
     Route::get('admin_profile', [UserController::class, 'userProfile']);
@@ -169,11 +173,11 @@ Route::group(['middleware'=> ['auth']], function(){
     Route::resource('courseCategory', CourseCategoryController::class)->middleware('permission:manage category');
 
     //-------------- Admin - Section -------------/
-    Route::group( ['middleware'=> ['permission:manage course']], function(){
+    Route::group(['middleware' => ['permission:manage course']], function () {
         Route::resource('course', CourseController::class);
         Route::put('/course/{course_id}/update_thumbnail', [CourseController::class, 'updateThumbnail']);
         Route::resource('section', SectionController::class);
-        Route::get('/course/create_section/{id}', [CourseController::class, 'createSection'] );
+        Route::get('/course/create_section/{id}', [CourseController::class, 'createSection']);
 
         //-------------- Admin - Quiz -------------/
         Route::resource('quiz', QuizController::class);
@@ -186,14 +190,14 @@ Route::group(['middleware'=> ['auth']], function(){
         //-------------- Admin - Content -------------/
 
         Route::resource('content', ContentController::class);
-        Route::get('/course/create_content/{id}', [ContentController::class, 'createContent'] );
-        Route::get('/course/create_resource/{course_id}/{content_id}', [ContentController::class, 'createResource'] );
-        Route::post('/course/store_resource/{content_id}', [ContentController::class, 'storeResource'] );
-        Route::post('/course/store_worksheet/{content_id}', [ContentController::class, 'storeWorksheet'] );
+        Route::get('/course/create_content/{id}', [ContentController::class, 'createContent']);
+        Route::get('/course/create_resource/{course_id}/{content_id}', [ContentController::class, 'createResource']);
+        Route::post('/course/store_resource/{content_id}', [ContentController::class, 'storeResource']);
+        Route::post('/course/store_worksheet/{content_id}', [ContentController::class, 'storeWorksheet']);
     });
 
     // -------------- User Management ------------
-    Route::group( ['middleware'=>['permission:manage users']], function(){
+    Route::group(['middleware' => ['permission:manage users']], function () {
 
         Route::resource('user', UserController::class);
         Route::post('/user/assign_role', [UserController::class, 'assignRole']);
@@ -201,28 +205,27 @@ Route::group(['middleware'=> ['auth']], function(){
 
         Route::post('/user/assign_permission', [UserController::class, 'assignPermission']);
         Route::get('/user/{user_id}/revoke_permission/{permission_id}', [UserController::class, 'revokePermission']);
-
-    } );
+    });
 
     // --------------- Role Management -----------------
-    Route::group(['middleware'=>['permission:manage roles']], function(){
+    Route::group(['middleware' => ['permission:manage roles']], function () {
         Route::resource('role', RoleController::class);
         Route::post('/role/{role_id}/permission', [RoleController::class, 'assignPermission']);
         Route::get('/role/{role_id}/revoke_permission/{permission_id}', [RoleController::class, 'revokePermission']);
     });
 
     // -------------- Permission Management ------
-    Route::group(['middleware'=>['permission:manage permissions']], function(){
+    Route::group(['middleware' => ['permission:manage permissions']], function () {
         Route::resource('permission', PermissionController::class);
         Route::post('/permission/{permission_id}/role', [PermissionController::class, 'assignRole']);
         Route::get('/permission/{permission_id}/revoke_permission/{role_id}', [PermissionController::class, 'revokePermission']);
     });
-    
+
     Route::resource('student', StudentController::class)->middleware('permission:manage students');
     Route::post('student/{id}/updateStudentProfile', [StudentController::class, 'updateStudentProfile']);
 
     //-------------- Admin - Batch -------------
-    Route::group( ['middleware'=> ['permission:manage batch']], function(){
+    Route::group(['middleware' => ['permission:manage batch']], function () {
         Route::resource('batch', BatchController::class);
         Route::resource('batch_content', BatchContentController::class);
         Route::post('/batch_content/dismiss_content', [BatchContentController::class, 'dismissContent']);
@@ -241,7 +244,7 @@ Route::group(['middleware'=> ['auth']], function(){
 
     // --------------- Registration Management -------------------
     Route::resource('registration', StudentRegistrationController::class);
-    
+
     // Resource Management
     Route::resource('resource', ResourceController::class);
     Route::get('resource/{id}/download', [ResourceController::class, 'getDownload']);
@@ -249,5 +252,4 @@ Route::group(['middleware'=> ['auth']], function(){
     // Scholarship Management
     Route::resource('scholarship', ScholarshipController::class)->except(['create', 'store']);
     Route::get('/viewScholarshipDoc/{fileName}', [ScholarshipController::class, 'viewScholarshipDoc']);
-
 });

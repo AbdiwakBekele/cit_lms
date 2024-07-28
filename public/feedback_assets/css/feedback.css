@@ -1,0 +1,263 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #16416E;
+    color: #000;
+}
+
+.container {
+    width: 90%;
+    max-width: 700px;
+    height: auto;
+    margin: 6% auto;
+    border: 1px solid #FFB600;
+    border-radius: 4px;
+}
+
+.header {
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    padding: 5px 0;
+    margin-bottom: 0;
+    border-radius: 4px 4px 0 0;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: x-large;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    background-color: #FFB600;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px 0;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    color: #16416E;
+    border: 1px solid #16416E;
+}
+
+.tab.active {
+    background-color: #16416E;
+    color: #FFB600;
+}
+
+.tab-content {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #16416E;
+    color: #D9D9D9;
+    border-radius: 0 0 8px 8px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.content-wrapper {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.tab-image {
+    width: 35%;
+    height: auto;
+    border-radius: 8px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
+    max-width: 100%;
+}
+
+.feedback-form {
+    flex: 1;
+}
+
+.issue-box {
+    flex: 1;
+    background-color: #16416E;
+    border: 1px solid #004085;
+    border-radius: 8px;
+    max-width: 100%;
+}
+
+.issue-box h3 {
+    margin-top: 0;
+    color: #D9D9D9;
+}
+
+.hashtags {
+    margin: 10px 0;
+}
+
+.hashtag {
+    display: inline-block;
+    background-color: #FFB600;
+    color: #16416E;
+    padding: 2px 2px;
+    border-radius: 3px;
+}
+
+.issue-box hr {
+    border: 0;
+    border-top: 1px solid #D9D9D9;
+    margin: 10px 0px;
+    width: 100%;
+}
+
+.feedback-form .form-group,
+.issue-box {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.feedback-form .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #D9D9D9;
+}
+
+.feedback-form .button-group {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.feedback-form .form-group input,
+.feedback-form .form-group select,
+.feedback-form .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #D9D9D9;
+    color: #16416E;
+    box-sizing: border-box;
+}
+
+.feedback-form .form-group textarea {
+    resize: vertical;
+}
+
+.feedback-form .form-group button {
+    padding: 5px 20px;
+    background-color: #FFB600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #16416E;
+    margin-left: auto;
+}
+
+.feedback-form .form-group button:hover {
+    background-color: #e0a800;
+}
+
+#improvement ul, #solution ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#improvement ul li, #solution ul li {
+    position: relative;
+    padding-left: 1.5em;
+    margin-bottom: 1em;
+}
+
+#improvement ul li::before {
+    content: "-";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #D9D9D9;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#improvement p, #solution p {
+    font-size: 12px;
+}
+
+#improvement .hashtags .hashtag, #solution .hashtags .hashtag {
+    font-size: 12px;
+    padding: 0.5px 1px;
+}
+
+.hidden-content {
+    display: none;
+}
+
+#solution li h3[aria-expanded="true"]::before {
+    content: "-";
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-right: 8px;
+    color: #D9D9D9;
+    font-size: 1.9em;
+    font-weight: bold;
+}
+
+#solution li h3[aria-expanded="false"]::before {
+    content: "+";
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-right: 8px;
+    color: #D9D9D9;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 3% auto;
+        width: 90%;
+    }
+
+    .header h1 {
+        font-size: large;
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tab {
+        padding: 8px 0;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tab-image {
+        margin-left: 0;
+        margin-bottom: 5px;
+        width: 100%;
+    }
+
+    .feedback-form, .issue-box {
+        width: 100%;
+    }
+
+    .feedback-form .button-group {
+        text-align: center;
+    }
+
+    .feedback-form .form-group button {
+        width: 100%;
+    }
+}
