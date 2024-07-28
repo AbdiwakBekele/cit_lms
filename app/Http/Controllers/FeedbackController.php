@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Feedback;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -11,14 +12,15 @@ class FeedbackController extends Controller {
      * Display a listing of the resource.
      */
     public function index() {
-        return view('feedback.feedback');
+        $feedbacks = [];
+        return view('admin.feedback.feedback_index', compact('feedbacks'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create() {
-        //
+        return view('feedback.feedback');
     }
 
     /**
