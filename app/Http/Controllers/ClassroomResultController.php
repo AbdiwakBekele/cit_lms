@@ -2,29 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Feedback;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class FeedbackController extends Controller {
+class ClassroomResultController extends Controller {
     /**
      * Display a listing of the resource.
      */
     public function index() {
-        $feedbacks = [];
-        return view('admin.feedback.feedback_index', compact('feedbacks'));
+        //
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create() {
-        return view('feedback.feedback_student');
+        //
     }
 
     /**
-     * 
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {

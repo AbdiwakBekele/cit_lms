@@ -24,6 +24,7 @@ use App\Http\Controllers\StudentDocController;
 use App\Http\Controllers\StudentRegistrationController;
 use App\Http\Controllers\BatchContentController;
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\ClassroomResultController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ScholarshipController;
 use App\Models\Student;
@@ -240,6 +241,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/review_quiz/{classroom_id}/{content_id}', [BatchController::class, 'reviewQuiz']);
         Route::post('/submit_quiz_result/{classroom_id}/{content_id}', [BatchController::class, 'submitQuizResult']);
         Route::get('/view_content_result/{content_id}/{batch_id}', [BatchController::class, 'viewContentResult']);
+        Route::resource('classroom_result', ClassroomResultController::class);
     });
 
     // --------------- Registration Management -------------------
