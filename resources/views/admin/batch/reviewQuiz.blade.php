@@ -10,7 +10,7 @@
             <h3 class="mb-4" style="margin: 26px;color: #16416E;font-size: 35px;font-weight: bold;">List of
                 Current Batches</h3>
         </div>
-        <div class="container">
+        <div class="container" id="printPage">
 
             <!-- Batch Information -->
             <div class="alert alert-primary">
@@ -95,8 +95,7 @@
                             <strong class="text-dark">
                                 <p>Score</p>
                             </strong>
-                            <input type="number" style="width:50%" name="points[]" min="0"
-                                value="{{($quiz->answer == $answer->answer) ? $quiz->points : 0 }}" required> /
+                            <input type="number" style="width:50%" name="points[]" min="0" value="{{($quiz->answer == $answer->answer) ? $quiz->points : 0 }}" required> /
                             {{$quiz->points}}
                         </div>
 
@@ -144,8 +143,7 @@
                                 $match_column->id;
                                 });
                                 @endphp
-                                <div
-                                    class="col{{ $isMatched ? ' alert alert-primary mx-3' : ' alert alert-light mx-3' }}">
+                                <div class="col{{ $isMatched ? ' alert alert-primary mx-3' : ' alert alert-light mx-3' }}">
                                     @if($isMatched)
                                     <i class="fa fa-check text-primary" aria-hidden="true"></i>
                                     @else
@@ -174,6 +172,7 @@
                 <button type="submit" class="btn btn-primary m-3"> Submit Result </button>
 
             </form>
+            <button class="btn btn-primary m-3" onclick="printPage()">Print</button>
 
             <br>
             <br>
@@ -181,4 +180,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    function printPage() {
+        var printContents = document.getElementById('printPage').innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+
+        location.reload(); // To reload the page and restore the original contents
+    }
+</script>
 @endsection

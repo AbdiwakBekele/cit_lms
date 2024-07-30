@@ -17,8 +17,7 @@
 
 
                     <!-- Report -->
-                    <a href="#" class="btn btn-primary mt-4 me-4" style="float: right" data-bs-toggle="modal"
-                        data-bs-target="#report">Report </a>
+                    <a href="#" class="btn btn-primary mt-4 me-4" style="float: right" data-bs-toggle="modal" data-bs-target="#report">Report </a>
 
                     <!-- Report Modal -->
                     <div class="modal" id="report">
@@ -34,8 +33,7 @@
                                             <strong>
                                                 CALIFORNIA TRAINING INSTITUTE
                                             </strong></h3>
-                                            <h5
-                                                style="text-align: center; font-family: 'Times New Roman', Times, serif;">
+                                            <h5 style="text-align: center; font-family: 'Times New Roman', Times, serif;">
                                                 <strong>
                                                     Institutional and Cooperative Training
                                                     Assessment
@@ -44,7 +42,6 @@
                                     </div>
 
                                     <!-- Course | Batch | Student Info -->
-
                                     <div class="row">
                                         <div class="col-8 m-4">
                                             <p> <strong>Date:</strong> 09/06/2024</p>
@@ -165,8 +162,7 @@
                     </div>
 
                     <!-- Add Grade -->
-                    <a href="/classroom_result/create" class="btn btn-primary mt-4 me-4" style="float: right"
-                        data-bs-toggle="modal" data-bs-target="#add_grade"> Add Grade
+                    <a href="/classroom_result/create" class="btn btn-primary mt-4 me-4" style="float: right" data-bs-toggle="modal" data-bs-target="#add_grade"> Add Grade
                     </a>
                     <!-- Add Grade Modal -->
                     <div class="modal" id="add_grade">
@@ -182,8 +178,7 @@
                                             <strong>
                                                 CALIFORNIA TRAINING INSTITUTE
                                             </strong></h3>
-                                            <h5
-                                                style="text-align: center; font-family: 'Times New Roman', Times, serif;">
+                                            <h5 style="text-align: center; font-family: 'Times New Roman', Times, serif;">
                                                 <strong>
                                                     Institutional and Cooperative Training
                                                     Assessment
@@ -212,8 +207,7 @@
                                             <div class="col mb-3">
                                                 <label for="theory_l01" class="form-label">L01 - Preparing Electronic
                                                     Advertisements</label>
-                                                <input type="text" class="form-control" name="theory_l01"
-                                                    id="theory_l01" required>
+                                                <input type="text" class="form-control" name="theory_l01" id="theory_l01" required>
                                                 @error('theory_l01')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -222,8 +216,7 @@
                                             <div class="col mb-3">
                                                 <label for="theory_l02" class="form-label">L02 - Use Business Website
                                                     Advertisements</label>
-                                                <input type="text" class="form-control" name="theory_l02"
-                                                    id="theory_l02" required>
+                                                <input type="text" class="form-control" name="theory_l02" id="theory_l02" required>
                                                 @error('theory_l02')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -236,8 +229,7 @@
                                                 <label for="theory_l03" class="form-label">L03 - Use Electronic
                                                     Marketing
                                                     Advertisements</label>
-                                                <input type="text" class="form-control" name="theory_l03"
-                                                    id="theory_l03" required>
+                                                <input type="text" class="form-control" name="theory_l03" id="theory_l03" required>
                                                 @error('theory_l03')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -248,8 +240,7 @@
                                                     Evaluation
                                                     result of e-Marketing
                                                     Advertisements</label>
-                                                <input type="text" class="form-control" name="theory_l04"
-                                                    id="theory_l04" required>
+                                                <input type="text" class="form-control" name="theory_l04" id="theory_l04" required>
                                                 @error('theory_l04')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -263,8 +254,7 @@
                                             <div class="col mb-3">
                                                 <label for="practice_l01" class="form-label">L01 - Preparing Electronic
                                                     Advertisements</label>
-                                                <input type="text" class="form-control" name="practice_l01"
-                                                    id="practice_l01" required>
+                                                <input type="text" class="form-control" name="practice_l01" id="practice_l01" required>
                                                 @error('practice_l01')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -273,8 +263,7 @@
                                             <div class="col mb-3">
                                                 <label for="practice_l02" class="form-label">L02 - Use Business Website
                                                     Advertisements</label>
-                                                <input type="text" class="form-control" name="practice_l02"
-                                                    id="practice_l02" required>
+                                                <input type="text" class="form-control" name="practice_l02" id="practice_l02" required>
                                                 @error('practice_l02')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -286,8 +275,7 @@
                                                 <label for="practice_l03" class="form-label">L03 - Use Electronic
                                                     Marketing
                                                     Advertisements</label>
-                                                <input type="text" class="form-control" name="practice_l03"
-                                                    id="practice_l03" required>
+                                                <input type="text" class="form-control" name="practice_l03" id="practice_l03" required>
                                                 @error('practice_l03')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -298,8 +286,7 @@
                                                     Evaluation
                                                     result of e-Marketing
                                                     Advertisements</label>
-                                                <input type="text" class="form-control" name="practice_l04"
-                                                    id="practice_l04" required>
+                                                <input type="text" class="form-control" name="practice_l04" id="practice_l04" required>
                                                 @error('practice_l04')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -314,8 +301,7 @@
                                                 <label for="cooperative_l01" class="form-label">L01 - Preparing
                                                     Electronic
                                                     Advertisements</label>
-                                                <input type="text" class="form-control" name="cooperative_l01"
-                                                    id="cooperative_l01" required>
+                                                <input type="text" class="form-control" name="cooperative_l01" id="cooperative_l01" required>
                                                 @error('cooperative_l01')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -325,8 +311,7 @@
                                                 <label for="cooperative_l02" class="form-label">L02 - Use Business
                                                     Website
                                                     Advertisements</label>
-                                                <input type="text" class="form-control" name="cooperative_l02"
-                                                    id="cooperative_l02" required>
+                                                <input type="text" class="form-control" name="cooperative_l02" id="cooperative_l02" required>
                                                 @error('cooperative_l02')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -338,8 +323,7 @@
                                                 <label for="cooperative_l03" class="form-label">L03 - Use Electronic
                                                     Marketing
                                                     Advertisements</label>
-                                                <input type="text" class="form-control" name="cooperative_l03"
-                                                    id="cooperative_l03" required>
+                                                <input type="text" class="form-control" name="cooperative_l03" id="cooperative_l03" required>
                                                 @error('cooperative_l03')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -350,8 +334,7 @@
                                                     Evaluation
                                                     result of e-Marketing
                                                     Advertisements</label>
-                                                <input type="text" class="form-control" name="cooperative_l04"
-                                                    id="cooperative_l04" required>
+                                                <input type="text" class="form-control" name="cooperative_l04" id="cooperative_l04" required>
                                                 @error('cooperative_l04')
                                                 <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -360,8 +343,7 @@
 
                                         <!-- Submit Button -->
                                         <input type="submit" name="submit" class="btn btn-warning btn-lg">
-                                        <button type="button" class="btn btn-danger"
-                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                                     </form>
 
                                 </div>
@@ -496,15 +478,15 @@
 </div>
 
 <script>
-function printModal() {
-    var printContents = document.querySelector('#report .modal-body').innerHTML;
-    var originalContents = document.body.innerHTML;
+    function printModal() {
+        var printContents = document.querySelector('#report .modal-body').innerHTML;
+        var originalContents = document.body.innerHTML;
 
-    document.body.innerHTML = printContents;
-    window.print();
-    document.body.innerHTML = originalContents;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
 
-    location.reload(); // To reload the page and restore the original contents
-}
+        location.reload(); // To reload the page and restore the original contents
+    }
 </script>
 @endsection
