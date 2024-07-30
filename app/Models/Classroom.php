@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Batch;
-use App\Models\Course; 
-use App\Models\Student; 
+use App\Models\Course;
+use App\Models\Student;
 use App\Models\Progress;
 use App\Models\Answer;
 use App\Models\Content;
 
 
-class Classroom extends Model
-{
+class Classroom extends Model {
     use HasFactory;
     protected $fillable = [
         'course_id',
@@ -29,27 +28,31 @@ class Classroom extends Model
         'is_approved'
     ];
 
-    public function course(){
+    public function course() {
         return $this->belongsTo(Course::class);
     }
 
-    public function answers(){
-       return $this->hasMany(Answer::class);
+    public function answers() {
+        return $this->hasMany(Answer::class);
     }
 
-    public function batch(){
+    public function batch() {
         return $this->belongsTo(Batch::class);
     }
 
-    public function student(){
+    public function student() {
         return $this->belongsTo(Student::class);
     }
 
-    public function progress(){
+    public function progress() {
         return $this->hasMany(Progress::class);
     }
 
-    public function contents(){
+    public function contents() {
         return $this->belongsToMany(Content::class, 'progress');
+    }
+
+    public function classroomResult() {
+        return $this->hasOne(ClassroomResult::class);
     }
 }

@@ -10,35 +10,32 @@ use App\Models\Content;
 use App\Models\Course;
 use App\Models\Resource;
 
-class ContentController extends Controller
-{
+class ContentController extends Controller {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
-    {
+    public function index() {
         //
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response
-    {
+    public function create() {
         //
     }
 
-    public function createContent(string $id){
+    public function createContent(string $id) {
         $section = Section::find($id);
         return view('admin.course.adminCreateCourseContent', compact('section'));
     }
 
-    public function storeResource(Request $request, string $content_id){
+    public function storeResource(Request $request, string $content_id) {
 
-        $this->validate( $request, [
-            'course_id'=> 'required',
-            'course_resource'=>'required|array',
-            'course_resource.*'=>'mimes:docx,pdf,pptx'
+        $this->validate($request, [
+            'course_id' => 'required',
+            'course_resource' => 'required|array',
+            'course_resource.*' => 'mimes:docx,pdf,pptx'
         ]);
 
         $course_id =  $request->course_id;
@@ -46,40 +43,39 @@ class ContentController extends Controller
         $files = $request->file('course_resource');
         $status = true;
 
-        foreach($files as $file){
+        foreach ($files as $file) {
             $extension = $file->getClientOriginalExtension();
-            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$extension;
+            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $extension;
             $file->move('course_resources', $filename);
             $resource = new Resource([
-                'course_id'=> $course_id,
-                'content_id'=> $content_id,
-                'type'=>2,
-                'path'=> $filename
+                'course_id' => $course_id,
+                'content_id' => $content_id,
+                'type' => 2,
+                'path' => $filename
             ]);
             $resource->save();
-            if(!$resource){
+            if (!$resource) {
                 $status = false;
                 break;
             }
         }
-        
+
         // Model has been successfully inserted
-        if($status){
+        if ($status) {
             return back()
-             ->with('success','You have successfully uploaded a course resource.');
-        }else{
+                ->with('success', 'You have successfully uploaded a course resource.');
+        } else {
             return back()
-             ->with('error','Error creating a resource');
+                ->with('error', 'Error creating a resource');
         }
-        
     }
 
-    public function storeWorksheet(Request $request, string $content_id){
+    public function storeWorksheet(Request $request, string $content_id) {
 
-        $this->validate( $request, [
-            'course_id'=> 'required',
-            'course_worksheets'=>'required|array',
-            'course_worksheets.*'=>'mimes:docx,pdf,pptx'
+        $this->validate($request, [
+            'course_id' => 'required',
+            'course_worksheets' => 'required|array',
+            'course_worksheets.*' => 'mimes:docx,pdf,pptx'
         ]);
 
         $course_id =  $request->course_id;
@@ -87,39 +83,38 @@ class ContentController extends Controller
         $files = $request->file('course_worksheets');
         $status = true;
 
-        foreach($files as $file){
+        foreach ($files as $file) {
             $extension = $file->getClientOriginalExtension();
-            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME).'_'.time().'.'.$extension;
+            $filename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) . '_' . time() . '.' . $extension;
             $file->move('course_resources', $filename);
             $resource = new Resource([
-                'course_id'=> $course_id,
-                'content_id'=> $content_id,
-                'type'=>1,
-                'path'=> $filename
+                'course_id' => $course_id,
+                'content_id' => $content_id,
+                'type' => 1,
+                'path' => $filename
             ]);
             $resource->save();
-            if(!$resource){
+            if (!$resource) {
                 $status = false;
                 break;
             }
         }
-        
+
         // Model has been successfully inserted
-        if($status){
+        if ($status) {
             return back()
-             ->with('success','You have successfully uploaded a course worksheet.');
-        }else{
+                ->with('success', 'You have successfully uploaded a course worksheet.');
+        } else {
             return back()
-             ->with('error','Error creating a resource');
+                ->with('error', 'Error creating a resource');
         }
-        
     }
 
-    public function store(Request $request){
-        $this->validate( $request, [
-            'section_id'=>'required',
-            'content_name'=>'required',
-            'description'=>'required',
+    public function store(Request $request) {
+        $this->validate($request, [
+            'section_id' => 'required',
+            'content_name' => 'required',
+            'description' => 'required',
             // 'references'=>'required',
 
         ]);
@@ -130,34 +125,35 @@ class ContentController extends Controller
         $references =  $request->references;
 
         $content = new Content([
-            'section_id'=> $section_id,
-            'content_name'=> $content_name, 
-            'content_description'=>$description,
-            'content_reference'=>$references]);
+            'section_id' => $section_id,
+            'content_name' => $content_name,
+            'content_description' => $description,
+            'content_reference' => $references
+        ]);
 
         $content->save();
 
         if (!empty($content->id)) {
-        
+
             return back()
-             ->with('success','You have successfully created a new content for this section.');
-        }else{
+                ->with('success', 'You have successfully created a new content for this section.');
+        } else {
             return back()
-            ->with('error','Error Creating a New content');
+                ->with('error', 'Error Creating a New content');
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id){
+    public function show(string $id) {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id){
+    public function edit(string $id) {
         $content = Content::find($id);
         return view('admin.course.adminEditContent', compact('content'));
     }
@@ -165,17 +161,17 @@ class ContentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id){
+    public function update(Request $request, string $id) {
 
-        $this->validate( $request, [
-            'content_name'=>'required',
-            'description'=>'required',
+        $this->validate($request, [
+            'content_name' => 'required',
+            'description' => 'required',
             // 'references'=>'required'
         ]);
 
         $content_name = $request->content_name;
         $content_description = $request->description;
-        $content_reference = $request->references ;
+        $content_reference = $request->references;
 
         $content = Content::find($id);
         $content->content_name = $content_name;
@@ -184,29 +180,28 @@ class ContentController extends Controller
 
         $content->save();
 
-        if(!empty($content->id)){
+        if (!empty($content->id)) {
             return back()
-            ->with('success', 'Content Updated Successfully');
-        }else{
+                ->with('success', 'Content Updated Successfully');
+        } else {
             return back()
-            ->with('error', 'Error Updating Content');
+                ->with('error', 'Error Updating Content');
         }
-        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id){
+    public function destroy(string $id) {
 
         $content = Content::find($id)->delete();
 
-        if($content){
+        if ($content) {
             return back()
-            ->with('success', 'Successfuly Deleted Section Content');
-        }else{
+                ->with('success', 'Successfuly Deleted Section Content');
+        } else {
             return back()
-            ->with('error', "Error Deleting Section Content");
+                ->with('error', "Error Deleting Section Content");
         }
     }
 }
