@@ -441,41 +441,64 @@
 
                                                 <tr>
                                                     <td><strong>Theory (30%)</strong></td>
-                                                    <td>24.3</td>
-                                                    <td>28.7</td>
-                                                    <td>25.1</td>
-                                                    <td>26.4</td>
-                                                    <td>25.7</td>
+                                                    <td>{{$classroom->classroomResult->theory_l01 ?? '-'}}</td>
+                                                    <td>{{$classroom->classroomResult->theory_l02 ?? '-'}}</td>
+                                                    <td>{{$classroom->classroomResult->theory_l03 ?? '-'}}</td>
+                                                    <td>{{$classroom->classroomResult->theory_l04 ?? '-'}}</td>
+                                                    <td>{{$classroom->classroomResult->theory_avg ?? '-'}}</td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td><strong>Practice (30%)</strong></td>
-                                                    <td>33.1</td>
-                                                    <td>37.4</td>
-                                                    <td>35.1</td>
-                                                    <td>39.5</td>
-                                                    <td>36.7</td>
+                                                    <td><strong>Practice (40%)</strong></td>
+                                                    <td>{{$classroom->classroomResult->practice_l01 ?? '-'}}</td>
+                                                    <td>{{$classroom->classroomResult->practice_l02 ?? '-'}}</td>
+                                                    <td>{{$classroom->classroomResult->practice_l03 ?? '-'}}</td>
+                                                    <td>{{$classroom->classroomResult->practice_l04 ?? '-'}}</td>
+                                                    <td>{{$classroom->classroomResult->practice_avg ?? '-'}}</td>
                                                 </tr>
 
                                                 <tr>
                                                     <td><strong>Cooperative Training (30%)</strong></td>
-                                                    <td>27</td>
-                                                    <td>26</td>
-                                                    <td>25</td>
-                                                    <td>27</td>
-                                                    <td>26.3</td>
+                                                    <td>{{$classroom->classroomResult->cooperative_l01 ?? '-'}}</td>
+                                                    <td>{{$classroom->classroomResult->cooperative_l02 ?? '-'}}</td>
+                                                    <td>{{$classroom->classroomResult->cooperative_l03 ?? '-'}}</td>
+                                                    <td>{{$classroom->classroomResult->cooperative_l04 ?? '-'}}</td>
+                                                    <td>{{$classroom->classroomResult->cooperative_avg ?? '-'}}</td>
                                                 </tr>
                                             </table>
 
                                             <table class="table table-stripe w-25" style="float: right;">
                                                 <tr>
                                                     <th>Total</th>
-                                                    <td>88.7</td>
+                                                    <td>{{$classroom->classroomResult->total ?? '-'}}</td>
                                                 </tr>
 
                                                 <tr>
+                                                    @php
+                                                    $grade = $classroom->classroomResult->total ?? null;
+                                                    @endphp
                                                     <th>Grade</th>
-                                                    <td>B+</td>
+                                                    <td>
+                                                        @if($grade >= 95)
+                                                        A+
+                                                        @elseif($grade >= 92)
+                                                        A
+                                                        @elseif($grade >= 89)
+                                                        A-
+                                                        @elseif($grade >= 86)
+                                                        B+
+                                                        @elseif($grade >= 83)
+                                                        B
+                                                        @elseif($grade >= 80)
+                                                        B-
+                                                        @elseif($grade >= 77)
+                                                        C+
+                                                        @elseif($grade >= 74)
+                                                        C
+                                                        @else
+                                                        -
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </div>
